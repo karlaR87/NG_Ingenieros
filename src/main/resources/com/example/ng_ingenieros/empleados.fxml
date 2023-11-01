@@ -7,20 +7,29 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
    <children>
-      <TextField layoutX="69.0" layoutY="23.0" prefHeight="25.0" prefWidth="481.0" style="-fx-background-color: #4E5456;" />
-      <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="527.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Imagenes/lupa.png" />
-         </image>
-      </ImageView>
-      <TableView layoutX="69.0" layoutY="70.0" prefHeight="248.0" prefWidth="481.0" style="-fx-background-color: #4E5456;">
+      <TextField layoutX="69.0" layoutY="23.0" prefHeight="25.0" prefWidth="481.0" style="-fx-background-radius: 25; -fx-background-color: #4E5456;" />
+      <TableView layoutX="69.0" layoutY="70.0" prefHeight="275.0" prefWidth="481.0" style="-fx-background-color: #4E5456;">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <ImageView fitHeight="17.0" fitWidth="26.0" layoutX="524.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Imagenes/lupaBlanca.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="23.0" layoutX="86.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Imagenes/group10.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="23.0" layoutX="530.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Imagenes/btnplanilla.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
