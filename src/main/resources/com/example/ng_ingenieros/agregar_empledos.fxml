@@ -7,54 +7,54 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="440.0" prefWidth="664.0" style="-fx-background-color: #616E73; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.agregar_empleadosControlador">
+<AnchorPane prefHeight="472.0" prefWidth="664.0" style="-fx-background-color: #616E73; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.agregar_empleadosControlador">
    <children>
-      <Pane prefHeight="55.0" prefWidth="664.0" style="-fx-background-color: #40669F; -fx-background-radius: 19;">
+      <Pane prefHeight="66.0" prefWidth="664.0" style="-fx-background-color: #40669F; -fx-background-radius: 19;">
          <children>
-            <Label layoutX="262.0" layoutY="9.0" text="Empleados" textFill="WHITE">
+            <Label layoutX="277.0" layoutY="22.0" text="EMPLEADOS" textFill="WHITE">
                <font>
-                  <Font size="19.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Label layoutX="50.0" layoutY="78.0" text="Nombre:" textFill="WHITE">
+      <Label layoutX="86.0" layoutY="93.0" text="Nombre:" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="68.0" layoutY="121.0" text="DUI" textFill="WHITE">
+      <Label layoutX="104.0" layoutY="136.0" text="DUI" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="69.0" layoutY="164.0" text="NIT" textFill="WHITE">
+      <Label layoutX="105.0" layoutY="179.0" text="NIT" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="60.0" layoutY="208.0" text="Cargo" textFill="WHITE">
+      <Label layoutX="96.0" layoutY="223.0" text="Cargo" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="57.0" layoutY="258.0" text="Sueldo" textFill="WHITE">
+      <Label layoutX="93.0" layoutY="273.0" text="Sueldo" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="32.0" layoutY="303.0" text="Pago por hora extra" textFill="WHITE">
+      <Label layoutX="68.0" layoutY="318.0" text="Pago por hora extra" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNombre" layoutX="147.0" layoutY="78.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="txtCargo" layoutX="147.0" layoutY="208.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="txtNit" layoutX="147.0" layoutY="164.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="txtDui" layoutX="147.0" layoutY="121.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="txtSueldo" layoutX="147.0" layoutY="258.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="txtPagoHorasEx" layoutX="192.0" layoutY="303.0" prefHeight="25.0" prefWidth="194.0" style="-fx-background-radius: 8;" />
-      <Button fx:id="btnGuardar" layoutX="153.0" layoutY="360.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
-      <Button fx:id="btnCancelar" layoutX="378.0" layoutY="360.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
+      <TextField fx:id="txtNombre" layoutX="183.0" layoutY="93.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtCargo" layoutX="183.0" layoutY="223.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtNit" layoutX="183.0" layoutY="179.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtDui" layoutX="183.0" layoutY="136.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtSueldo" layoutX="183.0" layoutY="273.0" prefHeight="25.0" prefWidth="413.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtPagoHorasEx" layoutX="228.0" layoutY="318.0" prefHeight="25.0" prefWidth="194.0" style="-fx-background-radius: 8;" />
+      <Button fx:id="btnGuardar" layoutX="149.0" layoutY="393.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
+      <Button fx:id="btnCancelar" layoutX="374.0" layoutY="393.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
    </children>
 </AnchorPane>

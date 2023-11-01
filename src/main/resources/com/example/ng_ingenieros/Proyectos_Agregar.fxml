@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="511.0" prefWidth="723.0" style="-fx-background-color: #616E73; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosControlador">
    <children>
-      <ImageView fitHeight="87.0" fitWidth="736.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="88.0" fitWidth="737.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Imagenes/ImageProyecto2.png" />
          </image>
