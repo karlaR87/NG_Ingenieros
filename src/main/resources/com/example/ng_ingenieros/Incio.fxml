@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.ng_ingenieros.Inicio"
+            fx:controller="com.example.ng_ingenieros.Controlador.InicioControlador"
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>
