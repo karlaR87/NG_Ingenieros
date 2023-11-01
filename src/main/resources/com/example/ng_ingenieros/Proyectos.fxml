@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,7 +32,12 @@
                   <Image url="@../../../../Imagenes/group10.png" />
                </image>
             </ImageView>
-            <Pane layoutX="39.0" layoutY="85.0" prefHeight="274.0" prefWidth="591.0" style="-fx-background-color: GRAY;" />
+            <TableView id="tbProyecto" layoutX="41.0" layoutY="67.0" prefHeight="297.0" prefWidth="591.0" style="-fx-background-color: BLACK;">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
    </children>
