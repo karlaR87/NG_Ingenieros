@@ -1,4 +1,4 @@
-package com.example.ng_ingenieros;
+package com.example.ng_ingenieros.Controlador;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

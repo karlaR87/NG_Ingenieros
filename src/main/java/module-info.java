@@ -8,4 +8,6 @@ module com.example.ng_ingenieros {
 
     opens com.example.ng_ingenieros to javafx.fxml;
     exports com.example.ng_ingenieros;
+    exports com.example.ng_ingenieros.Controlador;
+    opens com.example.ng_ingenieros.Controlador to javafx.fxml;
 }
