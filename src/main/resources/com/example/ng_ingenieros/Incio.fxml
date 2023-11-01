@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.ng_ingenieros.Controlador.InicioControlador"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="610.0" prefWidth="930.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.InicioControlador">
+   <children>
+      <Pane prefHeight="37.0" prefWidth="930.0" style="-fx-background-color: #30323C;" />
+      <TextField fx:id="txtBuscar" layoutX="117.0" layoutY="69.0" prefHeight="37.0" prefWidth="697.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="69.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <font>
+            <Font name="SansSerif Regular" size="13.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="776.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Imagenes/lupaBlanca.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="panel1" layoutX="194.0" layoutY="148.0" prefHeight="157.0" prefWidth="211.0" style="-fx-background-color: #4E5456; -fx-background-radius: 25;" />
+      <Pane fx:id="panel2" layoutX="493.0" layoutY="148.0" prefHeight="157.0" prefWidth="211.0" style="-fx-background-color: #4E5456; -fx-background-radius: 25;" />
+      <Pane fx:id="panel3" layoutX="194.0" layoutY="353.0" prefHeight="157.0" prefWidth="211.0" style="-fx-background-color: #4E5456; -fx-background-radius: 25;" />
+      <Pane fx:id="panel4" layoutX="493.0" layoutY="353.0" prefHeight="157.0" prefWidth="211.0" style="-fx-background-color: #4E5456; -fx-background-radius: 25;" />
+   </children>
 </AnchorPane>
