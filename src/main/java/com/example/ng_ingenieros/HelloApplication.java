@@ -15,6 +15,7 @@ public class HelloApplication extends Application {
         stage.setTitle("FEOS TRABAJEN HOOOO fifi");
         stage.setScene(scene);
         stage.show();
+
     }
 
 
