@@ -5,41 +5,89 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="169.0" layoutY="14.0" prefHeight="46.0" prefWidth="0.0" style="-fx-background-color: #30323C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutX="169.0" layoutY="14.0" prefHeight="46.0" prefWidth="0.0" style="-fx-background-color: #30323C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="760.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../Close.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="menu" fitHeight="30.0" fitWidth="65.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/Menu.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
       <AnchorPane layoutY="46.0" prefHeight="456.0" prefWidth="51.0" style="-fx-background-color: #4E5456;">
          <children>
             <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="35.0" prefHeight="200.0" prefWidth="44.0" spacing="45.0" AnchorPane.topAnchor="35.0">
                <children>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateY="5.0">
                      <image>
-                        <Image url="@../../../../Imagenes/Home.png" />
+                        <Image url="@Imagenes/Home.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Imagenes/proyecto.png" />
+                        <Image url="@Imagenes/proyecto.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Imagenes/empleados.png" />
+                        <Image url="@Imagenes/empleados.png" />
                      </image>
                   </ImageView>
                </children>
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="51.0" layoutY="46.0" prefHeight="456.0" prefWidth="163.0" style="-fx-background-color: #4E5456;" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="586.0" AnchorPane.topAnchor="46.0">
+      <AnchorPane prefHeight="456.0" prefWidth="51.0" style="-fx-background-color: #4E5456;" AnchorPane.bottomAnchor="0.0">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="35.0" prefHeight="200.0" prefWidth="44.0" spacing="45.0" AnchorPane.topAnchor="35.0">
+               <children>
+                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateY="5.0">
+                     <image>
+                        <Image url="@Imagenes/Home.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/proyecto.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/empleados.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane2" prefHeight="456.0" prefWidth="163.0" style="-fx-background-color: #4E5456;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="51.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="164.0" style="-fx-background-color: #4E5456;" text="Inicio" textFill="#989591" />
-                  <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="164.0" style="-fx-background-color: #4E5456;" text="Proyectos" textFill="#989591" />
-                  <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="163.0" style="-fx-background-color: #4E5456;" text="Empleados" textFill="#989591" />
+                  <Button id="btninicio" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="52.0" prefWidth="164.0" style="-fx-background-color: #4E5456;" text="Inicio" textFill="#989591">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="23.0" />
+                     </font>
+                  </Button>
+                  <Button id="btnProyecto" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="52.0" prefWidth="164.0" style="-fx-background-color: #4E5456;" text="Proyectos" textFill="#989591">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="23.0" />
+                     </font>
+                  </Button>
+                  <Button id="btnEmpleados" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="52.0" prefWidth="163.0" style="-fx-background-color: #4E5456;" text="Empleados" textFill="#989591">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="23.0" />
+                     </font>
+                  </Button>
                </children>
             </VBox>
          </children>
