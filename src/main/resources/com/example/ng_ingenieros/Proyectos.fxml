@@ -22,14 +22,14 @@
                   <Insets bottom="1.0" left="40.0" top="0.5" />
                </padding>
             </TextField>
-            <ImageView fitHeight="25.0" fitWidth="39.0" layoutX="624.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="39.0" layoutX="88.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Imagenes/lupaBlanca.png" />
+                  <Image url="@Imagenes/lupaBlanca.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="54.0" fitWidth="55.0" layoutX="348.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Imagenes/group10.png" />
+                  <Image url="@Imagenes/group10.png" />
                </image>
             </ImageView>
             <TableView id="tbProyecto" layoutX="79.0" layoutY="109.0" prefHeight="297.0" prefWidth="591.0" style="-fx-background-color: #4E5456;">
