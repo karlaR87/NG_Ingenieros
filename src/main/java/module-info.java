@@ -5,6 +5,7 @@ module com.example.ng_ingenieros {
     requires org.controlsfx.controls;
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens com.example.ng_ingenieros to javafx.fxml;
     exports com.example.ng_ingenieros;

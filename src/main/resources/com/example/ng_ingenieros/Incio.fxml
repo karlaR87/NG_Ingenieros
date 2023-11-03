@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="616.0" prefWidth="932.0" style="-fx-background-color: #616E73; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.InicioControlador">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.InicioControlador">
    <children>
       <Pane prefHeight="49.0" prefWidth="939.0" style="-fx-background-color: #30323C; -fx-background-radius: 15;" />
       <TextField fx:id="txtBuscar" layoutX="117.0" layoutY="69.0" prefHeight="37.0" prefWidth="697.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="116.0" AnchorPane.topAnchor="69.0">
@@ -21,7 +21,7 @@
       </TextField>
       <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="776.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Imagenes/lupaBlanca.png" />
+            <Image url="@Imagenes/lupaBlanca.png" />
          </image>
       </ImageView>
       <Pane fx:id="panel1" layoutX="194.0" layoutY="148.0" prefHeight="157.0" prefWidth="211.0" style="-fx-background-color: #4E5456; -fx-background-radius: 25;" />
