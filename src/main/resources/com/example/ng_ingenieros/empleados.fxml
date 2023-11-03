@@ -18,17 +18,17 @@
       </TableView>
       <ImageView fitHeight="23.0" fitWidth="21.0" layoutX="541.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Imagenes/lupaBlanca.png" />
+            <Image url="@Imagenes/lupaBlanca.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="47.0" layoutX="151.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Imagenes/group10.png" />
+            <Image url="@Imagenes/group10.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="51.0" layoutX="500.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Imagenes/btnplanilla.png" />
+            <Image url="@Imagenes/btnplanilla.png" />
          </image>
       </ImageView>
    </children>

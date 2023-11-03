@@ -1,96 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="169.0" layoutY="14.0" prefHeight="46.0" prefWidth="0.0" style="-fx-background-color: #30323C;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="760.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Close.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="menu" fitHeight="30.0" fitWidth="65.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Imagenes/Menu.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutY="46.0" prefHeight="456.0" prefWidth="51.0" style="-fx-background-color: #4E5456;">
-         <children>
-            <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="35.0" prefHeight="200.0" prefWidth="44.0" spacing="45.0" AnchorPane.topAnchor="35.0">
+      <BorderPane layoutX="219.0" layoutY="126.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #4E5456;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateY="5.0">
+                  <ImageView fitHeight="83.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="45.0" left="25.0" right="15.0" top="15.0" />
+                     </VBox.margin>
                      <image>
-                        <Image url="@Imagenes/Home.png" />
+                        <Image url="@Imagenes/NGLogo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Imagenes/proyecto.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Imagenes/empleados.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="456.0" prefWidth="51.0" style="-fx-background-color: #4E5456;" AnchorPane.bottomAnchor="0.0">
-         <children>
-            <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="35.0" prefHeight="200.0" prefWidth="44.0" spacing="45.0" AnchorPane.topAnchor="35.0">
-               <children>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateY="5.0">
-                     <image>
-                        <Image url="@Imagenes/Home.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Imagenes/proyecto.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Imagenes/empleados.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="pane2" prefHeight="456.0" prefWidth="163.0" style="-fx-background-color: #4E5456;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="51.0">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
-               <children>
-                  <Button id="btninicio" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="52.0" prefWidth="164.0" style="-fx-background-color: #4E5456;" text="Inicio" textFill="#989591">
+                  <Button id="btnInicio" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="53.0" prefWidth="200.0" style="-fx-background-color: #4E5456;" text="Inicio" textFill="#989591">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="23.0" />
+                        <Font size="21.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagenes/Home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button id="btnProyecto" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="52.0" prefWidth="164.0" style="-fx-background-color: #4E5456;" text="Proyectos" textFill="#989591">
+                  <Button id="bitProyectos" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="53.0" prefWidth="225.0" style="-fx-background-color: #4E5456;" text="Proyectos" textFill="#989591">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="23.0" />
+                        <Font size="21.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagenes/proyecto.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <Button id="btnEmpleados" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="52.0" prefWidth="163.0" style="-fx-background-color: #4E5456;" text="Empleados" textFill="#989591">
+                  <Button id="btnEmpleados" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="53.0" prefWidth="230.0" style="-fx-background-color: #4E5456;" text="Empleados" textFill="#989591">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="23.0" />
+                        <Font size="21.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagenes/empleados.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </VBox>
-         </children>
-      </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane id="pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #616E73;" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
