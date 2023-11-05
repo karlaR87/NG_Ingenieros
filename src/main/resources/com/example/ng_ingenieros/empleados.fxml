@@ -4,13 +4,15 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="Empleados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
    <children>
       <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -46,10 +48,48 @@
                         <Image url="@Imagenes/btnEliminar.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="554.0" style="-fx-background-color: #4E5456;">
+                  <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="554.0" style="-fx-background-color: #4E5456;">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Nombre" />
-                      <TableColumn prefWidth="75.0" text="Apellidos" />
+                      <TableColumn prefWidth="75.0" text="idempleado">
+                         <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+                      </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="nombre">
+                          <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
+                       </TableColumn>
+
+                        <TableColumn prefWidth="75.0" text="apellido">
+                            <cellValueFactory><PropertyValueFactory property="apellido" /></cellValueFactory>
+                        </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="dui">
+                          <cellValueFactory><PropertyValueFactory property="Dui" /></cellValueFactory>
+                       </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="nit">
+                          <cellValueFactory><PropertyValueFactory property="NIT" /></cellValueFactory>
+                       </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="sueldo_dia">
+                          <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
+                       </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="sueldo_horaExt">
+                          <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
+                       </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="idcargo">
+                          <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
+                       </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="idTipoPlaza">
+                          <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
+                       </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="idproyecto">
+                          <cellValueFactory><PropertyValueFactory property="proyecto" /></cellValueFactory>
+                       </TableColumn>
+
                     </columns>
                   </TableView>
                </children>
