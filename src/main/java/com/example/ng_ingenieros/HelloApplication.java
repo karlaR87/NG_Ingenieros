@@ -13,12 +13,12 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuPrincipal.fxml"));
         //ESTA PARTE COMENTADA ES LA NORMAL POR DEFECTO
-        /*Scene scene = new Scene(fxmlLoader.load(), 750, 500); //width, heigth
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500); //width, heigth
         stage.setTitle("NG Ingenieros");
         stage.setScene(scene);
-        stage.show();*/
+        stage.show();
 
-
+/*
         //TODO ESTE CODIGO ES PARA QUE SALGA EN PANTALLA COMPLETA LA VENTANA
         Parent root = fxmlLoader.load();
         // Crear una escena con tu BorderPane como raíz
@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Tu Aplicación"); // Título de la ventana
         stage.setFullScreen(true); // Pantalla completa
         stage.show();
-
+*/
     }
 
 

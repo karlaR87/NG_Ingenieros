@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="460.0" prefWidth="675.0" style="-fx-background-color: #616E73; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="88.0" layoutY="25.0" prefHeight="41.0" prefWidth="499.0" style="-fx-background-radius: 25; -fx-background-color: #4E5456;" />
-      <TableView layoutX="97.0" layoutY="93.0" prefHeight="275.0" prefWidth="481.0" style="-fx-background-color: #4E5456;">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
-      <ImageView fitHeight="23.0" fitWidth="21.0" layoutX="541.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Imagenes/lupaBlanca.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="41.0" fitWidth="47.0" layoutX="151.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Imagenes/group10.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="41.0" fitWidth="51.0" layoutX="500.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Imagenes/btnplanilla.png" />
-         </image>
-      </ImageView>
+      <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Pane prefHeight="35.0" prefWidth="560.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+               <children>
+                  <TextField layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" style="-fx-background-color: #4E5456;" />
+                  <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/lupaBlanca.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </top>
+         <center>
+            <Pane prefHeight="449.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="25.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/btnAgregar.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="76.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/btnEditarFondo.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="129.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/btnEliminar.png" />
+                     </image>
+                  </ImageView>
+                  <TableView layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="554.0" style="-fx-background-color: #4E5456;">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Nombre" />
+                      <TableColumn prefWidth="75.0" text="Apellidos" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
