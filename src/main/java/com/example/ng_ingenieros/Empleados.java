@@ -9,12 +9,12 @@ public class Empleados {
     private String NIT;
     private double sueldoDia;
     private double sueldoHora;
-    private int cargo;
-    private int plaza;
-    private  int proyecto;
+    private String cargo;
+    private String plaza;
+    private  String proyecto;
 
 
-    public Empleados(int id, String nombre, String apellido, String dui, String NIT, double sueldoDia, double sueldoHora, int cargo, int plaza, int proyecto) {
+    public Empleados(int id, String nombre, String apellido, String dui, String NIT, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -83,27 +83,27 @@ public class Empleados {
         this.sueldoHora = sueldoHora;
     }
 
-    public int getCargo() {
+    public String getCargo() {
         return cargo;
     }
 
-    public void setCargo(int cargo) {
+    public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
-    public int getPlaza() {
+    public String getPlaza() {
         return plaza;
     }
 
-    public void setPlaza(int plaza) {
+    public void setPlaza(String plaza) {
         this.plaza = plaza;
     }
 
-    public int getProyecto() {
+    public String getProyecto() {
         return proyecto;
     }
 
-    public void setProyecto(int proyecto) {
+    public void setProyecto(String proyecto) {
         this.proyecto = proyecto;
     }
 }

@@ -17,11 +17,11 @@ public class EmpleadosControlador {
     private TableView<Empleados>TableEmpleados;
 
     public void initialize() {
-        configurarTabla();
+        //configurarTabla();
         cargarDatos();
     }
-
-    private void configurarTabla() {
+//CODIGO que hace que se muestren doble pero por si llega a servir de algo
+    /*private void configurarTabla() {
         TableColumn<Empleados, Integer> idColumn = new TableColumn<>("idempleado");
         TableColumn<Empleados, String> nombreColumn = new TableColumn<>("nombre");
         TableColumn<Empleados, String> apellidoColum = new TableColumn<>("apellido");
@@ -48,12 +48,19 @@ public class EmpleadosControlador {
         ProyectoColum.setCellValueFactory(new PropertyValueFactory<>("proyecto"));
 
         TableEmpleados.getColumns().addAll(idColumn, nombreColumn, apellidoColum, DuiColum, NitColum, SueldoDiaColum, SueldoHoraColum,CargoColum,  PlazaColum, ProyectoColum);
-    }
+    }*/
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM tbempleados")) {
+             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombre,emp.apellido, emp.dui, emp.nit, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
+                     "c.cargo, \n" +
+                     "tp.tipoPlaza, \n" +
+                     "p.nombre_proyecto\n" +
+                     "from tbempleados emp\n" +
+                     "inner join tbcargos c on c.idcargo = emp.idcargo\n" +
+                     "inner join tbtipoPlazas tp on tp.idTipoPlaza = emp.idTipoPlaza\n" +
+                     "inner join tbProyectos p on p.idproyecto = emp.idproyecto")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");
@@ -65,10 +72,10 @@ public class EmpleadosControlador {
                 Double sueldoDia = rs.getDouble("sueldo_dia");
 
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
-                int cargo = rs.getInt("idcargo");
-                int plazo = rs.getInt("idTipoPlaza");
+                String cargo = rs.getString("cargo");
+                String plazo = rs.getString("tipoPlaza");
 
-                int Proyecto = rs.getInt("idproyecto");
+                String Proyecto = rs.getString("nombre_proyecto");
 
                 TableEmpleados.getItems().add(new Empleados(id,nombre,apellido, dui, nit,sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
             }
