@@ -24,7 +24,7 @@
                         <Image url="@Imagenes/NGLogo.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnInicio" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirInicio" prefHeight="53.0" prefWidth="200.0" stylesheets="@Estilo.css" text="Inicio" textFill="#989591" styleClass="button">
+                  <Button fx:id="btnInicio" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirInicio" prefHeight="53.0" prefWidth="200.0" styleClass="button" stylesheets="@Estilo.css" text="Inicio" textFill="#989591">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
