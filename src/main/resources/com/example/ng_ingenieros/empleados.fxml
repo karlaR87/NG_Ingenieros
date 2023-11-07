@@ -20,7 +20,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </BorderPane.margin>
                <children>
-                  <TextField layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" style="-fx-background-color: #4E5456;" />
+                  <TextField id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
                   <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/lupaBlanca.png" />
@@ -49,39 +49,40 @@
                   </ImageView>
                   <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="554.0" style="-fx-background-color: #4E5456;">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="id">
+                      <TableColumn prefWidth="75.0" text="idempleado">
                          <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
                       </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="Nombre">
+                       <TableColumn prefWidth="75.0" text="nombre">
                           <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="DUI">
+                        <TableColumn prefWidth="75.0" text="apellido">
+                            <cellValueFactory><PropertyValueFactory property="apellido" /></cellValueFactory>
+                        </TableColumn>
+
+                       <TableColumn prefWidth="75.0" text="dui">
                           <cellValueFactory><PropertyValueFactory property="Dui" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="NIT">
-                          <cellValueFactory><PropertyValueFactory property="NIT" /></cellValueFactory>
-                       </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="sueldo por Dia">
+                       <TableColumn prefWidth="75.0" text="sueldo_dia">
                           <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="sueldo por Hora">
+                       <TableColumn prefWidth="75.0" text="sueldo_horaExt">
                           <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="Cargo">
+                       <TableColumn prefWidth="75.0" text="idcargo">
                           <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="Plaza">
+                       <TableColumn prefWidth="75.0" text="idTipoPlaza">
                           <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="Proyecto">
+                       <TableColumn prefWidth="75.0" text="idproyecto">
                           <cellValueFactory><PropertyValueFactory property="proyecto" /></cellValueFactory>
                        </TableColumn>
 
