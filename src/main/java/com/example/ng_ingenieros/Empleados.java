@@ -6,7 +6,7 @@ public class Empleados {
 
     private String apellido;
     private String Dui;
-    private String NIT;
+
     private double sueldoDia;
     private double sueldoHora;
     private String cargo;
@@ -14,12 +14,12 @@ public class Empleados {
     private  String proyecto;
 
 
-    public Empleados(int id, String nombre, String apellido, String dui, String NIT, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
+    public Empleados(int id, String nombre, String apellido, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         Dui = dui;
-        this.NIT = NIT;
+
         this.sueldoDia = sueldoDia;
         this.sueldoHora = sueldoHora;
         this.cargo = cargo;
@@ -59,13 +59,7 @@ public class Empleados {
         Dui = dui;
     }
 
-    public String getNIT() {
-        return NIT;
-    }
 
-    public void setNIT(String NIT) {
-        this.NIT = NIT;
-    }
 
     public double getSueldoDia() {
         return sueldoDia;
