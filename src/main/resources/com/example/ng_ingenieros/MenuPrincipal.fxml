@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@Estilo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.MenuController">
    <children>
-      <BorderPane layoutX="219.0" layoutY="126.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="219.0" layoutY="126.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@Estilo.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <VBox prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #4E5456;" BorderPane.alignment="CENTER">
                <children>
@@ -24,7 +24,7 @@
                         <Image url="@Imagenes/NGLogo.png" />
                      </image>
                   </ImageView>
-                  <Button id="btnInicio" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirInicio" prefHeight="53.0" prefWidth="200.0" style="-fx-background-color: #4E5456;" text="Inicio" textFill="#989591">
+                  <Button fx:id="btnInicio" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirInicio" prefHeight="53.0" prefWidth="200.0" stylesheets="@Estilo.css" text="Inicio" textFill="#989591" styleClass="button">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -39,7 +39,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="bitProyectos" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirProyectos" prefHeight="53.0" prefWidth="225.0" style="-fx-background-color: #4E5456;" text="Proyectos" textFill="#989591">
+                  <Button fx:id="bitProyectos" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirProyectos" prefHeight="53.0" prefWidth="225.0" stylesheets="@Estilo.css" text="Proyectos" textFill="#989591">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -54,7 +54,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="btnEmpleados" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirEmpleados" prefHeight="53.0" prefWidth="230.0" style="-fx-background-color: #4E5456;" text="Empleados" textFill="#989591">
+                  <Button fx:id="btnEmpleados" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#abrirEmpleados" prefHeight="53.0" prefWidth="230.0" stylesheets="@Estilo.css" text="Empleados" textFill="#989591">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

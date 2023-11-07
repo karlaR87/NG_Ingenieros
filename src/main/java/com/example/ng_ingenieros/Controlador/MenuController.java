@@ -5,7 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+
+import javafx.scene.control.Button;
+
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,16 +25,23 @@ public class MenuController implements Initializable {
 
     @FXML
     private void abrirInicio(ActionEvent event) {
+
+
         loadWindow("/com/example/ng_ingenieros/Incio.fxml");
     }
 
     @FXML
     private void abrirProyectos(ActionEvent event) {
+
+
         loadWindow("/com/example/ng_ingenieros/Proyectos.fxml");
     }
 
     @FXML
     private void abrirEmpleados(ActionEvent event) {
+        // Cambiar el color de fondo y el color del texto al hacer clic en el botón "Empleados"
+
+
         loadWindow("/com/example/ng_ingenieros/Empleados.fxml");
     }
 

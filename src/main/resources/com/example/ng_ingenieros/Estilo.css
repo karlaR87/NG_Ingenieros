@@ -1,0 +1,19 @@
+/* Estilo predeterminado */
+
+.button {
+    -fx-background-color:  #4E5456;
+    -fx-text-fill: #989591;
+}
+
+/* Estilo al hacer clic (pressed) */
+.button:armed  {
+    -fx-background-color: #616E73 !important;
+    -fx-text-fill: #EC8C56 !important;
+}
+
+
+/* Estilo al pasar el cursor (hover) */
+.button:hover {
+    -fx-background-color: #566267; /* Un color más oscuro que el inicial */
+
+}
