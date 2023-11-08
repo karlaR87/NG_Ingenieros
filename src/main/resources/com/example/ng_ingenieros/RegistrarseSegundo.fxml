@@ -23,6 +23,15 @@
                         <Image url="@Imagenes/NGLogo.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="btnRegresar" layoutX="98.0" layoutY="329.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Regresar" textFill="WHITE">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Button>
                </children>
             </Pane>
             <Label layoutX="197.0" layoutY="35.0" prefHeight="28.0" prefWidth="137.0" text="REGISTRATE" textFill="WHITE">
