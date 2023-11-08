@@ -1,91 +1,50 @@
 package com.example.ng_ingenieros.Controlador;
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.Proyectos;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
-import javax.swing.*;
-import javax.swing.border.MatteBorder;
-import java.awt.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.awt.Color;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ProyectosControlador {
-
     @FXML
-    private TableView<Proyectos>tbProyectos;
+    private Button btnAgregar;
+    public void initialize() {
+        // Configura el evento de clic para el botón
+       // Stage.initStyle(StageStyle.UNDECORATED); // Esto quitará la barra de título
 
-
-    public void initialize()
-    {
-        cargarDatosProyectos();
+        btnAgregar.setOnAction(this::Abrir);
     }
+    private void Abrir(ActionEvent actionEvent) {
+        try {
+            // Cargar el archivo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ProyectosAgregar.fxml"));
+            Parent root = loader.load();
 
-    private void cargarDatosProyectos() {
-        try (Connection conn = Conexion.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select pro.idproyecto, pro.nombre_proyecto, pro.lugar_proyecto, pro.horas_trabajo, es.Estado_proyecto from tbProyectos pro" +
-                     " inner join tbEstadoProyectos es on es.idEstadoProyecto = pro.idEstadoProyecto")) {
+            // Crear un nuevo Stage
+            Stage stage = new Stage();
+            stage.setTitle("Nueva Ventana");
 
-            while (rs.next()) {
-            int id = rs.getInt("idproyecto");
-            String nombre = rs.getString("nombre_proyecto");
-            String lugar = rs.getString("lugar_proyecto");
+            // Configurar la modalidad (bloquea la ventana principal)
+            stage.initModality(Modality.APPLICATION_MODAL);
 
-            int horas = rs.getInt("horas_trabajo");
-            String estado = rs.getString("Estado_proyecto");
+            // Configurar el estilo para quitar la barra de título
+            stage.initStyle(StageStyle.UNDECORATED);
 
+            stage.setScene(new Scene(root));
+            stage.showAndWait(); // Mostrar y esperar hasta que se cierre
 
-            tbProyectos.getItems().add(new Proyectos(id, nombre, lugar, horas, estado));
-
-
+            // La ventana se desbloqueará una vez que se cierre la ventana secundaria
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
-    /*@FXML codigo para paneles
-        private JPanel panel;
 
-        public void initialize() {
-            try (Connection conn = Conexion.obtenerConexion();
-                 Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery("select * from tbProyectos")) {
 
-                panel = new JPanel();
-                while (rs.next()) {
-
-                    JPanel PanelMostrar = new JPanel();
-
-                    int id = rs.getInt("idproyecto");
-                    String nombrep = rs.getString("nombre_proyecto");
-                    String ubicacion = rs.getString("lugar_proyecto");
-                    int horas = rs.getInt("horas_trabajo");
-
-                    JLabel label1 = new JLabel("Proyecto N° " + id);
-                    JLabel label2 = new JLabel("nombre del proyecto: " + nombrep);
-                    JLabel label3 = new JLabel("ubicación: " + ubicacion);
-                    JLabel label4 = new JLabel("Horas de trabajo: " + horas);
-
-                    PanelMostrar.add(label1);
-                    PanelMostrar.add(label2);
-                    PanelMostrar.add(label3);
-                    PanelMostrar.add(label4);
-
-                    panel.add(PanelMostrar);
-                }
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }*/
 
 }

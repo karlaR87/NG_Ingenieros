@@ -2,10 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,8 +30,8 @@
          <center>
             <Pane prefHeight="449.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutX="29.0" layoutY="14.0" prefHeight="118.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
-                  <Pane layoutX="329.0" layoutY="14.0" prefHeight="114.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
+                  <Pane layoutX="25.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
+                  <Pane layoutX="329.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
                   <Button fx:id="btnAgregar" layoutX="14.0" layoutY="358.0" prefHeight="51.0" prefWidth="52.0" style="-fx-background-color: #616E73;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0">
@@ -62,25 +59,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TableView fx:id="tbProyectos" layoutX="29.0" layoutY="154.0" prefHeight="179.0" prefWidth="553.0">
-                    <columns>
-                       <TableColumn maxWidth="6000.0" minWidth="45.0" prefWidth="10.0" text="ID">
-                          <cellValueFactory><PropertyValueFactory property="idproyecto" /></cellValueFactory>
-                       </TableColumn>
-                       <TableColumn maxWidth="6000.0" minWidth="180.0" prefWidth="75.0" text="Nombre del proyecto">
-                          <cellValueFactory><PropertyValueFactory property="nombre_proyecto" /></cellValueFactory>
-                       </TableColumn>
-                       <TableColumn maxWidth="6000.0" minWidth="145.0" prefWidth="75.0" text="Ubicación">
-                          <cellValueFactory><PropertyValueFactory property="lugar_proyecto" /></cellValueFactory>
-                       </TableColumn>
-                       <TableColumn maxWidth="6000.0" minWidth="50.0" prefWidth="75.0" text="Horas">
-                          <cellValueFactory><PropertyValueFactory property="horas_trabajo" /></cellValueFactory>
-                       </TableColumn>
-                       <TableColumn maxWidth="6000.0" minWidth="106.0" prefWidth="75.0" text="Estado">
-                          <cellValueFactory><PropertyValueFactory property="estado" /></cellValueFactory>
-                       </TableColumn>
-                    </columns>
-                  </TableView>
                </children>
             </Pane>
          </center>
