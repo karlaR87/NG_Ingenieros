@@ -82,7 +82,7 @@ public class EmpleadosControlador {
                 Double sueldoDia = rs.getDouble("sueldo_dia");
 
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
-                String cargo = rs.getString("cargo");
+                int cargo = rs.getInt("cargo");
                 String plazo = rs.getString("tipoPlaza");
 
                 String Proyecto = rs.getString("nombre_proyecto");
@@ -119,7 +119,7 @@ public class EmpleadosControlador {
                 Double sueldoDia = rs.getDouble("sueldo_dia");
 
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
-                String cargo = rs.getString("cargo");
+                int cargo = rs.getInt("cargo");
                 String plazo = rs.getString("tipoPlaza");
 
                 String Proyecto = rs.getString("nombre_proyecto");
