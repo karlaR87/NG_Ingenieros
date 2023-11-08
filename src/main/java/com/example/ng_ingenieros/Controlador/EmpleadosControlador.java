@@ -63,7 +63,7 @@ public class EmpleadosControlador {
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombre,emp.apellido, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
+             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
                      "c.cargo, \n" +
                      "tp.tipoPlaza, \n" +
                      "p.nombre_proyecto\n" +
@@ -74,8 +74,8 @@ public class EmpleadosControlador {
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
+                String nombre = rs.getString("nombreCompleto");
+
 
                 String dui = rs.getString("dui");
 
@@ -87,7 +87,7 @@ public class EmpleadosControlador {
 
                 String Proyecto = rs.getString("nombre_proyecto");
 
-                TableEmpleados.getItems().add(new Empleados(id,nombre,apellido, dui, sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
+                TableEmpleados.getItems().add(new Empleados(id,nombre, dui, sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class EmpleadosControlador {
     private void BuscarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombre,emp.apellido, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
+             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
                      "c.cargo, \n" +
                      "tp.tipoPlaza, \n" +
                      "p.nombre_proyecto\n" +
@@ -111,8 +111,8 @@ public class EmpleadosControlador {
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
+                String nombre = rs.getString("nombreCompleto");
+
 
                 String dui = rs.getString("dui");
 
@@ -124,12 +124,14 @@ public class EmpleadosControlador {
 
                 String Proyecto = rs.getString("nombre_proyecto");
 
-                TableEmpleados.getItems().add(new Empleados(id,nombre,apellido, dui, sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
+                TableEmpleados.getItems().add(new Empleados(id,nombre, dui, sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
 
         /*txtBusqueda.setOnKeyReleased(event -> {

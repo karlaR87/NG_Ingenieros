@@ -1,23 +1,38 @@
 package com.example.ng_ingenieros;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Empleados {
     private int id;
     private String nombre;
 
-    private String apellido;
+
     private String Dui;
 
+    private String correo;
     private double sueldoDia;
     private double sueldoHora;
+
+    private String cuentaBancaria;
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
     private String cargo;
     private String plaza;
     private  String proyecto;
 
-
-    public Empleados(int id, String nombre, String apellido, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
+    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
+
         Dui = dui;
 
         this.sueldoDia = sueldoDia;
@@ -43,14 +58,6 @@ public class Empleados {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getDui() {
         return Dui;
     }
@@ -59,7 +66,13 @@ public class Empleados {
         Dui = dui;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
 
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public double getSueldoDia() {
         return sueldoDia;
@@ -77,13 +90,15 @@ public class Empleados {
         this.sueldoHora = sueldoHora;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getCuentaBancaria() {
+        return cuentaBancaria;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setCuentaBancaria(String cuentaBancaria) {
+        this.cuentaBancaria = cuentaBancaria;
     }
+
+
 
     public String getPlaza() {
         return plaza;
@@ -100,6 +115,17 @@ public class Empleados {
     public void setProyecto(String proyecto) {
         this.proyecto = proyecto;
     }
+
+
+
+
+
+
+
+
+
 }
+
+
 
 
