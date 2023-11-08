@@ -11,10 +11,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="395.0" prefWidth="774.0" style="-fx-background-color: #2D3250; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Registrarse">
+<AnchorPane prefHeight="436.0" prefWidth="779.0" style="-fx-background-color: #2D3250; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.RegistrarseControlador">
    <children>
-      <Pane layoutX="481.0" layoutY="-1.0" prefHeight="401.0" prefWidth="298.0" style="-fx-background-color: #FFFF; -fx-background-radius: 15;">
+      <Pane layoutX="481.0" layoutY="-1.0" prefHeight="436.0" prefWidth="298.0" style="-fx-background-color: #FFFF; -fx-background-radius: 15;">
          <children>
             <Label layoutX="35.0" layoutY="145.0" prefHeight="30.0" prefWidth="240.0" text="¿Ya tienes una cuenta?">
                <font>
@@ -31,7 +30,12 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btnIniciarSesion" layoutX="81.0" layoutY="295.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Iniciar Sesión" textFill="WHITE">
+            <ImageView fitHeight="94.0" fitWidth="200.0" layoutX="61.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/NGLogo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnIniciarSesion" layoutX="75.0" layoutY="308.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Iniciar Sesión" textFill="WHITE">
                <effect>
                   <DropShadow>
                      <color>
@@ -40,23 +44,18 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="94.0" fitWidth="200.0" layoutX="61.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Imagenes/NGLogo.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
-      <Label layoutX="182.0" layoutY="14.0" prefHeight="28.0" prefWidth="137.0" text="REGISTRARSE" textFill="WHITE">
+      <Label layoutX="168.0" layoutY="39.0" prefHeight="28.0" prefWidth="137.0" text="REGISTRARSE" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNombre" layoutX="93.0" layoutY="73.0" prefHeight="28.0" prefWidth="298.0" promptText="Nombre Completo" style="-fx-background-radius: 10;" />
-      <TextField fx:id="txtNum" layoutX="93.0" layoutY="178.0" prefHeight="28.0" prefWidth="298.0" promptText="Número telefónico" style="-fx-background-radius: 10;" />
-      <TextField fx:id="txtCorreoE" layoutX="93.0" layoutY="122.0" prefHeight="28.0" prefWidth="298.0" promptText="Correo Electrónico" style="-fx-background-radius: 10;" />
-      <TextField fx:id="txtDui" layoutX="93.0" layoutY="232.0" prefHeight="28.0" prefWidth="298.0" promptText="Dui" style="-fx-background-radius: 10;" />
-      <Button fx:id="btnSiguiente" layoutX="176.0" layoutY="308.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Siguiente" textFill="WHITE">
+      <TextField fx:id="txtNombre" layoutX="87.0" layoutY="104.0" prefHeight="28.0" prefWidth="298.0" promptText="Nombre Completo" style="-fx-background-radius: 10;" />
+      <TextField fx:id="txtNum" layoutX="87.0" layoutY="209.0" prefHeight="28.0" prefWidth="298.0" promptText="Número telefónico" style="-fx-background-radius: 10;" />
+      <TextField fx:id="txtCorreoE" layoutX="87.0" layoutY="153.0" prefHeight="28.0" prefWidth="298.0" promptText="Correo Electrónico" style="-fx-background-radius: 10;" />
+      <TextField fx:id="txtDui" layoutX="87.0" layoutY="263.0" prefHeight="28.0" prefWidth="298.0" promptText="Dui" style="-fx-background-radius: 10;" />
+      <Button fx:id="btnSiguiente" layoutX="161.0" layoutY="345.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Siguiente" textFill="WHITE">
          <effect>
             <DropShadow>
                <color>

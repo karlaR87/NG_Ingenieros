@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.RegistrarseSegundoControlador">
+   <children>
+      <AnchorPane layoutX="-6.0" prefHeight="429.0" prefWidth="805.0" style="-fx-background-color: #2D3250; -fx-background-radius: 15;">
+         <children>
+            <Pane layoutX="488.0" prefHeight="436.0" prefWidth="315.0" style="-fx-background-color: #FFFF; -fx-background-radius: 15;">
+               <children>
+                  <ImageView fitHeight="194.0" fitWidth="266.0" layoutX="25.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/NGLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label layoutX="197.0" layoutY="35.0" prefHeight="28.0" prefWidth="137.0" text="REGISTRATE" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUsuario" layoutX="94.0" layoutY="95.0" prefHeight="38.0" prefWidth="315.0" promptText="Nombre de usuario" style="-fx-background-radius: 10;" />
+            <Button fx:id="btnRegistrarse" layoutX="177.0" layoutY="330.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Registrarse" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <PasswordField fx:id="txtContraseña" layoutX="94.0" layoutY="168.0" prefHeight="38.0" prefWidth="315.0" promptText="Ingresa tu contraseña" style="-fx-background-radius: 10;" />
+            <PasswordField fx:id="txtConfirmaContra" layoutX="94.0" layoutY="240.0" prefHeight="38.0" prefWidth="315.0" promptText="Confirma tu contraseña" style="-fx-background-radius: 10;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

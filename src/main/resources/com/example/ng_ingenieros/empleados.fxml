@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="Empleados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
+<AnchorPane fx:id="Empleados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
    <children>
       <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -32,17 +27,17 @@
          <center>
             <Pane prefHeight="449.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="25.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="btnAgregarEmp" fitHeight="40.0" fitWidth="35.0" layoutX="25.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/btnAgregar.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="76.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="btnEditarEmp" fitHeight="40.0" fitWidth="35.0" layoutX="76.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/btnEditarFondo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="35.0" layoutX="129.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="btnEliminarEmp" fitHeight="40.0" fitWidth="35.0" layoutX="129.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/btnEliminar.png" />
                      </image>
@@ -56,10 +51,6 @@
                        <TableColumn prefWidth="75.0" text="nombre">
                           <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
                        </TableColumn>
-
-                        <TableColumn prefWidth="75.0" text="apellido">
-                            <cellValueFactory><PropertyValueFactory property="apellido" /></cellValueFactory>
-                        </TableColumn>
 
                        <TableColumn prefWidth="75.0" text="dui">
                           <cellValueFactory><PropertyValueFactory property="Dui" /></cellValueFactory>
