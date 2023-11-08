@@ -36,7 +36,7 @@ public class ProyectosAgregarControlador {
     private ComboBox<String> cmIngeniero;
 
     @FXML
-    private ComboBox<String> btnGestionar;
+    private Button btnGestionar;
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -47,7 +47,7 @@ public class ProyectosAgregarControlador {
         cmIngeniero.setPromptText("Seleccionar Ingeniero a cargo");
         cmEstado.setPromptText("Seleccione el estado del proyecto");
 
-        btnGestionar.setOnAction(this::Abrir);
+        btnGestionar.setOnAction(this::AbrirGestion);
 
     }
 
@@ -100,10 +100,11 @@ public class ProyectosAgregarControlador {
         cmEstado.setItems(data);
     }
 
-    private void Abrir(ActionEvent actionEvent) {
+
+    private void AbrirGestion(ActionEvent actionEvent) {
         try {
             // Cargar el archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ProyectosAgregar.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Empleados_Asignados.fxml"));
             Parent root = loader.load();
 
             // Crear un nuevo Stage

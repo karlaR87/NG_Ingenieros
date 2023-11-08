@@ -48,36 +48,36 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Label layoutX="155.0" layoutY="85.0" prefHeight="27.0" prefWidth="79.0" text="Nombre:" textAlignment="RIGHT" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="89.0" prefHeight="27.0" prefWidth="79.0" text="Nombre:" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="155.0" layoutY="141.0" prefHeight="27.0" prefWidth="79.0" text="Lugar:" textAlignment="RIGHT" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="152.0" prefHeight="27.0" prefWidth="79.0" text="Lugar:" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="156.0" layoutY="197.0" prefHeight="27.0" prefWidth="115.0" text="Ing. a cargo:" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="220.0" prefHeight="27.0" prefWidth="115.0" text="Ing. a cargo:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="155.0" layoutY="320.0" prefHeight="27.0" prefWidth="151.0" text="Horas a trabajar:" textFill="WHITE">
+            <Label layoutX="412.0" layoutY="282.0" prefHeight="27.0" prefWidth="144.0" text="Horas a trabajar:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="156.0" layoutY="375.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="341.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="txtNombre" fx:id="txtNombre" layoutX="268.0" layoutY="82.0" prefHeight="34.0" prefWidth="327.0" promptText="Ingrese el nombre del proyecto" style="-fx-background-radius: 10;" />
-            <TextField id="txtLugar" fx:id="txtLugar" layoutX="268.0" layoutY="142.0" prefHeight="34.0" prefWidth="327.0" promptText="Ingrese la ubicación del proyecto" style="-fx-background-radius: 10;" />
-            <ComboBox id="cmbIngs" fx:id="cmIngeniero" layoutX="268.0" layoutY="198.0" prefHeight="34.0" prefWidth="327.0" style="-fx-background-radius: 10;" />
-            <TextField id="txtHoras" fx:id="txtHoras" layoutX="295.0" layoutY="317.0" prefHeight="34.0" prefWidth="303.0" promptText="Ingrese las horas de trabajo del proyecto" style="-fx-background-radius: 10;" />
-            <Button id="btnAgregarEmps" fx:id="btnGestionar" layoutX="286.0" layoutY="372.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
+            <TextField id="txtNombre" fx:id="txtNombre" layoutX="159.0" layoutY="85.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese el nombre del proyecto" style="-fx-background-radius: 10;" />
+            <TextField id="txtLugar" fx:id="txtLugar" layoutX="159.0" layoutY="148.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese la ubicación del proyecto" style="-fx-background-radius: 10;" />
+            <ComboBox id="cmbIngs" fx:id="cmIngeniero" layoutX="189.0" layoutY="216.0" prefHeight="34.0" prefWidth="464.0" style="-fx-background-radius: 10;" />
+            <TextField id="txtHoras" fx:id="txtHoras" layoutX="556.0" layoutY="278.0" prefHeight="34.0" prefWidth="101.0" promptText="horas de trabajo" style="-fx-background-radius: 10;" />
+            <Button fx:id="btnGestionar" layoutX="204.0" layoutY="341.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -89,12 +89,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Label layoutX="157.0" layoutY="260.0" prefHeight="27.0" prefWidth="165.0" text="Estado del proyecto:" textFill="WHITE">
+            <Label layoutX="69.0" layoutY="281.0" prefHeight="27.0" prefWidth="165.0" text="Estado del proyecto:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox id="cmbIngs" fx:id="cmEstado" layoutX="328.0" layoutY="260.0" prefHeight="34.0" prefWidth="269.0" style="-fx-background-radius: 10;" />
+            <ComboBox id="cmbIngs" fx:id="cmEstado" layoutX="240.0" layoutY="278.0" prefHeight="34.0" prefWidth="158.0" style="-fx-background-radius: 10;" />
          </children>
       </AnchorPane>
    </children>
