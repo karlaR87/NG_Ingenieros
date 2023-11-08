@@ -1,22 +1,20 @@
 package com.example.ng_ingenieros.Controlador;
 
 
-import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
+
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.sql.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 
-public class agregar_empleadosControlador{
+
+
+public class agregar_empleadosControlador  implements Initializable {
 
     @FXML
     private TextField txtNombreEmp, txtDuiEmp, txtSueldoEmp, txtPagoHorasExEmp, txtCorreoEmp, txtCuentaBEmp;
@@ -26,15 +24,10 @@ public class agregar_empleadosControlador{
 
     @FXML
     private int idCargo;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //btnGuardar.setOnAction(this::agregarDatos);
 
-
-    /*public void initialize(){
-        btnGuardar.(this::btnGuardarOnAction);
-    }*/
-
-
-    private void btnGuardarOnAction(ActionEvent event){
-        agregarDatos();
     }
 
     public final void agregarDatos(){
@@ -81,6 +74,7 @@ public class agregar_empleadosControlador{
 
         }
     }
+
 
 
 }

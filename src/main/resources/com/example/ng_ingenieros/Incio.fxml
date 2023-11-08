@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -30,7 +30,9 @@
             <Pane prefHeight="449.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
                   <Pane layoutX="25.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
-                  <Pane layoutX="329.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
+                  <Pane layoutX="515.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
+                  <Pane layoutX="25.0" layoutY="272.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
+                  <Pane layoutX="515.0" layoutY="263.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
                </children>
             </Pane>
          </center>
