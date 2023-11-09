@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -35,6 +37,13 @@ public class RegistrarseControlador {
     private Button btnSiguiente;
     @FXML
     private Button btnIniciarSesion;
+
+    @FXML
+    private Label lbMensaje;
+
+
+
+
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -60,28 +69,61 @@ public class RegistrarseControlador {
         }
     }
 
+
     private void BtnSiguienteOnAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RegistrarseSegundo.fxml"));
-            Parent root = loader.load();
+        registrardatos();
 
-            Stage stage = new Stage();
-            stage.setTitle("Registrarse");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void registrardatos(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
 
+        String nombre = txtNombre.getText();
+        String dui = txtDui.getText();
+        String correo = txtCorreoE.getText();
 
-//hora crea un String para hacer la insercion
+         //ahora crea un String para hacer la insercion
         String Insercion = "insert into tbempleados(nombreCompleto, dui, correo) values(?,?,?);";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setString(2, dui);
+            preparedStatement.setString(3, correo);
+            preparedStatement.executeUpdate();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RegistrarseSegundo.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Registrarse");
+
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                // Opcional: Cerrar la ventana actual
+                ((Stage) txtNombre.getScene().getWindow()).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+                lbMensaje.setText("Credenciales inválidas");
+            }
+
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+
+
+        }
+
+
+
+
+
+
     }
 
 
