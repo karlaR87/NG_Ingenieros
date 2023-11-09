@@ -13,7 +13,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="login" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2D3250; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.LoginControlador">
+<AnchorPane fx:id="login" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.LoginControlador">
    <children>
       <Pane prefHeight="400.0" prefWidth="252.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
          <children>
@@ -68,17 +68,17 @@
          </font>
       </Label>
       <TextField fx:id="txtUsuario" layoutX="376.0" layoutY="112.0" prefHeight="25.0" prefWidth="201.0" promptText="Usuario" style="-fx-background-radius: 10;" />
-      <CheckBox layoutX="286.0" layoutY="213.0" mnemonicParsing="false" text="Recuérdame" textFill="WHITE">
+      <CheckBox layoutX="286.0" layoutY="238.0" mnemonicParsing="false" text="Recuérdame" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </CheckBox>
-      <Label layoutX="395.0" layoutY="214.0" text="¿Olvidaste tu contraseña?" textFill="WHITE">
+      <Label layoutX="401.0" layoutY="239.0" text="¿Olvidaste tu contraseña?" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnIngresar" layoutX="376.0" layoutY="260.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="111.0" style="-fx-background-color: f7c081; -fx-background-radius: 20;" text="Ingresar" textFill="WHITE">
+      <Button fx:id="btnIngresar" layoutX="376.0" layoutY="275.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="111.0" style="-fx-background-color: f7c081; -fx-background-radius: 20;" text="Ingresar" textFill="WHITE">
          <font>
             <Font name="Calibri" size="16.0" />
          </font>
@@ -91,5 +91,10 @@
          </effect>
       </Button>
       <PasswordField fx:id="txtContraseña" layoutX="378.0" layoutY="164.0" prefHeight="25.0" prefWidth="201.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
+      <Label fx:id="lbmensaje" alignment="CENTER" layoutX="286.0" layoutY="208.0" prefHeight="17.0" prefWidth="289.0" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
