@@ -41,8 +41,19 @@ public class LoginControlador {
 
     // Método para abrir una nueva ventana
     private void btnIngresarOnAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Registrarse");
 
 
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (txtUsuario.getText().isBlank() == false && txtContraseña.getText().isBlank() == false){
         }
@@ -99,7 +110,7 @@ public class LoginControlador {
                 }
                 else{
 
-                    lbmensaje.setText("Credenciales no validas");
+                    lbmensaje.setText("Credenciales no válidas");
                 }
 
             }
@@ -112,6 +123,8 @@ public class LoginControlador {
         }
 
     }
+
+
    /* public void btnIngresarOnAction(ActionEvent event) {
         String user = txtUsuario.getText();
         String contra = txtContraseña.getText();
