@@ -10,9 +10,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="475.0" prefWidth="750.0" style="-fx-background-color: #485256;" stylesheets="@EstiloProyectos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosAgregarControlador">
+<Pane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #485256;" stylesheets="@EstiloProyectos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosAgregarControlador">
    <children>
-      <AnchorPane prefHeight="475.0" prefWidth="750.0" style="-fx-background-color: #485256;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #485256;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane prefHeight="58.0" prefWidth="750.0" style="-fx-background-color: #DD890B; -fx-background-radius: 0;">
                <children>
@@ -24,7 +24,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="btnGuardarProyecto" layoutX="199.0" layoutY="416.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+            <Button fx:id="btnGuardarProyecto" layoutX="214.0" layoutY="439.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -36,7 +36,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Button fx:id="btnCancelar" layoutX="386.0" layoutY="416.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancelar" layoutX="386.0" layoutY="439.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -48,36 +48,36 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Label layoutX="155.0" layoutY="103.0" prefHeight="27.0" prefWidth="79.0" text="Nombre:" textAlignment="RIGHT" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="89.0" prefHeight="27.0" prefWidth="79.0" text="Nombre:" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="155.0" layoutY="159.0" prefHeight="27.0" prefWidth="79.0" text="Lugar:" textAlignment="RIGHT" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="152.0" prefHeight="27.0" prefWidth="79.0" text="Lugar:" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="156.0" layoutY="215.0" prefHeight="27.0" prefWidth="115.0" text="Ing. a cargo:" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="220.0" prefHeight="27.0" prefWidth="115.0" text="Ing. a cargo:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="155.0" layoutY="280.0" prefHeight="27.0" prefWidth="151.0" text="Horas a trabajar:" textFill="WHITE">
+            <Label layoutX="412.0" layoutY="282.0" prefHeight="27.0" prefWidth="144.0" text="Horas a trabajar:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="156.0" layoutY="344.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="341.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="txtNombre" layoutX="268.0" layoutY="95.0" prefHeight="34.0" prefWidth="327.0" promptText="Ingrese el nombre del proyecto" style="-fx-background-radius: 10;" />
-            <TextField id="txtLugar" layoutX="268.0" layoutY="160.0" prefHeight="34.0" prefWidth="327.0" promptText="Ingrese la ubicación del proyecto" style="-fx-background-radius: 10;" />
-            <ComboBox id="cmbIngs" fx:id="cmCargo" layoutX="268.0" layoutY="216.0" prefHeight="34.0" prefWidth="327.0" style="-fx-background-radius: 10;" />
-            <TextField id="txtHoras" layoutX="294.0" layoutY="277.0" prefHeight="34.0" prefWidth="288.0" promptText="Ingrese las horas de trabajo del proyecto" style="-fx-background-radius: 10;" />
-            <Button id="btnAgregarEmps" layoutX="271.0" layoutY="341.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
+            <TextField id="txtNombre" fx:id="txtNombre" layoutX="159.0" layoutY="85.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese el nombre del proyecto" style="-fx-background-radius: 10;" />
+            <TextField id="txtLugar" fx:id="txtLugar" layoutX="159.0" layoutY="148.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese la ubicación del proyecto" style="-fx-background-radius: 10;" />
+            <ComboBox id="cmbIngs" fx:id="cmIngeniero" layoutX="189.0" layoutY="216.0" prefHeight="34.0" prefWidth="464.0" style="-fx-background-radius: 10;" />
+            <TextField id="txtHoras" fx:id="txtHoras" layoutX="556.0" layoutY="278.0" prefHeight="34.0" prefWidth="101.0" promptText="horas de trabajo" style="-fx-background-radius: 10;" />
+            <Button fx:id="btnGestionar" layoutX="204.0" layoutY="341.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -89,6 +89,12 @@
                   </DropShadow>
                </effect>
             </Button>
+            <Label layoutX="69.0" layoutY="281.0" prefHeight="27.0" prefWidth="165.0" text="Estado del proyecto:" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox id="cmbIngs" fx:id="cmEstado" layoutX="240.0" layoutY="278.0" prefHeight="34.0" prefWidth="158.0" style="-fx-background-radius: 10;" />
          </children>
       </AnchorPane>
    </children>

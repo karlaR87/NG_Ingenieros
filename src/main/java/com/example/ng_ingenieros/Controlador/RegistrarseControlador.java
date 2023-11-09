@@ -1,5 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
+import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,8 +28,7 @@ public class RegistrarseControlador {
     private TextField txtNombre;
     @FXML
     private TextField txtCorreoE;
-    @FXML
-    private TextField txtNum;
+
     @FXML
     private TextField txtDui;
     @FXML
@@ -49,6 +51,8 @@ public class RegistrarseControlador {
 
             Stage stage = new Stage();
             stage.setTitle("Registrarse");
+
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
@@ -62,12 +66,22 @@ public class RegistrarseControlador {
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Nueva Ventana");
+            stage.setTitle("Registrarse");
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void registrardatos(){
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.obtenerConexion();
+
+
+//hora crea un String para hacer la insercion
+        String Insercion = "insert into tbempleados(nombreCompleto, dui, correo) values(?,?,?);";
     }
 
 
