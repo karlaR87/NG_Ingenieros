@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -41,21 +42,9 @@ public class LoginControlador {
 
     // Método para abrir una nueva ventana
     private void btnIngresarOnAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Registrarse");
-
-
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         if (txtUsuario.getText().isBlank() == false && txtContraseña.getText().isBlank() == false){
+            validatelogin();
         }
 
     }
@@ -96,17 +85,30 @@ public class LoginControlador {
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
 
-        String verifylogin = "Select count(1) FROM tbusuarios where nombreUsuario = '"+ txtUsuario.getText()+ "' and contraseña =' "+ txtContraseña.getText() +"'";
+        String verifylogin = "SELECT COUNT(1) FROM tbusuarios WHERE nombreUsuario = ? AND contraseña = ?";
         try {
 
-            Statement statement = connection.createStatement();
-            ResultSet queryResult = statement.executeQuery(verifylogin);
+            PreparedStatement preparedStatement = connection.prepareStatement(verifylogin);
+            preparedStatement.setString(1, txtUsuario.getText());
+            preparedStatement.setString(2, txtContraseña.getText());
+            ResultSet queryResult = preparedStatement.executeQuery();
 
 
             while(queryResult.next()){
                 if(queryResult.getInt(1)==1){
-                    loadWindow();
-                    lbmensaje.setText("hola");
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
+                        Parent root = loader.load();
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Registrarse");
+
+
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
 

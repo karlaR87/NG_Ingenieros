@@ -13,7 +13,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="login" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2D3250; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.LoginControlador">
+<AnchorPane fx:id="login" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.LoginControlador">
    <children>
       <Pane prefHeight="400.0" prefWidth="252.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
          <children>
