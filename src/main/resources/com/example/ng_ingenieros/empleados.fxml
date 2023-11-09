@@ -70,19 +70,28 @@
 
                     </columns>
                   </TableView>
-                  <Button layoutX="169.0" layoutY="345.0" mnemonicParsing="false">
+                  <Button fx:id="btnEliminarEmp" layoutX="169.0" layoutY="345.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8;">
                      <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagenes/btnEliminar.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="37.0" layoutY="345.0" mnemonicParsing="false">
+                  <Button fx:id="btnAgregarEmp" layoutX="37.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                      <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagenes/btnAgregar.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="103.0" layoutY="345.0" mnemonicParsing="false">
+                  <Button fx:id="btnEditarEmp" layoutX="103.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                      <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagenes/btnEditarFondo.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children>
