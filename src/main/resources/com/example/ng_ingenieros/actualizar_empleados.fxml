@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="755.0" style="-fx-background-color: #485256;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.agregar_empleadosControlador">
+   <children>
+      <Label layoutX="33.0" layoutY="94.0" text="Nombre:" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="454.0" layoutY="95.0" text="DUI" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="144.0" text="Correo" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="201.0" text="Cargo" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="315.0" text="Sueldo" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="446.0" layoutY="262.0" prefHeight="26.0" prefWidth="141.0" text="Pago por hora extra" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField id="txtNombreEmp" fx:id="txtNombreEmp2" layoutX="108.0" layoutY="94.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtCorreo" fx:id="txtCorreoEmp2" layoutX="110.0" layoutY="144.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtDuiEmp" fx:id="txtDuiEmp2" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtSueldoEmp" fx:id="txtSueldoEmp2" layoutX="108.0" layoutY="315.0" prefHeight="26.0" prefWidth="317.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtPagoHorasExEmp" fx:id="txtPagoHorasExEmp2" layoutX="592.0" layoutY="263.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
+      <Button id="btnGuardar1" fx:id="btnActualizarEmp" layoutX="223.0" layoutY="390.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Actualizar" textFill="WHITE" />
+      <Button fx:id="btnCancelar2" layoutX="411.0" layoutY="390.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
+      <ComboBox id="cbCPlazaEmp" fx:id="cbPlaza2" layoutX="504.0" layoutY="200.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
+      <Label layoutX="33.0" layoutY="250.0" prefHeight="52.0" prefWidth="141.0" text="Numero de cuenta" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField id="txtCuentaBEmp" fx:id="txtNumCuenta2" layoutX="174.0" layoutY="263.0" prefHeight="26.0" prefWidth="250.0" style="-fx-background-radius: 8;" />
+      <Pane layoutX="5.0" prefHeight="71.0" prefWidth="750.0" style="-fx-background-color: #40669F;">
+         <children>
+            <Label layoutX="320.0" layoutY="23.0" prefHeight="26.0" prefWidth="111.0" text="EMPLEADOS " textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="18.0" />
+               </font>
+            </Label>
+            <Pane layoutY="68.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #1C3B69;" />
+         </children>
+      </Pane>
+      <Label layoutX="451.0" layoutY="131.0" prefHeight="52.0" prefWidth="141.0" text="Descuento de renta" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField id="txtRenta" fx:id="txtRent2" layoutX="610.0" layoutY="144.0" prefHeight="26.0" prefWidth="92.0" style="-fx-background-radius: 8;" />
+      <Label layoutX="449.0" layoutY="201.0" text="Plaza" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox id="cbCargoEmp" fx:id="cbCargos2" layoutX="120.0" layoutY="201.0" prefHeight="26.0" prefWidth="302.0" style="-fx-background-radius: 8;" />
+   </children>
+</AnchorPane>

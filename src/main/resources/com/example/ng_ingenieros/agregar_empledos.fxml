@@ -36,20 +36,19 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField id="txtNombreEmp" fx:id="txtNombreEmp1" layoutX="108.0" layoutY="94.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtCorreo" fx:id="txtCorreoEmp1" layoutX="110.0" layoutY="144.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtDuiEmp" fx:id="txtDuiEmp1" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtSueldoEmp" fx:id="txtSueldoEmp1" layoutX="108.0" layoutY="315.0" prefHeight="26.0" prefWidth="317.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtPagoHorasExEmp" fx:id="txtPagoHorasExEmp1" layoutX="592.0" layoutY="263.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
-      <Button id="btnGuardar1" fx:id="btnGuardar1" layoutX="223.0" layoutY="390.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
+      <TextField fx:id="txtCorreoEmp" layoutX="111.0" layoutY="144.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtDuiEmp" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtSueldoEmp" layoutX="108.0" layoutY="315.0" prefHeight="26.0" prefWidth="317.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtPagoHorasExEmp" layoutX="592.0" layoutY="263.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
+      <Button fx:id="btnGuardar1" layoutX="223.0" layoutY="390.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
       <Button fx:id="btnCancelar1" layoutX="411.0" layoutY="390.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
-      <ComboBox id="cbCPlazaEmp" fx:id="cbPlaza" layoutX="504.0" layoutY="200.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
+      <ComboBox fx:id="cbPlazaEmp" layoutX="504.0" layoutY="200.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
       <Label layoutX="33.0" layoutY="250.0" prefHeight="52.0" prefWidth="141.0" text="Numero de cuenta" textFill="WHITE" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField id="txtCuentaBEmp" fx:id="txtNumCuenta" layoutX="174.0" layoutY="263.0" prefHeight="26.0" prefWidth="250.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtCuentaBEmp" layoutX="174.0" layoutY="263.0" prefHeight="26.0" prefWidth="250.0" style="-fx-background-radius: 8;" />
       <Pane layoutX="5.0" prefHeight="71.0" prefWidth="750.0" style="-fx-background-color: #40669F;">
          <children>
             <Label layoutX="320.0" layoutY="23.0" prefHeight="26.0" prefWidth="111.0" text="EMPLEADOS " textFill="WHITE">
@@ -71,6 +70,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <ComboBox id="cbCargoEmp" fx:id="cbCargos" layoutX="120.0" layoutY="201.0" prefHeight="26.0" prefWidth="302.0" style="-fx-background-radius: 8;" />
+      <ComboBox fx:id="cbCargoEmp" layoutX="120.0" layoutY="201.0" prefHeight="26.0" prefWidth="302.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtNombreEmp" layoutX="111.0" layoutY="95.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
    </children>
 </AnchorPane>
