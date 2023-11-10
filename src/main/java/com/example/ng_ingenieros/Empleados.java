@@ -143,64 +143,11 @@ public class Empleados {
 
 
 
-    public int agregarEmpleados(){
-        PreparedStatement ps;
-        Connection conn = null;
-        try{
-            conn = Conexion.obtenerConexion();
-            String query="insert into tbempleados(nombre, dui, correo, sueldo_dia, sueldo_horaExt, numero_cuentabancaria, idcargo, idTipoPlaza) values(?,?,?,?,?,?,?,?)";
-            ps = conn.prepareStatement(query);
-            ps.setString(1, nombre);
-            ps.setString(2, Dui);
-            ps.setString(3, correo);
-            ps.setDouble(4, sueldoDia);
-            ps.setDouble(5,sueldoHora);
-            ps.setString(6,cuentaBancaria);
-            ps.setInt(7, idcargo);
-            ps.setInt(8,idplaza);
-            ps.executeUpdate();
-            return 1;
-        }catch (Exception e) {
-            return 0;
-        }finally {
-            if (conn != null){
-                try{
-                    conn.close();
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-
-        }
-
-    }
 
 
 
-        public int EliminarEmpleado(){
-            PreparedStatement ps;
-            Connection conn = null;
-            try{
-                conn = Conexion.obtenerConexion();
-                String query = "delete tbempleados where idempleado = ?";
-                ps = conn.prepareStatement(query);
-                ps.setInt(1,getId());
-                ps.execute();
-                return 1;
-            }catch (Exception e){
-                return 0;
-            }finally {
-                if (conn != null){
-                    try{
-                        conn.close();
-                    }catch (SQLException e){
-                        e.printStackTrace();
-                    }
-                }
 
-            }
 
-        }
 
         public int actualizarEmpleados(){
             PreparedStatement ps;

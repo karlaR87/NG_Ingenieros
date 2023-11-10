@@ -84,7 +84,8 @@ public class RegistrarseControlador {
         String correo = txtCorreoE.getText();
 
          //ahora crea un String para hacer la insercion
-        String Insercion = "insert into tbempleados(nombreCompleto, dui, correo) values(?,?,?);";
+        String Insercion = "(nombreCompleto, dui, correo) values(?,?,?);";
+
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);

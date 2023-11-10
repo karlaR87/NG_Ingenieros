@@ -28,23 +28,42 @@ public class EmpleadosControlador {
     public void initialize() {
         //configurarTabla();
         cargarDatos();
-        btnAgregarEmp.setOnAction(this::abrirVentana);
+        btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
         btnEliminarEmp.setOnAction(this::eliminardatos);
+        btnEditarEmp.setOnAction(this::btnEditarOnAction);
     }
 
-    private void abrirVentana(javafx.event.ActionEvent actionEvent) {
+    private void btnAgregarOnAction(javafx.event.ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/agregar_empleados.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/agregar_empledos.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Nueva Ventana");
+            stage.setTitle("Ingreso de empleados");
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void btnEditarOnAction(javafx.event.ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/actualizar_empleados.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Edición de empleados");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
         //eliminarDatos();
@@ -154,30 +173,7 @@ public class EmpleadosControlador {
         }
     }
 
-    /*private boolean eliminarEmpleado() {
-        Empleados empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
 
-        if (empleadoSeleccionado != null) {
-            // Obtener el ID del empleado seleccionado
-            int idEmpleado = empleadoSeleccionado.getId();
-
-            // Llamar al método que maneja la eliminación en la base de datos
-            boolean eliminacionExitosa = Empleados.eliminarEmpleado();
-
-            if (eliminacionExitosa) {
-                // Actualizar la tabla después de la eliminación
-                TableEmpleados.getItems().remove(empleadoSeleccionado);
-                agregar_empleadosControlador.mostrarAlerta("eliminar datos","se eliminaron los datos", Alert.AlertType.INFORMATION);
-            } else {
-                // Manejar el caso en que la eliminación falla
-                agregar_empleadosControlador.mostrarAlerta("eliminar datos", "error al eliminar datos", Alert.AlertType.ERROR);
-            }
-        } else {
-            // Manejar el caso en que no se ha seleccionado ningún empleado
-            agregar_empleadosControlador.mostrarAlerta("eliminar datos", "seleccione un campo", Alert.AlertType.WARNING);
-        }
-        return false;
-    }*/
 
     private void eliminarEmpleado() {
         // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
@@ -205,10 +201,10 @@ public class EmpleadosControlador {
 
 
     private int obtenerIdEmpleadoSeleccionado() {
-        Empleados proyectoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
+        Empleados empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
 
-        if (proyectoSeleccionado != null) {
-            return proyectoSeleccionado.getId();
+        if (empleadoSeleccionado != null) {
+            return empleadoSeleccionado.getId();
         } else {
             return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
 }
