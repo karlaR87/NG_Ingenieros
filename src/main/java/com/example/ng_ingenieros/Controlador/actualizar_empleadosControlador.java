@@ -3,7 +3,6 @@ package com.example.ng_ingenieros.Controlador;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
@@ -25,7 +21,7 @@ import javafx.stage.Stage;
 public class actualizar_empleadosControlador {
 
 
-    private TableView<Empleados> TableEmpleados;
+    private TableView<Empleados> TableEmpleados ;
 
     @FXML
     private TextField txtNombreEmp2;
@@ -123,9 +119,12 @@ public class actualizar_empleadosControlador {
                 ps.setInt(8, idPlazaN);
                 ps.setInt(9, empleadoSeleccionado.getId()); // Asegúrate de tener un método getIdEmpleado() en tu clase Empleado
                 ps.executeUpdate();
+
+                agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
         }
     }
 
@@ -234,5 +233,6 @@ public class actualizar_empleadosControlador {
 
         return idPlaza;
     }
+
 
 }

@@ -19,7 +19,7 @@ import java.sql.*;
 public class EmpleadosControlador {
 
     @FXML
-    private TableView<Empleados> TableEmpleados;
+    public TableView<Empleados> TableEmpleados;
     @FXML
     private TextField txtBusqueda;
 
@@ -75,7 +75,7 @@ public class EmpleadosControlador {
 
                 root = loader.load();
                 // Obtener el controlador de la ventana de actualización
-                actualizar_empleadosControlador actualizarEmpleadosControlador = loader.getController();
+                actualizar_empleadosControlador actualizarEmpleadosControlador =loader.getController();
 
                 // Pasar los datos de la fila seleccionada al controlador de la ventana de actualización
                 actualizarEmpleadosControlador.initialize(empleadoSeleccionado);
@@ -87,7 +87,9 @@ public class EmpleadosControlador {
 
             } catch (IOException e) {
                 e.printStackTrace(); // Considera manejar la excepción de una manera más robusta
+                agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error al cargar la vista", Alert.AlertType.ERROR);
             }
+
 
 
         }
