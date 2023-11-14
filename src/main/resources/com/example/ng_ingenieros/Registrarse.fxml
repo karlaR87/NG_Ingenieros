@@ -63,5 +63,10 @@
             </DropShadow>
          </effect>
       </Button>
+      <Label fx:id="lbMensaje" alignment="CENTER" layoutX="17.0" layoutY="382.0" prefHeight="38.0" prefWidth="438.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

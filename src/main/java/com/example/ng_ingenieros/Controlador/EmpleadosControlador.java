@@ -3,31 +3,73 @@ package com.example.ng_ingenieros.Controlador;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import java.sql.*;
 
 public class EmpleadosControlador {
 
     @FXML
-    private TableView<Empleados>TableEmpleados;
-   @FXML
+    private TableView<Empleados> TableEmpleados;
+    @FXML
     private TextField txtBusqueda;
+
+    @FXML
+    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp;
 
     public void initialize() {
         //configurarTabla();
         cargarDatos();
+        btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
+        btnEliminarEmp.setOnAction(this::eliminardatos);
+        btnEditarEmp.setOnAction(this::btnEditarOnAction);
+    }
 
+    private void btnAgregarOnAction(javafx.event.ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/agregar_empledos.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Ingreso de empleados");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void btnEditarOnAction(javafx.event.ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/actualizar_empleados.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Edición de empleados");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
+
+    private void eliminardatos(javafx.event.ActionEvent actionEvent) {
+        //eliminarDatos();
+        //eliminarEmpleado();
+        eliminarEmpleado();
+    }
 
 
 //CODIGO que hace que se muestren doble pero por si llega a servir de algo
@@ -82,12 +124,12 @@ public class EmpleadosControlador {
                 Double sueldoDia = rs.getDouble("sueldo_dia");
 
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
-                int cargo = rs.getInt("cargo");
+                String cargo = rs.getString("cargo");
                 String plazo = rs.getString("tipoPlaza");
 
                 String Proyecto = rs.getString("nombre_proyecto");
 
-                TableEmpleados.getItems().add(new Empleados(id,nombre, dui, sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
+                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plazo, Proyecto));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,17 +161,59 @@ public class EmpleadosControlador {
                 Double sueldoDia = rs.getDouble("sueldo_dia");
 
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
-                int cargo = rs.getInt("cargo");
+                String cargo = rs.getString("cargo");
                 String plazo = rs.getString("tipoPlaza");
 
                 String Proyecto = rs.getString("nombre_proyecto");
 
-                TableEmpleados.getItems().add(new Empleados(id,nombre, dui, sueldoDia,sueldoHora,cargo,plazo,Proyecto ));
+                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plazo, Proyecto));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
+    private void eliminarEmpleado() {
+        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
+        int idEmpleado = obtenerIdEmpleadoSeleccionado();
+
+        try (Connection connection = Conexion.obtenerConexion()) {
+            String sql = "DELETE FROM tbempleados WHERE idempleado = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, idEmpleado);
+
+            int filasAfectadas = statement.executeUpdate();
+            if (filasAfectadas > 0) {
+                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+
+            } else {
+                agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
+            }
+            cargarDatos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    private int obtenerIdEmpleadoSeleccionado() {
+        Empleados empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            return empleadoSeleccionado.getId();
+        } else {
+            return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
+}
+    }
+
+}
+
+
+
 
 
 
@@ -140,4 +224,5 @@ public class EmpleadosControlador {
         }
         });*/
 
-}
+
+
