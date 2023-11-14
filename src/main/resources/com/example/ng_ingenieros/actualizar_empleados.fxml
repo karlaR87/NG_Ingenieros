@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="755.0" style="-fx-background-color: #485256;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.actualizar_empleadosControlador">
+<AnchorPane prefHeight="450.0" prefWidth="755.0" style="-fx-background-color: #485256;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.actualizar_empleadosControlador">
    <children>
       <Label layoutX="33.0" layoutY="94.0" text="Nombre:" textFill="WHITE">
          <font>
@@ -31,7 +35,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="446.0" layoutY="262.0" prefHeight="26.0" prefWidth="141.0" text="Pago por hora extra" textFill="WHITE">
+      <Label layoutX="446.0" layoutY="206.0" prefHeight="26.0" prefWidth="141.0" text="Pago por hora extra" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -40,9 +44,9 @@
       <TextField fx:id="txtCorreoEmp2" layoutX="110.0" layoutY="144.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
       <TextField fx:id="txtDuiEmp2" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
       <TextField fx:id="txtSueldoEmp2" layoutX="108.0" layoutY="315.0" prefHeight="26.0" prefWidth="317.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="txtPagoHorasExEmp2" layoutX="592.0" layoutY="263.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
-      <Button fx:id="btnCancelar2" layoutX="411.0" layoutY="390.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
-      <ComboBox fx:id="cbPlaza2" layoutX="504.0" layoutY="200.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
+      <TextField fx:id="txtPagoHorasExEmp2" layoutX="592.0" layoutY="207.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
+      <Button fx:id="btnCancelar2" layoutX="351.0" layoutY="385.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
+      <ComboBox fx:id="cbPlaza2" layoutX="504.0" layoutY="144.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
       <Label layoutX="33.0" layoutY="250.0" prefHeight="52.0" prefWidth="141.0" text="Numero de cuenta" textFill="WHITE" wrapText="true">
          <font>
             <Font size="16.0" />
@@ -59,18 +63,12 @@
             <Pane layoutY="68.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #1C3B69;" />
          </children>
       </Pane>
-      <Label layoutX="451.0" layoutY="131.0" prefHeight="52.0" prefWidth="141.0" text="Descuento de renta" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtRent2" layoutX="610.0" layoutY="144.0" prefHeight="26.0" prefWidth="92.0" style="-fx-background-radius: 8;" />
-      <Label layoutX="449.0" layoutY="201.0" text="Plaza" textFill="WHITE">
+      <Label layoutX="449.0" layoutY="145.0" text="Plaza" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
       <ComboBox fx:id="cbCargos2" layoutX="120.0" layoutY="201.0" prefHeight="26.0" prefWidth="302.0" style="-fx-background-radius: 8;" />
-      <Button fx:id="btnActualizarEmp" layoutX="186.0" layoutY="385.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Button" />
+      <Button fx:id="btnActualizarEmp" layoutX="168.0" layoutY="385.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Actualizar" textFill="WHITE" />
    </children>
 </AnchorPane>
