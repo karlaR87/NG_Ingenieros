@@ -140,43 +140,6 @@ public class Empleados {
         this.proyecto = proyecto;
     }
 
-
-
-
-
-
-
-
-
-
-        public int actualizarEmpleados(){
-            PreparedStatement ps;
-            Connection conn = null;
-            try{
-                String query = "UPDATE tbempleados SET nombreCompleto = ?, dui = ?, correo = ?, sueldo_Dia = ?, sueldo_HoraExt = ?, numero_cuentabancaria = ?, idcargo = ?, idTipoPlaza = ?";
-                ps = conn.prepareStatement(query);
-                ps.setString(1, nombre);
-                ps.setString(2, Dui);
-                ps.setString(3, correo);
-                ps.setDouble(4, sueldoDia);
-                ps.setDouble(5,sueldoHora);
-                ps.setString(6,cuentaBancaria);
-                ps.setInt(7, idcargo);
-                ps.setInt(8,idplaza);
-                ps.execute();
-                return 1;
-            }catch(Exception ex){
-                return 0;
-            }finally {
-                if (conn != null) {
-                    try {
-                        conn.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
 }
 
 

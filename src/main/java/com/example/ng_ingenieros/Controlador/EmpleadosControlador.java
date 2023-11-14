@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.*;
 
 public class EmpleadosControlador {
@@ -28,9 +29,12 @@ public class EmpleadosControlador {
     public void initialize() {
         //configurarTabla();
         cargarDatos();
+        btnEditarEmp.setOnAction(this::btnEditarOnAction);
         btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
         btnEliminarEmp.setOnAction(this::eliminardatos);
-        btnEditarEmp.setOnAction(this::btnEditarOnAction);
+
+
+
     }
 
     private void btnAgregarOnAction(javafx.event.ActionEvent actionEvent) {
@@ -49,27 +53,47 @@ public class EmpleadosControlador {
     }
 
     private void btnEditarOnAction(javafx.event.ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/actualizar_empleados.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Edición de empleados");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        abrirVentanaActualizar();
     }
 
 
 
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
-        //eliminarDatos();
-        //eliminarEmpleado();
+
         eliminarEmpleado();
     }
+
+    public void abrirVentanaActualizar() {
+        // Obtener la fila seleccionada
+        Empleados empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/actualizar_empleados.fxml"));
+            Parent root;
+            try {
+
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                actualizar_empleadosControlador actualizarEmpleadosControlador = loader.getController();
+
+                // Pasar los datos de la fila seleccionada al controlador de la ventana de actualización
+                actualizarEmpleadosControlador.initialize(empleadoSeleccionado);
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace(); // Considera manejar la excepción de una manera más robusta
+            }
+
+
+        }
+    }
+
+
 
 
 //CODIGO que hace que se muestren doble pero por si llega a servir de algo
@@ -175,6 +199,8 @@ public class EmpleadosControlador {
 
 
 
+
+
     private void eliminarEmpleado() {
         // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
         int idEmpleado = obtenerIdEmpleadoSeleccionado();
@@ -209,6 +235,11 @@ public class EmpleadosControlador {
             return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
 }
     }
+
+
+
+
+
 
 }
 
