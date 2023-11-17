@@ -2,20 +2,22 @@ package com.example.ng_ingenieros.Controlador;
 
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 
 
 import java.awt.*;
-import java.sql.*;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
 
+import java.sql.*;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 public class agregar_empleadosControlador {
 
@@ -42,9 +44,12 @@ public class agregar_empleadosControlador {
 
 
 
+
     public void initialize(){
         btnGuardar1.setOnAction(this::guardarDatos);
         btnCancelar1.setOnAction(this::cerrarVentana);
+
+
 
         cargarCargosEnCombobox();
         cargarPlazasEnCombobox();
@@ -53,9 +58,10 @@ public class agregar_empleadosControlador {
         cbPlazaEmp.setPromptText("Seleccione la plaza del empleado");
     }
 
-    private void guardarDatos(javafx.event.ActionEvent actionEvent) {
-        //agregarDatos();
+    private void guardarDatos(ActionEvent event) {
+
         agregarEmpleados();
+
     }
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
@@ -63,41 +69,7 @@ public class agregar_empleadosControlador {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-    /*public final void agregarDatos(){
-        Empleados empleado = new Empleados();
-        try{
-            String Nombre = txtNombreEmp1.getText();
-            String Dui = txtDuiEmp1.getText();
-            String Correo = txtCorreoEmp1.getText();
-            String sueldoDia = txtSueldoEmp1.getText();
-            String sueldoHora = txtPagoHorasExEmp1.getText();
-            String cuentaBancaria = txtNumCuenta.getText();
-            empleado.setNombre(Nombre);
-            empleado.setDui(Dui);
-            empleado.setCorreo(Correo);
-            empleado.setSueldoDia(Double.parseDouble(sueldoDia));
-            empleado.setSueldoHora(Double.parseDouble(sueldoHora));
-            empleado.setCuentaBancaria(cuentaBancaria);
-            empleado.setIdcargo(empleado.getIdcargo());
-            empleado.setIdplaza(empleado.getIdplaza());
-            int valor = empleado.agregarEmpleados();
-            if(valor == 1){
 
-                mostrarAlerta("Ingreso de empleados","Se han ingresado los datos exitosamente",Alert.AlertType.INFORMATION);
-            }else if(valor == 0){
-                mostrarAlerta("Ingreso de empleados","El valor es 0",Alert.AlertType.WARNING);
-            }else{
-                mostrarAlerta("Ingreso de empleados","Error al ingresar los datos",Alert.AlertType.ERROR);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
-
-
-
-    // Otros campos y métodos...
 
     @FXML
 
@@ -132,31 +104,9 @@ public class agregar_empleadosControlador {
             e.printStackTrace();
         }
     }
- //arreglar los dos metodos siguientes
-    /*private int obtenerIdCargoSeleccionado(ComboBox<String> cbCargoEmp) {
-        ObservableList<Integer> data = FXCollections.observableArrayList();
 
-        // Conectar a la base de datos y recuperar los datos
-        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
-            String query = "SELECT idcargo FROM tbcargos";
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Recorrer los resultados y agregarlos a la lista observable
-            while (resultSet.next()) {
-                int item = resultSet.getInt("idcargo"); // Reemplaza con el nombre de la columna de tu tabla
-                data.add(item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-
-        // Asignar los datos al ComboBox
-        cbCargoEmp.setItems(data);
-    }*/
-
-    public int obtenerIdCargoSeleccionado(ComboBox<String> cbCargoEmp) {
+    private int obtenerIdCargoSeleccionado(ComboBox<String> cbCargoEmp) {
         int idCargo = -1; // Valor predeterminado en caso de error o no selección
 
         try (Connection conn = Conexion.obtenerConexion()) {
@@ -181,7 +131,7 @@ public class agregar_empleadosControlador {
     }
 
 
-    public int obtenerIdPlazaSeleccionado(ComboBox<String> cbPlazaEmp) {
+    private int obtenerIdPlazaSeleccionado(ComboBox<String> cbPlazaEmp) {
         int idPlaza = -1; // Valor predeterminado en caso de error o no selección
 
         try (Connection conn = Conexion.obtenerConexion()) {
@@ -204,42 +154,6 @@ public class agregar_empleadosControlador {
 
         return idPlaza;
     }
-
-    /*private int obtenerIdPlazaSeleccionado(ComboBox<String> cbPlazaEmp) {
-        ObservableList<String> data = FXCollections.observableArrayList();
-
-        // Conectar a la base de datos y recuperar los datos
-        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
-            String query = "SELECT tipoPlaza FROM tbtipoPlazas";
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Recorrer los resultados y agregarlos a la lista observable
-            while (resultSet.next()) {
-                String item = resultSet.getString("tipoPlaza"); // Reemplaza con el nombre de la columna de tu tabla
-                data.add(item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-
-        // Asignar los datos al ComboBox
-        cbPlazaEmp.setItems(data);
-    }*/
-
-
-
-
-
-
-
-    public final void actualizarDatos(){
-
-    }
-
-
-
 
 
     private void cargarPlazasEnCombobox() {
@@ -291,7 +205,112 @@ public class agregar_empleadosControlador {
         // Asignar los datos al ComboBox
         cbCargoEmp.setItems(data);
     }
-    //Metodo para mostraa mensajes en la aplicacion de forma más facil y ordenada
+
+
+
+    /*public void cargarDatosSeleccionados(Empleados empleadoSeleccionado) {
+        txtNombreEmp.setText(empleadoSeleccionado.getNombre());
+        txtDuiEmp.setText(empleadoSeleccionado.getDui());
+        txtCorreoEmp.setText(empleadoSeleccionado.getCorreo());
+        txtCuentaBEmp.setText(empleadoSeleccionado.getCuentaBancaria());
+        txtSueldoEmp.setText(String.valueOf(empleadoSeleccionado.getSueldoDia()));
+        txtPagoHorasExEmp.setText(String.valueOf(empleadoSeleccionado.getSueldoHora()));
+
+        // Seleccionar el valor en el ComboBox correspondiente al cargo
+        cbCargoEmp.getSelectionModel().select(obtenerNombreCargo(empleadoSeleccionado.getIdcargo()));
+
+        // Seleccionar el valor en el ComboBox correspondiente a la plaza
+        cbPlazaEmp.getSelectionModel().select(obtenerNombrePlaza(empleadoSeleccionado.getIdplaza()));
+    }
+
+    public void actualizarEmpleado() {
+        // Obtener los datos actualizados de los campos
+        String nombre = txtNombreEmp.getText();
+        String dui = txtDuiEmp.getText();
+        String correo = txtCorreoEmp.getText();
+        String cuentaBancaria = txtCuentaBEmp.getText();
+        double sueldoDia = Double.parseDouble(txtSueldoEmp.getText());
+        double sueldoHoraExt = Double.parseDouble(txtPagoHorasExEmp.getText());
+        int idCargo = obtenerIdCargoSeleccionado(cbCargoEmp);
+        int idPlaza = obtenerIdPlazaSeleccionado(cbPlazaEmp);
+
+        // Obtener el empleado seleccionado en la tabla
+        Empleados empleadoSeleccionado = obtenerEmpleadoSeleccionadoDesdeTabla();
+
+        // Realizar la actualización en la base de datos
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "UPDATE tbempleados SET nombreCompleto=?, dui=?, correo=?, sueldoDia=?, sueldoHoraExt=?, numero_cuentabancaria=?, idcargo=?, idtipoPlaza=? WHERE idempleado=?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, nombre);
+                ps.setString(2, dui);
+                ps.setString(3, correo);
+                ps.setDouble(4, sueldoDia);
+                ps.setDouble(5, sueldoHoraExt);
+                ps.setString(6, cuentaBancaria);
+                ps.setInt(7, idCargo);
+                ps.setInt(8, idPlaza);
+                ps.setInt(9, empleadoSeleccionado.getId()); // Asegúrate de tener un método getIdEmpleado() en tu clase Empleado
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para obtener el nombre del cargo a partir del ID
+    private String obtenerNombreCargo(int idCargo) {
+        String nombreCargo = null;
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "SELECT cargo FROM tbcargos WHERE idcargo = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, idCargo);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombreCargo = rs.getString("cargo");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nombreCargo;
+    }
+
+    private String obtenerNombrePlaza(int idPlaza) {
+        String nombrePlaza = null;
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "SELECT tipoPlaza FROM tbtipoPlaza WHERE idtipoPlaza = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, idPlaza);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombrePlaza = rs.getString("tipoPlaza");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nombrePlaza;
+    }
+
+    private Empleados obtenerEmpleadoSeleccionadoDesdeTabla() {
+
+        return TableEmpleados.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
+    }*/
+
+
+
+
+
+
+    //Metodo para mostrar mensajes en la aplicacion de forma más facil y ordenada
     public static void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

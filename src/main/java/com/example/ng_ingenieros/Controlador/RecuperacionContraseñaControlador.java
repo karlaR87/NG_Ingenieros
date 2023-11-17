@@ -1,11 +1,29 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.sql.ResultSet;
 import java.sql.*;
+
+
+
 public class RecuperacionContraseñaControlador {
+    @FXML
+    private TextField txtCorreoRecu;
+    @FXML
+    private Button btnRegresar, btnEnviar;
+
+
+
     public ResultSet RecuperacionContraseña(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
@@ -36,4 +54,47 @@ public class RecuperacionContraseñaControlador {
 
 
     }
+
+
+    public void initialize() {
+        // Configura el evento de clic para el botón
+        btnRegresar.setOnAction(this::btnRegresarOnAction);
+        btnEnviar.setOnAction(this::btnEnviarOnAction);
+
+    }
+
+    // Método para abrir una nueva ventana
+    private void btnRegresarOnAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Recuperar contraseña");
+
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void btnEnviarOnAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Recuperar contraseña");
+
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
