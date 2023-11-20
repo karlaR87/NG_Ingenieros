@@ -28,6 +28,9 @@ public class EmpleadosAsignadosControlador {
     @FXML
     private Button btnEliminar;
 
+    @FXML
+    private Button btnActualizar;
+
 
     @FXML
     private TableView<Empleados> tbEmpleados;
@@ -40,7 +43,55 @@ public class EmpleadosAsignadosControlador {
         btnCancelar.setOnAction(this::cerrarVentana);
         btnAgregar2.setOnAction(this::abrirAgregar);
         btnEliminar.setOnAction(this::eliminarEmpleado);
+        btnActualizar.setOnAction(this::abrirActualizar);
 
+    }
+
+    private void abrirActualizar(ActionEvent event) {
+        // Obtiene el empleado seleccionado
+        Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            try {
+                // Carga la nueva ventana
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/EmpleadosAProyectosActualizar.fxml"));
+                Parent root = loader.load();
+                Stage stageNueva = new Stage();
+                // Configurar la modalidad (bloquea la ventana principal)
+                stageNueva.initModality(Modality.APPLICATION_MODAL);
+                stageNueva.initStyle(StageStyle.UNDECORATED);
+
+                // Accede al controlador de la nueva ventana
+                EmpleadosAProyectosActualizarControlador actualizarController = loader.getController();
+
+                // Llama al método para cargar los datos del empleado seleccionado
+                actualizarController.cargarDatosEmpleado(empleadoSeleccionado);
+
+                stageNueva.setScene(new Scene(root));
+                // Muestra la nueva ventana
+                stageNueva.showAndWait();
+
+                // Actualiza los atributos del empleado existente en lugar de agregar uno nuevo
+                empleadoSeleccionado.setNombre(actualizarController.getPersonas().getNombre());
+                empleadoSeleccionado.setDui(actualizarController.getPersonas().getDui());
+                empleadoSeleccionado.setCorreo(actualizarController.getPersonas().getCorreo());
+                empleadoSeleccionado.setCargo(actualizarController.getPersonas().getCargo());
+                empleadoSeleccionado.setPlaza(actualizarController.getPersonas().getPlaza());
+                empleadoSeleccionado.setSueldoHora(actualizarController.getPersonas().getSueldoHora());
+                empleadoSeleccionado.setCuentaBancaria(actualizarController.getPersonas().getCuentaBancaria());
+                empleadoSeleccionado.setSueldoDia(actualizarController.getPersonas().getSueldoDia());
+
+
+
+                // Actualiza la tabla con las personas
+                tbEmpleados.refresh();
+                tbEmpleados.setItems(empleados);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No hay empleado seleccionado para actualizar.");
+        }
     }
 
     private void eliminarEmpleado(ActionEvent event) {

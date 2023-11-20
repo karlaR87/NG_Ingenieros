@@ -2,25 +2,31 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
+
+import java.util.Properties;
 import java.sql.ResultSet;
 import java.sql.*;
-
-
-
 public class RecuperacionContraseñaControlador {
     @FXML
-    private TextField txtCorreoRecu;
+    private Button btnEnviar;
+
     @FXML
-    private Button btnRegresar, btnEnviar;
+    private TextField txtCorreoRecu;
+
+    String correo = txtCorreoRecu.getText();
+    public void initialize() {
+        // Configura el evento de clic para el botón
+        //btnEnviar.setOnAction(this::btnEnviarOnAction);
+
+    }
+    /*private void btnEnviarOnAction(ActionEvent event) {
+        enviarcorreo();
+    }*/
 
 
 
@@ -45,6 +51,49 @@ public class RecuperacionContraseñaControlador {
 
 
     }
+
+    /*
+    public static void enviarcorreo() {
+
+        final String correoRemitente = "tucorreo@gmail.com"; // Cambia esto por tu dirección de correo
+        final String passwordCorreoRemitente = "tucontraseña"; // Cambia esto por tu contraseña
+
+        String destinatario = "destinatario@gmail.com"; // Cambia esto por la dirección de correo del destinatario
+
+        // Propiedades de la conexión
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        // Autenticación
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(correoRemitente, passwordCorreoRemitente);
+                    }
+                });
+
+        try {
+            // Creación del mensaje
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(correoRemitente));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(destinatario));
+            message.setSubject("Asunto del correo");
+            message.setText("Este es el cuerpo del correo.");
+
+            // Envío del mensaje
+            Transport.send(message);
+
+            System.out.println("¡Correo enviado!");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+*/
     public static void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -54,47 +103,4 @@ public class RecuperacionContraseñaControlador {
 
 
     }
-
-
-    public void initialize() {
-        // Configura el evento de clic para el botón
-        btnRegresar.setOnAction(this::btnRegresarOnAction);
-        btnEnviar.setOnAction(this::btnEnviarOnAction);
-
-    }
-
-    // Método para abrir una nueva ventana
-    private void btnRegresarOnAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Login.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Recuperar contraseña");
-
-
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void btnEnviarOnAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Recuperar contraseña");
-
-
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

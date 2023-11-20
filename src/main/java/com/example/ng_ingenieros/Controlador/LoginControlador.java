@@ -15,11 +15,13 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javafx.scene.control.CheckBox;
 
 public class LoginControlador {
 
@@ -33,6 +35,7 @@ public class LoginControlador {
     private Button btnIngresar;
     @FXML
     private Label lbmensaje;
+
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -49,7 +52,7 @@ public class LoginControlador {
 
     }
 
-    private void btnRegistrarOnAction(ActionEvent event){
+   private void btnRegistrarOnAction(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Registrarse.fxml"));
             Parent root = loader.load();
@@ -64,7 +67,7 @@ public class LoginControlador {
         }
     }
 
-    private void loadWindow() {
+   /*private void loadWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
             Parent root = loader.load();
@@ -77,9 +80,7 @@ public class LoginControlador {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
+    }*/
 
     public void validatelogin(){
         Conexion conexion = new Conexion();
@@ -125,6 +126,9 @@ public class LoginControlador {
         }
 
     }
+
+
+
 
 
    /* public void btnIngresarOnAction(ActionEvent event) {

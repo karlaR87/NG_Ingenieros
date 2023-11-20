@@ -97,7 +97,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="115.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+      <Button fx:id="btnActualizar" layoutX="115.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -108,7 +108,7 @@
       </Button>
       <Button fx:id="btnEliminar" layoutX="180.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
-            <ImageView  fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/btnEliminar.png" />
                </image>
