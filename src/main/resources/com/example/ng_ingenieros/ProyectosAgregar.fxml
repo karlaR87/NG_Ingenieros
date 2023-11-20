@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -10,9 +11,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #485256;" stylesheets="@EstiloProyectos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosAgregarControlador">
+<Pane prefHeight="540.0" prefWidth="753.0" style="-fx-background-color: #485256;" stylesheets="@EstiloProyectos.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosAgregarControlador">
    <children>
-      <AnchorPane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #485256;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="540.0" prefWidth="750.0" style="-fx-background-color: #485256;" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane prefHeight="58.0" prefWidth="750.0" style="-fx-background-color: #DD890B; -fx-background-radius: 0;">
                <children>
@@ -24,7 +25,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="btnGuardarProyecto" layoutX="214.0" layoutY="439.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+            <Button fx:id="btnGuardarProyecto" layoutX="204.0" layoutY="475.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -36,7 +37,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Button fx:id="btnCancelar" layoutX="386.0" layoutY="439.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancelar" layoutX="398.0" layoutY="475.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -68,16 +69,16 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="72.0" layoutY="341.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="388.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField id="txtNombre" fx:id="txtNombre" layoutX="159.0" layoutY="85.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese el nombre del proyecto" style="-fx-background-radius: 10;" />
             <TextField id="txtLugar" fx:id="txtLugar" layoutX="159.0" layoutY="148.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese la ubicación del proyecto" style="-fx-background-radius: 10;" />
-            <ComboBox id="cmbIngs" fx:id="cmIngeniero" layoutX="189.0" layoutY="216.0" prefHeight="34.0" prefWidth="464.0" style="-fx-background-radius: 10;" />
+            <ComboBox id="cmbIngs" fx:id="cmIngeniero" layoutX="189.0" layoutY="216.0" prefHeight="34.0" prefWidth="463.0" style="-fx-background-radius: 10;" />
             <TextField id="txtHoras" fx:id="txtHoras" layoutX="556.0" layoutY="278.0" prefHeight="34.0" prefWidth="101.0" promptText="horas de trabajo" style="-fx-background-radius: 10;" />
-            <Button fx:id="btnGestionar" layoutX="204.0" layoutY="341.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
+            <Button fx:id="btnGestionar" layoutX="204.0" layoutY="385.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -95,6 +96,18 @@
                </font>
             </Label>
             <ComboBox id="cmbIngs" fx:id="cmEstado" layoutX="240.0" layoutY="278.0" prefHeight="34.0" prefWidth="158.0" style="-fx-background-radius: 10;" />
+            <DatePicker layoutX="204.0" layoutY="337.0" prefHeight="25.0" prefWidth="115.0" />
+            <Label layoutX="69.0" layoutY="336.0" prefHeight="27.0" prefWidth="158.0" text="Fecha de inicio: " textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="355.0" layoutY="336.0" prefHeight="27.0" prefWidth="179.0" text="Fecha de finalización:" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker layoutX="534.0" layoutY="337.0" prefHeight="25.0" prefWidth="115.0" />
          </children>
       </AnchorPane>
    </children>

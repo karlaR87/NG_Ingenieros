@@ -124,6 +124,7 @@ public class ProyectosAgregarControlador {
         }
     }
 
+
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();

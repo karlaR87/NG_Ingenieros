@@ -1,23 +1,12 @@
-package com.example.ng_ingenieros.Controlador;
-
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.PanelesProyectos;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+package com.example.ng_ingenieros;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-
-import javafx.scene.control.Button;
-
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -25,46 +14,20 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
-public class MenuController implements Initializable {
+public class PanelesProyectos {
 
-    @FXML
-    public FlowPane panelUsuarios;
-
-
-    public void mostrarUsuarios() {
-
-        Stage st = new Stage();
-
+    public void mostrarUsuarios(FlowPane panelUsuarios, TextField campoBusqueda) {
         panelUsuarios.getChildren().clear();
-        panelUsuarios.setPadding(new Insets(10));
-        panelUsuarios.setVgap(10);
-        panelUsuarios.setHgap(10);
-        ScrollPane scrollPane = new ScrollPane(panelUsuarios);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        VBox root = new VBox(scrollPane); // Agrega el ScrollPane en lugar del panel de usuarios directamente
-        Scene scene = new Scene(root, 800, 600);
-        st.setScene(scene);
-
-
-        st.show();
 
 
         try (Connection connection = Conexion.obtenerConexion()) {
-            String sql = "select pr.idproyecto, pr.nombre_proyecto, pr.lugar_proyecto, pr.horas_trabajo, pr.fechaInicio, pr.FechaFin,\n" +
-                    "es.Estado_proyecto from tbProyectos pr\n" +
-                    "inner join tbEstadoProyectos es on es.idEstadoProyecto = pr.idEstadoProyecto";
+            String sql = "SELECT * FROM tbProyectos";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
@@ -75,12 +38,12 @@ public class MenuController implements Initializable {
                 int horasss = resultSet.getInt("horas_trabajo");
                 String fechaInicio = resultSet.getString("fechaInicio");
                 String fechafin = resultSet.getString("FechaFin");
-                String ide = resultSet.getString("Estado_proyecto");
+                int ide = resultSet.getInt("idEstadoProyecto");
 
                 // Crear un nuevo panel gris para mostrar el usuario
                 Pane panelUsuario = new Pane();
 
-                panelUsuario.setMinSize(100, 150);
+                panelUsuario.setMinSize(200, 150);
                 CornerRadii cornerRadii = new CornerRadii(10);
 
                 // Crea un relleno de fondo con un gradiente lineal
@@ -93,26 +56,26 @@ public class MenuController implements Initializable {
                 panelUsuario.setBackground(background);
 
                 // Agregar texto de usuario y email al panel
-                javafx.scene.control.Label labelUsuario = new javafx.scene.control.Label("Proyecto N° " + id);
-                labelUsuario.setFont(javafx.scene.text.Font.font("Times New Roman", FontWeight.BOLD, 27));
+                Label labelUsuario = new Label("Proyecto N° " + id);
+                labelUsuario.setFont(Font.font("Times New Roman", FontWeight.BOLD, 27));
                 labelUsuario.setAlignment(Pos.TOP_CENTER);
 
-                javafx.scene.control.Label labelEmail = new javafx.scene.control.Label("Nombre del proyecto: " + nombre);
-                labelEmail.setFont(javafx.scene.text.Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                Label labelEmail = new Label("Nombre del proyecto: " + nombre);
+                labelEmail.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-                javafx.scene.control.Label labellugar = new javafx.scene.control.Label("Ubicación: " + lugar);
-                labellugar.setFont(javafx.scene.text.Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                Label labellugar = new Label("Ubicación: " + lugar);
+                labellugar.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-                javafx.scene.control.Label labelUsuario1 = new javafx.scene.control.Label("Horas de trabajo: " + horasss);
-                labelUsuario1.setFont(javafx.scene.text.Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                Label labelUsuario1 = new Label("Horas de trabajo: " + horasss);
+                labelUsuario1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-                javafx.scene.control.Label labelEmail2 = new javafx.scene.control.Label("Fecha de inicio: " + fechaInicio);
-                labelEmail2.setFont(javafx.scene.text.Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                Label labelEmail2 = new Label("Fecha de inicio: " + fechaInicio);
+                labelEmail2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-                javafx.scene.control.Label labellugar2 = new javafx.scene.control.Label("Fecha de finalizacion: " + fechafin);
-                labellugar2.setFont(javafx.scene.text.Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                Label labellugar2 = new Label("Fecha de finalizacion: " + fechafin);
+                labellugar2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-                javafx.scene.control.Label labellugar3 = new javafx.scene.control.Label("Estado: " + ide);
+                Label labellugar3 = new Label("Estado: " + ide);
                 labellugar3.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
                 // Aplicar márgenes para crear espacio
@@ -132,7 +95,7 @@ public class MenuController implements Initializable {
                     int proyectoSeleccionadoHoras = horasss;
                     String proyectoSeleccionadoFechaInicio = fechaInicio;
                     String proyectoSeleccionadoFechaFin = fechafin;
-                    String proyectoSeleccionadoEstado = ide;
+                    int proyectoSeleccionadoEstado = ide;
 
                     cargarDetallesProyecto(proyectoSeleccionadoId, proyectoSeleccionadoNombre, proyectoSeleccionadoLugar,
                             proyectoSeleccionadoHoras, proyectoSeleccionadoFechaInicio, proyectoSeleccionadoFechaFin,
@@ -147,6 +110,29 @@ public class MenuController implements Initializable {
 
 
 
+                campoBusqueda.textProperty().addListener((observable, oldValue, newValue) -> {
+                    String textoBusqueda = newValue.toLowerCase();
+
+                    for (Node node : panelUsuarios.getChildren()) {
+                        if (node instanceof Pane) {
+                            Pane panel = (Pane) node;
+                            for (Node labelNode : panel.getChildren()) {
+                                if (labelNode instanceof VBox) {
+                                    VBox vBoxPanel = (VBox) labelNode;
+                                    for (Node label : vBoxPanel.getChildren()) {
+                                        if (label instanceof Label) {
+                                            String textoLabel = ((Label) label).getText().toLowerCase();
+                                            panel.setVisible(textoLabel.contains(textoBusqueda));
+
+                                            break; // Evita procesar más labels en el VBox
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                });
 
 
 
@@ -159,7 +145,7 @@ public class MenuController implements Initializable {
     }
 
     private void cargarDetallesProyecto(int id, String nombre, String lugar, int horas, String fechaInicio,
-                                        String fechaFin, String estado) {
+                                        String fechaFin, int estado) {
 
 
         // Crear una nueva ventana (Stage) y una nueva escena (Scene) para mostrar los detalles del proyecto
@@ -268,53 +254,5 @@ public class MenuController implements Initializable {
         }*/
 
     }
-
-    @FXML
-    private BorderPane NuevoIdParaElCentro;
-
-
-    @FXML
-    private void abrirInicio(ActionEvent event) {
-
-
-        loadWindow("/com/example/ng_ingenieros/Incio.fxml");
-        this.mostrarUsuarios();
-    }
-
-
-
-    @FXML
-    private void abrirProyectos(ActionEvent event) {
-
-
-        loadWindow("/com/example/ng_ingenieros/Proyectos.fxml");
-    }
-
-    @FXML
-    private void abrirEmpleados(ActionEvent event) {
-        // Cambiar el color de fondo y el color del texto al hacer clic en el botón "Empleados"
-
-
-        loadWindow("/com/example/ng_ingenieros/Empleados.fxml");
-
-
-    }
-
-    private void loadWindow(String fxmlFile) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Parent root = loader.load();
-            NuevoIdParaElCentro.setCenter(root);  // Establecer el root en el centro del BorderPane
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Cargar la ventana "Inicio" en el panel central al iniciar la aplicación
-
-    }
-
 
 }

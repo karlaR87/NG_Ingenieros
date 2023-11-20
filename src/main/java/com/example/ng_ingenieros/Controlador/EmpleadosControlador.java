@@ -61,6 +61,7 @@ public class EmpleadosControlador {
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
 
         eliminarEmpleado();
+        cargarDatos();
     }
 
     public void abrirVentanaActualizar() {

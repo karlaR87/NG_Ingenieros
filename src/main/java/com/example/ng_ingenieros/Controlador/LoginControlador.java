@@ -106,9 +106,8 @@ public class LoginControlador {
 
                         stage.setScene(new Scene(root));
                         stage.show();
-                        ((Stage) txtUsuario.getScene().getWindow()).close();
                     } catch (Exception e) {
-                            e.printStackTrace();
+                        e.printStackTrace();
                     }
                 }
                 else{

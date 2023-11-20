@@ -1,5 +1,8 @@
 package com.example.ng_ingenieros.Controlador;
 
+import com.example.ng_ingenieros.Empleados;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,9 +10,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class EmpleadosAsignadosControlador {
 
@@ -19,31 +25,48 @@ public class EmpleadosAsignadosControlador {
     @FXML
     private Button btnAgregar2;
 
+    @FXML
+    private TableView<Empleados> tbEmpleados;
+
+    private ObservableList<Empleados> empleados = FXCollections.observableArrayList();
+
+
     public void initialize() {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::cerrarVentana);
-        btnAgregar2.setOnAction(this::AbrirEmp);
+        btnAgregar2.setOnAction(this::abrirAgregar);
 
     }
-    private void AbrirEmp(ActionEvent actionEvent) {
+    @FXML
+    private void abrirAgregar(ActionEvent event) {
         try {
-            // Cargar el archivo FXML
+            // Carga la nueva ventana
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/AgregarEmpleadosAProyectos.fxml"));
             Parent root = loader.load();
-
-            // Crear un nuevo Stage
-            Stage stage = new Stage();
-
+            Stage stageNueva = new Stage();
             // Configurar la modalidad (bloquea la ventana principal)
-            stage.initModality(Modality.APPLICATION_MODAL);
+            stageNueva.initModality(Modality.APPLICATION_MODAL);
+            stageNueva.initStyle(StageStyle.UNDECORATED);
 
-            //  quitar la barra de título
-            stage.initStyle(StageStyle.UNDECORATED);
+            // Accede al controlador de la nueva ventana
+            AgregarEmpleadosAProyectosC agregarEmpleadosAProyectosC = loader.getController();
 
-            stage.setScene(new Scene(root));
-            stage.showAndWait(); // Mostrar y esperar hasta que se cierre
+            stageNueva.setScene(new Scene(root));
+            // Muestra la nueva ventana
+            stageNueva.showAndWait();
 
-        } catch (Exception e) {
+
+
+            // Agrega las personas desde agregarPersonasController a la lista
+            empleados.addAll(agregarEmpleadosAProyectosC.getPersonas());
+
+            // Actualiza la tabla con las personas
+            tbEmpleados.setItems(empleados);
+
+            // Cierra la ventana de AgregarPersonasController
+            stageNueva.close();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
