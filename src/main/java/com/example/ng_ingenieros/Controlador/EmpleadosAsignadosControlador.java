@@ -26,6 +26,10 @@ public class EmpleadosAsignadosControlador {
     private Button btnAgregar2;
 
     @FXML
+    private Button btnEliminar;
+
+
+    @FXML
     private TableView<Empleados> tbEmpleados;
 
     private ObservableList<Empleados> empleados = FXCollections.observableArrayList();
@@ -35,7 +39,25 @@ public class EmpleadosAsignadosControlador {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::cerrarVentana);
         btnAgregar2.setOnAction(this::abrirAgregar);
+        btnEliminar.setOnAction(this::eliminarEmpleado);
 
+    }
+
+    private void eliminarEmpleado(ActionEvent event) {
+        // Obtiene la fila seleccionada
+        Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
+
+        // Verifica si hay una fila seleccionada
+        if (empleadoSeleccionado != null) {
+            // Elimina el empleado de la lista
+            empleados.remove(empleadoSeleccionado);
+
+            // Actualiza la tabla con las personas
+            tbEmpleados.setItems(empleados);
+        } else {
+            // Muestra un mensaje si no hay una fila seleccionada
+            System.out.println("No hay empleado seleccionado para eliminar.");
+        }
     }
     @FXML
     private void abrirAgregar(ActionEvent event) {
@@ -71,11 +93,14 @@ public class EmpleadosAsignadosControlador {
         }
     }
 
+
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
+
 
 
 
