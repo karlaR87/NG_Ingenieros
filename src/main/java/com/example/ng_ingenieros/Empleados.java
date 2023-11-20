@@ -3,7 +3,7 @@ package com.example.ng_ingenieros;
 import java.sql.*;
 
 public class Empleados {
-    private int id;
+    private  int id;
     private String nombre;
 
 
@@ -27,7 +27,7 @@ this.cuentaBancaria=numCuenta;
     }
 
 
-    public int getId() {
+    public  int getId() {
         return id;
     }
 
