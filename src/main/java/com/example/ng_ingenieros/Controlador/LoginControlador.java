@@ -49,7 +49,7 @@ public class LoginControlador {
 
     }
 
-    private void btnRegistrarOnAction(ActionEvent event){
+   private void btnRegistrarOnAction(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Registrarse.fxml"));
             Parent root = loader.load();
@@ -64,7 +64,7 @@ public class LoginControlador {
         }
     }
 
-    private void loadWindow() {
+   /*private void loadWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
             Parent root = loader.load();
@@ -77,7 +77,7 @@ public class LoginControlador {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 

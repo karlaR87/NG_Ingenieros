@@ -76,6 +76,38 @@ public class EmpleadosControlador {
 
                 root = loader.load();
                 // Obtener el controlador de la ventana de actualización
+                actualizar_empleadosControlador actualizarEmpleadosControlador = loader.getController();
+
+                // Pasar la referencia de TableEmpleados al controlador de la ventana de actualización
+                actualizarEmpleadosControlador.initialize(empleadoSeleccionado);
+
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                actualizarEmpleadosControlador.setTableEmpleados(TableEmpleados);
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
+        }
+    }
+
+
+
+    /*public void abrirVentanaActualizar() {
+        // Obtener la fila seleccionada
+        Empleados empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/actualizar_empleados.fxml"));
+            Parent root;
+            try {
+
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
                 actualizar_empleadosControlador actualizarEmpleadosControlador =loader.getController();
 
                 // Pasar los datos de la fila seleccionada al controlador de la ventana de actualización
@@ -94,7 +126,7 @@ public class EmpleadosControlador {
 
 
         }
-    }
+    }*/
 
 
 
