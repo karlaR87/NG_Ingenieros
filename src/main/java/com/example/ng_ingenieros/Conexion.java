@@ -11,12 +11,13 @@ public class Conexion {
 // cambiar el server name por el que les aparezca en sqlserver.
 
     //private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-KD9DVMM:63886;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
+    private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-LSV5E7C:53617;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
 
-    private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-6A0RB95:52575;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
+    //private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-6A0RB95:52575;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
 
     //private static final String URL = "jdbc:sqlserver://localhost\\LAPTOP-J5ID0GJ2:51100;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
     private static final String USUARIO = "sa";
-    private static final String CONTRASENA = "itr2023";  //cambiar la contraseña por la de sus usuarios de sql
+    private static final String CONTRASENA = "jake123";  //cambiar la contraseña por la de sus usuarios de sql
 
     public static Connection conexion = null;
 
