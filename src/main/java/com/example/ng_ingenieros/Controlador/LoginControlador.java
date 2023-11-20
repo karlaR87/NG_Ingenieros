@@ -15,11 +15,13 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javafx.scene.control.CheckBox;
 
 public class LoginControlador {
 
@@ -33,6 +35,7 @@ public class LoginControlador {
     private Button btnIngresar;
     @FXML
     private Label lbmensaje;
+
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -79,8 +82,6 @@ public class LoginControlador {
         }
     }*/
 
-
-
     public void validatelogin(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
@@ -125,6 +126,9 @@ public class LoginControlador {
         }
 
     }
+
+
+
 
 
    /* public void btnIngresarOnAction(ActionEvent event) {
