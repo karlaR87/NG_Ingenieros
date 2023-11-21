@@ -140,6 +140,7 @@ public class PanelesProyectos {
         Stage stage = new Stage();
 
         FlowPane panelMos = new FlowPane();
+        panelMos.setStyle("-fx-background-color: #333333");
 
         Pane panel = new Pane();
         panel.setStyle("-fx-background-color: #333333; -fx-padding: 10px; -fx-spacing: 5px;");
