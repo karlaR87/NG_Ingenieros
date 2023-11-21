@@ -1,4 +1,5 @@
 package com.example.ng_ingenieros;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,237 +23,190 @@ import java.sql.SQLException;
 
 public class PanelesProyectos {
 
-    public void mostrarUsuarios(FlowPane panelUsuarios, TextField campoBusqueda) {
-        panelUsuarios.getChildren().clear();
+    @FXML
+    private VBox contenedorPrincipal;
 
+    public void initialize()
+    {
+        cargarDatosDesdeDB();
+    }
 
-        try (Connection connection = Conexion.obtenerConexion()) {
-            String sql = "SELECT * FROM tbProyectos";
-            PreparedStatement statement = connection.prepareStatement(sql);
+    private void cargarDatosDesdeDB() {
+        // Conexión a la base de datos
+        contenedorPrincipal.setStyle("-fx-background-color: #616E73");
+
+        try {
+            Connection conn = Conexion.obtenerConexion();
+
+            String sql = "SELECT *\n" +
+                    "FROM (\n" +
+                    "    SELECT p.idproyecto, p.nombre_proyecto, p.lugar_proyecto, p.horas_trabajo, p.fechaInicio, p.FechaFin, pe.Estado_proyecto\n" +
+                    "    FROM tbProyectos p\n" +
+                    "\tInner join tbEstadoProyectos pe on pe.idEstadoProyecto = p.idEstadoProyecto\n" +
+                    "    WHERE Estado_proyecto = 'Finalizado'\n" +
+                    "\n" +
+                    "    UNION ALL\n" +
+                    "\n" +
+                    "     SELECT p.idproyecto, p.nombre_proyecto, p.lugar_proyecto, p.horas_trabajo, p.fechaInicio, p.FechaFin, pe.Estado_proyecto\n" +
+                    "    FROM tbProyectos p\n" +
+                    "\tInner join tbEstadoProyectos pe on pe.idEstadoProyecto = p.idEstadoProyecto\n" +
+                    "    WHERE Estado_proyecto = 'En Ejecución'\n" +
+                    ") AS Proyectos\n" +
+                    "ORDER BY Estado_proyecto, CASE WHEN Estado_proyecto = 'En Ejecución' THEN fechaInicio END DESC;";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("idproyecto");
-                String nombre = resultSet.getString("nombre_proyecto");
-                String lugar = resultSet.getString("lugar_proyecto");
-                int horasss = resultSet.getInt("horas_trabajo");
+                String nombreProyecto = resultSet.getString("nombre_proyecto");
+                String lugarProyecto = resultSet.getString("lugar_proyecto");
+                int horasTrabajo = resultSet.getInt("horas_trabajo");
                 String fechaInicio = resultSet.getString("fechaInicio");
-                String fechafin = resultSet.getString("FechaFin");
-                int ide = resultSet.getInt("idEstadoProyecto");
+                String fechaFIIn = resultSet.getString("FechaFin");
+                String estado = resultSet.getString("Estado_proyecto");
 
-                // Crear un nuevo panel gris para mostrar el usuario
-                Pane panelUsuario = new Pane();
+                // Crear un Panel para cada conjunto de datos
+                Pane panel = new Pane();
+                panel.setStyle("-fx-background-color: #333333; -fx-padding: 10px; -fx-spacing: 5px;");
 
-                panelUsuario.setMinSize(200, 150);
-                CornerRadii cornerRadii = new CornerRadii(10);
+                // Crear etiquetas para mostrar los datos
+                Label labelID = new Label("Proyecto N° " + id);
+                Label labelProyecto = new Label("Proyecto: " + nombreProyecto);
+                Label labelLugar = new Label("Lugar: " + lugarProyecto);
+                Label labelHoras = new Label("Horas de Trabajo: " + horasTrabajo);
+                Label labelfechai = new Label("Fecha de inicio: " + fechaInicio);
+                Label labelfechaf = new Label("Fecha de finalización: " + fechaFIIn);
+                Label labelestado = new Label("Estado del proyecto: " + estado);
 
-                // Crea un relleno de fondo con un gradiente lineal
-                Stop[] stops = new Stop[]{new Stop(0, Color.LIGHTGRAY), new Stop(1, Color.DARKGRAY)};
-                LinearGradient linearGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-                BackgroundFill backgroundFill = new BackgroundFill(linearGradient, cornerRadii, Insets.EMPTY);
-                Background background = new Background(backgroundFill);
+                // Establecer color de texto
+                labelID.setTextFill(Color.WHITE);
+                labelProyecto.setTextFill(Color.WHITE);
+                labelLugar.setTextFill(Color.WHITE);
+                labelHoras.setTextFill(Color.WHITE);
+                labelfechai.setTextFill(Color.WHITE);
+                labelfechaf.setTextFill(Color.WHITE);
+                labelestado.setTextFill(Color.WHITE);
 
-                // Aplica el fondo redondeado al panel de usuarios
-                panelUsuario.setBackground(background);
+                // Posicionar etiquetas dentro del Panel
+                labelID.setLayoutY(10);
+                labelProyecto.setLayoutY(40);
+                labelLugar.setLayoutY(70);
+                labelHoras.setLayoutY(100);
+                labelfechai.setLayoutY(130);
+                labelfechaf.setLayoutY(160);
+                labelestado.setLayoutY(190);
 
-                // Agregar texto de usuario y email al panel
-                Label labelUsuario = new Label("Proyecto N° " + id);
-                labelUsuario.setFont(Font.font("Times New Roman", FontWeight.BOLD, 27));
-                labelUsuario.setAlignment(Pos.TOP_CENTER);
+                // Agregar etiquetas al Panel
+                panel.getChildren().addAll(labelID, labelProyecto, labelLugar, labelHoras, labelfechai, labelfechaf, labelestado);
 
-                Label labelEmail = new Label("Nombre del proyecto: " + nombre);
-                labelEmail.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                // Crear un VBox para cada Panel y agregar el Panel al VBox
+                VBox vboxDato = new VBox(panel);
+                vboxDato.setStyle("-fx-padding: 10px; -fx-spacing: 5px;");
 
-                Label labellugar = new Label("Ubicación: " + lugar);
-                labellugar.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+                // Agregar el VBox al VBox principal
+                contenedorPrincipal.getChildren().add(vboxDato);
 
-                Label labelUsuario1 = new Label("Horas de trabajo: " + horasss);
-                labelUsuario1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-                Label labelEmail2 = new Label("Fecha de inicio: " + fechaInicio);
-                labelEmail2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
-
-                Label labellugar2 = new Label("Fecha de finalizacion: " + fechafin);
-                labellugar2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
-
-                Label labellugar3 = new Label("Estado: " + ide);
-                labellugar3.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
-
-                // Aplicar márgenes para crear espacio
-                VBox.setMargin(labelUsuario, new Insets(10)); // Ajusta los valores de los márgenes según tus preferencias
-                VBox.setMargin(labelEmail, new Insets(10));   // Ajusta los valores de los márgenes según tus preferencias
-                VBox.setMargin(labellugar, new Insets(10));
-                VBox.setMargin(labelUsuario1, new Insets(10));
-                VBox.setMargin(labelEmail2, new Insets(10));
-                VBox.setMargin(labellugar2, new Insets(10));
-                VBox.setMargin(labellugar3, new Insets(10));
-                VBox vBox = new VBox(labelUsuario, labelEmail, labellugar, labelUsuario1, labelEmail2, labellugar2, labellugar3);//agrega el label con la informacion
-
-                panelUsuario.setOnMouseClicked(event -> {
+                panel.setOnMouseClicked(event -> {
                     int proyectoSeleccionadoId = id;
-                    String proyectoSeleccionadoNombre = nombre;
-                    String proyectoSeleccionadoLugar = lugar;
-                    int proyectoSeleccionadoHoras = horasss;
+                    String proyectoSeleccionadoNombre = nombreProyecto;
+                    String proyectoSeleccionadoLugar = lugarProyecto;
+                    int proyectoSeleccionadoHoras = horasTrabajo;
                     String proyectoSeleccionadoFechaInicio = fechaInicio;
-                    String proyectoSeleccionadoFechaFin = fechafin;
-                    int proyectoSeleccionadoEstado = ide;
+                    String proyectoSeleccionadoFechaFin = fechaFIIn;
+                    String proyectoSeleccionadoEstado = estado;
 
                     cargarDetallesProyecto(proyectoSeleccionadoId, proyectoSeleccionadoNombre, proyectoSeleccionadoLugar,
                             proyectoSeleccionadoHoras, proyectoSeleccionadoFechaInicio, proyectoSeleccionadoFechaFin,
                             proyectoSeleccionadoEstado);
 
                 });
-
-                panelUsuario.getChildren().add(vBox);
-
-
-                panelUsuarios.getChildren().add(panelUsuario);
-
-
-
-                campoBusqueda.textProperty().addListener((observable, oldValue, newValue) -> {
-                    String textoBusqueda = newValue.toLowerCase();
-
-                    for (Node node : panelUsuarios.getChildren()) {
-                        if (node instanceof Pane) {
-                            Pane panel = (Pane) node;
-                            for (Node labelNode : panel.getChildren()) {
-                                if (labelNode instanceof VBox) {
-                                    VBox vBoxPanel = (VBox) labelNode;
-                                    for (Node label : vBoxPanel.getChildren()) {
-                                        if (label instanceof Label) {
-                                            String textoLabel = ((Label) label).getText().toLowerCase();
-                                            panel.setVisible(textoLabel.contains(textoBusqueda));
-
-                                            break; // Evita procesar más labels en el VBox
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                });
-
-
-
-
-
             }
+
+            resultSet.close();
+            statement.close();
+            Conexion.cerrarConexion();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void cargarDetallesProyecto(int id, String nombre, String lugar, int horas, String fechaInicio,
-                                        String fechaFin, int estado) {
+    //ventana nueva
+    private void cargarDetallesProyecto(int id, String nombre, String lugar, int horas, String fechaIn, String fechaFi, String est) {
 
 
-        // Crear una nueva ventana (Stage) y una nueva escena (Scene) para mostrar los detalles del proyecto
-        Stage detallesStage = new Stage();
+        Stage stage = new Stage();
+
+        FlowPane panelMos = new FlowPane();
+
+        Pane panel = new Pane();
+        panel.setStyle("-fx-background-color: #333333; -fx-padding: 10px; -fx-spacing: 5px;");
+        panel.setMinSize(200, 300);
 
 
-        FlowPane panelUsuario = new FlowPane();
+        Label labelID = new Label("Proyecto N° " + id);
+        labelID.setFont(Font.font("Times New Roman", FontWeight.BOLD, 30));
 
-        Pane panelVista = new Pane();
+        Label labelProyecto = new Label("Proyecto: " + nombre);
+        labelProyecto.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-        panelVista.setMinSize(200, 300);
-        CornerRadii cornerRadii = new CornerRadii(10);
+        Label labelLugar = new Label("Lugar: " + lugar);
+        labelLugar.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-        // Crea un relleno de fondo con un gradiente lineal
-        Stop[] stops = new Stop[]{new Stop(0, Color.LIGHTGRAY), new Stop(1, Color.DARKGRAY)};
-        LinearGradient linearGradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        BackgroundFill backgroundFill = new BackgroundFill(linearGradient, cornerRadii, Insets.EMPTY);
-        Background background = new Background(backgroundFill);
+        Label labelHoras = new Label("Horas de Trabajo: " + horas);
+        labelHoras.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-        panelVista.setBackground(background);
+        Label labelfechai = new Label("Fecha de inicio: " + fechaIn);
+        labelfechai.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
+        Label labelfechaf = new Label("Fecha de finalización: " + fechaFi);
+        labelfechaf.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-        // Agregar labels con los detalles del proyecto al VBox
-        Label labelUsuario = new Label("Proyecto N° " + id);
-        labelUsuario.setFont(Font.font("Times New Roman", FontWeight.BOLD, 27));
-        labelUsuario.setAlignment(Pos.TOP_CENTER);
+        Label labelestado = new Label("Estado del proyecto: " + est);
+        labelestado.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
-        Label labelEmail = new Label("Nombre del proyecto: " + nombre);
-        labelEmail.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+        // Establecer color de texto
+        labelID.setTextFill(Color.WHITE);
+        labelProyecto.setTextFill(Color.WHITE);
+        labelLugar.setTextFill(Color.WHITE);
+        labelHoras.setTextFill(Color.WHITE);
+        labelfechai.setTextFill(Color.WHITE);
+        labelfechaf.setTextFill(Color.WHITE);
+        labelestado.setTextFill(Color.WHITE);
 
-        Label labellugar = new Label("Ubicación: " + lugar);
-        labellugar.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+        // Posicionar etiquetas dentro del Panel
+        labelID.setLayoutY(10);
+        labelProyecto.setLayoutY(70);
+        labelLugar.setLayoutY(100);
+        labelHoras.setLayoutY(130);
+        labelfechai.setLayoutY(160);
+        labelfechaf.setLayoutY(190);
+        labelestado.setLayoutY(220);
 
-        Label labelUsuario1 = new Label("Horas de trabajo: " + horas);
-        labelUsuario1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+        // Agregar etiquetas al Panel
+        panel.getChildren().addAll(labelID, labelProyecto, labelLugar, labelHoras, labelfechai, labelfechaf, labelestado);
 
-        Label labelEmail2 = new Label("Fecha de inicio: " + fechaInicio);
-        labelEmail2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+        // Crear un VBox para cada Panel y agregar el Panel al VBox
+        VBox vboxDato = new VBox(panel);
+        vboxDato.setStyle("-fx-padding: 10px; -fx-spacing: 5px;");
 
-        Label labellugar2 = new Label("Fecha de finalizacion: " + fechaFin);
-        labellugar2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+        // Agregar el VBox al VBox principal
 
-        Label labellugar3 = new Label("Estado: " + estado);
-        labellugar3.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
+        panelMos.getChildren().add(panel);
+        panel.getChildren().add(vboxDato);
 
-        Label labelEspacio = new Label("");
-
-
-
-        Label labellugar4 = new Label("NG Ingenieros");
-        labellugar4.setFont(Font.font("Times New Roman", FontWeight.BOLD, 10));
-
-
-        VBox.setMargin(labelUsuario, new Insets(10)); // Ajusta los valores de los márgenes según tus preferencias
-        VBox.setMargin(labelEmail, new Insets(10));   // Ajusta los valores de los márgenes según tus preferencias
-        VBox.setMargin(labellugar, new Insets(10));
-        VBox.setMargin(labelUsuario1, new Insets(10));
-        VBox.setMargin(labelEmail2, new Insets(10));
-        VBox.setMargin(labellugar2, new Insets(10));
-        VBox.setMargin(labellugar3, new Insets(10));
-        VBox.setMargin(labelEspacio, new Insets(10));
-        VBox.setMargin(labellugar4, new Insets(20));
-        VBox vBox = new VBox(labelUsuario, labelEmail, labellugar, labelUsuario1, labelEmail2, labellugar2, labellugar3,labelEspacio, labellugar4);//agrega el label con la informacion
-
-
-
-        ScrollPane scroll = new ScrollPane(panelUsuario);
+        ScrollPane scroll = new ScrollPane(panelMos);
         scroll.setFitToWidth(true);
         scroll.setFitToHeight(true);
 
-        // Crear una nueva escena para el panelUsuario y establecer el VBox como su contenido
         Scene detallesScene = new Scene(scroll, 500, 300);
-
-
-        panelUsuario.getChildren().add(panelVista);
-        panelVista.getChildren().add(vBox);
-
-
-
-
-        // Establecer la escena en la ventana y mostrar la ventana
-        detallesStage.setScene(detallesScene);
-        detallesStage.show();
-
-
-        //-----------------------------------------------------------------------
-    /*private void eliminarPanelesSeleccionados(FlowPane panelUsuarios) {
-        // Obtener todos los paneles seleccionados
-        for (Node node : panelUsuarios.getChildren()) {
-            if (node instanceof Pane) {
-                Pane panelUsuario = (Pane) node;
-
-                // Verificar si el panel está seleccionado (puedes aj ustar esta lógica según tus necesidades)
-                if (panelUsuario.getStyle().contains("-fx-background-color: lightgray")) {
-                    // Obtener el ID del proyecto del panel
-                    int idProyecto = Integer.parseInt(((Label) ((VBox) panelUsuario.getChildren().get(0)).getChildren().get(0)).getText().replace("ID: ", ""));
-
-                    // Eliminar el proyecto de la base de datos
-                    eliminarProyecto(idProyecto);
-
-                    // Eliminar el panel del FlowPane
-                    panelUsuarios.getChildren().remove(panelUsuario);
-                }
-
-            }
-        }*/
-
+        stage.setScene(detallesScene);
+        stage.show();
     }
+
+
+
 
 }
