@@ -14,7 +14,7 @@ public class HelloApplication extends Application {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuPrincipal.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 500); //width, heigth
+        Scene scene = new Scene(fxmlLoader.load(), 700, 450); //width, heigth
         stage.setTitle("NG Ingenieros");
         stage.setScene(scene);
         stage.show();
