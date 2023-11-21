@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -71,6 +72,9 @@ public class actualizar_empleadosControlador {
 
     }
 
+    public void setTableEmpleados(TableView<Empleados> tableEmpleados) {
+        this.TableEmpleados = tableEmpleados;
+    }
 
 
 
@@ -107,7 +111,7 @@ public class actualizar_empleadosControlador {
 
         // Realizar la actualización en la base de datos
         try (Connection conn = Conexion.obtenerConexion()) {
-            String sql = "UPDATE tbempleados SET nombreCompleto=?, dui=?, correo=?, sueldoDia=?, sueldoHoraExt=?, numero_cuentabancaria=?, idcargo=?, idtipoPlaza=? WHERE idempleado=?";
+            String sql = "UPDATE tbempleados SET nombreCompleto=?, dui=?, correo=?, sueldo_dia=?, sueldo_HoraExt=?, numero_cuentabancaria=?, idcargo=?, idtipoPlaza=? WHERE idempleado=?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, nombreN);
                 ps.setString(2, duiN);
@@ -123,8 +127,9 @@ public class actualizar_empleadosControlador {
                 agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            e.printStackTrace();
+
         }
     }
 

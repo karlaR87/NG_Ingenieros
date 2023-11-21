@@ -4,57 +4,103 @@ import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+public class EmpleadosAProyectosActualizarControlador {
 
-public class AgregarEmpleadosAProyectosC {
     @FXML
     private TextField txtNombreEmp;
+
     @FXML
     private TextField txtDuiEmp;
+
     @FXML
     private TextField txtCorreoEmp;
+
     @FXML
     private ComboBox<String> cbCargoEmp;
+
     @FXML
     private ComboBox<String> cbPlaza;
+
     @FXML
     private TextField txtPagoHorasExEmp;
+
     @FXML
     private TextField txtNumCuenta;
+
     @FXML
     private TextField txtSueldoEmp;
-    @FXML
-    private Button btnCancelar;
 
     @FXML
     private Button btnGuardar;
 
-
-    private ObservableList<Empleados> empleados = FXCollections.observableArrayList();
-
+    private Empleados empleadoParaActualizar;
 
 
     public void initialize() {
-        // Configura el evento de clic para el botón
-        btnGuardar.setOnAction(this::Guardar);
-        btnCancelar.setOnAction(this::cerrarVentana);
 
         CargarCargo();
         CargarPlaza();
 
+    }
+    public void cargarDatosEmpleado(Empleados empleado) {
+        this.empleadoParaActualizar = empleado;
+
+        // Llena los campos del formulario con los datos del empleado para actualizar
+        if (empleado != null) {
+            txtNombreEmp.setText(empleado.getNombre());
+            txtDuiEmp.setText(empleado.getDui());
+            txtCorreoEmp.setText(empleado.getCorreo());
+            cbCargoEmp.setValue(empleado.getCargo());
+            cbPlaza.setValue(empleado.getPlaza());
+            txtPagoHorasExEmp.setText(String.valueOf(empleado.getSueldoHora()));
+            txtNumCuenta.setText(empleado.getCuentaBancaria());
+            txtSueldoEmp.setText(String.valueOf(empleado.getSueldoDia()));
+        }
+    }
+
+
+    @FXML
+    private void guardar(ActionEvent event) {
+        // Actualiza los datos del empleado con los valores de los campos del formulario
+        if (empleadoParaActualizar != null) {
+            empleadoParaActualizar.setNombre(txtNombreEmp.getText());
+            empleadoParaActualizar.setDui(txtDuiEmp.getText());
+            empleadoParaActualizar.setCorreo(txtCorreoEmp.getText());
+            empleadoParaActualizar.setCargo(cbCargoEmp.getValue());
+            empleadoParaActualizar.setPlaza(cbPlaza.getValue());
+            empleadoParaActualizar.setSueldoHora(Double.parseDouble(txtPagoHorasExEmp.getText()));
+            empleadoParaActualizar.setCuentaBancaria(txtNumCuenta.getText());
+            empleadoParaActualizar.setSueldoDia(Double.parseDouble(txtSueldoEmp.getText()));
+
+
+        }
+
+
+        // Imprimir en la consola los datos actualizados
+        System.out.println("Datos actualizados: " + empleadoParaActualizar.toString());
+
+        // Cierra la ventana después de guardar cambios
+        cerrarVentana(event);
+
+    }
+    @FXML
+    private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     private void CargarCargo() {
@@ -105,56 +151,8 @@ public class AgregarEmpleadosAProyectosC {
         cbPlaza.setItems(data);
     }
 
-
-    ///GUARDAR EN ARRAY
-    @FXML
-    private void agregarEmpleado(javafx.event.ActionEvent actionEvent){
-        //obtener todos los valores
-
-        String nombre = txtNombreEmp.getText();
-        String dui = txtDuiEmp.getText();
-        String correo = txtCorreoEmp.getText();
-        String cargo = cbCargoEmp.getValue();
-        String plaza = cbPlaza.getValue();
-        Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
-        String numCuenta = txtNumCuenta.getText();
-        Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
-
-// Crea una nueva instancia de Empleados y agrega a la lista observable
-        Empleados empleado = new Empleados(nombre, dui,correo,cargo,plaza,sueldoHora,numCuenta,sueldo);
-        empleados.add(empleado);
-// Imprime un mensaje en consola con todas las personas
-        System.out.println("Personas agregadas: " + empleado);
-// Después de utilizar los valores, limpiar los campos
-        txtNombreEmp.clear();
-        txtDuiEmp.clear();
-        txtCorreoEmp.clear();
-        cbCargoEmp.setValue(null);
-        cbPlaza.setValue(null);
-        txtPagoHorasExEmp.clear();
-        txtNumCuenta.clear();
-        txtSueldoEmp.clear();
-
-
+    public Empleados  getPersonas() {
+        return empleadoParaActualizar;
     }
-
-    private void Guardar(javafx.event.ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
-
-    private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        empleados.clear();
-        stage.close();
-    }
-
-
-    public ObservableList<Empleados> getPersonas() {
-        return empleados;
-    }
-
 
 }

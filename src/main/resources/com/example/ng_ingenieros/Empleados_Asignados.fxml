@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -49,11 +50,43 @@
             </DropShadow>
          </effect>
       </Button>
-      <TableView layoutX="52.0" layoutY="102.0" prefHeight="264.0" prefWidth="649.0">
+      <TableView fx:id="tbEmpleados" layoutX="52.0" layoutY="102.0" prefHeight="264.0" prefWidth="649.0">
         <columns>
-          <TableColumn prefWidth="279.0" text="C1" />
-          <TableColumn prefWidth="275.0" text="C2" />
-        </columns>
+           <TableColumn prefWidth="75.0" text="Nombre">
+              <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="Dui">
+              <cellValueFactory><PropertyValueFactory property="dui" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="Correo">
+              <cellValueFactory><PropertyValueFactory property="correo" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="Idcargo">
+              <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="IdTipoPlaza">
+              <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="Sueldo_horaExt">
+              <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="NumeroCuenta">
+              <cellValueFactory><PropertyValueFactory property="cuentaBancaria" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="75.0" text="sueldo_dia">
+              <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
+           </TableColumn>
+
+
+
+          </columns>
       </TableView>
       <Button fx:id="btnAgregar2" layoutX="52.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
@@ -64,7 +97,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="115.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+      <Button fx:id="btnActualizar" layoutX="115.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -73,7 +106,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="180.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+      <Button fx:id="btnEliminar" layoutX="180.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>

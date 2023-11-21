@@ -18,10 +18,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class RegistrarseControlador {
@@ -68,25 +65,19 @@ public class RegistrarseControlador {
             e.printStackTrace();
         }
     }
-
-
     private void BtnSiguienteOnAction(ActionEvent event) {
         registrardatos();
-
     }
 
-    public void registrardatos(){
-        Conexion conexion = new Conexion();
-        Connection connection = conexion.obtenerConexion();
 
+    public void registrardatos(){
         String nombre = txtNombre.getText();
         String dui = txtDui.getText();
         String correo = txtCorreoE.getText();
-
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.obtenerConexion();
          //ahora crea un String para hacer la insercion
-        String Insercion = "(nombreCompleto, dui, correo) values(?,?,?);";
-
-
+        String Insercion = "insert into tbempleados(nombreCompleto, dui, correo) values(?,?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, nombre);
@@ -112,18 +103,17 @@ public class RegistrarseControlador {
                 lbMensaje.setText("Credenciales inválidas");
             }
 
-
-
         } catch (Exception e){
             e.printStackTrace();
-
-
         }
+    }
+    public void extraccionid() throws SQLException {
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.obtenerConexion();
 
-
-
-
-
+        String query = "select idempleado from tbempleados where nombrecompleto = ?";
+        PreparedStatement prepareDStatement = connection.prepareStatement(query);
+        prepareDStatement.executeUpdate();
 
     }
 

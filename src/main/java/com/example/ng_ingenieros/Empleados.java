@@ -3,7 +3,7 @@ package com.example.ng_ingenieros;
 import java.sql.*;
 
 public class Empleados {
-    private int id;
+    private  int id;
     private String nombre;
 
 
@@ -15,10 +15,19 @@ public class Empleados {
 
     private String cuentaBancaria;
 
+    public Empleados(String nombre, String dui, String correo, String cargo, String plaza, Double pagoExtra, String numCuenta, Double sueldo) {
+        this.nombre = nombre;
+        Dui = dui;
+        this.correo=correo;
+        this.cargo = cargo;
+        this.plaza = plaza;
+        this.sueldoHora = pagoExtra;
+this.cuentaBancaria=numCuenta;
+        this.sueldoDia = sueldo;
+    }
 
 
-
-    public int getId() {
+    public  int getId() {
         return id;
     }
 
@@ -100,7 +109,7 @@ public class Empleados {
 
     private String cargo;
     private String plaza;
-    private  String proyecto;
+    private String proyecto;
 
     public int getIdplaza() {
         return idplaza;
@@ -127,6 +136,7 @@ public class Empleados {
 
     }
 
+
     public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
         this.id = id;
         this.nombre = nombre;
@@ -140,11 +150,19 @@ public class Empleados {
         this.proyecto = proyecto;
     }
 
+
+    public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
+        this.id = id;
+        this.nombre = nombre;
+        Dui = dui;
+        this.correo = correo;
+        this.sueldoDia = sueldoDia;
+        this.sueldoHora = sueldoHora;
+        this.cuentaBancaria = cuentaBancaria;
+        this.cargo = cargo;
+        this.plaza = plaza;
+    }
 }
-
-
-
-
 
 
 
