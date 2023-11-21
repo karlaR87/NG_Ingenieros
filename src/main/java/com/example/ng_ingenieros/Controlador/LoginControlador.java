@@ -35,12 +35,29 @@ public class LoginControlador {
     private Button btnIngresar;
     @FXML
     private Label lbmensaje;
+    @FXML
+    private Button btnContraseña;
 
 
     public void initialize() {
         // Configura el evento de clic para el botón
         btnIngresar.setOnAction(this::btnIngresarOnAction);
         btnRegistrar.setOnAction(this::btnRegistrarOnAction);
+        btnContraseña.setOnAction(this::btnContraseñaOnAction);
+    }
+    private void btnContraseñaOnAction(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperacionContraseña.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Nueva");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Método para abrir una nueva ventana
