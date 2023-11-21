@@ -13,8 +13,8 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400); //width, heigth
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500); //width, heigth
         stage.setTitle("NG Ingenieros");
         stage.setScene(scene);
         stage.show();
