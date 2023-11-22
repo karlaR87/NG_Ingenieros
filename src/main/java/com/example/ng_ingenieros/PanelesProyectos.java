@@ -1,4 +1,5 @@
 package com.example.ng_ingenieros;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,10 +30,10 @@ public class PanelesProyectos {
     @FXML
     private TextField txtBusqueda;
 
-    public void initialize()
-    {
+
+    public void initialize() {
         cargarDatosDesdeDB();
-        //txtBusqueda.setOnAction(event -> BarraDeBusqueda());
+        txtBusqueda.textProperty().addListener((observable, oldValue, newValue) -> buscarProyectoPorNombre(newValue));
     }
 
     private void cargarDatosDesdeDB() {
@@ -131,7 +132,6 @@ public class PanelesProyectos {
                 panel.getChildren().addAll(labelProyecto, labelLugar, labelestado);
 
 
-
                 // Crear un VBox para cada Panel y agregar el Panel al VBox
                 VBox vboxDato = new VBox(panel);
                 vboxDato.setStyle("-fx-padding: 10px; -fx-spacing: 5px;");
@@ -156,29 +156,7 @@ public class PanelesProyectos {
 
                 });
 
-                txtBusqueda.textProperty().addListener((observable, oldValue, newValue) -> {
-                    String textoBusqueda = newValue.toLowerCase();
 
-                    for (Node node : panel.getChildren()) {
-                        if (node instanceof Pane) {
-                            Pane panele = (Pane) node;
-                            for (Node labelNode : panele.getChildren()) {
-                                if (labelNode instanceof VBox) {
-                                    VBox vBoxPanel = (VBox) labelNode;
-                                    for (Node label : vBoxPanel.getChildren()) {
-                                        if (label instanceof Label) {
-                                            String textoLabel = ((Label) label).getText().toLowerCase();
-                                            panele.setVisible(textoLabel.contains(textoBusqueda));
-
-                                            break; // Evita procesar más labels en el VBox
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                });
             }
 
             resultSet.close();
@@ -263,13 +241,32 @@ public class PanelesProyectos {
         stage.setScene(detallesScene);
         stage.show();
     }
-//------------------------------------------------------//
-//meotodos para la barra de busqueda
 
 
+    private void buscarProyectoPorNombre(String nombreProyecto) {
+        ObservableList<Node> paneles = contenedorPrincipal.getChildren();
 
-    /*private void BarraDeBusqueda() {
-    }*/
+        // Convertimos el texto a minúsculas para hacer la búsqueda sin considerar mayúsculas o minúsculas
+        String textoBusqueda = nombreProyecto.toLowerCase();
 
+        // Recorre los paneles para filtrar los que contienen el texto de búsqueda en el nombre del proyecto
+        for (Node nodo : paneles) {
+            if (nodo instanceof VBox) {
+                VBox vboxDato = (VBox) nodo;
+                Pane panel = (Pane) vboxDato.getChildren().get(0); // Obtiene el primer hijo (panel)
+
+                // Verifica si algún texto dentro del panel contiene el texto de búsqueda
+                boolean encontrado = panel.getChildren().stream()
+                        .filter(child -> child instanceof Label)
+                        .map(child -> ((Label) child).getText().toLowerCase())
+                        .anyMatch(text -> text.contains(textoBusqueda));
+
+                // Muestra u oculta el panel según el resultado de la búsqueda
+                vboxDato.setVisible(encontrado);
+                vboxDato.setManaged(encontrado);
+
+            }
+        }
+    }
 
 }
