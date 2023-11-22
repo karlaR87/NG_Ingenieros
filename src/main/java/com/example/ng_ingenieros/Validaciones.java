@@ -1,14 +1,43 @@
 package com.example.ng_ingenieros;
 
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RegexValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.jfoenix.controls.JFXTextField;
+
 
 
 public class Validaciones {
+
+    //Este era con una libreria pero XD
+
+    /*
+@FXML public void Validaciones(){
+
+    //No dejar campos vacios
+    RequiredFieldValidator vacioValidacion = new RequiredFieldValidator();
+    vacioValidacion.setMessage("Este campo es obligatorio");
+
+    //Solo numeros jaksjs
+    NumberValidator numeroValidacion = new NumberValidator();
+    numeroValidacion.setMessage("Solo se admiten números");
+
+    //Validaion para una direion de correo válida
+    RegexValidator correoValidacion = new RegexValidator();
+    correoValidacion.setRegexPattern( "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    correoValidacion.setMessage("Ingresa una dirección de correo válida");
+
+}
+
+     */
+
 
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");
@@ -70,6 +99,7 @@ public class Validaciones {
             mostrarAlerta("Error de Validación", "Este campo no puede estar vacío.");
         }
     }
+
 
 
 
