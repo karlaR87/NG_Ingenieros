@@ -32,7 +32,20 @@ public class RecuperacionContraseñaControlador {
 
     }
     private void btnEnviarOnAction(ActionEvent event) {
-        ventana();
+        enviarcorreo();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Nueva");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -60,22 +73,6 @@ public class RecuperacionContraseñaControlador {
 
     }
 
-    public  void ventana(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
-            // Opcional: Cerrar la ventana actual
-            ((Stage) txtCorreoRecu.getScene().getWindow()).close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void enviarcorreo() {
 
