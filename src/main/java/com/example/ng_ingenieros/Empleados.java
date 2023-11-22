@@ -1,5 +1,8 @@
 package com.example.ng_ingenieros;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.sql.*;
 
 public class Empleados {
@@ -14,6 +17,34 @@ public class Empleados {
     private double sueldoHora;
 
     private String cuentaBancaria;
+
+    //checkBox para asistencia
+    private final BooleanProperty checkBox1 = new SimpleBooleanProperty();
+    private final BooleanProperty checkBox2 = new SimpleBooleanProperty();
+    private final BooleanProperty checkBox3 = new SimpleBooleanProperty();
+    private final BooleanProperty checkBox4 = new SimpleBooleanProperty();
+    private final BooleanProperty checkBox5 = new SimpleBooleanProperty();
+
+    public BooleanProperty getCheckBox1Property() {
+        return checkBox1;
+    }
+
+    public BooleanProperty getCheckBox2Property() {
+        return checkBox2;
+    }
+
+    public BooleanProperty getCheckBox3Property() {
+        return checkBox3;
+    }
+
+    public BooleanProperty getCheckBox4Property() {
+        return checkBox4;
+    }
+
+    public BooleanProperty getCheckBox5Property() {
+        return checkBox5;
+    }
+
 
     public Empleados(String nombre, String dui, String correo, String cargo, String plaza, Double pagoExtra, String numCuenta, Double sueldo) {
         this.nombre = nombre;
@@ -161,6 +192,11 @@ this.cuentaBancaria=numCuenta;
         this.cuentaBancaria = cuentaBancaria;
         this.cargo = cargo;
         this.plaza = plaza;
+    }
+
+    public Empleados(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 }
 

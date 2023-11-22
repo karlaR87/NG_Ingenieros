@@ -7,7 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -33,6 +37,8 @@ public class RegistrarseSegundoControlador {
     private Label lbAdvertencia;
     @FXML
     private ComboBox cmbNivel;
+
+
     public void initialize(){
         // Configura el evento de clic para el botón
         btnRegistrarse.setOnAction(this::btnRegistrarseOnAction);
@@ -69,21 +75,19 @@ public class RegistrarseSegundoControlador {
 
     }
 
-    public void registrardatos() {
+    public void registrardatos(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
 
         String user = txtUsuario.getText();
         String contra = txtContraseña.getText();
         String confirmarCon = txtConfirmaContra.getText();
-        String nivel = cmbNivel.getId();
         //hora crea un String para hacer la insercion
-        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idNivelUsuario) values(?,?,?);";
+        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña) values(?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, contra);
-            preparedStatement.setInt(3, Integer.parseInt(nivel));
             preparedStatement.executeUpdate();
 
             if (txtConfirmaContra.getText().equals(txtContraseña.getText())) {
@@ -110,6 +114,7 @@ public class RegistrarseSegundoControlador {
             e.printStackTrace();
         }
     }
+
 
     private void cargarnivelCombobox() {
         // Crear una lista observable para almacenar los datos
@@ -138,14 +143,7 @@ public class RegistrarseSegundoControlador {
         // Asignar los datos al ComboBox
         cmbNivel.setItems(data);
     }
-    public static void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
+
+
 
 }
-
-
