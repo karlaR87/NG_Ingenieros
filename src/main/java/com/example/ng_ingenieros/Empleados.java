@@ -2,6 +2,8 @@ package com.example.ng_ingenieros;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.sql.*;
 
@@ -24,6 +26,36 @@ public class Empleados {
     private final BooleanProperty checkBox3 = new SimpleBooleanProperty();
     private final BooleanProperty checkBox4 = new SimpleBooleanProperty();
     private final BooleanProperty checkBox5 = new SimpleBooleanProperty();
+
+    //Textfields para la asistencia
+    private StringProperty textField1 = new SimpleStringProperty("");
+    private StringProperty textField2 = new SimpleStringProperty("");
+
+    public StringProperty textField1Property() {
+        return textField1;
+    }
+
+    public String getTextField1() {
+        return textField1.get();
+    }
+
+    public void setTextField1(String textField1) {
+        this.textField1.set(textField1);
+    }
+
+    // Métodos getter y setter para las propiedades de TextField2
+    public StringProperty textField2Property() {
+        return textField2;
+    }
+
+    public String getTextField2() {
+        return textField2.get();
+    }
+
+    public void setTextField2(String textField2) {
+        this.textField2.set(textField2);
+    }
+
 
     public BooleanProperty getCheckBox1Property() {
         return checkBox1;

@@ -29,7 +29,7 @@
                <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
             </TableColumn>
 
-            <TableColumn prefWidth="150.0" text="nombre">
+            <TableColumn prefWidth="200.0" text="nombre">
                <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
             </TableColumn>
 
