@@ -37,6 +37,8 @@ public class RegistrarseSegundoControlador {
     private Label lbAdvertencia;
     @FXML
     private ComboBox cmbNivel;
+
+
     public void initialize(){
         // Configura el evento de clic para el botón
         btnRegistrarse.setOnAction(this::btnRegistrarseOnAction);
@@ -113,6 +115,7 @@ public class RegistrarseSegundoControlador {
         }
     }
 
+
     private void cargarnivelCombobox() {
         // Crear una lista observable para almacenar los datos
         ObservableList<String> data = FXCollections.observableArrayList();
@@ -123,7 +126,7 @@ public class RegistrarseSegundoControlador {
         try {
 
             // Reemplaza con tu propia lógica de conexión
-            String query = "SELECT idNivelUsuario FROM tbNivelesUsuario";
+            String query = "SELECT idNivelUsuario, usuario FROM tbNivelesUsuario";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -140,6 +143,8 @@ public class RegistrarseSegundoControlador {
         // Asignar los datos al ComboBox
         cmbNivel.setItems(data);
     }
+
+
 
 }
 

@@ -2,6 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.HelloApplication;
+import com.example.ng_ingenieros.Validaciones;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,6 +40,34 @@ public class RegistrarseControlador {
     private Label lbMensaje;
 
 
+    @FXML
+    private void validarNumeros(ActionEvent event) {
+        Validaciones.validarNumeros(txtDui);
+    }
+
+    @FXML
+    private void validarLetras(ActionEvent event) {
+        Validaciones.validarLetras(txtNombre);
+    }
+
+    @FXML
+    private void validarCorreo(ActionEvent event) {
+        Validaciones.validarCorreo(txtCorreoE);
+    }
+
+    @FXML
+    private void NoVacio(ActionEvent event) {
+        Validaciones.NoVacio(txtDui);
+    }
+
+    @FXML
+    private void NoVacio2(ActionEvent event) {
+        Validaciones.NoVacio(txtCorreoE);
+    }
+    @FXML
+    private void NoVacio3(ActionEvent event) {
+        Validaciones.NoVacio(txtNombre);
+    }
 
 
 
@@ -48,6 +77,8 @@ public class RegistrarseControlador {
         btnSiguiente.setOnAction(this::BtnSiguienteOnAction);
 
     }
+
+
 
     // Método para abrir una nueva ventana
     private void btnIniciarSesionOnAction(ActionEvent event) {
@@ -66,16 +97,20 @@ public class RegistrarseControlador {
         }
     }
     private void BtnSiguienteOnAction(ActionEvent event) {
+
+
         registrardatos();
+
     }
 
-
     public void registrardatos(){
+
         String nombre = txtNombre.getText();
         String dui = txtDui.getText();
         String correo = txtCorreoE.getText();
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
+
          //ahora crea un String para hacer la insercion
         String Insercion = "insert into tbempleados(nombreCompleto, dui, correo) values(?,?,?);";
         try {
