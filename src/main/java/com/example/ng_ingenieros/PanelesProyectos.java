@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -31,6 +32,7 @@ public class PanelesProyectos {
     public void initialize()
     {
         cargarDatosDesdeDB();
+        //txtBusqueda.setOnAction(event -> BarraDeBusqueda());
     }
 
     private void cargarDatosDesdeDB() {
@@ -115,24 +117,18 @@ public class PanelesProyectos {
                 labelestado.setTextFill(Color.WHITE);
 
                 // Posicionar etiquetas dentro del Panel
-                labelID.setLayoutY(5);
-                labelProyecto.setLayoutY(60);
-                labelLugar.setLayoutY(90);
-                labelHoras.setLayoutY(120);
-                labelfechai.setLayoutY(150);
-                labelfechaf.setLayoutY(180);
-                labelestado.setLayoutY(210);
 
-                labelID.setLayoutX(10);
+                labelProyecto.setLayoutY(10);
+                labelLugar.setLayoutY(35);
+                labelestado.setLayoutY(60);
+
+
                 labelProyecto.setLayoutX(10);
                 labelLugar.setLayoutX(10);
-                labelHoras.setLayoutX(10);
-                labelfechai.setLayoutX(10);
-                labelfechaf.setLayoutX(10);
                 labelestado.setLayoutX(10);
 
                 // Agregar etiquetas al Panel
-                panel.getChildren().addAll(labelID, labelProyecto, labelLugar, labelHoras, labelfechai, labelfechaf, labelestado);
+                panel.getChildren().addAll(labelProyecto, labelLugar, labelestado);
 
 
 
@@ -157,6 +153,30 @@ public class PanelesProyectos {
                     cargarDetallesProyecto(proyectoSeleccionadoId, proyectoSeleccionadoNombre, proyectoSeleccionadoLugar,
                             proyectoSeleccionadoHoras, proyectoSeleccionadoFechaInicio, proyectoSeleccionadoFechaFin,
                             proyectoSeleccionadoEstado);
+
+                });
+
+                txtBusqueda.textProperty().addListener((observable, oldValue, newValue) -> {
+                    String textoBusqueda = newValue.toLowerCase();
+
+                    for (Node node : panel.getChildren()) {
+                        if (node instanceof Pane) {
+                            Pane panele = (Pane) node;
+                            for (Node labelNode : panele.getChildren()) {
+                                if (labelNode instanceof VBox) {
+                                    VBox vBoxPanel = (VBox) labelNode;
+                                    for (Node label : vBoxPanel.getChildren()) {
+                                        if (label instanceof Label) {
+                                            String textoLabel = ((Label) label).getText().toLowerCase();
+                                            panele.setVisible(textoLabel.contains(textoBusqueda));
+
+                                            break; // Evita procesar más labels en el VBox
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                 });
             }
@@ -243,8 +263,13 @@ public class PanelesProyectos {
         stage.setScene(detallesScene);
         stage.show();
     }
+//------------------------------------------------------//
+//meotodos para la barra de busqueda
 
 
+
+    /*private void BarraDeBusqueda() {
+    }*/
 
 
 }
