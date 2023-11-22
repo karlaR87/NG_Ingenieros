@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -23,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class PrimerUsoControlador {
@@ -38,20 +37,37 @@ public class PrimerUsoControlador {
     @FXML
     private Label lbAdvertencia;
 
+    //Validaciones
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z]+");
+    }
+
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
+
     public void initialize() {
         // Configura el evento de clic para el botón
         btnAceptar.setOnAction(this::btnAceptarOnAction);
     }
-
-
 
     // Método para abrir una nueva ventana
     private void btnAceptarOnAction(ActionEvent event) {
         registrardatos();
     }
 
-
-
+    // Metodo para registrar datos en labase de datos
     public void registrardatos(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
@@ -98,4 +114,26 @@ public class PrimerUsoControlador {
         }
     }
 
+
+    public void validaciones() {
+        if (NoVacio(txtUser.getText())){
+            if (validarCorreo(txtCorreo.getText())){
+                registrardatos();
+            }
+            else {
+                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+
+            }            mostrarAlerta("Validación Exitosa", "Letras válidas.");
+        } else {
+            mostrarAlerta("Error de Validación", "Ingrese solo letras.");
+        }
+    }
+
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 }

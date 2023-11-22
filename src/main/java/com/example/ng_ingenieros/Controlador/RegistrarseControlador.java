@@ -23,6 +23,8 @@ import java.util.regex.Pattern;
 
 import com.example.ng_ingenieros.Validaciones;
 
+import javax.swing.*;
+
 public class RegistrarseControlador {
 
     @FXML
@@ -64,10 +66,6 @@ public class RegistrarseControlador {
         // Configura el evento de clic para el botón
         btnIniciarSesion.setOnAction(this::btnIniciarSesionOnAction);
         btnSiguiente.setOnAction(this::BtnSiguienteOnAction);
-        validarCorreo(txtCorreoE.getText());
-        validarLetras(txtDui.getText());
-        validarNumero(txtNombre.getText());
-
     }
 
 
@@ -87,9 +85,10 @@ public class RegistrarseControlador {
             e.printStackTrace();
         }
     }
-    private void BtnSiguienteOnAction(ActionEvent event) {
 
-        registrardatos();
+
+    private void BtnSiguienteOnAction(ActionEvent event) {
+        validaciones();
 
     }
 
@@ -132,25 +131,31 @@ public class RegistrarseControlador {
             e.printStackTrace();
         }
     }
-    public void extraccionid() throws SQLException {
-        Conexion conexion = new Conexion();
-        Connection connection = conexion.obtenerConexion();
+    public void validaciones() {
+        if (validarLetras(txtNombre.getText())) {
+            if (validarCorreo(txtCorreoE.getText())){
+                if (validarNumero(txtDui.getText())){
+                    registrardatos();
+                }
+                else {
+                    mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                }
+            }
+            else {
+                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
 
-        String query = "select idempleado from tbempleados where nombrecompleto = ?";
-        PreparedStatement prepareDStatement = connection.prepareStatement(query);
-        prepareDStatement.executeUpdate();
-
+            }            mostrarAlerta("Validación Exitosa", "Letras válidas.");
+        } else {
+            mostrarAlerta("Error de Validación", "Ingrese solo letras.");
+        }
     }
 
-
-
-
-
-
-
-
-
-
-
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 
 }

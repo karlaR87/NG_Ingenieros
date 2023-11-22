@@ -13,29 +13,6 @@ import java.util.regex.Pattern;
 
 public class Validaciones {
 
-    //Este era con una libreria pero XD
-
-    /*
-@FXML public void Validaciones(){
-
-    //No dejar campos vacios
-    RequiredFieldValidator vacioValidacion = new RequiredFieldValidator();
-    vacioValidacion.setMessage("Este campo es obligatorio");
-
-    //Solo numeros jaksjs
-    NumberValidator numeroValidacion = new NumberValidator();
-    numeroValidacion.setMessage("Solo se admiten números");
-
-    //Validaion para una direion de correo válida
-    RegexValidator correoValidacion = new RegexValidator();
-    correoValidacion.setRegexPattern( "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-    correoValidacion.setMessage("Ingresa una dirección de correo válida");
-
-}
-
-     */
-
 
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");
@@ -63,8 +40,6 @@ public class Validaciones {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
-    // Puedes agregar más métodos de validación según sea necesario
 
     public static void validarNumeros(TextField textField) {
         if (validarNumero(textField.getText())) {
