@@ -19,7 +19,7 @@ public class Conexion {
 
     //private static final String URL = "jdbc:sqlserver://localhost\\LAPTOP-J5ID0GJ2:51100;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
     private static final String USUARIO = "sa";
-    private static final String CONTRASENA = "itr2023";  //cambiar la contraseña por la de sus usuarios de sql
+    private static final String CONTRASENA = "jake123";  //cambiar la contraseña por la de sus usuarios de sql
 
     public static Connection conexion = null;
 
