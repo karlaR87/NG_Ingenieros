@@ -48,7 +48,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btnGuardaAsistencia" layoutX="296.0" layoutY="417.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="129.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+      <Button fx:id="btnGuardaAsistencia" layoutX="286.0" layoutY="417.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="129.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
          <effect>
             <DropShadow>
                <color>
@@ -59,7 +59,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btnSalario" layoutX="488.0" layoutY="417.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="129.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+      <Button fx:id="btnSalario" layoutX="461.0" layoutY="417.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="129.0" style="-fx-background-color: #F69650; -fx-background-radius: 20;" text="Salario" textFill="WHITE">
          <effect>
             <DropShadow>
                <color>
