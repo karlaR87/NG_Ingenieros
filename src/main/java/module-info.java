@@ -8,7 +8,6 @@ module com.example.ng_ingenieros {
     requires java.sql;
     requires java.desktop;
 
-    requires com.jfoenix;
     requires java.mail;
 
 

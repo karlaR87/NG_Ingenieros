@@ -1,15 +1,13 @@
 package com.example.ng_ingenieros;
 
-import com.jfoenix.validation.NumberValidator;
-import com.jfoenix.validation.RegexValidator;
-import com.jfoenix.validation.RequiredFieldValidator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.jfoenix.controls.JFXTextField;
+
 
 
 

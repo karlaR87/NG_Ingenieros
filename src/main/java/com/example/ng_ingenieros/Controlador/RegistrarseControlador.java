@@ -18,10 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-import com.jfoenix.validation.NumberValidator;
-import com.jfoenix.validation.RegexValidator;
-import com.jfoenix.validation.RequiredFieldValidator;
-import com.jfoenix.controls.JFXTextField;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.example.ng_ingenieros.Validaciones;
 
 public class RegistrarseControlador {
@@ -41,12 +40,33 @@ public class RegistrarseControlador {
     @FXML
     private Label lbMensaje;
 
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z]+");
+    }
+
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
 
 
     public void initialize() {
         // Configura el evento de clic para el botón
         btnIniciarSesion.setOnAction(this::btnIniciarSesionOnAction);
         btnSiguiente.setOnAction(this::BtnSiguienteOnAction);
+        validarCorreo(txtCorreoE.getText());
+        validarLetras(txtDui.getText());
+        validarNumero(txtNombre.getText());
 
     }
 
