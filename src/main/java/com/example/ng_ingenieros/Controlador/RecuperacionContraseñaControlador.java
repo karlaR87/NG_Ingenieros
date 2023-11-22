@@ -2,11 +2,19 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 import java.util.Properties;
 import java.sql.ResultSet;
@@ -18,15 +26,28 @@ public class RecuperacionContraseñaControlador {
     @FXML
     private TextField txtCorreoRecu;
 
-    String correo = txtCorreoRecu.getText();
     public void initialize() {
-        // Configura el evento de clic para el botón
-        //btnEnviar.setOnAction(this::btnEnviarOnAction);
+        //Configura el evento de clic para el botón
+        btnEnviar.setOnAction(this::btnEnviarOnAction);
 
     }
-    /*private void btnEnviarOnAction(ActionEvent event) {
+    private void btnEnviarOnAction(ActionEvent event) {
         enviarcorreo();
-    }*/
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Nueva");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 
@@ -52,13 +73,13 @@ public class RecuperacionContraseñaControlador {
 
     }
 
-    /*
+
     public static void enviarcorreo() {
 
-        final String correoRemitente = "tucorreo@gmail.com"; // Cambia esto por tu dirección de correo
-        final String passwordCorreoRemitente = "tucontraseña"; // Cambia esto por tu contraseña
+        final String correoRemitente = "liamrh855@gmail.com"; // Cambia esto por tu dirección de correo
+        final String passwordCorreoRemitente = "nhgh sort xahs kqks"; // Cambia esto por tu contraseña
 
-        String destinatario = "destinatario@gmail.com"; // Cambia esto por la dirección de correo del destinatario
+        String destinatario = "20220240@ricaldone.edu.sv"; // Cambia esto por la dirección de correo del destinatario
 
         // Propiedades de la conexión
         Properties props = new Properties();
@@ -93,7 +114,7 @@ public class RecuperacionContraseñaControlador {
             throw new RuntimeException(e);
         }
     }
-*/
+
     public static void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

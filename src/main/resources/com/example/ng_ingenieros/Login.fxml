@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -67,11 +68,6 @@
          </font>
       </Label>
       <TextField fx:id="txtUsuario" layoutX="429.0" layoutY="112.0" prefHeight="33.0" prefWidth="226.0" promptText="Usuario" style="-fx-background-radius: 10;" />
-      <Label layoutX="424.0" layoutY="246.0" text="¿Olvidaste tu contraseña?" textFill="WHITE">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
       <Button fx:id="btnIngresar" layoutX="420.0" layoutY="305.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="159.0" style="-fx-background-color: f7c081; -fx-background-radius: 20;" text="Ingresar" textFill="WHITE">
          <font>
             <Font name="Calibri" size="16.0" />
@@ -84,11 +80,19 @@
             </DropShadow>
          </effect>
       </Button>
-      <PasswordField fx:id="txtContraseña" layoutX="429.0" layoutY="175.0" prefHeight="33.0" prefWidth="226.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
+      <PasswordField fx:id="txtContraseña" layoutX="429.0" layoutY="184.0" prefHeight="33.0" prefWidth="226.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
       <Label fx:id="lbmensaje" alignment="CENTER" layoutX="286.0" layoutY="208.0" prefHeight="17.0" prefWidth="289.0" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <Button fx:id="btnContraseña" layoutX="392.0" layoutY="235.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="216.0" style="-fx-background-color: #2D3250;" text="¿Olvidaste tu contaseña?" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
