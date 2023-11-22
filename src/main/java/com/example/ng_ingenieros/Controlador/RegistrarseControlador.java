@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -21,6 +18,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RegexValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.controls.JFXTextField;
+import com.example.ng_ingenieros.Validaciones;
 
 public class RegistrarseControlador {
 
@@ -40,36 +42,6 @@ public class RegistrarseControlador {
     private Label lbMensaje;
 
 
-    @FXML
-    private void validarNumeros(ActionEvent event) {
-        Validaciones.validarNumeros(txtDui);
-    }
-
-    @FXML
-    private void validarLetras(ActionEvent event) {
-        Validaciones.validarLetras(txtNombre);
-    }
-
-    @FXML
-    private void validarCorreo(ActionEvent event) {
-        Validaciones.validarCorreo(txtCorreoE);
-    }
-
-    @FXML
-    private void NoVacio(ActionEvent event) {
-        Validaciones.NoVacio(txtDui);
-    }
-
-    @FXML
-    private void NoVacio2(ActionEvent event) {
-        Validaciones.NoVacio(txtCorreoE);
-    }
-    @FXML
-    private void NoVacio3(ActionEvent event) {
-        Validaciones.NoVacio(txtNombre);
-    }
-
-
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -77,7 +49,6 @@ public class RegistrarseControlador {
         btnSiguiente.setOnAction(this::BtnSiguienteOnAction);
 
     }
-
 
 
     // Método para abrir una nueva ventana
@@ -97,7 +68,6 @@ public class RegistrarseControlador {
         }
     }
     private void BtnSiguienteOnAction(ActionEvent event) {
-
 
         registrardatos();
 
@@ -151,6 +121,9 @@ public class RegistrarseControlador {
         prepareDStatement.executeUpdate();
 
     }
+
+
+
 
 
 

@@ -12,7 +12,6 @@ public class Conexion {
 
     private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-LSV5E7C:53617;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
 
-
     //private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-KD9DVMM:63886;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
 
     //private static final String URL = "jdbc:sqlserver://localhost\\DESKTOP-6A0RB95:52575;databaseName=NGingenierosBD;encrypt=false;trustServerCertificate=true;";
