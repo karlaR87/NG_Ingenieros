@@ -33,6 +33,11 @@ public class EmpleadosControlador {
         btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
         btnEliminarEmp.setOnAction(this::eliminardatos);
 
+        txtBusqueda.setOnKeyReleased(event -> {
+
+                buscarDatos(txtBusqueda.getText());
+
+        });
 
 
     }
@@ -195,37 +200,31 @@ public class EmpleadosControlador {
         }
     }
 
-    //Este es el método para la busqueda de datos a partir de lo que se escriba
-    //en el textfield
-    private void BuscarDatos() {
+
+    private void buscarDatos(String busqueda) {
+        TableEmpleados.getItems().clear(); // Limpiar los elementos actuales de la tabla
+
         try (Connection conn = Conexion.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
-                     "c.cargo, \n" +
-                     "tp.tipoPlaza, \n" +
-                     "p.nombre_proyecto\n" +
-                     "from tbempleados emp\n" +
-                     "inner join tbcargos c on c.idcargo = emp.idcargo\n" +
-                     "inner join tbtipoPlazas tp on tp.idTipoPlaza = emp.idTipoPlaza\n" +
-                     "inner join tbProyectos p on p.idproyecto = emp.idproyecto" +
-                     " where emp.nombre like '%" + txtBusqueda.getText() + " %'")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza, p.nombre_proyecto FROM tbempleados emp INNER JOIN tbcargos c ON c.idcargo = emp.idcargo INNER JOIN tbtipoPlazas tp ON tp.idTipoPlaza = emp.idTipoPlaza INNER JOIN tbProyectos p ON p.idproyecto = emp.idproyecto WHERE emp.nombreCompleto LIKE ?")) {
+
+            // Preparar el parámetro de búsqueda para la consulta SQL
+            String parametroBusqueda = "%" + busqueda + "%";
+            stmt.setString(1, parametroBusqueda);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                // Obtener los datos y agregarlos a la tabla
                 int id = rs.getInt("idempleado");
                 String nombre = rs.getString("nombreCompleto");
-
-
                 String dui = rs.getString("dui");
-
                 Double sueldoDia = rs.getDouble("sueldo_dia");
-
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
                 String cargo = rs.getString("cargo");
-                String plazo = rs.getString("tipoPlaza");
+                String plaza = rs.getString("tipoPlaza");
+                String proyecto = rs.getString("nombre_proyecto");
 
-                String Proyecto = rs.getString("nombre_proyecto");
-
-                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plazo, Proyecto));
+                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plaza, proyecto));
             }
         } catch (Exception e) {
             e.printStackTrace();
