@@ -7,11 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -22,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RegistrarseSegundoControlador {
@@ -38,6 +36,33 @@ public class RegistrarseSegundoControlador {
     @FXML
     private ComboBox cmbNivel;
 
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z]+");
+    }
+
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
+
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
 
     public void initialize(){
         // Configura el evento de clic para el botón
@@ -49,7 +74,7 @@ public class RegistrarseSegundoControlador {
 
 
     private void btnRegistrarseOnAction(ActionEvent event) {
-        registrardatos();
+        validaciones();
     }
 
     private void btnRegresarOnAction(ActionEvent event) {
@@ -109,7 +134,7 @@ public class RegistrarseSegundoControlador {
                     e.printStackTrace();
                 }
             } else {
-                lbAdvertencia.setText("La contraseña no coincide");
+                mostrarAlerta("Error", "Las contraseñas no coinciden");
             }
 
         } catch (Exception e){
@@ -168,6 +193,21 @@ public class RegistrarseSegundoControlador {
 
         return idCargo;
     }
+
+    public void validaciones() {
+       if (NoVacio(txtUsuario.getText())){
+           if (NoVacio(txtContraseña.getText())){
+               registrardatos();
+
+           } else {
+               mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+           }
+
+       } else  {
+           mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+       }
+    }
+
 
 
 }

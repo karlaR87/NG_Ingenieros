@@ -19,6 +19,9 @@ import java.util.Properties;
 import java.util.Properties;
 import java.sql.ResultSet;
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RecuperacionContraseñaControlador {
     @FXML
     private Button btnEnviar;
@@ -26,12 +29,25 @@ public class RecuperacionContraseñaControlador {
     @FXML
     private TextField txtCorreoRecu;
 
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
+
+
     public void initialize() {
         //Configura el evento de clic para el botón
         btnEnviar.setOnAction(this::btnEnviarOnAction);
 
     }
     private void btnEnviarOnAction(ActionEvent event) {
+        validaciones();
         enviarcorreo();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
@@ -115,6 +131,26 @@ public class RecuperacionContraseñaControlador {
         }
     }
 
+    public void validaciones() {
+        if (NoVacio(txtCorreoRecu.getText())){
+            if (validarCorreo(txtCorreoRecu.getText())){
+
+            }else {
+                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+            }
+
+        }else {
+            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+        }
+    }
+
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
     public static void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

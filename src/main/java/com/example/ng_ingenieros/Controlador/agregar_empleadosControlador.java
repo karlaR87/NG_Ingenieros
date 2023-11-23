@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import java.awt.*;
 
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -40,7 +42,6 @@ public class agregar_empleadosControlador {
 
     @FXML
     private Button btnGuardar1, btnCancelar1;
-
 
 
 
@@ -319,6 +320,70 @@ public class agregar_empleadosControlador {
         alert.showAndWait();
 
 
+    }
+
+    //Validaciones
+    public void validaciones() {
+        if (validarLetras(txtNombreEmp.getText())){
+            if (validarCorreo(txtCorreoEmp.getText())){
+                if (validarNumero(txtCuentaBEmp.getText())){
+                    if (validarNumero(txtSueldoEmp.getText())){
+                        if (validarNumero(txtDuiEmp.getText())){
+                            if (validarNumero(txtPagoHorasExEmp.getText())){
+
+
+                            }else {
+                                mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                            }
+
+                        }else {
+                            mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                        }
+
+                    }else {
+                        mostrarAlerta("Error de Validación", "Ingrese solo números.");
+
+                    }
+
+                }else {
+                    mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                }
+
+            }else {
+                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+            }
+
+        }else {
+            mostrarAlerta("Error de validación", "Ingresar solo letras.");
+        }
+
+    }
+
+    //Validaciones
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z]+");
+    }
+
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
 

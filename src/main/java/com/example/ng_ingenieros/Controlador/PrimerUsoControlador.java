@@ -64,7 +64,8 @@ public class PrimerUsoControlador {
 
     // Método para abrir una nueva ventana
     private void btnAceptarOnAction(ActionEvent event) {
-        registrardatos();
+        validaciones();
+
     }
 
     // Metodo para registrar datos en labase de datos
@@ -104,7 +105,7 @@ public class PrimerUsoControlador {
                     e.printStackTrace();
                 }
             } else {
-                lbAdvertencia.setText("La contraseña no coincide");
+                mostrarAlerta("Error", "Las contraseñas no coinciden");
             }
 
         } catch (Exception e){
@@ -117,15 +118,23 @@ public class PrimerUsoControlador {
 
     public void validaciones() {
         if (NoVacio(txtUser.getText())){
-            if (validarCorreo(txtCorreo.getText())){
-                registrardatos();
-            }
-            else {
-                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+            if (NoVacio(txtContraseña.getText())) {
 
-            }            mostrarAlerta("Validación Exitosa", "Letras válidas.");
+                if (validarCorreo(txtCorreo.getText())){
+                    registrardatos();
+                }
+                else {
+                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+
+                }
+            } else {
+
+                mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+
+            }
+
         } else {
-            mostrarAlerta("Error de Validación", "Ingrese solo letras.");
+            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
     }
 

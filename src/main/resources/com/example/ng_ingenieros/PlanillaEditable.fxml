@@ -20,7 +20,7 @@
             </Label>
          </children>
       </Pane>
-      <Button layoutX="336.0" layoutY="349.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar">
+      <Button fx:id="btnCancelar" layoutX="319.0" layoutY="338.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="112.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar">
          <effect>
             <DropShadow>
                <color>
@@ -29,7 +29,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button layoutX="189.0" layoutY="349.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" style="-fx-background-radius: 20; -fx-background-color: #559FAF;" text="Siguiente">
+      <Button fx:id="btnSiguiente" layoutX="178.0" layoutY="338.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="112.0" style="-fx-background-radius: 20; -fx-background-color: #559FAF;" text="Siguiente">
          <effect>
             <DropShadow>
                <color>
@@ -63,8 +63,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtnombre" layoutX="166.0" layoutY="104.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />
-      <TextField fx:id="txtdui" layoutX="166.0" layoutY="146.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="txtNombre" layoutX="166.0" layoutY="104.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="txtDui" layoutX="166.0" layoutY="146.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />
       <TextField fx:id="txtNIT" layoutX="166.0" layoutY="194.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />
       <TextField fx:id="txtCargo" layoutX="168.0" layoutY="236.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />
       <TextField fx:id="txtSueldo" layoutX="166.0" layoutY="283.0" prefHeight="25.0" prefWidth="399.0" style="-fx-background-radius: 10;" />

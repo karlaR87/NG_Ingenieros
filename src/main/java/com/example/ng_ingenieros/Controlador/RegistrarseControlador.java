@@ -42,6 +42,7 @@ public class RegistrarseControlador {
     @FXML
     private Label lbMensaje;
 
+    //validaciones
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");
     }
@@ -144,7 +145,7 @@ public class RegistrarseControlador {
             else {
                 mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
 
-            }            mostrarAlerta("Validación Exitosa", "Letras válidas.");
+            }  mostrarAlerta("Validación Exitosa", "Letras válidas.");
         } else {
             mostrarAlerta("Error de Validación", "Ingrese solo letras.");
         }

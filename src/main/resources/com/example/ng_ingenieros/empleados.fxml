@@ -15,7 +15,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </BorderPane.margin>
                <children>
-                  <TextField id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
+                  <TextField fx:id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
                   <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/lupaBlanca.png" />
