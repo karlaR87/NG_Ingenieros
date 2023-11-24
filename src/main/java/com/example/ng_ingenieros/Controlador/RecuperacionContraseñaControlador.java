@@ -89,7 +89,6 @@ public class RecuperacionContraseñaControlador {
 
     public void enviarcorreo() {
         String codigoAleatorio = generarCodigoAleatorio();
-
         final String correoRemitente = "liamrh855@gmail.com"; // Cambia esto por tu dirección de correo
         final String passwordCorreoRemitente = "nhgh sort xahs kqks"; // Cambia esto por tu contraseña
 
@@ -123,12 +122,13 @@ public class RecuperacionContraseñaControlador {
             Transport.send(message);
 
             System.out.println("¡Correo enviado!");
+            RecuperarContraseñaDosControlador.setCodigoEnviado(codigoAleatorio);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
-    private static String generarCodigoAleatorio() {
+    public static String generarCodigoAleatorio() {
         Random random = new Random();
         int codigo = 100000 + random.nextInt(900000); // Generar un número aleatorio de 6 dígitos
         return String.valueOf(codigo);

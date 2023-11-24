@@ -10,7 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import com.example.ng_ingenieros.Controlador.RecuperacionContraseñaControlador;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.*;
 import java.util.regex.Matcher;
@@ -77,24 +79,43 @@ public class RecuperarContraseñaDosControlador {
 
     private void BtnSiguienteOnAction(ActionEvent event) {
         validaciones();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaTres.fxml"));
-            Parent root = loader.load();
+    }
+    private static String codigoEnviado;
 
-            Stage stage = new Stage();
-            stage.setTitle("Recuperar contraseña");
+    public static void setCodigoEnviado(String codigo) {
+        codigoEnviado = codigo;
+    }
+
+    public void verificarCodigo() {
+        String codigoIngresado = txtCodigoRecu.getText(); // Obtener el texto del TextField
+
+        if (codigoIngresado.equals(codigoEnviado)) {
+            System.out.println("El código ingresado es correcto.");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaTres.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Recuperar contraseña");
 
 
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+            // Realizar acciones correspondientes...
+        } else {
+            System.out.println("El código ingresado es incorrecto. Vuelve a intentarlo.");
         }
     }
 
+
+
     public void validaciones() {
         if (NoVacio(txtCodigoRecu.getText())){
-
+            verificarCodigo();
         } else {
             mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
