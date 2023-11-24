@@ -2,25 +2,157 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
-
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+//imports del spinner
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.control.SpinnerValueFactory;
+
 public class AsistenciaEmpleadosControlador {
+
+
+    @FXML
+    private Spinner spHoraEn1;
+    @FXML
+    private Spinner spHoraEn2;
+    @FXML
+    private Spinner spHoraSa1;
+    @FXML
+    private Spinner spHoraSa2;
+
+    @FXML
+    private Label LblHoraEntrada;
+    @FXML
+    private Label LblHoraSalida;
+
+    @FXML
+    private ComboBox cmbAMPM;
+    @FXML
+    private ComboBox cmbAMPM2;
+    @FXML
+    private ComboBox cmbDiaAsistencia;
+    @FXML
+    private ComboBox cmbDiaSalida;
+
+
+    @FXML
+    private TableView TbAsistencia;
+
+    @FXML
+    private TextField txtBusqueda;
+
+
 
     public void initialize()
     {
         cargarDatos();
-        agregarColumnasCheckbox();
+
+        configurarSpinner(spHoraEn1, 0, 11);
+        configurarSpinner(spHoraEn2, 0, 59);
+        configurarSpinner(spHoraSa1, 0, 11);
+        configurarSpinner(spHoraSa2, 0, 59);
+
+        ObservableList<String> opcionesAsistencia = FXCollections.observableArrayList("A.M.", "P.M.");
+        cmbAMPM.setItems(opcionesAsistencia);
+        cmbAMPM2.setItems(opcionesAsistencia);
+
+        llenarCombo();
+
+        txtBusqueda.setOnKeyReleased(event -> {
+
+            buscarDatos(txtBusqueda.getText());
+
+        });
+
     }
 
+
+
+    //Configurar Spinners
+    private void configurarSpinner(Spinner<Integer> spinner, int min, int max) {
+        SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max);
+        spinner.setValueFactory(valueFactory);
+        spinner.setEditable(true);
+
+
+        spinner.getValueFactory().setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer value) {
+                return value.toString();
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                return Integer.valueOf(string);
+            }
+        });
+    }
+
+    public void llenarCombo()
+    {
+        cmbDiaAsistencia.getItems().addAll(
+                "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+        );
+
+        // Agregar días de la semana a cmbDiaSalida
+        cmbDiaSalida.getItems().addAll(
+                "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+        );
+    }
+
+    //Obtener valores de los Spinner (metodo directamente aplicado al boton en el fxml)
+
     @FXML
-    private TableView TbAsistencia;
+    private void guardarAsistencia(ActionEvent event) {
+        // Obtener los valores de los Spinners
+        int horaEn1 = (int) spHoraEn1.getValue();
+        int horaEn2 = (int) spHoraEn2.getValue();
+
+        String diaseleccionado = (String) cmbDiaAsistencia.getSelectionModel().getSelectedItem();
+        String minutosEn2 = (horaEn2 <= 9) ? "0" + horaEn2 : String.valueOf(horaEn2); //validamos que el spinner de los minutos, al ingresar un valor menor a nueva cargue un 0 al inicio
+        String seleccionComboBox1 = (String) cmbAMPM.getSelectionModel().getSelectedItem();
+
+        // Mostrar los valores en el Label
+
+        if (seleccionComboBox1 != null) {
+            LblHoraEntrada.setText("" + diaseleccionado + ", " + horaEn1 + ":" + minutosEn2 + " " + seleccionComboBox1);
+        }
+
+
+        int horaSal1 = (int) spHoraSa1.getValue();
+        int horaSal2 = (int) spHoraSa2.getValue();
+
+        String diasalida = (String) cmbDiaSalida.getSelectionModel().getSelectedItem();
+        String minutosEn = (horaSal2 <= 9) ? "0" + horaSal2 : String.valueOf(horaSal2);
+        String seleccionComboBox2 = (String) cmbAMPM2.getSelectionModel().getSelectedItem();
+
+
+        LblHoraSalida.setText("(" + horaSal1 + ":" + minutosEn + ")");
+        if (seleccionComboBox2 != null) {
+            LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
+        }
+
+        //Aqui se puede poner directamente el codigo de agregar asistencia
+    }
+
+
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
@@ -41,40 +173,32 @@ public class AsistenciaEmpleadosControlador {
         }
     }
 
-    private void agregarColumnasCheckbox() {
-        // Crear las columnas de checkboxes y agregarlas a la tabla
+    private void buscarDatos(String busqueda) {
+        TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
-        String[] nombresColumnas = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto FROM tbempleados emp  WHERE emp.nombreCompleto LIKE ?")) {
 
-        // Crear las columnas de checkboxes y agregarlas a la tabla
-        for (int i = 0; i < 5; i++) {
-            TableColumn<Empleados, Boolean> checkBoxColumn = new TableColumn<>(nombresColumnas[i]);
+            // Preparar el parámetro de búsqueda para la consulta SQL
+            String parametroBusqueda = "%" + busqueda + "%";
+            stmt.setString(1, parametroBusqueda);
 
-            switch (i) {
-                case 0:
-                    checkBoxColumn.setCellValueFactory(cellData -> cellData.getValue().getCheckBox1Property());
-                    break;
-                case 1:
-                    checkBoxColumn.setCellValueFactory(cellData -> cellData.getValue().getCheckBox2Property());
-                    break;
-                case 2:
-                    checkBoxColumn.setCellValueFactory(cellData -> cellData.getValue().getCheckBox3Property());
-                    break;
-                case 3:
-                    checkBoxColumn.setCellValueFactory(cellData -> cellData.getValue().getCheckBox4Property());
-                    break;
-                case 4:
-                    checkBoxColumn.setCellValueFactory(cellData -> cellData.getValue().getCheckBox5Property());
-                    break;
-                default:
-                    break;
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Obtener los datos y agregarlos a la tabla
+                int id = rs.getInt("idempleado");
+                String nombre = rs.getString("nombreCompleto");
+
+
+                TbAsistencia.getItems().add(new Empleados(id, nombre));
             }
-
-            checkBoxColumn.setCellFactory(column -> new CheckBoxTableCell<>());
-
-            checkBoxColumn.setPrefWidth(150);
-
-            TbAsistencia.getColumns().add(checkBoxColumn);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+
+
+
 }

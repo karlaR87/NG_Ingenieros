@@ -133,21 +133,26 @@ public class RegistrarseControlador {
         }
     }
     public void validaciones() {
-        if (validarLetras(txtNombre.getText())) {
-            if (validarCorreo(txtCorreoE.getText())){
-                if (validarNumero(txtDui.getText())){
-                    registrardatos();
+        if (NoVacio(txtNombre.getText()) && NoVacio(txtCorreoE.getText()) && NoVacio(txtDui.getText())) {
+            if (validarLetras(txtNombre.getText())){
+                if (validarCorreo(txtCorreoE.getText())){
+                    if (validarNumero(txtDui.getText())){
+                        registrardatos();
+                    }
+                    else {
+                        mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                    }
                 }
                 else {
-                    mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+
                 }
             }
             else {
-                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
-
-            }  mostrarAlerta("Validación Exitosa", "Letras válidas.");
+                mostrarAlerta("Error de Validación", "Ingrese solo letras.");
+            }
         } else {
-            mostrarAlerta("Error de Validación", "Ingrese solo letras.");
+            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
     }
 

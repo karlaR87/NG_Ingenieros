@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import java.util.Random;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -84,18 +84,16 @@ public class RecuperacionContraseñaControlador {
             return null;
 
         }
-
-
-
     }
 
 
-    public static void enviarcorreo() {
+    public void enviarcorreo() {
+        String codigoAleatorio = generarCodigoAleatorio();
 
         final String correoRemitente = "liamrh855@gmail.com"; // Cambia esto por tu dirección de correo
         final String passwordCorreoRemitente = "nhgh sort xahs kqks"; // Cambia esto por tu contraseña
 
-        String destinatario = "20220240@ricaldone.edu.sv"; // Cambia esto por la dirección de correo del destinatario
+        String destinatario = txtCorreoRecu.getText(); // Cambia esto por la dirección de correo del destinatario
 
         // Propiedades de la conexión
         Properties props = new Properties();
@@ -118,8 +116,8 @@ public class RecuperacionContraseñaControlador {
             message.setFrom(new InternetAddress(correoRemitente));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destinatario));
-            message.setSubject("Asunto del correo");
-            message.setText("Este es el cuerpo del correo.");
+            message.setSubject("Recuperacion obligame Contarseña");
+            message.setText("Este es el codigo para poder recuperar su contraseña " + codigoAleatorio );
 
             // Envío del mensaje
             Transport.send(message);
@@ -129,6 +127,11 @@ public class RecuperacionContraseñaControlador {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+    private static String generarCodigoAleatorio() {
+        Random random = new Random();
+        int codigo = 100000 + random.nextInt(900000); // Generar un número aleatorio de 6 dígitos
+        return String.valueOf(codigo);
     }
 
     public void validaciones() {
@@ -160,4 +163,17 @@ public class RecuperacionContraseñaControlador {
 
 
     }
+   /* public class RandomNumberGenerator {
+        public static void main(String[] args) {
+            // Create an instance of the Random class
+
+            // Generate a random 6-digit number
+            int min = 100000; // Minimum value for a 6-digit number
+            int max = 999999; // Maximum value for a 6-digit number
+            int randomNumber = random.nextInt(max - min + 1) + min;
+
+            // Display the generated random number
+            System.out.println("Generated 6-digit random number: " + randomNumber);
+        }
+    }*/
 }

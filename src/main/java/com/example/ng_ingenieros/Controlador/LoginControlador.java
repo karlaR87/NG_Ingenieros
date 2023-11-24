@@ -123,7 +123,9 @@ public class LoginControlador {
 
 
                         stage.setScene(new Scene(root));
+                        ((Stage) txtUsuario.getScene().getWindow()).close();
                         stage.show();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

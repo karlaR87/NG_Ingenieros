@@ -53,7 +53,7 @@ public class Empleados {
         this.cargo = cargo;
         this.plaza = plaza;
         this.sueldoHora = pagoExtra;
-this.cuentaBancaria=numCuenta;
+        this.cuentaBancaria=numCuenta;
         this.sueldoDia = sueldo;
     }
 
@@ -194,19 +194,9 @@ this.cuentaBancaria=numCuenta;
         this.plaza = plaza;
     }
 
+    //Constructor para la asistencia
     public Empleados(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 }
-
-
-
-
-
-
-
-
-
-
-

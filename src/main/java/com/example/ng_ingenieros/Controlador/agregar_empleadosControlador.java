@@ -60,9 +60,7 @@ public class agregar_empleadosControlador {
     }
 
     private void guardarDatos(ActionEvent event) {
-
-        agregarEmpleados();
-
+        validaciones();
     }
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
@@ -98,6 +96,7 @@ public class agregar_empleadosControlador {
             ps.setInt(8, idPlaza);
             ps.executeUpdate();
             mostrarAlerta("Inserción de empleados", "El empleado ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
+            ((Stage) txtNombreEmp.getScene().getWindow()).close();
 
 
         }catch (SQLException e) {
@@ -324,37 +323,25 @@ public class agregar_empleadosControlador {
 
     //Validaciones
     public void validaciones() {
-        if (validarLetras(txtNombreEmp.getText())){
-            if (validarCorreo(txtCorreoEmp.getText())){
-                if (validarNumero(txtCuentaBEmp.getText())){
-                    if (validarNumero(txtSueldoEmp.getText())){
-                        if (validarNumero(txtDuiEmp.getText())){
-                            if (validarNumero(txtPagoHorasExEmp.getText())){
-
-
-                            }else {
-                                mostrarAlerta("Error de Validación", "Ingrese solo números.");
-                            }
-
-                        }else {
-                            mostrarAlerta("Error de Validación", "Ingrese solo números.");
-                        }
+        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtDuiEmp.getText())&& NoVacio(txtCuentaBEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
+            if (validarLetras(txtNombreEmp.getText())){
+                if (validarCorreo(txtCorreoEmp.getText())){
+                    if (validarNumero(txtCuentaBEmp.getText())&& validarNumero(txtSueldoEmp.getText()) && validarNumero(txtDuiEmp.getText()) && validarNumero(txtPagoHorasExEmp.getText())){
+                        agregarEmpleados();
 
                     }else {
                         mostrarAlerta("Error de Validación", "Ingrese solo números.");
-
                     }
 
                 }else {
-                    mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
                 }
-
-            }else {
-                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
             }
-
+            else{
+                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre");
+            }
         }else {
-            mostrarAlerta("Error de validación", "Ingresar solo letras.");
+            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
 
     }
