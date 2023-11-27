@@ -61,6 +61,8 @@ public class AsistenciaEmpleadosControlador {
 
     @FXML
     private TextField txtEmpleadoSel;
+    @FXML
+    private Label LblIdEmpleado;
 
 
 
@@ -215,7 +217,7 @@ public class AsistenciaEmpleadosControlador {
             // Verificar si se seleccionó una fila
             if (empleadoSeleccionado != null) {
                 // Asignar el ID al Label
-                //LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getId()));
+                LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getId()));
 
                 // Asignar el nombre al TextField
                 txtEmpleadoSel.setText(empleadoSeleccionado.getNombre());
