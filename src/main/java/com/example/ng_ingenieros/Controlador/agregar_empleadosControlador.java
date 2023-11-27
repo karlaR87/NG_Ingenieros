@@ -324,22 +324,29 @@ public class agregar_empleadosControlador {
     //Validaciones
     public void validaciones() {
         if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtDuiEmp.getText())&& NoVacio(txtCuentaBEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
+            if (validarDui(txtDuiEmp.getText())){
             if (validarLetras(txtNombreEmp.getText())){
                 if (validarCorreo(txtCorreoEmp.getText())){
-                    if (validarNumero(txtCuentaBEmp.getText())&& validarNumero(txtSueldoEmp.getText()) && validarNumero(txtDuiEmp.getText()) && validarNumero(txtPagoHorasExEmp.getText())){
+                    if (validarNumero(txtCuentaBEmp.getText())&& validarNumero(txtSueldoEmp.getText()) && validarNumero(txtPagoHorasExEmp.getText())){
                         agregarEmpleados();
 
                     }else {
                         mostrarAlerta("Error de Validación", "Ingrese solo números.");
                     }
 
-                }else {
+                } else {
                     mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
                 }
+
+            } else{
+                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
             }
-            else{
-                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre");
+
+            } else {
+                mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
+
             }
+
         }else {
             mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
@@ -371,6 +378,12 @@ public class agregar_empleadosControlador {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
+    private boolean validarDui(String dui) {
+        // Se puede implementar una lógica más avanzada según el formato real de DUI
+        return dui.matches("\\d{8}-\\d{1}");
     }
 
 

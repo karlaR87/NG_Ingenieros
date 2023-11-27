@@ -36,23 +36,13 @@ public class PlanillaEditableControlador {
 
     //Validaciones
     public void validaciones() {
-        if (NoVacio(txtNombre.getText())){
-            if (validarNumero(txtDui.getText())){
-                if (validarNumero(txtNIT.getText())){
-                    if (validarLetras(txtCargo.getText())){
-                        if (validarNumero(txtSueldo.getText())){
-                            if (validarLetras(txtNombre.getText())){
-
-                            }else {
-                                mostrarAlerta("Error de validación", "Ingresar solo letras.");
-                            }
-
-                        }else {
-                            mostrarAlerta("Error de Validación", "Ingrese solo números.");
-                        }
+        if (NoVacio(txtNombre.getText()) && NoVacio(txtDui.getText()) && NoVacio(txtSueldo.getText()) && NoVacio(txtNIT.getText()) && NoVacio(txtCargo.getText())) {
+            if (validarLetras(txtNombre.getText()) && validarLetras(txtCargo.getText())){
+                if (validarNumero(txtSueldo.getText()) && validarNumero(txtNIT.getText())) {
+                    if (validarDui(txtDui.getText())){
 
                     }else {
-                        mostrarAlerta("Error de validación", "Ingresar solo letras.");
+                        mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
                     }
 
                 }else {
@@ -60,11 +50,11 @@ public class PlanillaEditableControlador {
                 }
 
             }else {
-                mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                mostrarAlerta("Error de Validación", "Ingrese solo letras.");
             }
 
-        } else {
-            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+        }else {
+            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
     }
 
@@ -93,6 +83,11 @@ public class PlanillaEditableControlador {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
+    private boolean validarDui(String dui) {
+        // Se puede implementar una lógica más avanzada según el formato real de DUI
+        return dui.matches("\\d{8}-\\d{1}");
     }
 
 

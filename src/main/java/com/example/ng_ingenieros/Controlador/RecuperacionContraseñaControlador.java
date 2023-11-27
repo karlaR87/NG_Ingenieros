@@ -115,8 +115,8 @@ public class RecuperacionContraseñaControlador {
             message.setFrom(new InternetAddress(correoRemitente));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destinatario));
-            message.setSubject("Recuperacion obligame Contarseña");
-            message.setText("Este es el codigo para poder recuperar su contraseña " + codigoAleatorio );
+            message.setSubject("Recuperación obligame Contarseña");
+            message.setText("Este es el código para poder recuperar su contraseña " + codigoAleatorio );
 
             // Envío del mensaje
             Transport.send(message);

@@ -39,13 +39,13 @@
                   </Button>
                </children>
             </Pane>
-            <Label layoutX="197.0" layoutY="35.0" prefHeight="28.0" prefWidth="137.0" text="REGISTRATE" textFill="WHITE">
+            <Label layoutX="191.0" layoutY="35.0" prefHeight="28.0" prefWidth="112.0" text="REGISTRATE" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuario" layoutX="94.0" layoutY="95.0" prefHeight="38.0" prefWidth="315.0" promptText="Nombre de usuario" style="-fx-background-radius: 10;" />
-            <Button fx:id="btnRegistrarse" layoutX="177.0" layoutY="356.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Registrarse" textFill="WHITE">
+            <TextField fx:id="txtUsuario" layoutX="90.0" layoutY="93.0" prefHeight="38.0" prefWidth="315.0" promptText="Nombre de usuario" style="-fx-background-radius: 10;" />
+            <Button fx:id="btnRegistrarse" layoutX="165.0" layoutY="359.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Registrarse" textFill="WHITE">
                <effect>
                   <DropShadow>
                      <color>
@@ -57,9 +57,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <PasswordField fx:id="txtContraseña" layoutX="94.0" layoutY="168.0" prefHeight="38.0" prefWidth="315.0" promptText="Ingresa tu contraseña" style="-fx-background-radius: 10;" />
-            <PasswordField fx:id="txtConfirmaContra" layoutX="94.0" layoutY="240.0" prefHeight="38.0" prefWidth="315.0" promptText="Confirma tu contraseña" style="-fx-background-radius: 10;" />
-            <ComboBox fx:id="cmbNivel" layoutX="94.0" layoutY="304.0" prefWidth="150.0" style="-fx-background-color: #FFFF; -fx-background-radius: 10;" />
+            <PasswordField fx:id="txtContraseña" layoutX="90.0" layoutY="158.0" prefHeight="38.0" prefWidth="315.0" promptText="Ingresa tu contraseña" style="-fx-background-radius: 10;" />
+            <PasswordField fx:id="txtConfirmaContra" layoutX="90.0" layoutY="229.0" prefHeight="38.0" prefWidth="315.0" promptText="Confirma tu contraseña" style="-fx-background-radius: 10;" />
+            <ComboBox fx:id="cmbNivel" layoutX="172.0" layoutY="298.0" prefHeight="28.0" prefWidth="134.0" style="-fx-background-color: #FFFF; -fx-background-radius: 10;" />
          </children>
       </AnchorPane>
    </children>

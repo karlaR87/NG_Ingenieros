@@ -117,9 +117,8 @@ public class PrimerUsoControlador {
 
 
     public void validaciones() {
-        if (NoVacio(txtUser.getText())){
-            if (NoVacio(txtContraseña.getText())) {
-
+        if (NoVacio(txtUser.getText()) && NoVacio(txtContraseña.getText())){
+           if (validarLongitud(txtUser.getText(), 8, 20)){
                 if (validarCorreo(txtCorreo.getText())){
                     registrardatos();
                 }
@@ -127,11 +126,10 @@ public class PrimerUsoControlador {
                     mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
 
                 }
-            } else {
 
-                mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
-
-            }
+           }    else {
+               mostrarAlerta("Error de Validación", "La longitud de los campos debe estar entre 8 y 20 caracteres.");
+           }
 
         } else {
             mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
@@ -144,5 +142,11 @@ public class PrimerUsoControlador {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    // Función para validar la longitud de un texto
+    private boolean validarLongitud(String texto, int minimo, int maximo) {
+        int longitud = texto.length();
+        return (longitud >= minimo && longitud <= maximo);
     }
 }

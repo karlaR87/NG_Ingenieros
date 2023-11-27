@@ -134,24 +134,25 @@ public class RegistrarseControlador {
     }
     public void validaciones() {
         if (NoVacio(txtNombre.getText()) && NoVacio(txtCorreoE.getText()) && NoVacio(txtDui.getText())) {
+            if (validarDui(txtDui.getText()))
             if (validarLetras(txtNombre.getText())){
                 if (validarCorreo(txtCorreoE.getText())){
-                    if (validarNumero(txtDui.getText())){
                         registrardatos();
-                    }
-                    else {
-                        mostrarAlerta("Error de Validación", "Ingrese solo números.");
-                    }
+
                 }
                 else {
                     mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
-
                 }
             }
             else {
                 mostrarAlerta("Error de Validación", "Ingrese solo letras.");
             }
-        } else {
+            else {
+                mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
+
+            }
+        }
+        else {
             mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
     }
@@ -162,6 +163,12 @@ public class RegistrarseControlador {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
+    private boolean validarDui(String dui) {
+        // Se puede implementar una lógica más avanzada según el formato real de DUI
+        return dui.matches("\\d{8}-\\d{1}");
     }
 
 }

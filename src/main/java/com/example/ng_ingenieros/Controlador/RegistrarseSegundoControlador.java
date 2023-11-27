@@ -195,17 +195,23 @@ public class RegistrarseSegundoControlador {
     }
 
     public void validaciones() {
-       if (NoVacio(txtUsuario.getText())){
-           if (NoVacio(txtContraseña.getText())){
+       if (NoVacio(txtContraseña.getText()) && NoVacio(txtUsuario.getText())){
+           if (validarLongitud(txtUsuario.getText(), 8, 20)){
                registrardatos();
 
            } else {
-               mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+               mostrarAlerta("Error de Validación", "La longitud de los campos debe estar entre 8 y 20 caracteres.");
            }
 
        } else  {
            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
        }
+    }
+
+    // Función para validar la longitud de un texto
+    private boolean validarLongitud(String texto, int minimo, int maximo) {
+        int longitud = texto.length();
+        return (longitud >= minimo && longitud <= maximo);
     }
 
 
