@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -57,6 +59,9 @@ public class AsistenciaEmpleadosControlador {
     @FXML
     private TextField txtBusqueda;
 
+    @FXML
+    private TextField txtEmpleadoSel;
+
 
 
     public void initialize()
@@ -73,6 +78,8 @@ public class AsistenciaEmpleadosControlador {
         cmbAMPM2.setItems(opcionesAsistencia);
 
         llenarCombo();
+
+        TbAsistencia.setOnMouseClicked(this::seleccionarEmpleado);
 
         txtBusqueda.setOnKeyReleased(event -> {
 
@@ -197,6 +204,28 @@ public class AsistenciaEmpleadosControlador {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    private void seleccionarEmpleado(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            // Obtener la fila seleccionada
+            Empleados empleadoSeleccionado = (Empleados) TbAsistencia.getSelectionModel().getSelectedItem();
+
+            // Verificar si se seleccionó una fila
+            if (empleadoSeleccionado != null) {
+                // Asignar el ID al Label
+                //LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getId()));
+
+                // Asignar el nombre al TextField
+                txtEmpleadoSel.setText(empleadoSeleccionado.getNombre());
+            }
+        }
+    }
+
+
+
+
 
 
 
