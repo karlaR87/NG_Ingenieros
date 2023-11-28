@@ -1,6 +1,8 @@
 package com.example.ng_ingenieros.Controlador;
 
+import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 public class AsistenciaActualizarControlador {
 
@@ -44,8 +47,21 @@ public class AsistenciaActualizarControlador {
     @FXML
     private ComboBox cmbAsistencia;
 
-    public void initialize()
+    private TableView<Empleados> TBMostrarAsistencia;
+
+    public void initialize(AsistenciaVista empleadoSeleccionado)
     {
+
+        txtEmpleadoSel.setText(empleadoSeleccionado.getIdempleado());
+        cmbAsistencia.setValue(empleadoSeleccionado.getMarcarasistencia());
+
+
+
+        // Llamar a las funciones para separar los datos
+
+
+
+
 
         CargarAsistencia();
         cmbAsistencia.setPromptText("Seleccione la opción de asistencia");
@@ -60,6 +76,13 @@ public class AsistenciaActualizarControlador {
         cmbAMPM2.setItems(opcionesAsistencia);
 
         llenarCombo();
+
+
+
+    }
+
+    public void setTableAsistencia(TableView<Empleados> TBMostrarAsistencia) {
+        this.TBMostrarAsistencia = TBMostrarAsistencia;
     }
 
     private void CargarAsistencia() {
@@ -142,5 +165,77 @@ public class AsistenciaActualizarControlador {
             }
         });
     }
+
+
+
+
+    public void actualizarAsistencia() {
+        int horaEn1 = (int) spHoraEn1.getValue();
+        int horaEn2 = (int) spHoraEn2.getValue();
+
+        String diaseleccionado = (String) cmbDiaAsistencia.getSelectionModel().getSelectedItem();
+        String minutosEn2 = (horaEn2 <= 9) ? "0" + horaEn2 : String.valueOf(horaEn2); //validamos que el spinner de los minutos, al ingresar un valor menor a nueva cargue un 0 al inicio
+        String seleccionComboBox1 = (String) cmbAMPM.getSelectionModel().getSelectedItem();
+
+        // Mostrar los valores en el Label
+
+        if (seleccionComboBox1 != null) {
+            LblHoraEntrada.setText("" + diaseleccionado + ", " + horaEn1 + ":" + minutosEn2 + " " + seleccionComboBox1);
+        }
+
+
+        int horaSal1 = (int) spHoraSa1.getValue();
+        int horaSal2 = (int) spHoraSa2.getValue();
+
+        String diasalida = (String) cmbDiaSalida.getSelectionModel().getSelectedItem();
+        String minutosEn = (horaSal2 <= 9) ? "0" + horaSal2 : String.valueOf(horaSal2);
+        String seleccionComboBox2 = (String) cmbAMPM2.getSelectionModel().getSelectedItem();
+
+
+        LblHoraSalida.setText("(" + horaSal1 + ":" + minutosEn + ")");
+        if (seleccionComboBox2 != null) {
+            LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
+        }
+
+        //Aqui se puede poner directamente el codigo de agregar asistencia
+
+
+        String nombreN = LblIdEmpleado.getText();
+
+        int AsistenciaN = obtenerIdAsistenciaSeleccionado(cmbAsistencia);
+
+        String fechaentradaN = LblHoraEntrada.getText();
+
+        String fechasalidaN = LblHoraSalida.getText();
+
+        // Obtener los datos actualizados de los campos
+
+
+        // Realizar la actualización en la base de datos
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "UPDATE  tbAsistencia SET idempleado=?, idAsistenciaMarcar=?, hora_entrada=?, hora_salida=?) ";
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1,nombreN);
+                ps.setInt(2, AsistenciaN);
+                ps.setString(3,fechaentradaN);
+                ps.setString(4, fechasalidaN);
+
+                agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
+            }
+        } catch (SQLException e) {
+            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            e.printStackTrace();
+
+        }
+    }
+
+
+
+
+
+
+
+
 
 }

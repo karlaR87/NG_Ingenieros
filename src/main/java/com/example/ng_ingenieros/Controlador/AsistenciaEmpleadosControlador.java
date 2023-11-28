@@ -158,7 +158,7 @@ public class AsistenciaEmpleadosControlador {
     }
 
     private int obtenerIdAsistenciaSeleccionado(ComboBox<String> cbCargoEmp) {
-        int idCargo = -1; // Valor predeterminado en caso de error o no selección
+        int idAsistencia = -1; // Valor predeterminado en caso de error o no selección
 
         try (Connection conn = Conexion.obtenerConexion()) {
             String asistencia = (String) cmbAsistencia.getValue();
@@ -169,7 +169,7 @@ public class AsistenciaEmpleadosControlador {
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        idCargo = rs.getInt("idAsistenciaMarcar");
+                        idAsistencia = rs.getInt("idAsistenciaMarcar");
                     }
                 }
             }
@@ -178,7 +178,7 @@ public class AsistenciaEmpleadosControlador {
             e.printStackTrace();
         }
 
-        return idCargo;
+        return idAsistencia;
     }
 
 

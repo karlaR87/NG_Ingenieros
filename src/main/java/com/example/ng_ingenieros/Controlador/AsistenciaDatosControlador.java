@@ -22,7 +22,7 @@ import java.sql.Statement;
 public class AsistenciaDatosControlador {
 
     @FXML
-    private TableView TBMostrarAsistencia;
+    public TableView TBMostrarAsistencia;
     @FXML
     private TextField txtBusqueda;
     @FXML
@@ -46,21 +46,37 @@ public class AsistenciaDatosControlador {
     }
 
     private void btnActualizarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
-        abrirVentanaMostrar();
+        abrirVentanaActualizar();
     }
 
-    public void abrirVentanaMostrar() throws IOException {
+    public void abrirVentanaActualizar() {
+        // Obtener la fila seleccionada
+        AsistenciaVista empleadoSeleccionado = (AsistenciaVista) TBMostrarAsistencia.getSelectionModel().getSelectedItem();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_actualizar.fxml"));
-        Parent root;
+        if (empleadoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_actualizar.fxml"));
+            Parent root;
+            try {
 
-        root = loader.load();
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                AsistenciaActualizarControlador asistenciaActualizarControlador = loader.getController();
+
+                // Pasar la referencia de TableAsistencia al controlador de la ventana de actualización
+                asistenciaActualizarControlador.initialize(empleadoSeleccionado);
 
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
 
+                asistenciaActualizarControlador.setTableAsistencia(TBMostrarAsistencia);
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
+        }
     }
 
     private void cargarDatos() {

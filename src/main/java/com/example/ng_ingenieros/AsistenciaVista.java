@@ -5,6 +5,10 @@ public class AsistenciaVista {
     private int id;
     private String idempleado;
 
+
+
+    private String nombreAsi;
+
     private String marcarasistencia;
 
     private String hora_entrada;
