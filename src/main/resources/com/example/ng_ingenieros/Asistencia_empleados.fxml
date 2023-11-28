@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="505.0" prefWidth="709.0" style="-fx-background-color: #2D3250; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador">
+<AnchorPane prefHeight="505.0" prefWidth="709.0" style="-fx-background-color: #2D3250; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador">
    <children>
       <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #DD890B; -fx-background-radius: 20;">
          <children>
@@ -20,7 +28,7 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="TbAsistencia" layoutX="14.0" layoutY="123.0" prefHeight="283.0" prefWidth="278.0">
+      <TableView fx:id="TbAsistencia" layoutX="14.0" layoutY="123.0" prefHeight="357.0" prefWidth="278.0">
          <columns>
             <TableColumn prefWidth="75.0" text="idempleado">
                <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
@@ -34,7 +42,7 @@
 
          </columns>
       </TableView>
-      <Button fx:id="btncancelar" layoutX="78.0" layoutY="432.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="209.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
+      <Button fx:id="btncancelar" layoutX="337.0" layoutY="432.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
          <effect>
             <DropShadow>
                <color>
@@ -45,7 +53,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btnGuardaAsistencia" layoutX="462.0" layoutY="432.0" mnemonicParsing="false" onAction="#guardarAsistencia" prefHeight="44.0" prefWidth="185.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+      <Button fx:id="btnGuardaAsistencia" layoutX="529.0" layoutY="432.0" mnemonicParsing="false" onAction="#guardarAsistencia" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
          <effect>
             <DropShadow>
                <color>
@@ -56,24 +64,24 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="txtEmpleadoSel" layoutX="422.0" layoutY="122.0" prefHeight="25.0" prefWidth="278.0" />
-      <ComboBox fx:id="cmbAsistencia" layoutX="417.0" layoutY="193.0" prefHeight="25.0" prefWidth="278.0" />
-      <Label layoutX="301.0" layoutY="121.0" prefHeight="27.0" prefWidth="119.0" text="Empleado:" textFill="WHITE">
+      <TextField fx:id="txtEmpleadoSel" editable="false" layoutX="395.0" layoutY="146.0" prefHeight="25.0" prefWidth="302.0" />
+      <ComboBox fx:id="cmbAsistencia" layoutX="381.0" layoutY="214.0" prefHeight="25.0" prefWidth="315.0" />
+      <Label layoutX="301.0" layoutY="144.0" prefHeight="27.0" prefWidth="119.0" text="Empleado:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="301.0" layoutY="192.0" prefHeight="27.0" prefWidth="119.0" text="Reportar:" textFill="WHITE">
+      <Label layoutX="302.0" layoutY="213.0" prefHeight="27.0" prefWidth="119.0" text="Reportar:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="300.0" layoutY="266.0" prefHeight="25.0" prefWidth="110.0" text="Entrada:" textFill="WHITE">
+      <Label layoutX="300.0" layoutY="276.0" prefHeight="25.0" prefWidth="110.0" text="Entrada:" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="298.0" layoutY="345.0" prefHeight="25.0" prefWidth="119.0" text="Salida:" textFill="WHITE">
+      <Label layoutX="298.0" layoutY="351.0" prefHeight="25.0" prefWidth="119.0" text="Salida:" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -88,24 +96,24 @@
             </ImageView>
          </children>
       </Pane>
-      <Spinner fx:id="spHoraEn1" layoutX="475.0" layoutY="266.0" prefHeight="25.0" prefWidth="57.0" />
-      <Spinner fx:id="spHoraEn2" layoutX="545.0" layoutY="266.0" prefHeight="25.0" prefWidth="63.0" />
-      <Spinner fx:id="spHoraSa1" layoutX="475.0" layoutY="345.0" prefHeight="25.0" prefWidth="57.0" />
-      <Spinner fx:id="spHoraSa2" layoutX="545.0" layoutY="345.0" prefHeight="25.0" prefWidth="63.0" />
-      <Label fx:id="LblHoraEntrada" layoutX="465.0" layoutY="291.0" prefHeight="25.0" prefWidth="135.0" text="Hora de entrada:" textFill="#f7f8fc">
+      <Spinner fx:id="spHoraEn1" layoutX="463.0" layoutY="276.0" prefHeight="25.0" prefWidth="57.0" />
+      <Spinner fx:id="spHoraEn2" layoutX="534.0" layoutY="276.0" prefHeight="25.0" prefWidth="63.0" />
+      <Spinner fx:id="spHoraSa1" layoutX="462.0" layoutY="351.0" prefHeight="25.0" prefWidth="57.0" />
+      <Spinner fx:id="spHoraSa2" layoutX="534.0" layoutY="351.0" prefHeight="25.0" prefWidth="63.0" />
+      <Label fx:id="LblHoraEntrada" layoutX="465.0" layoutY="300.0" prefHeight="25.0" prefWidth="135.0" text="(00:00)" textFill="#2d3250">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="LblHoraSalida" layoutX="465.0" layoutY="368.0" prefHeight="25.0" prefWidth="135.0" text="Hora de salida:" textFill="#f7f8fc">
+      <Label fx:id="LblHoraSalida" layoutX="465.0" layoutY="382.0" prefHeight="25.0" prefWidth="135.0" text="Hora de salida:" textFill="#2d3250">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbAMPM" layoutX="619.0" layoutY="267.0" prefHeight="25.0" prefWidth="78.0" />
-      <ComboBox fx:id="cmbAMPM2" layoutX="619.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
-      <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="266.0" prefHeight="25.0" prefWidth="97.0" />
-      <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="345.0" prefHeight="25.0" prefWidth="97.0" />
-      <Label fx:id="LblIdEmpleado" layoutX="433.0" layoutY="148.0" text="Label" textFill="WHITE" />
+      <ComboBox fx:id="cmbAMPM" layoutX="610.0" layoutY="277.0" prefHeight="25.0" prefWidth="87.0" promptText="Horario" />
+      <ComboBox fx:id="cmbAMPM2" layoutX="610.0" layoutY="349.0" prefHeight="25.0" prefWidth="87.0" promptText="Horario" />
+      <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="276.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
+      <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="351.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
+      <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="175.0" prefHeight="17.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
    </children>
 </AnchorPane>

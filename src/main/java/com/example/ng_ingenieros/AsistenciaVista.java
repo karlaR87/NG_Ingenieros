@@ -1,17 +1,17 @@
 package com.example.ng_ingenieros;
 
-public class Asistencia {
+public class AsistenciaVista {
 
     private int id;
-    private int idempleado;
+    private String idempleado;
 
-    private int marcarasistencia;
+    private String marcarasistencia;
 
     private String hora_entrada;
 
     private String hora_salida;
 
-    public Asistencia(int id, int idempleado, int marcarasistencia, String hora_entrada, String hora_salida) {
+    public AsistenciaVista(int id, String idempleado, String marcarasistencia, String hora_entrada, String hora_salida) {
         this.id = id;
         this.idempleado = idempleado;
         this.marcarasistencia = marcarasistencia;
@@ -27,19 +27,19 @@ public class Asistencia {
         this.id = id;
     }
 
-    public int getIdempleado() {
+    public String getIdempleado() {
         return idempleado;
     }
 
-    public void setIdempleado(int idempleado) {
+    public void setIdempleado(String idempleado) {
         this.idempleado = idempleado;
     }
 
-    public int getMarcarasistencia() {
+    public String getMarcarasistencia() {
         return marcarasistencia;
     }
 
-    public void setMarcarasistencia(int marcarasistencia) {
+    public void setMarcarasistencia(String marcarasistencia) {
         this.marcarasistencia = marcarasistencia;
     }
 
@@ -58,7 +58,4 @@ public class Asistencia {
     public void setHora_salida(String hora_salida) {
         this.hora_salida = hora_salida;
     }
-
-
-
 }

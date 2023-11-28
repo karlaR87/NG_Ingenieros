@@ -16,10 +16,7 @@ import javafx.stage.Stage;
 
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 //imports del spinner
 import javafx.util.StringConverter;
@@ -63,12 +60,18 @@ public class AsistenciaEmpleadosControlador {
     private TextField txtEmpleadoSel;
     @FXML
     private Label LblIdEmpleado;
+    @FXML
+    private ComboBox cmbAsistencia;
 
 
 
     public void initialize()
     {
+
+
         cargarDatos();
+
+
 
         configurarSpinner(spHoraEn1, 0, 11);
         configurarSpinner(spHoraEn2, 0, 59);
@@ -89,6 +92,63 @@ public class AsistenciaEmpleadosControlador {
 
         });
 
+        cmbAsistencia.setPromptText("Seleccione el cargo del empleado");
+        CargarAsistencia();
+
+
+
+    }
+
+    
+    private void CargarAsistencia() {
+        // Crear una lista observable para almacenar los datos
+        ObservableList<String> data = FXCollections.observableArrayList();
+
+        // Conectar a la base de datos y recuperar los datos
+        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
+            String query = "SELECT asistencia FROM tbAsistenciaMarcar";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Recorrer los resultados y agregarlos a la lista observable
+            while (resultSet.next()) {
+                String item = resultSet.getString("asistencia"); // Reemplaza con el nombre de la columna de tu tabla
+                data.add(item);
+            }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de errores
+        }
+
+        // Asignar los datos al ComboBox
+        cmbAsistencia.setItems(data);
+    }
+
+    private int obtenerIdAsistenciaSeleccionado(ComboBox<String> cbCargoEmp) {
+        int idCargo = -1; // Valor predeterminado en caso de error o no selección
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String asistencia = (String) cmbAsistencia.getValue();
+
+            String sql = "SELECT idAsistenciaMarcar FROM tbAsistenciaMarcar WHERE asistencia = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, asistencia);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idCargo = rs.getInt("idAsistenciaMarcar");
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idCargo;
     }
 
 
@@ -113,55 +173,6 @@ public class AsistenciaEmpleadosControlador {
             }
         });
     }
-
-    public void llenarCombo()
-    {
-        cmbDiaAsistencia.getItems().addAll(
-                "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
-        );
-
-        // Agregar días de la semana a cmbDiaSalida
-        cmbDiaSalida.getItems().addAll(
-                "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
-        );
-    }
-
-    //Obtener valores de los Spinner (metodo directamente aplicado al boton en el fxml)
-
-    @FXML
-    private void guardarAsistencia(ActionEvent event) {
-        // Obtener los valores de los Spinners
-        int horaEn1 = (int) spHoraEn1.getValue();
-        int horaEn2 = (int) spHoraEn2.getValue();
-
-        String diaseleccionado = (String) cmbDiaAsistencia.getSelectionModel().getSelectedItem();
-        String minutosEn2 = (horaEn2 <= 9) ? "0" + horaEn2 : String.valueOf(horaEn2); //validamos que el spinner de los minutos, al ingresar un valor menor a nueva cargue un 0 al inicio
-        String seleccionComboBox1 = (String) cmbAMPM.getSelectionModel().getSelectedItem();
-
-        // Mostrar los valores en el Label
-
-        if (seleccionComboBox1 != null) {
-            LblHoraEntrada.setText("" + diaseleccionado + ", " + horaEn1 + ":" + minutosEn2 + " " + seleccionComboBox1);
-        }
-
-
-        int horaSal1 = (int) spHoraSa1.getValue();
-        int horaSal2 = (int) spHoraSa2.getValue();
-
-        String diasalida = (String) cmbDiaSalida.getSelectionModel().getSelectedItem();
-        String minutosEn = (horaSal2 <= 9) ? "0" + horaSal2 : String.valueOf(horaSal2);
-        String seleccionComboBox2 = (String) cmbAMPM2.getSelectionModel().getSelectedItem();
-
-
-        LblHoraSalida.setText("(" + horaSal1 + ":" + minutosEn + ")");
-        if (seleccionComboBox2 != null) {
-            LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
-        }
-
-        //Aqui se puede poner directamente el codigo de agregar asistencia
-    }
-
-
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
@@ -224,6 +235,91 @@ public class AsistenciaEmpleadosControlador {
             }
         }
     }
+
+    public void llenarCombo()
+    {
+        cmbDiaAsistencia.getItems().addAll(
+                "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+        );
+
+        // Agregar días de la semana a cmbDiaSalida
+        cmbDiaSalida.getItems().addAll(
+                "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+        );
+    }
+
+    //Obtener valores de los Spinner (metodo directamente aplicado al boton en el fxml)
+
+    @FXML
+    private void guardarAsistencia(ActionEvent event) {
+        // Obtener los valores de los Spinners
+        int horaEn1 = (int) spHoraEn1.getValue();
+        int horaEn2 = (int) spHoraEn2.getValue();
+
+        String diaseleccionado = (String) cmbDiaAsistencia.getSelectionModel().getSelectedItem();
+        String minutosEn2 = (horaEn2 <= 9) ? "0" + horaEn2 : String.valueOf(horaEn2); //validamos que el spinner de los minutos, al ingresar un valor menor a nueva cargue un 0 al inicio
+        String seleccionComboBox1 = (String) cmbAMPM.getSelectionModel().getSelectedItem();
+
+        // Mostrar los valores en el Label
+
+        if (seleccionComboBox1 != null) {
+            LblHoraEntrada.setText("" + diaseleccionado + ", " + horaEn1 + ":" + minutosEn2 + " " + seleccionComboBox1);
+        }
+
+
+        int horaSal1 = (int) spHoraSa1.getValue();
+        int horaSal2 = (int) spHoraSa2.getValue();
+
+        String diasalida = (String) cmbDiaSalida.getSelectionModel().getSelectedItem();
+        String minutosEn = (horaSal2 <= 9) ? "0" + horaSal2 : String.valueOf(horaSal2);
+        String seleccionComboBox2 = (String) cmbAMPM2.getSelectionModel().getSelectedItem();
+
+
+        LblHoraSalida.setText("(" + horaSal1 + ":" + minutosEn + ")");
+        if (seleccionComboBox2 != null) {
+            LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
+        }
+
+        //Aqui se puede poner directamente el codigo de agregar asistencia
+
+
+            String nombre = LblIdEmpleado.getText();
+
+            int Asistencia = obtenerIdAsistenciaSeleccionado(cmbAsistencia);
+
+            String fechaentrada = LblHoraEntrada.getText();
+
+            String fechasalida = LblHoraSalida.getText();
+
+
+            try (Connection conn = Conexion.obtenerConexion()) {
+                String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida) " +
+                        "VALUES (?, ?, ?, ?)";
+                PreparedStatement ps =conn.prepareStatement(sql);
+                ps.setString(1,nombre);
+
+                ps.setInt(2,Asistencia);
+                ps.setString(3, fechaentrada);
+                ps.setString(4, fechasalida);
+                ps.executeUpdate();
+
+                agregar_empleadosControlador.mostrarAlerta("Inserción de empleados", "El empleado ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
+
+
+
+            }catch (SQLException e) {
+                agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+
+
+
+
+    }
+
+
+
+
 
 
 
