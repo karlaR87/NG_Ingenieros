@@ -65,7 +65,7 @@
             <Cursor fx:constant="HAND" />
          </cursor></Button>
       <TextField fx:id="txtEmpleadoSel" editable="false" layoutX="395.0" layoutY="146.0" prefHeight="25.0" prefWidth="302.0" />
-      <ComboBox fx:id="cmbAsistencia" layoutX="381.0" layoutY="214.0" prefHeight="25.0" prefWidth="315.0" />
+      <ComboBox fx:id="cmbAsistencia" layoutX="394.0" layoutY="214.0" prefHeight="25.0" prefWidth="302.0" />
       <Label layoutX="301.0" layoutY="144.0" prefHeight="27.0" prefWidth="119.0" text="Empleado:" textFill="WHITE">
          <font>
             <Font size="18.0" />
@@ -115,5 +115,10 @@
       <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="276.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="351.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="175.0" prefHeight="17.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
+      <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="643.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Imagenes/botonmostrar.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
