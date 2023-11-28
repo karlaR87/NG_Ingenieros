@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,8 @@ import java.sql.*;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.scene.control.SpinnerValueFactory;
+
+import javax.swing.text.html.ImageView;
 
 public class AsistenciaEmpleadosControlador {
 
@@ -63,10 +66,13 @@ public class AsistenciaEmpleadosControlador {
     @FXML
     private ComboBox cmbAsistencia;
 
+    @FXML
+    private Button btnMostrar;
 
 
     public void initialize()
     {
+
 
 
         cargarDatos();
@@ -95,7 +101,31 @@ public class AsistenciaEmpleadosControlador {
         cmbAsistencia.setPromptText("Seleccione el cargo del empleado");
         CargarAsistencia();
 
+        btnMostrar.setOnAction(actionEvent -> {
+            try {
+                btnMostrarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
+    }
+
+    private void btnMostrarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        abrirVentanaMostrar();
+    }
+
+    public void abrirVentanaMostrar() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_visualizar.fxml"));
+        Parent root;
+
+        root = loader.load();
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
 
     }
 

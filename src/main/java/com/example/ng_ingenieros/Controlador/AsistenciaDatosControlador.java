@@ -5,9 +5,15 @@ import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +25,8 @@ public class AsistenciaDatosControlador {
     private TableView TBMostrarAsistencia;
     @FXML
     private TextField txtBusqueda;
+    @FXML
+    private Button btnActualizar;
 
     public void initialize()
     {
@@ -28,6 +36,31 @@ public class AsistenciaDatosControlador {
             buscarDatos(txtBusqueda.getText());
 
         });
+        btnActualizar.setOnAction(actionEvent -> {
+            try {
+                btnActualizarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void btnActualizarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        abrirVentanaMostrar();
+    }
+
+    public void abrirVentanaMostrar() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_actualizar.fxml"));
+        Parent root;
+
+        root = loader.load();
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 
     private void cargarDatos() {

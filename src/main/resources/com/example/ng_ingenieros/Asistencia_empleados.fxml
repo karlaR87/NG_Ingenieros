@@ -115,5 +115,14 @@
       <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="276.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="351.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="175.0" prefHeight="17.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
+      <Button fx:id="btnMostrar" layoutX="597.0" layoutY="70.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="63.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="48.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/botonmostrar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
