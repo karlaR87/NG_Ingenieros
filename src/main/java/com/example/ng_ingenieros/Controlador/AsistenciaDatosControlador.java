@@ -139,18 +139,19 @@ public class AsistenciaDatosControlador {
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select a.idAsistencia, emp.nombreCompleto, asis.asistencia, a.hora_entrada, a.hora_salida from tbAsistencia a\n" +
+             ResultSet rs = stmt.executeQuery("select a.idAsistencia, emp.idempleado,emp.nombreCompleto, asis.asistencia, a.hora_entrada, a.hora_salida from tbAsistencia a\n" +
                      "inner join tbempleados emp on emp.idempleado = a.idempleado\n" +
                      "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idAsistencia");
+                int ide = rs.getInt("idempleado");
                 String nombre = rs.getString("nombreCompleto");
                 String asistencia = rs.getString("asistencia");
                 String fechaentrada = rs.getString("hora_entrada");
                 String fechasalida = rs.getString("hora_salida");
 
-                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id, nombre, asistencia, fechaentrada, fechasalida));
+                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +162,7 @@ public class AsistenciaDatosControlador {
         TBMostrarAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("select a.idAsistencia, emp.nombreCompleto, asis.asistencia, a.hora_entrada, a.hora_salida from tbAsistencia a\n" +
+             PreparedStatement stmt = conn.prepareStatement("select a.idAsistencia, emp.idempleado, emp.nombreCompleto, asis.asistencia, a.hora_entrada, a.hora_salida from tbAsistencia a\n" +
                      "inner join tbempleados emp on emp.idempleado = a.idempleado\n" +
                      "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar\n" +
                      "where emp.nombreCompleto LIKE ?")) {
@@ -175,12 +176,13 @@ public class AsistenciaDatosControlador {
             while (rs.next()) {
                 // Obtener los datos y agregarlos a la tabla
                 int id = rs.getInt("idAsistencia");
+                int ide = rs.getInt("idempleado");
                 String nombre = rs.getString("nombreCompleto");
                 String asistencia = rs.getString("asistencia");
                 String fechaentrada = rs.getString("hora_entrada");
                 String fechasalida = rs.getString("hora_salida");
 
-                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id, nombre, asistencia, fechaentrada, fechasalida));
+                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id, ide, nombre, asistencia, fechaentrada, fechasalida));
             }
         } catch (Exception e) {
             e.printStackTrace();

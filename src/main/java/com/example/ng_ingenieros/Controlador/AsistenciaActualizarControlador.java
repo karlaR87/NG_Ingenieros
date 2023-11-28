@@ -6,15 +6,16 @@ import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
 
 public class AsistenciaActualizarControlador {
 
@@ -47,13 +48,17 @@ public class AsistenciaActualizarControlador {
     private Label LblIdEmpleado;
     @FXML
     private ComboBox cmbAsistencia;
+    @FXML
+    private Button btncancelar;
+    @FXML
+    private Button btnGuardaAsistencia;
 
-    private TableView<Empleados> TBMostrarAsistencia;
+    private TableView<AsistenciaVista> TBMostrarAsistencia;
 
     public void initialize(AsistenciaVista empleadoSeleccionado)
     {
 
-        LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getId()));
+        LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getIdE()));
         txtEmpleadoSel.setText(empleadoSeleccionado.getIdempleado());
         cmbAsistencia.setValue(empleadoSeleccionado.getMarcarasistencia());
         lblHoraEntrada.setText(empleadoSeleccionado.getHora_entrada());
@@ -65,6 +70,16 @@ public class AsistenciaActualizarControlador {
 
         CargarAsistencia();
         cmbAsistencia.setPromptText("Seleccione la opción de asistencia");
+
+        btncancelar.setOnAction(this::cerrarVentana);
+
+        btnGuardaAsistencia.setOnAction(actionEvent -> {
+            try {
+                btnGuardarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         configurarSpinner(spHoraEn1, 0, 11);
         configurarSpinner(spHoraEn2, 0, 59);
@@ -113,7 +128,17 @@ public class AsistenciaActualizarControlador {
 
     }
 
-    public void setTableAsistencia(TableView<Empleados> TBMostrarAsistencia) {
+    private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
+
+    private void btnGuardarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        actualizarAsistencia();
+    }
+
+    public void setTableAsistencia(TableView<AsistenciaVista> TBMostrarAsistencia) {
         this.TBMostrarAsistencia = TBMostrarAsistencia;
     }
 
@@ -242,17 +267,18 @@ public class AsistenciaActualizarControlador {
 
         // Obtener los datos actualizados de los campos
 
-
+         AsistenciaVista empleadoSeleccionado = obtenerEmpleadoSeleccionadoDesdeTabla();
         // Realizar la actualización en la base de datos
         try (Connection conn = Conexion.obtenerConexion()) {
-            String sql = "UPDATE  tbAsistencia SET idempleado=?, idAsistenciaMarcar=?, hora_entrada=?, hora_salida=?) ";
+            String sql = "UPDATE  tbAsistencia SET idempleado=?, idAsistenciaMarcar=?, hora_entrada=?, hora_salida=? WHERE idAsistencia =?";
 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1,nombreN);
                 ps.setInt(2, AsistenciaN);
                 ps.setString(3,fechaentradaN);
                 ps.setString(4, fechasalidaN);
-
+                ps.setInt(5, empleadoSeleccionado.getId());
+                ps.executeUpdate();
                 agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }
         } catch (SQLException e) {
@@ -264,7 +290,10 @@ public class AsistenciaActualizarControlador {
 
 
 
+    private AsistenciaVista obtenerEmpleadoSeleccionadoDesdeTabla() {
 
+        return TBMostrarAsistencia.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
+    }
 
 
 
