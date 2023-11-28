@@ -8,16 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class AsistenciaDatosControlador {
 
@@ -27,6 +22,9 @@ public class AsistenciaDatosControlador {
     private TextField txtBusqueda;
     @FXML
     private Button btnActualizar;
+    @FXML
+    private Button btnEliminar;
+
 
     public void initialize()
     {
@@ -43,6 +41,17 @@ public class AsistenciaDatosControlador {
                 throw new RuntimeException(e);
             }
         });
+
+        btnEliminar.setOnAction(actionEvent -> {
+            try {
+                btnEliminarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+    private void btnEliminarOnAction(javafx.event.ActionEvent actionEvent) throws IOException{
+        eliminarAsistencia();
     }
 
     private void btnActualizarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -78,6 +87,54 @@ public class AsistenciaDatosControlador {
             }
         }
     }
+
+    private void eliminarAsistencia() {
+        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
+        int idAsistencia = obtenerIdAsistenciaSeleccionada();
+
+        try (Connection connection = Conexion.obtenerConexion()) {
+            String sql = "DELETE FROM tbAsistencia WHERE idAsistencia = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, idAsistencia);
+
+            int filasAfectadas = statement.executeUpdate();
+            if (filasAfectadas > 0) {
+                mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+
+            } else {
+                mostrarAlerta("Alerta","No hay ningun elemento seleccionado", Alert.AlertType.WARNING);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    private int obtenerIdAsistenciaSeleccionada() {
+        AsistenciaVista empleadoSeleccionado = (AsistenciaVista) TBMostrarAsistencia.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            return empleadoSeleccionado.getId();
+        } else {
+            return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
+        }
+    }
+
+
+    public static void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+
+
+    }
+
+
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();

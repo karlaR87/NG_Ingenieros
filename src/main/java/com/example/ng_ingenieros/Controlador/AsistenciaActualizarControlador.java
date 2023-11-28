@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import org.w3c.dom.Text;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,9 +28,9 @@ public class AsistenciaActualizarControlador {
     private Spinner spHoraSa2;
 
     @FXML
-    private Label LblHoraEntrada;
+    private Label lblHoraEntrada;
     @FXML
-    private Label LblHoraSalida;
+    private Label lblHoraSalida;
 
     @FXML
     private ComboBox cmbAMPM;
@@ -52,15 +53,14 @@ public class AsistenciaActualizarControlador {
     public void initialize(AsistenciaVista empleadoSeleccionado)
     {
 
+        LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getId()));
         txtEmpleadoSel.setText(empleadoSeleccionado.getIdempleado());
         cmbAsistencia.setValue(empleadoSeleccionado.getMarcarasistencia());
-
+        lblHoraEntrada.setText(empleadoSeleccionado.getHora_entrada());
+        lblHoraSalida.setText(empleadoSeleccionado.getHora_salida());
 
 
         // Llamar a las funciones para separar los datos
-
-
-
 
 
         CargarAsistencia();
@@ -76,8 +76,40 @@ public class AsistenciaActualizarControlador {
         cmbAMPM2.setItems(opcionesAsistencia);
 
         llenarCombo();
+        //separar datos
 
+        String[] partesEntrada = lblHoraEntrada.getText().split(", ");
+        String[] datosEntrada = partesEntrada[1].split(" ");
+        String diaEntrada = partesEntrada[0]; // Aquí tendrás el día de la entrada
 
+// Separar los datos del Label de salida por la coma y espacio
+        String[] partesSalida = lblHoraSalida.getText().split(", ");
+        String[] datosSalida = partesSalida[1].split(" ");
+        String diaSalida = partesSalida[0]; // Aquí tendrás el día de la salida
+
+// Obtener la hora y los minutos de la entrada y la salida
+        String[] horaMinutosEntrada = datosEntrada[0].split(":");
+        int horaEntrada = Integer.parseInt(horaMinutosEntrada[0]); // Obtener la hora de la entrada como entero
+        int minutosEntrada = Integer.parseInt(horaMinutosEntrada[1]); // Obtener los minutos de la entrada como entero
+
+        String[] horaMinutosSalida = datosSalida[0].split(":");
+        int horaSalida = Integer.parseInt(horaMinutosSalida[0]); // Obtener la hora de la salida como entero
+        int minutosSalida = Integer.parseInt(horaMinutosSalida[1]); // Obtener los minutos de la salida como entero
+
+// Obtener A.M. o P.M. de la entrada y la salida
+        String periodoEntrada = datosEntrada[1]; // Obtener A.M. o P.M. de la entrada
+        String periodoSalida = datosSalida[1]; // Obtener A.M. o P.M. de la salida
+
+        cmbDiaAsistencia.setValue(diaEntrada); // Establecer el día de la asistencia en el ComboBox
+        spHoraEn1.getValueFactory().setValue(horaEntrada); // Establecer la hora de entrada en el Spinner 1
+        spHoraEn2.getValueFactory().setValue(minutosEntrada); // Establecer los minutos de entrada en el Spinner 2
+        cmbAMPM.setValue(periodoEntrada); // Establecer A.M. o P.M. en el ComboBox correspondiente
+
+// Hacer lo mismo para la salida si es necesario
+        cmbDiaSalida.setValue(diaSalida); // Establecer el día de salida en el ComboBox correspondiente
+        spHoraSa1.getValueFactory().setValue(horaSalida); // Establecer la hora de salida en el Spinner 1
+        spHoraSa2.getValueFactory().setValue(minutosSalida); // Establecer los minutos de salida en el Spinner 2
+        cmbAMPM2.setValue(periodoSalida); // Establecer A.M. o P.M. en el ComboBox correspondiente
 
     }
 
@@ -180,7 +212,7 @@ public class AsistenciaActualizarControlador {
         // Mostrar los valores en el Label
 
         if (seleccionComboBox1 != null) {
-            LblHoraEntrada.setText("" + diaseleccionado + ", " + horaEn1 + ":" + minutosEn2 + " " + seleccionComboBox1);
+            lblHoraEntrada.setText("" + diaseleccionado + ", " + horaEn1 + ":" + minutosEn2 + " " + seleccionComboBox1);
         }
 
 
@@ -192,9 +224,9 @@ public class AsistenciaActualizarControlador {
         String seleccionComboBox2 = (String) cmbAMPM2.getSelectionModel().getSelectedItem();
 
 
-        LblHoraSalida.setText("(" + horaSal1 + ":" + minutosEn + ")");
+        lblHoraSalida.setText("(" + horaSal1 + ":" + minutosEn + ")");
         if (seleccionComboBox2 != null) {
-            LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
+            lblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
         }
 
         //Aqui se puede poner directamente el codigo de agregar asistencia
@@ -204,9 +236,9 @@ public class AsistenciaActualizarControlador {
 
         int AsistenciaN = obtenerIdAsistenciaSeleccionado(cmbAsistencia);
 
-        String fechaentradaN = LblHoraEntrada.getText();
+        String fechaentradaN = lblHoraEntrada.getText();
 
-        String fechasalidaN = LblHoraSalida.getText();
+        String fechasalidaN = lblHoraSalida.getText();
 
         // Obtener los datos actualizados de los campos
 
