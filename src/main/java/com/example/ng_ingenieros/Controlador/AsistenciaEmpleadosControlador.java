@@ -272,9 +272,7 @@ public class AsistenciaEmpleadosControlador {
                 // Asignar el nombre al TextField
                 txtEmpleadoSel.setText(empleadoSeleccionado.getNombre());
 
-                txtProyecto.setText(empleadoSeleccionado.getProyecto());
 
-                lblidproyecto.setText(String.valueOf(empleadoSeleccionado.getIdproyecto()));
             }
         }
     }
@@ -334,19 +332,19 @@ public class AsistenciaEmpleadosControlador {
 
             String fechasalida = LblHoraSalida.getText();
 
-            int idproyecto = Integer.parseInt(lblidproyecto.getText());
+
 
 
             try (Connection conn = Conexion.obtenerConexion()) {
-                String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida, idproyecto) " +
-                        "VALUES (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida) " +
+                        "VALUES (?, ?, ?, ?)";
                 PreparedStatement ps =conn.prepareStatement(sql);
                 ps.setString(1,nombre);
 
                 ps.setInt(2,Asistencia);
                 ps.setString(3, fechaentrada);
                 ps.setString(4, fechasalida);
-                ps.setInt(5, idproyecto);
+
                 ps.executeUpdate();
 
                 agregar_empleadosControlador.mostrarAlerta("Inserción de empleados", "El empleado ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
