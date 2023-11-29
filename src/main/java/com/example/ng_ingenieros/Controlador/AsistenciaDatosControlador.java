@@ -167,7 +167,7 @@ public class AsistenciaDatosControlador {
         TBMostrarAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("sselect \n" +
+             PreparedStatement stmt = conn.prepareStatement("select \n" +
                      "a.idAsistencia, emp.idempleado, emp.nombreCompleto, \n" +
                      "asis.asistencia, \n" +
                      "a.hora_entrada, a.hora_salida, i.idproyecto, i.nombre_proyecto \n" +

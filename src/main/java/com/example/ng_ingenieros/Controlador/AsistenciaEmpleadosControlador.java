@@ -1,5 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
+import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
@@ -230,32 +231,34 @@ public class AsistenciaEmpleadosControlador {
     }
 
     private void buscarDatos(String busqueda) {
-        TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
-        try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp\\n\" +\n" +
-                     "                     \"inner join tbProyectos p on p.idproyecto = emp.idproyecto  WHERE emp.nombreCompleto LIKE ?")) {
+            TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
-            // Preparar el parámetro de búsqueda para la consulta SQL
-            String parametroBusqueda = "%" + busqueda + "%";
-            stmt.setString(1, parametroBusqueda);
+            try (Connection conn = Conexion.obtenerConexion();
+                 PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp\n" +
+                         " inner join tbProyectos p on p.idproyecto = emp.idproyecto  WHERE emp.nombreCompleto LIKE ?")) {
 
-            ResultSet rs = stmt.executeQuery();
+                // Preparar el parámetro de búsqueda para la consulta SQL
+                String parametroBusqueda = "%" + busqueda + "%";
+                stmt.setString(1, parametroBusqueda);
 
-            while (rs.next()) {
-                // Obtener los datos y agregarlos a la tabla
-                int id = rs.getInt("idempleado");
-                String nombre = rs.getString("nombreCompleto");
-                int idproyecto = rs.getInt("idproyecto");
-                String nombr = rs.getString("nombre_proyecto");
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    // Obtener los datos y agregarlos a la tabla
+                    int id = rs.getInt("idempleado");
+                    String nombre = rs.getString("nombreCompleto");
+                    int idproyecto = rs.getInt("idproyecto");
+                    String nombr = rs.getString("nombre_proyecto");
 
 
-                TbAsistencia.getItems().add(new Empleados(id, nombre, idproyecto, nombr));
+                    TbAsistencia.getItems().add(new Empleados(id, nombre, idproyecto, nombr));
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
 
 
     @FXML
