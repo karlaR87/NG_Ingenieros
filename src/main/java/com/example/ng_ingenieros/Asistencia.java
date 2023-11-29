@@ -11,6 +11,17 @@ public class Asistencia {
 
     private String hora_salida;
 
+    private int idproyecto;
+
+    public Asistencia(int id, int idempleado, int marcarasistencia, String hora_entrada, String hora_salida, int idproyecto) {
+        this.id = id;
+        this.idempleado = idempleado;
+        this.marcarasistencia = marcarasistencia;
+        this.hora_entrada = hora_entrada;
+        this.hora_salida = hora_salida;
+        this.idproyecto = idproyecto;
+    }
+
     public Asistencia(int id, int idempleado, int marcarasistencia, String hora_entrada, String hora_salida) {
         this.id = id;
         this.idempleado = idempleado;
@@ -59,6 +70,11 @@ public class Asistencia {
         this.hora_salida = hora_salida;
     }
 
+    public int getIdproyecto() {
+        return idproyecto;
+    }
 
-
+    public void setIdproyecto(int idproyecto) {
+        this.idproyecto = idproyecto;
+    }
 }

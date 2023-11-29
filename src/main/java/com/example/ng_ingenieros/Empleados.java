@@ -18,6 +18,8 @@ public class Empleados {
 
     private String cuentaBancaria;
 
+
+
     //checkBox para asistencia
     private final BooleanProperty checkBox1 = new SimpleBooleanProperty();
     private final BooleanProperty checkBox2 = new SimpleBooleanProperty();
@@ -44,6 +46,7 @@ public class Empleados {
     public BooleanProperty getCheckBox5Property() {
         return checkBox5;
     }
+
 
 
     public Empleados(String nombre, String dui, String correo, String cargo, String plaza, Double pagoExtra, String numCuenta, Double sueldo) {
@@ -142,6 +145,8 @@ public class Empleados {
     private String plaza;
     private String proyecto;
 
+    private int idproyecto;
+
     public int getIdplaza() {
         return idplaza;
     }
@@ -181,6 +186,11 @@ public class Empleados {
         this.proyecto = proyecto;
     }
 
+    public Empleados(int id, String nombre, String proyecto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.proyecto = proyecto;
+    }
 
     public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
         this.id = id;
@@ -198,5 +208,21 @@ public class Empleados {
     public Empleados(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+
+    public Empleados(int id, String nombre, int idproyecto, String proyecto ) {
+        this.id = id;
+        this.nombre = nombre;
+        this.idproyecto = idproyecto;
+        this.proyecto = proyecto;
+
+    }
+
+    public int getIdproyecto() {
+        return idproyecto;
+    }
+
+    public void setIdproyecto(int idproyecto) {
+        this.idproyecto = idproyecto;
     }
 }

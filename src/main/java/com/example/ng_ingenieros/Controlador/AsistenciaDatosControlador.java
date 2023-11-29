@@ -1,9 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.Asistencia;
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.Empleados;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -139,9 +137,14 @@ public class AsistenciaDatosControlador {
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select a.idAsistencia, emp.idempleado,emp.nombreCompleto, asis.asistencia, a.hora_entrada, a.hora_salida from tbAsistencia a\n" +
+             ResultSet rs = stmt.executeQuery("select \n" +
+                     "a.idAsistencia, emp.idempleado, emp.nombreCompleto, \n" +
+                     "asis.asistencia, \n" +
+                     "a.hora_entrada, a.hora_salida, i.idproyecto, i.nombre_proyecto \n" +
+                     "from tbAsistencia a\n" +
                      "inner join tbempleados emp on emp.idempleado = a.idempleado\n" +
-                     "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar")) {
+                     "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar\n" +
+                     "inner join tbProyectos i on i.idproyecto = emp.idproyecto")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idAsistencia");
@@ -150,8 +153,10 @@ public class AsistenciaDatosControlador {
                 String asistencia = rs.getString("asistencia");
                 String fechaentrada = rs.getString("hora_entrada");
                 String fechasalida = rs.getString("hora_salida");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombrepro = rs.getString("nombre_proyecto");
 
-                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida));
+                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida, idproyecto, nombrepro));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,9 +167,14 @@ public class AsistenciaDatosControlador {
         TBMostrarAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("select a.idAsistencia, emp.idempleado, emp.nombreCompleto, asis.asistencia, a.hora_entrada, a.hora_salida from tbAsistencia a\n" +
+             PreparedStatement stmt = conn.prepareStatement("sselect \n" +
+                     "a.idAsistencia, emp.idempleado, emp.nombreCompleto, \n" +
+                     "asis.asistencia, \n" +
+                     "a.hora_entrada, a.hora_salida, i.idproyecto, i.nombre_proyecto \n" +
+                     "from tbAsistencia a\n" +
                      "inner join tbempleados emp on emp.idempleado = a.idempleado\n" +
                      "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar\n" +
+                     "inner join tbProyectos i on i.idproyecto = emp.idproyecto " +
                      "where emp.nombreCompleto LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
@@ -181,8 +191,10 @@ public class AsistenciaDatosControlador {
                 String asistencia = rs.getString("asistencia");
                 String fechaentrada = rs.getString("hora_entrada");
                 String fechasalida = rs.getString("hora_salida");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombrepro = rs.getString("nombre_proyecto");
 
-                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id, ide, nombre, asistencia, fechaentrada, fechasalida));
+                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida, idproyecto, nombrepro));
             }
         } catch (Exception e) {
             e.printStackTrace();

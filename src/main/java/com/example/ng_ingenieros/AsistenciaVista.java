@@ -4,17 +4,17 @@ public class AsistenciaVista {
 
     private int id;
 
-    public AsistenciaVista(int id, int idE, String idempleado, String marcarasistencia, String hora_entrada, String hora_salida) {
+    public AsistenciaVista(int id, int ide, String nombre, String asistencia, String fechaentrada, String fechasalida, int idproyecto, String nombrepro) {
         this.id = id;
-        this.idE = idE;
-        this.idempleado = idempleado;
-
-        this.marcarasistencia = marcarasistencia;
-        this.hora_entrada = hora_entrada;
-        this.hora_salida = hora_salida;
+        this.idE = ide;
+        this.idempleado = nombre;
+        this.marcarasistencia = asistencia;
+        this.hora_entrada = fechaentrada;
+        this.hora_salida = fechasalida;
+        this.idproyecto = idproyecto;
+        this.nombreProyecto = nombrepro;
     }
 
-    private int idE;
 
     public int getIdE() {
         return idE;
@@ -24,9 +24,8 @@ public class AsistenciaVista {
         this.idE = idE;
     }
 
+    private int idE;
     private String idempleado;
-
-
 
     private String nombreAsi;
 
@@ -36,7 +35,19 @@ public class AsistenciaVista {
 
     private String hora_salida;
 
+    private int idproyecto;
 
+    private String nombreProyecto;
+
+
+
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
+
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto = nombreProyecto;
+    }
 
     public int getId() {
         return id;
@@ -77,4 +88,22 @@ public class AsistenciaVista {
     public void setHora_salida(String hora_salida) {
         this.hora_salida = hora_salida;
     }
+
+    public int getIdproyecto() {
+        return idproyecto;
+    }
+
+    public void setIdproyecto(int idproyecto) {
+        this.idproyecto = idproyecto;
+    }
+
+
+    public String getNombreAsi() {
+        return nombreAsi;
+    }
+
+    public void setNombreAsi(String nombreAsi) {
+        this.nombreAsi = nombreAsi;
+    }
+
 }

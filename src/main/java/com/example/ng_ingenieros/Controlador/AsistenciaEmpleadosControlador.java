@@ -69,6 +69,11 @@ public class AsistenciaEmpleadosControlador {
     @FXML
     private Button btnMostrar;
 
+    @FXML
+    private Label lblidproyecto;
+    @FXML
+    private TextField txtProyecto;
+
 
     public void initialize()
     {
@@ -207,16 +212,17 @@ public class AsistenciaEmpleadosControlador {
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto from tbempleados emp")) {
+             ResultSet rs = stmt.executeQuery("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp\n" +
+                     "inner join tbProyectos p on p.idproyecto = emp.idproyecto")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");
                 String nombre = rs.getString("nombreCompleto");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombr = rs.getString("nombre_proyecto");
 
 
-
-
-                TbAsistencia.getItems().add(new Empleados(id, nombre));
+                TbAsistencia.getItems().add(new Empleados(id, nombre, idproyecto, nombr));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,7 +233,8 @@ public class AsistenciaEmpleadosControlador {
         TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto FROM tbempleados emp  WHERE emp.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp\\n\" +\n" +
+                     "                     \"inner join tbProyectos p on p.idproyecto = emp.idproyecto  WHERE emp.nombreCompleto LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
@@ -239,9 +246,11 @@ public class AsistenciaEmpleadosControlador {
                 // Obtener los datos y agregarlos a la tabla
                 int id = rs.getInt("idempleado");
                 String nombre = rs.getString("nombreCompleto");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombr = rs.getString("nombre_proyecto");
 
 
-                TbAsistencia.getItems().add(new Empleados(id, nombre));
+                TbAsistencia.getItems().add(new Empleados(id, nombre, idproyecto, nombr));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -262,6 +271,10 @@ public class AsistenciaEmpleadosControlador {
 
                 // Asignar el nombre al TextField
                 txtEmpleadoSel.setText(empleadoSeleccionado.getNombre());
+
+                txtProyecto.setText(empleadoSeleccionado.getProyecto());
+
+                lblidproyecto.setText(String.valueOf(empleadoSeleccionado.getIdproyecto()));
             }
         }
     }
@@ -321,16 +334,19 @@ public class AsistenciaEmpleadosControlador {
 
             String fechasalida = LblHoraSalida.getText();
 
+            int idproyecto = Integer.parseInt(lblidproyecto.getText());
+
 
             try (Connection conn = Conexion.obtenerConexion()) {
-                String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida) " +
-                        "VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida, idproyecto) " +
+                        "VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement ps =conn.prepareStatement(sql);
                 ps.setString(1,nombre);
 
                 ps.setInt(2,Asistencia);
                 ps.setString(3, fechaentrada);
                 ps.setString(4, fechasalida);
+                ps.setInt(5, idproyecto);
                 ps.executeUpdate();
 
                 agregar_empleadosControlador.mostrarAlerta("Inserción de empleados", "El empleado ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
