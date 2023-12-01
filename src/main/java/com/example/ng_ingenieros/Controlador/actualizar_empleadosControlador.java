@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
@@ -80,6 +82,7 @@ public class actualizar_empleadosControlador {
 
 
     private void actualizarDatos(javafx.event.ActionEvent actionEvent) {
+        validaciones();
         actualizarEmpleado();
     }
 
@@ -96,6 +99,7 @@ public class actualizar_empleadosControlador {
 
 
     public void actualizarEmpleado() {
+
         // Obtener los datos actualizados de los campos
         String nombreN = txtNombreEmp2.getText();
         String duiN = txtDuiEmp2.getText();
@@ -237,6 +241,72 @@ public class actualizar_empleadosControlador {
         }
 
         return idPlaza;
+    }
+
+    //Validaciones
+    public void validaciones() {
+        if (NoVacio(txtNombreEmp2.getText()) && NoVacio(txtCorreoEmp2.getText()) && NoVacio(txtNumCuenta2.getText())&& NoVacio(txtDuiEmp2.getText())&& NoVacio(txtPagoHorasExEmp2.getText())&& NoVacio(txtSueldoEmp2.getText())){
+            if (validarLetras(txtNombreEmp2.getText())){
+            if (validarCorreo(txtCorreoEmp2.getText())){
+                if (validarDui(txtDuiEmp2.getText())){
+                    if (validarNumero(txtPagoHorasExEmp2.getText()) && validarNumero(txtSueldoEmp2.getText())){
+                        actualizarEmpleado();
+
+                        }else {
+                        mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                    }
+
+                    }else {
+                        mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
+                    }
+
+                }else {
+                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+            }
+
+            }else {
+                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+            }
+
+        }else {
+            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+
+        }
+    }
+
+
+
+    //Validaciones
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z]+");
+    }
+
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
+    private boolean validarDui(String dui) {
+        // Se puede implementar una lógica más avanzada según el formato real de DUI
+        return dui.matches("\\d{8}-\\d{1}");
     }
 
 

@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
@@ -298,6 +295,30 @@ public class ProyectosAgregarControlador {
         }
 
         return gen;
+    }
+
+    //Validaciones
+    public void validaciones() {
+        if (NoVacio(txtNombre.getText()) && NoVacio(txtHoras.getText()) && NoVacio(txtLugar.getText())){
+
+        }else {
+            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+        }
+
+
+    }
+
+
+    //Validaciones
+    public static boolean NoVacio(String input) {
+        return !input.trim().isEmpty();
+    }
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
 

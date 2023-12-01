@@ -48,20 +48,6 @@ public class RecuperacionContraseñaControlador {
     }
     private void btnEnviarOnAction(ActionEvent event) {
         validaciones();
-        enviarcorreo();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
 
@@ -137,6 +123,19 @@ public class RecuperacionContraseñaControlador {
     public void validaciones() {
         if (NoVacio(txtCorreoRecu.getText())){
             if (validarCorreo(txtCorreoRecu.getText())){
+                enviarcorreo();
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
+                    Parent root = loader.load();
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Nueva");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }else {
                 mostrarAlerta("Error de Validación", "Ingrese un correo válido.");

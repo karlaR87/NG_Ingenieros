@@ -41,6 +41,7 @@ public class PlanillaEditableControlador {
                 if (validarNumero(txtSueldo.getText()) && validarNumero(txtNIT.getText())) {
                     if (validarDui(txtDui.getText())){
 
+
                     }else {
                         mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
                     }

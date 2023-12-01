@@ -23,6 +23,9 @@ public class AsistenciaDatosControlador {
     @FXML
     private Button btnEliminar;
 
+    @FXML
+    private Button btnMostrarSalario;
+
 
     public void initialize()
     {
@@ -47,6 +50,14 @@ public class AsistenciaDatosControlador {
                 throw new RuntimeException(e);
             }
         });
+
+        btnMostrarSalario.setOnAction(actionEvent -> {
+            try {
+                btnMostrarSalarioOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
     private void btnEliminarOnAction(javafx.event.ActionEvent actionEvent) throws IOException{
         eliminarAsistencia();
@@ -54,6 +65,10 @@ public class AsistenciaDatosControlador {
 
     private void btnActualizarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         abrirVentanaActualizar();
+    }
+
+    private void btnMostrarSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        abrirVentanaSalario();
     }
 
     public void abrirVentanaActualizar() {
@@ -69,6 +84,36 @@ public class AsistenciaDatosControlador {
                 root = loader.load();
                 // Obtener el controlador de la ventana de actualización
                 AsistenciaActualizarControlador asistenciaActualizarControlador = loader.getController();
+
+                // Pasar la referencia de TableAsistencia al controlador de la ventana de actualización
+                asistenciaActualizarControlador.initialize(empleadoSeleccionado);
+
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                asistenciaActualizarControlador.setTableAsistencia(TBMostrarAsistencia);
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
+        }
+    }
+
+    public void abrirVentanaSalario() {
+        // Obtener la fila seleccionada
+        AsistenciaVista empleadoSeleccionado = (AsistenciaVista) TBMostrarAsistencia.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Salarioemp_registrar.fxml"));
+            Parent root;
+            try {
+
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                SalarioEmpleadoControlador asistenciaActualizarControlador = loader.getController();
 
                 // Pasar la referencia de TableAsistencia al controlador de la ventana de actualización
                 asistenciaActualizarControlador.initialize(empleadoSeleccionado);
