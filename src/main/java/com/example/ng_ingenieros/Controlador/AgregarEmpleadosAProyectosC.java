@@ -196,7 +196,7 @@ public class AgregarEmpleadosAProyectosC {
     }
 
     public static boolean validarLetras(String input) {
-        return input.matches("[a-zA-Z]+");
+        return input.matches("[a-zA-Z ]+");
     }
 
     public static boolean validarCorreo(String input) {
