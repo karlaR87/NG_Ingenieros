@@ -1,5 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
+
 import com.example.ng_ingenieros.Conexion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -101,7 +102,7 @@ public class RecuperacionContraseñaControlador {
             message.setFrom(new InternetAddress(correoRemitente));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destinatario));
-            message.setSubject("Recuperación obligame Contarseña");
+            message.setSubject("Recuperación de Contarseña");
             message.setText("Este es el código para poder recuperar su contraseña " + codigoAleatorio );
 
             // Envío del mensaje
@@ -109,6 +110,7 @@ public class RecuperacionContraseñaControlador {
 
             System.out.println("¡Correo enviado!");
             RecuperarContraseñaDosControlador.setCodigoEnviado(codigoAleatorio);
+            RecuperarContraseñaTresControlador.setCorreoRecuperadoEnviado(destinatario);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

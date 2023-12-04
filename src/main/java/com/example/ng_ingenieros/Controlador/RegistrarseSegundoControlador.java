@@ -99,6 +99,31 @@ public class RegistrarseSegundoControlador {
         }
 
     }
+    private static String nombreemp;
+    public static void setnombre(String nombre) {
+        nombreemp = nombre;
+    }
+    private int obteneridempleado() {
+        int idempleado = -1; // Valor predeterminado en caso de error o no selección
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "SELECT idempleado FROM tbempleados WHERE nombreCompleto = '" + nombreemp+"';" ;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idempleado = rs.getInt("idempleado");
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idempleado;
+    }
 
     public void registrardatos(){
         Conexion conexion = new Conexion();
@@ -108,8 +133,9 @@ public class RegistrarseSegundoControlador {
         String contra = txtContraseña.getText();
         String confirmarCon = txtConfirmaContra.getText();
         int idnivel = obteneridnivelusuario(cmbNivel);
+        int idempledo = obteneridempleado();
         //hora crea un String para hacer la insercion
-        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idNivelUsuario) values(?,?,?);";
+        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idNivelUsuario, idempleado) values(?,?,?,"+idempledo+");";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, user);

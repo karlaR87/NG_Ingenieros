@@ -88,8 +88,6 @@ public class EmpleadosAProyectosActualizarControlador {
             empleadoParaActualizar.setSueldoHora(Double.parseDouble(txtPagoHorasExEmp.getText()));
             empleadoParaActualizar.setCuentaBancaria(txtNumCuenta.getText());
             empleadoParaActualizar.setSueldoDia(Double.parseDouble(txtSueldoEmp.getText()));
-
-
         }
 
 

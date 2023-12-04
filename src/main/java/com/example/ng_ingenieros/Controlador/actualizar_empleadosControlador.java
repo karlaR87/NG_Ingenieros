@@ -83,7 +83,6 @@ public class actualizar_empleadosControlador {
 
     private void actualizarDatos(javafx.event.ActionEvent actionEvent) {
         validaciones();
-        actualizarEmpleado();
     }
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
