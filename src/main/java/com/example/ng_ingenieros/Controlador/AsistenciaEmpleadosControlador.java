@@ -85,9 +85,9 @@ public class AsistenciaEmpleadosControlador {
 
 
 
-        configurarSpinner(spHoraEn1, 0, 11);
+        configurarSpinner(spHoraEn1, 0, 23);
         configurarSpinner(spHoraEn2, 0, 59);
-        configurarSpinner(spHoraSa1, 0, 11);
+        configurarSpinner(spHoraSa1, 0, 23);
         configurarSpinner(spHoraSa2, 0, 59);
 
         ObservableList<String> opcionesAsistencia = FXCollections.observableArrayList("A.M.", "P.M.");
@@ -350,7 +350,7 @@ public class AsistenciaEmpleadosControlador {
 
                 ps.executeUpdate();
 
-                agregar_empleadosControlador.mostrarAlerta("Inserción de empleados", "El empleado ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
+                agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
 
 
 

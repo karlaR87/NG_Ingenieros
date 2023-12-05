@@ -85,9 +85,9 @@ public class AsistenciaActualizarControlador {
             }
         });
 
-        configurarSpinner(spHoraEn1, 0, 11);
+        configurarSpinner(spHoraEn1, 0, 23);
         configurarSpinner(spHoraEn2, 0, 59);
-        configurarSpinner(spHoraSa1, 0, 11);
+        configurarSpinner(spHoraSa1, 0, 23);
         configurarSpinner(spHoraSa2, 0, 59);
 
         ObservableList<String> opcionesAsistencia = FXCollections.observableArrayList("A.M.", "P.M.");
