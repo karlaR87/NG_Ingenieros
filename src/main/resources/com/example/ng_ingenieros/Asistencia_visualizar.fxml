@@ -87,7 +87,14 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnMostrarSalario" layoutX="424.0" layoutY="385.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="77.0" text="Button" />
+      <Button fx:id="btnMostrarSalario" layoutX="423.0" layoutY="384.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/salarioboton.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
     </children>
 
 </AnchorPane>

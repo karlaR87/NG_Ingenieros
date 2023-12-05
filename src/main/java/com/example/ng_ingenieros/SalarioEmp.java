@@ -23,6 +23,8 @@ public class SalarioEmp {
 
     private float salariofinal;
 
+
+
     public SalarioEmp(int idSalario, int idasistencia, int diasremunerados, String horasextras, float totaldevengado, float AFP, float segurosocial, float descuentorenta, float salariofinal) {
         this.idSalario = idSalario;
         this.idasistencia = idasistencia;
@@ -119,6 +121,19 @@ public class SalarioEmp {
         this.segurosocial = segurosocial;
         this.descuentorenta = descuentorenta;
         this.salariofinal = salariofinal;
+    }
+
+    public SalarioEmp(int idSalario , String nombrempleado, int diasremunerados, String horasextras, float totaldevengado, float AFP, float segurosocial, float descuentorenta, float salariofinal) {
+        this.idSalario = idSalario;
+        this.nombrempleado = nombrempleado;
+        this.diasremunerados = diasremunerados;
+        this.horasextras = horasextras;
+        this.totaldevengado = totaldevengado;
+        this.AFP = AFP;
+        this.segurosocial = segurosocial;
+        this.descuentorenta = descuentorenta;
+        this.salariofinal = salariofinal;
+
     }
 
     public int getIdempleado() {

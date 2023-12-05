@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.ng_ingenieros.Controlador.SalarioVistaControlador"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="469.0" prefWidth="721.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.SalarioVistaControlador">
+
+    <children>
+        <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #DD890B; -fx-background-radius: 20;">
+            <children>
+                <Label layoutX="255.0" layoutY="15.0" text="Salarios de empleados" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <TableView fx:id="tbMostrarSalario" layoutX="29.0" layoutY="123.0" prefHeight="260.0" prefWidth="663.0">
+            <columns>
+                <TableColumn text="IdSalario">
+                    <cellValueFactory><PropertyValueFactory property="idSalario" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="100.0" text="Empleado">
+                    <cellValueFactory><PropertyValueFactory property="nombrempleado" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="100.0" text="Días remunerados">
+                    <cellValueFactory><PropertyValueFactory property="diasremunerados" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="105.0" text="Horas extras">
+                    <cellValueFactory><PropertyValueFactory property="horasextras" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="100.0" text="Total devengado">
+                    <cellValueFactory><PropertyValueFactory property="totaldevengado" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="100.0" text="AFP">
+                    <cellValueFactory><PropertyValueFactory property="AFP" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="Seguro social">
+                    <cellValueFactory><PropertyValueFactory property="segurosocial" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="Renta">
+                    <cellValueFactory><PropertyValueFactory property="descuentorenta" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="Salario a pagar">
+                    <cellValueFactory><PropertyValueFactory property="salariofinal" /></cellValueFactory>
+                </TableColumn>
+
+            </columns>
+        </TableView>
+        <Pane layoutX="61.0" layoutY="70.0" prefHeight="35.0" prefWidth="604.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;">
+            <children>
+                <TextField fx:id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="530.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
+                <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Imagenes/lupaBlanca.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <Button fx:id="btnEliminar" layoutX="319.0" layoutY="395.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+            <graphic>
+                <ImageView fx:id="btnEliminarAsist" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Imagenes/btnEliminar.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
 
 </AnchorPane>
