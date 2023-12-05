@@ -16,6 +16,9 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -61,6 +64,34 @@ public class RegistrarseSegundoControlador {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+    private static String contraseñaEncriptada;
+    public void contraseña()  {
+        String contraseña = txtContraseña.getText();
+        contraseñaEncriptada = encriptarContraseña(contraseña);
+        System.out.println("Contraseña original: " + contraseña);
+        System.out.println("Contraseña encriptada: " + contraseñaEncriptada);
+    }
+
+    public static String encriptarContraseña(String contraseña) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(contraseña.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexHash = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexHash.append('0');
+                }
+                hexHash.append(hex);
+            }
+
+            return hexHash.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -129,9 +160,10 @@ public class RegistrarseSegundoControlador {
     public void registrardatos(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
+        contraseña();
 
         String user = txtUsuario.getText();
-        String contra = txtContraseña.getText();
+        String contra = contraseñaEncriptada;
         String confirmarCon = txtConfirmaContra.getText();
         int idnivel = obteneridnivelusuario(cmbNivel);
         int idempledo = obteneridempleado();
@@ -143,6 +175,7 @@ public class RegistrarseSegundoControlador {
             preparedStatement.setString(2, contra);
             preparedStatement.setInt(3, idnivel);
             preparedStatement.executeUpdate();
+            contraseña();
 
             if (txtConfirmaContra.getText().equals(txtContraseña.getText())) {
                 try {

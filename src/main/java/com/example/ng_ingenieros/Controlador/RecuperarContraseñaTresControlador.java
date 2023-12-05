@@ -58,7 +58,7 @@ public class RecuperarContraseñaTresControlador {
         correoRecuperado = correo;
     }
 
-
+    private static String contraseñaEncriptada;
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -66,16 +66,21 @@ public class RecuperarContraseñaTresControlador {
         btnSiguiente.setOnAction(this::BtnSiguienteOnAction);
 
     }
-    
+    public void contraseña()  {
+        String contraseña = txtNuevaContra.getText();
+        contraseñaEncriptada = encriptarContraseña(contraseña);
+        System.out.println("Contraseña original: " + contraseña);
+        System.out.println("Contraseña encriptada: " + contraseñaEncriptada);
+    }
 
     private void actualizarcontraseña() {
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
+        contraseña();
         String Insercion = "UPDATE tbusuarios SET contraseña = ? WHERE idempleado = (SELECT idempleado FROM tbempleados WHERE correo = ?)";
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
-            preparedStatement.setString(1, txtNuevaContra.getText());
+            preparedStatement.setString(1, contraseñaEncriptada);
             preparedStatement.setString(2, correoRecuperado);
             preparedStatement.executeUpdate();
             try {
@@ -111,5 +116,27 @@ public class RecuperarContraseñaTresControlador {
 
        }
     }
+    public static String encriptarContraseña(String contraseña) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(contraseña.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexHash = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexHash.append('0');
+                }
+                hexHash.append(hex);
+            }
+
+            return hexHash.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
 }

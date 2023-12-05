@@ -17,6 +17,9 @@ import javafx.scene.control.Label;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,16 +102,45 @@ public class LoginControlador {
         }
     }*/
 
+    private static String contraseñaEncriptada;
+    public void contraseña()  {
+        String contraseña = txtContraseña.getText();
+        contraseñaEncriptada = encriptarContraseña(contraseña);
+        System.out.println("Contraseña original: " + contraseña);
+        System.out.println("Contraseña encriptada: " + contraseñaEncriptada);
+    }
+
+    public static String encriptarContraseña(String contraseña) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(contraseña.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexHash = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexHash.append('0');
+                }
+                hexHash.append(hex);
+            }
+
+            return hexHash.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public void validatelogin(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
+        contraseña();
 
         String verifylogin = "SELECT COUNT(1) FROM tbusuarios WHERE nombreUsuario = ? AND contraseña = ?";
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement(verifylogin);
             preparedStatement.setString(1, txtUsuario.getText());
-            preparedStatement.setString(2, txtContraseña.getText());
+            preparedStatement.setString(2, contraseñaEncriptada);
             ResultSet queryResult = preparedStatement.executeQuery();
 
 
