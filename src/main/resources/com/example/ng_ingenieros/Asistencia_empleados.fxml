@@ -112,7 +112,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="LblHoraSalida" layoutX="465.0" layoutY="366.0" prefHeight="25.0" prefWidth="135.0" text="Hora de salida:" textFill="#2d3250">
+      <Label fx:id="LblHoraSalida" layoutX="465.0" layoutY="366.0" prefHeight="25.0" prefWidth="135.0" text="(00:00)" textFill="#2d3250">
          <font>
             <Font size="14.0" />
          </font>
