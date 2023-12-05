@@ -74,14 +74,19 @@ public class AsistenciaEmpleadosControlador {
     private Label lblidproyecto;
     @FXML
     private TextField txtProyecto;
+    private int idProyectoSeleccionado;
 
-
+    public void recibirIdProyecto(int idProyecto) {
+        idProyectoSeleccionado = idProyecto;
+        // Llama a un método para cargar los empleados según el ID del proyecto
+        cargarDatos();
+    }
     public void initialize()
     {
 
 
 
-        cargarDatos();
+        recibirIdProyecto(idProyectoSeleccionado);
 
 
 
@@ -116,6 +121,10 @@ public class AsistenciaEmpleadosControlador {
         });
 
     }
+
+
+
+
 
     private void btnMostrarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         abrirVentanaMostrar();
@@ -212,9 +221,12 @@ public class AsistenciaEmpleadosControlador {
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp\n" +
-                     "inner join tbProyectos p on p.idproyecto = emp.idproyecto")) {
+             PreparedStatement statement = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp INNER JOIN tbProyectos p ON p.idproyecto = emp.idproyecto WHERE emp.idproyecto = ?")) {
+
+            // Establece el ID del proyecto en la consulta SQL
+            statement.setInt(1, idProyectoSeleccionado);
+
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");

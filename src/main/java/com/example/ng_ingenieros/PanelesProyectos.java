@@ -1,14 +1,14 @@
 package com.example.ng_ingenieros;
+import com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -203,6 +204,8 @@ public class PanelesProyectos {
         Label labelestado = new Label("Estado del proyecto: " + est);
         labelestado.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 14));
 
+        Button btnMostrarAsistencia = new Button("Tomar asistencia");
+
         // Establecer color de texto
         labelID.setTextFill(Color.WHITE);
         labelProyecto.setTextFill(Color.WHITE);
@@ -211,6 +214,7 @@ public class PanelesProyectos {
         labelfechai.setTextFill(Color.WHITE);
         labelfechaf.setTextFill(Color.WHITE);
         labelestado.setTextFill(Color.WHITE);
+        btnMostrarAsistencia.setTextFill(Color.WHITE);
 
         // Posicionar etiquetas dentro del Panel
         labelID.setLayoutY(10);
@@ -221,8 +225,34 @@ public class PanelesProyectos {
         labelfechaf.setLayoutY(190);
         labelestado.setLayoutY(220);
 
+        btnMostrarAsistencia.setLayoutY(270);
+        btnMostrarAsistencia.setLayoutX(30);
+
+        btnMostrarAsistencia.setStyle("-fx-background-color:  #55AF64; -fx-background-radius: 10");
+        btnMostrarAsistencia.setPrefSize(170, 40);
+        btnMostrarAsistencia.setOnAction(actionEvent -> {
+            try {
+                // Verifica la ruta al archivo AsistenciaEmpleados.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml")); // Asegúrate de la ruta correcta
+                Parent root = loader.load();
+
+                // Accede al controlador de AsistenciaEmpleados
+                AsistenciaEmpleadosControlador controller = loader.getController();
+
+                // Establece el ID del proyecto en el controlador de AsistenciaEmpleados
+                controller.recibirIdProyecto(id);
+
+                // Mostrar la ventana
+                Stage stage1 = new Stage();
+                stage1.setScene(new Scene(root));
+                stage1.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         // Agregar etiquetas al Panel
-        panel.getChildren().addAll(labelID, labelProyecto, labelLugar, labelHoras, labelfechai, labelfechaf, labelestado);
+        panel.getChildren().addAll(labelID, labelProyecto, labelLugar, labelHoras, labelfechai, labelfechaf, labelestado, btnMostrarAsistencia);
 
         // Crear un VBox para cada Panel y agregar el Panel al VBox
         VBox vboxDato = new VBox(panel);
@@ -240,6 +270,31 @@ public class PanelesProyectos {
         Scene detallesScene = new Scene(scroll, 500, 300);
         stage.setScene(detallesScene);
         stage.show();
+    }
+
+    private void MostrarVentanaAsistenciaOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        MostrarVentanaAsistencia();
+    }
+
+    public void MostrarVentanaAsistencia ()throws IOException
+    {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml"));
+        Parent root;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+
     }
 
 
