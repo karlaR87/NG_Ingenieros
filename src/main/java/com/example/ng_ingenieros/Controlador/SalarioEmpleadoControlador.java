@@ -6,6 +6,7 @@ import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.SalarioEmp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -68,7 +69,12 @@ public class SalarioEmpleadoControlador {
     private TextField txtSalarioHorasExtra;
 
     @FXML
+    private Button btncancelar;
+
+    @FXML
     private Button btnRegistrarSalario;
+
+
 
 
     public void initialize(AsistenciaVista empleadoSeleccionado) {
@@ -102,10 +108,24 @@ public class SalarioEmpleadoControlador {
             }
         });
 
+        btncancelar.setOnAction(actionEvent -> {
+            try {
+                btnCancelarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
 
     private void btnRegistrarSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         RegistrarSalario();
+    }
+
+    private void btnCancelarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     //Abrir ventana del salario
