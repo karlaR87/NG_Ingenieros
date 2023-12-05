@@ -87,12 +87,13 @@ public class RegistrarseSegundoControlador {
 
 
             // Configurar la modalidad (bloquea la ventana principal)
-            stage.initModality(Modality.APPLICATION_MODAL);
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             // Configurar el estilo para quitar la barra de título
             stage.initStyle(StageStyle.UNDECORATED);
 
             stage.setScene(new Scene(root));
+            ((Stage) txtUsuario.getScene().getWindow()).close();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

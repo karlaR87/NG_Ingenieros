@@ -88,7 +88,16 @@ public class AsistenciaEmpleadosControlador {
 
         recibirIdProyecto(idProyectoSeleccionado);
 
-
+        cmbAsistencia.setOnAction(event -> {
+            String selectedItem = (String) cmbAsistencia.getSelectionModel().getSelectedItem();
+            if ("Inasistencia".equals(selectedItem)) {
+                // Deshabilitar los campos si se selecciona "Inasistencia"
+                deshabilitarCampos();
+            } else {
+                // Habilitar los campos si se selecciona otra opción diferente de "Inasistencia"
+                habilitarCampos();
+            }
+        });
 
         configurarSpinner(spHoraEn1, 0, 23);
         configurarSpinner(spHoraEn2, 0, 59);
@@ -123,7 +132,27 @@ public class AsistenciaEmpleadosControlador {
     }
 
 
+    private void deshabilitarCampos() {
+        spHoraEn1.setDisable(true);
+        spHoraEn2.setDisable(true);
+        spHoraSa1.setDisable(true);
+        spHoraSa2.setDisable(true);
+        cmbAMPM.setDisable(true);
+        cmbAMPM2.setDisable(true);
+        cmbDiaAsistencia.setDisable(true);
+        cmbDiaSalida.setDisable(true);
+    }
 
+    private void habilitarCampos() {
+        spHoraEn1.setDisable(false);
+        spHoraEn2.setDisable(false);
+        spHoraSa1.setDisable(false);
+        spHoraSa2.setDisable(false);
+        cmbAMPM.setDisable(false);
+        cmbAMPM2.setDisable(false);
+        cmbDiaAsistencia.setDisable(false);
+        cmbDiaSalida.setDisable(false);
+    }
 
 
     private void btnMostrarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -187,6 +216,8 @@ public class AsistenciaEmpleadosControlador {
                         idAsistencia = rs.getInt("idAsistenciaMarcar");
                     }
                 }
+
+
             }
 
         } catch (SQLException e) {

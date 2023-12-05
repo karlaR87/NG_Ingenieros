@@ -15,7 +15,7 @@
                 <Image url="@Imagenes/lupaBlanca.png" />
             </image>
         </ImageView>
-        <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-color: GRAY;">
             <content>
                 <VBox fx:id="contenedorPrincipal" />
             </content>

@@ -10,7 +10,10 @@ import javafx.scene.control.Alert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.util.Random;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -25,7 +28,7 @@ import java.util.regex.Pattern;
 
 public class RecuperacionContraseñaControlador {
     @FXML
-    private Button btnEnviar;
+    private Button btnEnviar, btnRegresar;
 
     @FXML
     private TextField txtCorreoRecu;
@@ -45,10 +48,35 @@ public class RecuperacionContraseñaControlador {
     public void initialize() {
         //Configura el evento de clic para el botón
         btnEnviar.setOnAction(this::btnEnviarOnAction);
+        btnRegresar.setOnAction(this::btnRegresarOnAction);
 
     }
     private void btnEnviarOnAction(ActionEvent event) {
         validaciones();
+    }
+
+    private void btnRegresarOnAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+
+
+            // Configurar la modalidad (bloquea la ventana principal)
+            //stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Configurar el estilo para quitar la barra de título
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            stage.setScene(new Scene(root));
+            ((Stage) txtCorreoRecu.getScene().getWindow()).close();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -133,6 +161,7 @@ public class RecuperacionContraseñaControlador {
                     Stage stage = new Stage();
                     stage.setTitle("Nueva");
                     stage.setScene(new Scene(root));
+                    ((Stage) txtCorreoRecu.getScene().getWindow()).close();
                     stage.show();
 
                 } catch (Exception e) {

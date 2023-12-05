@@ -87,6 +87,7 @@ public class RecuperarContraseñaTresControlador {
 
 
                 stage.setScene(new Scene(root));
+                ((Stage) txtNuevaContra.getScene().getWindow()).close();
                 stage.show();
             } catch (Exception e) {
                 e.printStackTrace();

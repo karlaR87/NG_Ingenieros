@@ -81,6 +81,7 @@ public class RegistrarseControlador {
 
 
             stage.setScene(new Scene(root));
+            ((Stage) txtNombre.getScene().getWindow()).close();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
