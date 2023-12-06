@@ -77,6 +77,17 @@ public class AsistenciaActualizarControlador {
 
         btncancelar.setOnAction(this::cerrarVentana);
 
+        cmbAsistencia.setOnAction(event -> {
+            String selectedItem = (String) cmbAsistencia.getSelectionModel().getSelectedItem();
+            if ("Inasistencia".equals(selectedItem)) {
+                // Deshabilitar los campos si se selecciona "Inasistencia"
+                deshabilitarCampos();
+            } else {
+                // Habilitar los campos si se selecciona otra opción diferente de "Inasistencia"
+                habilitarCampos();
+            }
+        });
+
         btnGuardaAsistencia.setOnAction(actionEvent -> {
             try {
                 btnGuardarOnAction(actionEvent);
@@ -130,6 +141,25 @@ public class AsistenciaActualizarControlador {
         spHoraSa2.getValueFactory().setValue(minutosSalida); // Establecer los minutos de salida en el Spinner 2
         cmbAMPM2.setValue(periodoSalida); // Establecer A.M. o P.M. en el ComboBox correspondiente
 
+    }
+
+    private void deshabilitarCampos() {
+        configurarSpinner(spHoraEn1, 0, 0);
+        configurarSpinner(spHoraEn2, 0, 0);
+        configurarSpinner(spHoraSa1, 0, 0);
+        configurarSpinner(spHoraSa2, 0, 0);
+
+    }
+
+    private void habilitarCampos() {
+        spHoraEn1.setDisable(false);
+        spHoraEn2.setDisable(false);
+        spHoraSa1.setDisable(false);
+        spHoraSa2.setDisable(false);
+        cmbAMPM.setDisable(false);
+        cmbAMPM2.setDisable(false);
+        cmbDiaAsistencia.setDisable(false);
+        cmbDiaSalida.setDisable(false);
     }
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {

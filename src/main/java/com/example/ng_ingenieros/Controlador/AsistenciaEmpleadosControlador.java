@@ -133,14 +133,11 @@ public class AsistenciaEmpleadosControlador {
 
 
     private void deshabilitarCampos() {
-        spHoraEn1.setDisable(true);
-        spHoraEn2.setDisable(true);
-        spHoraSa1.setDisable(true);
-        spHoraSa2.setDisable(true);
-        cmbAMPM.setDisable(true);
-        cmbAMPM2.setDisable(true);
-        cmbDiaAsistencia.setDisable(true);
-        cmbDiaSalida.setDisable(true);
+        configurarSpinner(spHoraEn1, 0, 0);
+        configurarSpinner(spHoraEn2, 0, 0);
+        configurarSpinner(spHoraSa1, 0, 0);
+        configurarSpinner(spHoraSa2, 0, 0);
+
     }
 
     private void habilitarCampos() {
