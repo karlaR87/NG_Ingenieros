@@ -1,6 +1,5 @@
 package com.example.ng_ingenieros.Controlador;
 
-
 import com.example.ng_ingenieros.Conexion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +9,11 @@ import javafx.scene.control.Alert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import java.util.Random;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+//import javax.mail.*;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 import java.util.Properties;
@@ -28,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class RecuperacionContraseñaControlador {
     @FXML
-    private Button btnEnviar, btnRegresar;
+    private Button btnEnviar;
 
     @FXML
     private TextField txtCorreoRecu;
@@ -48,31 +44,20 @@ public class RecuperacionContraseñaControlador {
     public void initialize() {
         //Configura el evento de clic para el botón
         btnEnviar.setOnAction(this::btnEnviarOnAction);
-        btnRegresar.setOnAction(this::btnRegresarOnAction);
 
     }
     private void btnEnviarOnAction(ActionEvent event) {
         validaciones();
-    }
-
-    private void btnRegresarOnAction(ActionEvent event) {
+       // enviarcorreo();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Login");
-
-
-            // Configurar la modalidad (bloquea la ventana principal)
-            //stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Configurar el estilo para quitar la barra de título
-            stage.initStyle(StageStyle.UNDECORATED);
-
+            stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
-            ((Stage) txtCorreoRecu.getScene().getWindow()).close();
             stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,7 +87,7 @@ public class RecuperacionContraseñaControlador {
     }
 
 
-    public void enviarcorreo() {
+    /*public void enviarcorreo() {
         String codigoAleatorio = generarCodigoAleatorio();
         final String correoRemitente = "liamrh855@gmail.com"; // Cambia esto por tu dirección de correo
         final String passwordCorreoRemitente = "nhgh sort xahs kqks"; // Cambia esto por tu contraseña
@@ -130,7 +115,7 @@ public class RecuperacionContraseñaControlador {
             message.setFrom(new InternetAddress(correoRemitente));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destinatario));
-            message.setSubject("Recuperación de Contarseña");
+            message.setSubject("Recuperación obligame Contarseña");
             message.setText("Este es el código para poder recuperar su contraseña " + codigoAleatorio );
 
             // Envío del mensaje
@@ -138,12 +123,11 @@ public class RecuperacionContraseñaControlador {
 
             System.out.println("¡Correo enviado!");
             RecuperarContraseñaDosControlador.setCodigoEnviado(codigoAleatorio);
-            RecuperarContraseñaTresControlador.setCorreoRecuperadoEnviado(destinatario);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
     public static String generarCodigoAleatorio() {
         Random random = new Random();
         int codigo = 100000 + random.nextInt(900000); // Generar un número aleatorio de 6 dígitos
@@ -153,20 +137,6 @@ public class RecuperacionContraseñaControlador {
     public void validaciones() {
         if (NoVacio(txtCorreoRecu.getText())){
             if (validarCorreo(txtCorreoRecu.getText())){
-                enviarcorreo();
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
-                    Parent root = loader.load();
-
-                    Stage stage = new Stage();
-                    stage.setTitle("Nueva");
-                    stage.setScene(new Scene(root));
-                    ((Stage) txtCorreoRecu.getScene().getWindow()).close();
-                    stage.show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
             }else {
                 mostrarAlerta("Error de Validación", "Ingrese un correo válido.");

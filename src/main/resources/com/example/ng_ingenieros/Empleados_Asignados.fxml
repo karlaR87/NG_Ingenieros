@@ -88,7 +88,7 @@
 
           </columns>
       </TableView>
-      <Button fx:id="btnAgregar2" layoutX="52.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+      <Button fx:id="btnAgregar2" layoutX="14.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -97,7 +97,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnActualizar" layoutX="115.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+      <Button fx:id="btnActualizar" layoutX="145.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -106,11 +106,20 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="180.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+      <Button fx:id="btnEliminar" layoutX="210.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/btnEliminar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnAgregar_ListEmpleados" layoutX="79.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/Agregar_EmpList.png" />
                </image>
             </ImageView>
          </graphic>

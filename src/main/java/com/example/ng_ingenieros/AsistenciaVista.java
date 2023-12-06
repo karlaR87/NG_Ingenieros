@@ -106,4 +106,11 @@ public class AsistenciaVista {
         this.nombreAsi = nombreAsi;
     }
 
+
+    public AsistenciaVista(int idE, String idempleado, int idproyecto, String nombreProyecto) {
+        this.idE = idE;
+        this.idempleado = idempleado;
+        this.idproyecto = idproyecto;
+        this.nombreProyecto = nombreProyecto;
+    }
 }

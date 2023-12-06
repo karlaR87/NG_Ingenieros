@@ -1,10 +1,5 @@
 package com.example.ng_ingenieros;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-
-import java.sql.*;
-
 public class Empleados {
     private  int id;
     private String nombre;
@@ -20,35 +15,6 @@ public class Empleados {
 
 
 
-    //checkBox para asistencia
-    private final BooleanProperty checkBox1 = new SimpleBooleanProperty();
-    private final BooleanProperty checkBox2 = new SimpleBooleanProperty();
-    private final BooleanProperty checkBox3 = new SimpleBooleanProperty();
-    private final BooleanProperty checkBox4 = new SimpleBooleanProperty();
-    private final BooleanProperty checkBox5 = new SimpleBooleanProperty();
-
-    public BooleanProperty getCheckBox1Property() {
-        return checkBox1;
-    }
-
-    public BooleanProperty getCheckBox2Property() {
-        return checkBox2;
-    }
-
-    public BooleanProperty getCheckBox3Property() {
-        return checkBox3;
-    }
-
-    public BooleanProperty getCheckBox4Property() {
-        return checkBox4;
-    }
-
-    public BooleanProperty getCheckBox5Property() {
-        return checkBox5;
-    }
-
-
-
     public Empleados(String nombre, String dui, String correo, String cargo, String plaza, Double pagoExtra, String numCuenta, Double sueldo) {
         this.nombre = nombre;
         Dui = dui;
@@ -58,6 +24,12 @@ public class Empleados {
         this.sueldoHora = pagoExtra;
         this.cuentaBancaria=numCuenta;
         this.sueldoDia = sueldo;
+    }
+
+
+    public Empleados(int id, String nombre, String dui, Double sueldoDia, Double sueldoHora, String cargo, String plazo) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
 
@@ -145,8 +117,6 @@ public class Empleados {
     private String plaza;
     private String proyecto;
 
-    private int idproyecto;
-
     public int getIdplaza() {
         return idplaza;
     }
@@ -167,13 +137,10 @@ public class Empleados {
 
     private int idcargo;
 
-    public Empleados() {
 
 
-    }
 
-
-    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza) {
+    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
         this.id = id;
         this.nombre = nombre;
 
@@ -183,14 +150,9 @@ public class Empleados {
         this.sueldoHora = sueldoHora;
         this.cargo = cargo;
         this.plaza = plaza;
-
-    }
-
-    public Empleados(int id, String nombre, String proyecto) {
-        this.id = id;
-        this.nombre = nombre;
         this.proyecto = proyecto;
     }
+
 
     public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
         this.id = id;
@@ -204,27 +166,21 @@ public class Empleados {
         this.plaza = plaza;
     }
 
-    //Constructor para la asistencia
-    public Empleados(int id, String nombre) {
+    private boolean seleccionado;
+
+    // Constructor que incluye el nuevo campo
+    public Empleados(int id, String nombre, boolean seleccionado) {
         this.id = id;
         this.nombre = nombre;
+        this.seleccionado = seleccionado;
     }
 
-    public Empleados(int id, String nombre, int idproyecto, String proyecto ) {
-        this.id = id;
-        this.nombre = nombre;
-        this.idproyecto = idproyecto;
-        this.proyecto = proyecto;
-
+    // Getters y setters para el nuevo campo
+    public boolean isSeleccionado() {
+        return seleccionado;
     }
 
-    public int getIdproyecto() {
-        return idproyecto;
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
     }
-
-    public void setIdproyecto(int idproyecto) {
-        this.idproyecto = idproyecto;
-    }
-
-
 }

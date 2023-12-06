@@ -1,5 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
+import com.example.ng_ingenieros.Asistencia;
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
@@ -265,7 +266,7 @@ public class AsistenciaEmpleadosControlador {
                 String nombr = rs.getString("nombre_proyecto");
 
 
-                TbAsistencia.getItems().add(new Empleados(id, nombre, idproyecto, nombr));
+                TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -296,7 +297,7 @@ public class AsistenciaEmpleadosControlador {
                     String nombr = rs.getString("nombre_proyecto");
 
 
-                    TbAsistencia.getItems().add(new Empleados(id, nombre, idproyecto, nombr));
+                    TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr));
 
                 }
             } catch (Exception e) {

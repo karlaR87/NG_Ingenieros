@@ -31,6 +31,9 @@ public class EmpleadosAsignadosControlador {
     @FXML
     private Button btnActualizar;
 
+    @FXML
+    private Button btnAgregar_ListEmpleados;
+
 
     @FXML
     private TableView<Empleados> tbEmpleados;
@@ -44,6 +47,7 @@ public class EmpleadosAsignadosControlador {
         btnAgregar2.setOnAction(this::abrirAgregar);
         btnEliminar.setOnAction(this::eliminarEmpleado);
         btnActualizar.setOnAction(this::abrirActualizar);
+        btnAgregar_ListEmpleados.setOnAction(this::AgregarList);
 
     }
 
@@ -142,6 +146,36 @@ public class EmpleadosAsignadosControlador {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void AgregarList(ActionEvent event) {
+        try {
+            // Carga la nueva ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/EmpleadosAElegir.fxml"));
+            Parent root = loader.load();
+            Stage stageNueva = new Stage();
+            // Configurar la modalidad (bloquea la ventana principal)
+            stageNueva.initModality(Modality.APPLICATION_MODAL);
+            stageNueva.initStyle(StageStyle.UNDECORATED);
+            // Accede al controlador de la nueva ventana
+            EmpleadosAElegirControlador empleados = loader.getController();
+
+            stageNueva.setScene(new Scene(root));
+            // Muestra la nueva ventana
+            stageNueva.showAndWait();
+
+
+            // Cierra la ventana de AgregarPersonasController
+            stageNueva.close();
+
+
+        }
+
+     catch (IOException e) {
+        e.printStackTrace();
+    }
+
     }
 
 

@@ -30,6 +30,8 @@ public class Asistencia {
         this.hora_salida = hora_salida;
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -77,4 +79,6 @@ public class Asistencia {
     public void setIdproyecto(int idproyecto) {
         this.idproyecto = idproyecto;
     }
+
+
 }
