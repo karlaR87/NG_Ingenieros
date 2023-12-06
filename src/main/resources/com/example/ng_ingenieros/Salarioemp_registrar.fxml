@@ -21,7 +21,7 @@
                 </Label>
             </children>
         </Pane>
-        <Button fx:id="btncancelar" layoutX="152.0" layoutY="439.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
+        <Button fx:id="btncancelar" layoutX="67.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
             <effect>
                 <DropShadow>
                     <color>
@@ -32,7 +32,7 @@
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></Button>
-        <Button fx:id="btnRegistrarSalario" layoutX="417.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+        <Button fx:id="btnRegistrarSalario" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
             <effect>
                 <DropShadow>
                     <color>
@@ -131,6 +131,18 @@
          </font>
       </Label>
       <TextField fx:id="txtSalarioHorasExtra" editable="false" layoutX="221.0" layoutY="325.0" prefHeight="25.0" prefWidth="121.0" />
+      <Button fx:id="btnVerSalarios" layoutX="484.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: ORANGE; -fx-background-radius: 20;" text="Ver planillas" textFill="WHITE">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.3552631437778473" green="0.3503289520740509" blue="0.3503289520740509" />
+               </color>
+            </DropShadow>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
     </children>
 
 </AnchorPane>

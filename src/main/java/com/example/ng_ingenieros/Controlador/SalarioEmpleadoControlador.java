@@ -74,7 +74,8 @@ public class SalarioEmpleadoControlador {
     @FXML
     private Button btnRegistrarSalario;
 
-
+    @FXML
+    private Button btnVerSalarios;
 
 
     public void initialize(AsistenciaVista empleadoSeleccionado) {
@@ -116,10 +117,21 @@ public class SalarioEmpleadoControlador {
             }
         });
 
+        btnVerSalarios.setOnAction(actionEvent -> {
+            try {
+                mostrarVentanaSalarioOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
 
     private void btnRegistrarSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         RegistrarSalario();
+    }
+    private void mostrarVentanaSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        mostrarVentanaSalario();
     }
 
     private void btnCancelarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -128,7 +140,21 @@ public class SalarioEmpleadoControlador {
         stage.close();
     }
 
-    //Abrir ventana del salario
+    public void mostrarVentanaSalario() throws IOException
+    {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/SalarioEmp_vista.fxml"));
+        Parent root;
+
+        root = loader.load();
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
 
 
     public void setTableAsistencia(TableView<AsistenciaVista> TBMostrarAsistencia) {
