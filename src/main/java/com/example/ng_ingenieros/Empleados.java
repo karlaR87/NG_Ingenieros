@@ -3,8 +3,6 @@ package com.example.ng_ingenieros;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-import java.sql.*;
-
 public class Empleados {
     private  int id;
     private String nombre;
@@ -167,7 +165,7 @@ public class Empleados {
 
     private int idcargo;
 
-    public Empleados() {
+    public Empleados(int id, String nombre, String dui, Double sueldoDia, Double sueldoHora, String cargo, String plaza) {
 
 
     }

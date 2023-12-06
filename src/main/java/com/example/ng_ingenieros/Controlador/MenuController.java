@@ -67,7 +67,7 @@ public class MenuController implements Initializable {
         // Cambiar el color de fondo y el color del texto al hacer clic en el botón "Empleados"
 
 
-        loadWindow("/com/example/ng_ingenieros/Empleados.fxml");
+        loadWindow("/com/example/ng_ingenieros/empleados.fxml");
 
 
     }

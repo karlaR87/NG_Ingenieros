@@ -130,7 +130,7 @@ public class RecuperacionContraseñaControlador {
             message.setFrom(new InternetAddress(correoRemitente));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destinatario));
-            message.setSubject("Recuperación de Contarseña");
+            message.setSubject("Recuperación de Contraseña");
             message.setText("Este es el código para poder recuperar su contraseña " + codigoAleatorio );
 
             // Envío del mensaje
