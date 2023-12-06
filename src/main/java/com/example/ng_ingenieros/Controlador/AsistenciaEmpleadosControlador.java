@@ -252,7 +252,9 @@ public class AsistenciaEmpleadosControlador {
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement statement = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp INNER JOIN tbProyectos p ON p.idproyecto = emp.idproyecto WHERE emp.idproyecto = ?")) {
+             PreparedStatement statement = conn.prepareStatement("select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
+                     "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
+                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto WHERE idpro.idproyecto = ?")) {
 
             // Establece el ID del proyecto en la consulta SQL
             statement.setInt(1, idProyectoSeleccionado);
@@ -278,8 +280,10 @@ public class AsistenciaEmpleadosControlador {
             TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
             try (Connection conn = Conexion.obtenerConexion();
-                 PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.nombre_proyecto FROM tbempleados emp\n" +
-                         " inner join tbProyectos p on p.idproyecto = emp.idproyecto  WHERE emp.nombreCompleto LIKE ?")) {
+                 PreparedStatement stmt = conn.prepareStatement(" \n" +
+                         "select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
+                         "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
+                         "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto WHERE idemp.nombreCompleto LIKE ?")) {
 
                 // Preparar el parámetro de búsqueda para la consulta SQL
                 String parametroBusqueda = "%" + busqueda + "%";

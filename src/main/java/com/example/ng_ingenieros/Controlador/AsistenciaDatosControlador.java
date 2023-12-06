@@ -182,14 +182,12 @@ public class AsistenciaDatosControlador {
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select \n" +
-                     "a.idAsistencia, emp.idempleado, emp.nombreCompleto, \n" +
-                     "asis.asistencia, \n" +
-                     "a.hora_entrada, a.hora_salida, i.idproyecto, i.nombre_proyecto \n" +
-                     "from tbAsistencia a\n" +
-                     "inner join tbempleados emp on emp.idempleado = a.idempleado\n" +
-                     "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar\n" +
-                     "inner join tbProyectos i on i.idproyecto = emp.idproyecto")) {
+             ResultSet rs = stmt.executeQuery("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
+                     "inner join tbEmpleadosProyectos id on id.idEmpleado = aa.idempleado\n" +
+                     "inner join tbempleados empleado on empleado.idempleado = id.idEmpleado\n" +
+                     "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
+                     "inner join tbAsistencia asis on asis.idAsistencia = aa.idAsistencia\n" +
+                     "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idAsistencia");
@@ -212,15 +210,13 @@ public class AsistenciaDatosControlador {
         TBMostrarAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("select \n" +
-                     "a.idAsistencia, emp.idempleado, emp.nombreCompleto, \n" +
-                     "asis.asistencia, \n" +
-                     "a.hora_entrada, a.hora_salida, i.idproyecto, i.nombre_proyecto \n" +
-                     "from tbAsistencia a\n" +
-                     "inner join tbempleados emp on emp.idempleado = a.idempleado\n" +
-                     "inner join tbAsistenciaMarcar asis on asis.idAsistenciaMarcar = a.idAsistenciaMarcar\n" +
-                     "inner join tbProyectos i on i.idproyecto = emp.idproyecto " +
-                     "where emp.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
+                     "inner join tbEmpleadosProyectos id on id.idEmpleado = aa.idempleado\n" +
+                     "inner join tbempleados empleado on empleado.idempleado = id.idEmpleado\n" +
+                     "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
+                     "inner join tbAsistencia asis on asis.idAsistencia = aa.idAsistencia\n" +
+                     "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
+                     "where empleado.nombreCompleto LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";

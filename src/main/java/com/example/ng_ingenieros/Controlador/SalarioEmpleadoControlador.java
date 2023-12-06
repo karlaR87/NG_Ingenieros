@@ -289,8 +289,9 @@ public class SalarioEmpleadoControlador {
 
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, p.idproyecto, p.horas_trabajo FROM tbempleados emp\n" +
-                     "inner join tbProyectos p on p.idproyecto = emp.idproyecto  WHERE emp.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.horas_trabajo from tbEmpleadosProyectos id\n" +
+                     "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
+                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto  WHERE idemp.nombreCompleto LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
