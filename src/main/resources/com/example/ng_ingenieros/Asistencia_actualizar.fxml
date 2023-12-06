@@ -75,8 +75,8 @@
         <ComboBox fx:id="cmbAMPM2" layoutX="533.0" layoutY="313.0" prefHeight="25.0" prefWidth="85.0" promptText="Horario" />
         <ComboBox fx:id="cmbDiaAsistencia" layoutX="216.0" layoutY="249.0" prefHeight="25.0" prefWidth="97.0" promptText="Día" />
         <ComboBox fx:id="cmbDiaSalida" layoutX="216.0" layoutY="313.0" prefHeight="25.0" prefWidth="97.0" promptText="Día" />
-        <Label fx:id="LblIdEmpleado" layoutX="216.0" layoutY="138.0" prefHeight="25.0" prefWidth="119.0" text="Label" textFill="WHITE" />
-      <Label fx:id="lblHoraEntrada" layoutX="321.0" layoutY="277.0" prefHeight="25.0" prefWidth="119.0" text="Label" />
-      <Label fx:id="lblHoraSalida" layoutX="321.0" layoutY="344.0" prefHeight="25.0" prefWidth="152.0" text="Label" />
+        <Label fx:id="LblIdEmpleado" layoutX="216.0" layoutY="138.0" prefHeight="25.0" prefWidth="119.0" text="Label" textFill="#2d3250" />
+      <Label fx:id="lblHoraEntrada" layoutX="321.0" layoutY="277.0" prefHeight="25.0" prefWidth="119.0" text="Label" textFill="#2d3250" />
+      <Label fx:id="lblHoraSalida" layoutX="321.0" layoutY="344.0" prefHeight="25.0" prefWidth="152.0" text="Label" textFill="#2d3250" />
     </children>
 </AnchorPane>

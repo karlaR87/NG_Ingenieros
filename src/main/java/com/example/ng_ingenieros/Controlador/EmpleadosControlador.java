@@ -105,12 +105,11 @@ public class EmpleadosControlador {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
                      "c.cargo, \n" +
-                     "tp.tipoPlaza, \n" +
-                     "p.nombre_proyecto\n" +
+                     "tp.tipoPlaza \n" +
+
                      "from tbempleados emp\n" +
                      "inner join tbcargos c on c.idcargo = emp.idcargo\n" +
-                     "inner join tbtipoPlazas tp on tp.idTipoPlaza = emp.idTipoPlaza\n" +
-                     "inner join tbProyectos p on p.idproyecto = emp.idproyecto")) {
+                     "inner join tbtipoPlazas tp on tp.idTipoPlaza = emp.idTipoPlaza")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");
@@ -125,9 +124,9 @@ public class EmpleadosControlador {
                 String cargo = rs.getString("cargo");
                 String plazo = rs.getString("tipoPlaza");
 
-                String Proyecto = rs.getString("nombre_proyecto");
 
-                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plazo, Proyecto));
+
+                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plazo));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +138,7 @@ public class EmpleadosControlador {
         TableEmpleados.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza, p.nombre_proyecto FROM tbempleados emp INNER JOIN tbcargos c ON c.idcargo = emp.idcargo INNER JOIN tbtipoPlazas tp ON tp.idTipoPlaza = emp.idTipoPlaza INNER JOIN tbProyectos p ON p.idproyecto = emp.idproyecto WHERE emp.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza FROM tbempleados emp INNER JOIN tbcargos c ON c.idcargo = emp.idcargo INNER JOIN tbtipoPlazas tp ON tp.idTipoPlaza = emp.idTipoPlaza WHERE emp.nombreCompleto LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
@@ -156,9 +155,9 @@ public class EmpleadosControlador {
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
                 String cargo = rs.getString("cargo");
                 String plaza = rs.getString("tipoPlaza");
-                String proyecto = rs.getString("nombre_proyecto");
 
-                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plaza, proyecto));
+
+                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plaza));
             }
         } catch (Exception e) {
             e.printStackTrace();

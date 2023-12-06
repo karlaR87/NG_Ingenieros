@@ -58,9 +58,6 @@
                           <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="idproyecto">
-                          <cellValueFactory><PropertyValueFactory property="proyecto" /></cellValueFactory>
-                       </TableColumn>
 
                     </columns>
                   </TableView>

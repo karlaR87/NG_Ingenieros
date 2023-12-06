@@ -173,7 +173,7 @@ public class Empleados {
     }
 
 
-    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
+    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza) {
         this.id = id;
         this.nombre = nombre;
 
@@ -183,7 +183,7 @@ public class Empleados {
         this.sueldoHora = sueldoHora;
         this.cargo = cargo;
         this.plaza = plaza;
-        this.proyecto = proyecto;
+
     }
 
     public Empleados(int id, String nombre, String proyecto) {
