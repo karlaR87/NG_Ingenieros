@@ -54,7 +54,7 @@
                           <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="idTipoPlaza">
+                       <TableColumn prefWidth="75.0" text="IdTipoPlaza">
                           <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
                        </TableColumn>
 

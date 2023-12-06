@@ -225,4 +225,6 @@ public class Empleados {
     public void setIdproyecto(int idproyecto) {
         this.idproyecto = idproyecto;
     }
+
+
 }
