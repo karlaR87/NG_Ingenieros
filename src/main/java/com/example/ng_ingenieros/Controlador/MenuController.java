@@ -24,6 +24,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -70,6 +71,40 @@ public class MenuController implements Initializable {
         loadWindow("/com/example/ng_ingenieros/empleados.fxml");
 
 
+    }
+
+    @FXML
+    private void abrirAdministrar(ActionEvent event) {
+        loadWindow("/com/example/ng_ingenieros/Administrar.fxml");
+
+
+    }
+    @FXML
+    private void atras(ActionEvent actionEvent) {
+        try {
+            // Obtener la referencia al Stage actual (ventana)
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+            // Cargar el archivo FXML del login
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Login.fxml"));
+            Parent root = loader.load();
+
+            // Crear un nuevo Stage para la ventana de login
+            Stage loginStage = new Stage();
+            loginStage.setTitle("Nueva Ventana");
+
+            // Configurar el estilo para quitar la barra de título
+            loginStage.initStyle(StageStyle.UNDECORATED);
+
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
+
+            // Cerrar la ventana actual
+            currentStage.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadWindow(String fxmlFile) {

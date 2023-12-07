@@ -68,9 +68,6 @@
               <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
            </TableColumn>
 
-           <TableColumn prefWidth="75.0" text="IdTipoPlaza">
-              <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
-           </TableColumn>
 
            <TableColumn prefWidth="75.0" text="Sueldo_horaExt">
               <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>

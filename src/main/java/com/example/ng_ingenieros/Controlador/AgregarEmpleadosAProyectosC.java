@@ -55,7 +55,6 @@ public class AgregarEmpleadosAProyectosC {
         btnCancelar.setOnAction(this::cerrarVentana);
 
         CargarCargo();
-        CargarPlaza();
 
     }
 
@@ -83,29 +82,6 @@ public class AgregarEmpleadosAProyectosC {
         cbCargoEmp.setItems(data);
     }
 
-    private void CargarPlaza() {
-        // Crear una lista observable para almacenar los datos
-        ObservableList<String> data = FXCollections.observableArrayList();
-
-        // Conectar a la base de datos y recuperar los datos
-        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
-            String query = "select tipoPlaza from tbtipoPlazas"; // Reemplaza con tu consulta SQL
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Recorrer los resultados y agregarlos a la lista observable
-            while (resultSet.next()) {
-                String item = resultSet.getString("tipoPlaza"); // Reemplaza con el nombre de la columna de tu tabla
-                data.add(item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-
-        // Asignar los datos al ComboBox
-        cbPlaza.setItems(data);
-    }
 
 
     ///GUARDAR EN ARRAY
@@ -117,13 +93,12 @@ public class AgregarEmpleadosAProyectosC {
         String dui = txtDuiEmp.getText();
         String correo = txtCorreoEmp.getText();
         String cargo = cbCargoEmp.getValue();
-        String plaza = cbPlaza.getValue();
         Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
         String numCuenta = txtNumCuenta.getText();
         Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
 
 // Crea una nueva instancia de Empleados y agrega a la lista observable
-        Empleados empleado = new Empleados(nombre, dui,correo,cargo,plaza,sueldoHora,numCuenta,sueldo);
+        Empleados empleado = new Empleados(nombre, dui,correo,cargo,sueldoHora,numCuenta,sueldo);
         empleados.add(empleado);
 // Imprime un mensaje en consola con todas las personas
         System.out.println("Personas agregadas: " + empleado);
@@ -132,7 +107,6 @@ public class AgregarEmpleadosAProyectosC {
         txtDuiEmp.clear();
         txtCorreoEmp.clear();
         cbCargoEmp.setValue(null);
-        cbPlaza.setValue(null);
         txtPagoHorasExEmp.clear();
         txtNumCuenta.clear();
         txtSueldoEmp.clear();

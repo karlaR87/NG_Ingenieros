@@ -15,7 +15,7 @@ public class Empleados {
 
 
 
-    public Empleados(String nombre, String dui, String correo, String cargo, String plaza, Double pagoExtra, String numCuenta, Double sueldo) {
+    public Empleados(String nombre, String dui, String correo, String cargo, Double pagoExtra, String numCuenta, Double sueldo) {
         this.nombre = nombre;
         Dui = dui;
         this.correo=correo;

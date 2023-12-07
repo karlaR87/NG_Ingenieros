@@ -30,31 +30,30 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="449.0" layoutY="264.0" text="Sueldo" textFill="WHITE">
+      <Label layoutX="454.0" layoutY="202.0" text="Sueldo" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="449.0" layoutY="201.0" prefHeight="26.0" prefWidth="141.0" text="Pago por hora extra" textFill="WHITE">
+      <Label layoutX="454.0" layoutY="144.0" prefHeight="26.0" prefWidth="141.0" text="Pago por hora extra" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
       <TextField id="txtNombreEmp" fx:id="txtNombreEmp" layoutX="108.0" layoutY="94.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
       <TextField id="txtCorreo" fx:id="txtCorreoEmp" layoutX="110.0" layoutY="144.0" prefHeight="26.0" prefWidth="310.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtDuiEmp" fx:id="txtDuiEmp" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtSueldoEmp" fx:id="txtSueldoEmp" layoutX="517.0" layoutY="263.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 8;" />
-      <TextField id="txtPagoHorasExEmp" fx:id="txtPagoHorasExEmp" layoutX="590.0" layoutY="201.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtDuiEmp" fx:id="txtDuiEmp" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="223.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtSueldoEmp" fx:id="txtSueldoEmp" layoutX="519.0" layoutY="202.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 8;" />
+      <TextField id="txtPagoHorasExEmp" fx:id="txtPagoHorasExEmp" layoutX="599.0" layoutY="144.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
       <Button fx:id="btnAceptar" layoutX="139.0" layoutY="388.0" mnemonicParsing="false" onAction="#agregarEmpleado" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Aceptar" textFill="WHITE" />
       <Button fx:id="btnGuardar" layoutX="327.0" layoutY="388.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #6C8EE5; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
-      <ComboBox id="cbCargoEmp" fx:id="cbPlaza" layoutX="495.0" layoutY="144.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-radius: 8;" />
       <Label layoutX="33.0" layoutY="250.0" prefHeight="52.0" prefWidth="141.0" text="Numero de cuenta" textFill="WHITE" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
       <TextField id="txtCuentaBEmp" fx:id="txtNumCuenta" layoutX="174.0" layoutY="263.0" prefHeight="26.0" prefWidth="250.0" style="-fx-background-radius: 8;" />
-      <Pane layoutX="5.0" prefHeight="71.0" prefWidth="750.0" style="-fx-background-color: #40669F;">
+      <Pane layoutX="3.0" prefHeight="71.0" prefWidth="750.0" style="-fx-background-color: #40669F;">
          <children>
             <Label layoutX="320.0" layoutY="23.0" prefHeight="26.0" prefWidth="111.0" text="EMPLEADOS " textFill="WHITE">
                <font>
@@ -64,11 +63,6 @@
             <Pane layoutY="68.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #1C3B69;" />
          </children>
       </Pane>
-      <Label layoutX="449.0" layoutY="144.0" text="Plaza" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
       <ComboBox id="cbCargoEmp" fx:id="cbCargoEmp" layoutX="120.0" layoutY="201.0" prefHeight="26.0" prefWidth="302.0" style="-fx-background-radius: 8;" />
       <Button fx:id="btnCancelar" layoutX="498.0" layoutY="388.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
    </children>

@@ -34,8 +34,7 @@ public class EmpleadosAProyectosActualizarControlador {
     @FXML
     private ComboBox<String> cbCargoEmp;
 
-    @FXML
-    private ComboBox<String> cbPlaza;
+
 
     @FXML
     private TextField txtPagoHorasExEmp;
@@ -55,7 +54,6 @@ public class EmpleadosAProyectosActualizarControlador {
     public void initialize() {
 
         CargarCargo();
-        CargarPlaza();
 
     }
     public void cargarDatosEmpleado(Empleados empleado) {
@@ -67,7 +65,6 @@ public class EmpleadosAProyectosActualizarControlador {
             txtDuiEmp.setText(empleado.getDui());
             txtCorreoEmp.setText(empleado.getCorreo());
             cbCargoEmp.setValue(empleado.getCargo());
-            cbPlaza.setValue(empleado.getPlaza());
             txtPagoHorasExEmp.setText(String.valueOf(empleado.getSueldoHora()));
             txtNumCuenta.setText(empleado.getCuentaBancaria());
             txtSueldoEmp.setText(String.valueOf(empleado.getSueldoDia()));
@@ -84,7 +81,6 @@ public class EmpleadosAProyectosActualizarControlador {
             empleadoParaActualizar.setDui(txtDuiEmp.getText());
             empleadoParaActualizar.setCorreo(txtCorreoEmp.getText());
             empleadoParaActualizar.setCargo(cbCargoEmp.getValue());
-            empleadoParaActualizar.setPlaza(cbPlaza.getValue());
             empleadoParaActualizar.setSueldoHora(Double.parseDouble(txtPagoHorasExEmp.getText()));
             empleadoParaActualizar.setCuentaBancaria(txtNumCuenta.getText());
             empleadoParaActualizar.setSueldoDia(Double.parseDouble(txtSueldoEmp.getText()));
@@ -129,29 +125,6 @@ public class EmpleadosAProyectosActualizarControlador {
         cbCargoEmp.setItems(data);
     }
 
-    private void CargarPlaza() {
-        // Crear una lista observable para almacenar los datos
-        ObservableList<String> data = FXCollections.observableArrayList();
-
-        // Conectar a la base de datos y recuperar los datos
-        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
-            String query = "select tipoPlaza from tbtipoPlazas"; // Reemplaza con tu consulta SQL
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Recorrer los resultados y agregarlos a la lista observable
-            while (resultSet.next()) {
-                String item = resultSet.getString("tipoPlaza"); // Reemplaza con el nombre de la columna de tu tabla
-                data.add(item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-
-        // Asignar los datos al ComboBox
-        cbPlaza.setItems(data);
-    }
 
     public Empleados  getPersonas() {
         return empleadoParaActualizar;
