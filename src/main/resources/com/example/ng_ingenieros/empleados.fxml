@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="Empleados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
+<AnchorPane fx:id="Empleados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="734.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
    <children>
-      <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="703.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <Pane prefHeight="35.0" prefWidth="560.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
@@ -25,43 +31,44 @@
             </Pane>
          </top>
          <center>
-            <Pane prefHeight="449.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="440.0" prefWidth="631.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="554.0" style="-fx-background-color: #4E5456;">
+                   
+                  <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="689.0" style="-fx-background-color: #4E5456;">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="idempleado">
+                      <TableColumn prefWidth="65.0" text="ID">
                          <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
                       </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="nombre">
+                       <TableColumn prefWidth="150.0" text="nombre">
                           <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="dui">
+                       <TableColumn text="dui">
                           <cellValueFactory><PropertyValueFactory property="Dui" /></cellValueFactory>
                        </TableColumn>
 
 
-                       <TableColumn prefWidth="75.0" text="sueldo_dia">
+                       <TableColumn text="sueldo_dia">
                           <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="sueldo_horaExt">
+                       <TableColumn prefWidth="110.0" text="sueldo_horaExtra">
                           <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="idcargo">
+                       <TableColumn prefWidth="105.0" text="Cargo">
                           <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
                        </TableColumn>
 
-                       <TableColumn prefWidth="75.0" text="IdTipoPlaza">
+                       <TableColumn prefWidth="100.0" text="Plaza">
                           <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
                        </TableColumn>
 
 
                     </columns>
                   </TableView>
-                  <Button fx:id="btnEliminarEmp" layoutX="169.0" layoutY="345.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8;">
+                  <Button fx:id="btnEliminarEmp" layoutX="181.0" layoutY="345.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8;">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -69,7 +76,7 @@
                            </image></ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnAgregarEmp" layoutX="37.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+                  <Button fx:id="btnAgregarEmp" layoutX="28.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>

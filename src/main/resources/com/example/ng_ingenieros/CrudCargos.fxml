@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="443.0" prefWidth="712.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudCargosControlador">
+   <children>
+      <Label alignment="CENTER" layoutX="219.0" layoutY="24.0" prefHeight="38.0" prefWidth="274.0" text="Agregar cargo extra" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField layoutX="178.0" layoutY="86.0" prefHeight="38.0" prefWidth="356.0" style="-fx-background-radius: 15;" />
+      <Label layoutX="108.0" layoutY="86.0" prefHeight="38.0" prefWidth="57.0" text="Nombre:" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
