@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -69,6 +70,8 @@ public class AsistenciaEmpleadosControlador {
 
     @FXML
     private Button btnMostrar;
+    @FXML
+    private Button btncancelar;
 
     @FXML
     private Label lblidproyecto;
@@ -118,12 +121,21 @@ public class AsistenciaEmpleadosControlador {
 
         });
 
-        cmbAsistencia.setPromptText("Seleccione el cargo del empleado");
+        cmbAsistencia.setPromptText("Asistencio o inasistencia del empleado");
         CargarAsistencia();
 
         btnMostrar.setOnAction(actionEvent -> {
             try {
+
                 btnMostrarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        btncancelar.setOnAction(actionEvent -> {
+            try {
+                btnCancelarOnAction(actionEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -154,6 +166,12 @@ public class AsistenciaEmpleadosControlador {
 
     private void btnMostrarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         abrirVentanaMostrar();
+    }
+
+    private void btnCancelarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     public void abrirVentanaMostrar() throws IOException {
@@ -311,15 +329,15 @@ public class AsistenciaEmpleadosControlador {
     private void seleccionarEmpleado(MouseEvent event) {
         if (event.getClickCount() == 1) {
             // Obtener la fila seleccionada
-            Empleados empleadoSeleccionado = (Empleados) TbAsistencia.getSelectionModel().getSelectedItem();
+            AsistenciaVista empleadoSeleccionado = (AsistenciaVista) TbAsistencia.getSelectionModel().getSelectedItem();
 
             // Verificar si se seleccionó una fila
             if (empleadoSeleccionado != null) {
                 // Asignar el ID al Label
-                LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getId()));
+                LblIdEmpleado.setText(String.valueOf(empleadoSeleccionado.getIdE()));
 
                 // Asignar el nombre al TextField
-                txtEmpleadoSel.setText(empleadoSeleccionado.getNombre());
+                txtEmpleadoSel.setText(empleadoSeleccionado.getIdempleado());
 
 
             }
