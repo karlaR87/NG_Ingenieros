@@ -29,7 +29,7 @@
       </TableView>
       <Button fx:id="btnAgregarBanco" layoutX="204.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnAgregar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/btnAgregar.png" />
                </image>
@@ -38,7 +38,7 @@
       </Button>
       <Button fx:id="btnEditarBanco" layoutX="271.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnEditar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/btnEditarFondo.png" />
                </image>
@@ -47,7 +47,7 @@
       </Button>
       <Button fx:id="btnEliminarBanco" layoutX="338.0" layoutY="296.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnEliminar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/btnEliminar.png" />
                </image>

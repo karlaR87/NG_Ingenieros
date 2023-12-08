@@ -22,7 +22,7 @@
                   </Label>
                </children>
             </Pane>
-            <TextField layoutX="45.0" layoutY="173.0" prefHeight="45.0" prefWidth="348.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtNombreBanco" layoutX="45.0" layoutY="173.0" prefHeight="45.0" prefWidth="348.0" style="-fx-background-radius: 15;" />
             <Button fx:id="btnAgregarBanco" layoutX="239.0" layoutY="290.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;" text="Agregar" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="16.0" />
