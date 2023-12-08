@@ -1,8 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="463.0" prefWidth="662.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudBancosControlador">
-
+<AnchorPane prefHeight="353.0" prefWidth="575.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudBancosControlador">
+   <children>
+      <Pane layoutY="-3.0" prefHeight="64.0" prefWidth="593.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+         <children>
+            <Label layoutX="237.0" layoutY="12.0" prefHeight="38.0" prefWidth="120.0" text="Bancos" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TableView fx:id="tbBanco" layoutX="96.0" layoutY="77.0" prefHeight="200.0" prefWidth="402.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAgregarBanco" layoutX="204.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnAgregar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnEditarBanco" layoutX="271.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnEditarFondo.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnEliminarBanco" layoutX="338.0" layoutY="296.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnEliminar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
 </AnchorPane>
