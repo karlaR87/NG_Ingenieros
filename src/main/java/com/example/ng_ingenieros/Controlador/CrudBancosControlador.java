@@ -29,7 +29,7 @@ public class CrudBancosControlador {
     @FXML
     private TableView tbBanco;
     @FXML
-    private Button btnAgregarBanco, btnEditarBanco, btnEliminarBanco;
+    private Button btnAgregarBanco, btnEditarBanco, btnEliminarBanco, btnAtras;
 
     public void initialize() {
         // Configura el evento de clic para el botón

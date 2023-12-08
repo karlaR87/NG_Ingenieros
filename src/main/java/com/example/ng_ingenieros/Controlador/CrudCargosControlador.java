@@ -21,15 +21,11 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.example.ng_ingenieros.Validaciones;
-
-import javax.swing.*;
 public class CrudCargosControlador {
-
     @FXML
     private TableView tbCargo;
     @FXML
-    private Button btnAgregarCargo, btnEditarCargo, btnEliminarCargo;
+    private Button btnAgregarCargo, btnEditarCargo, btnEliminarCargo, btnAtras;
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -66,5 +62,4 @@ public class CrudCargosControlador {
             e.printStackTrace();
         }
     }
-
 }
