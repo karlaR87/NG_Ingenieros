@@ -113,10 +113,12 @@ public class SalarioEmpleadoControlador {
                 txtSeguroSocial.setText("");
                 txtRenta.setText("");
                 txtSalarioFinal.setText("");
+
             }
         });
 
-
+        CalcularSalarioTotal();
+        txtSalarioFinal();
 
 
 
