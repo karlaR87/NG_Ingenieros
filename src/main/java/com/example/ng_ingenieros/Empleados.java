@@ -49,7 +49,7 @@ public class Empleados {
 
     public Empleados(String nombre, String dui, String correo, String cargo, String plaza, Double pagoExtra, String numCuenta, Double sueldo) {
         this.nombre = nombre;
-        Dui = dui;
+        this.Dui = dui;
         this.correo=correo;
         this.cargo = cargo;
         this.plaza = plaza;
@@ -166,7 +166,15 @@ public class Empleados {
     private int idcargo;
 
     public Empleados(int id, String nombre, String dui, Double sueldoDia, Double sueldoHora, String cargo, String plaza) {
+        this.id = id;
+        this.nombre = nombre;
 
+        this.Dui = dui;
+
+        this.sueldoDia = sueldoDia;
+        this.sueldoHora = sueldoHora;
+        this.cargo = cargo;
+        this.plaza = plaza;
 
     }
 
@@ -175,7 +183,7 @@ public class Empleados {
         this.id = id;
         this.nombre = nombre;
 
-        Dui = dui;
+        this.Dui = dui;
 
         this.sueldoDia = sueldoDia;
         this.sueldoHora = sueldoHora;
@@ -193,7 +201,7 @@ public class Empleados {
     public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
         this.id = id;
         this.nombre = nombre;
-        Dui = dui;
+        this.Dui = dui;
         this.correo = correo;
         this.sueldoDia = sueldoDia;
         this.sueldoHora = sueldoHora;
