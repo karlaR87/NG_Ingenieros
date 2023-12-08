@@ -5,7 +5,7 @@ public class Empleados {
     private String nombre;
 
 
-    private String Dui;
+    private String dui;
 
     private String correo;
     private double sueldoDia;
@@ -17,10 +17,10 @@ public class Empleados {
 
     public Empleados(String nombre, String dui, String correo, String cargo, Double pagoExtra, String numCuenta, Double sueldo) {
         this.nombre = nombre;
-        Dui = dui;
+        this.dui = dui;
         this.correo=correo;
         this.cargo = cargo;
-        this.plaza = plaza;
+
         this.sueldoHora = pagoExtra;
         this.cuentaBancaria=numCuenta;
         this.sueldoDia = sueldo;
@@ -30,8 +30,26 @@ public class Empleados {
     public Empleados(int id, String nombre, String dui, Double sueldoDia, Double sueldoHora, String cargo, String plazo) {
         this.id = id;
         this.nombre = nombre;
+
+        this.dui = dui;
+
+        this.sueldoDia = sueldoDia;
+        this.sueldoHora = sueldoHora;
+        this.cargo = cargo;
+        this.plaza = plazo;
+
     }
 
+
+    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza) {
+        this.id = id;
+        this.nombre = nombre;
+        this.dui = dui;
+        this.sueldoDia = sueldoDia;
+        this.sueldoHora = sueldoHora;
+        this.cargo = cargo;
+        this.plaza = plaza;
+    }
 
     public  int getId() {
         return id;
@@ -50,11 +68,11 @@ public class Empleados {
     }
 
     public String getDui() {
-        return Dui;
+        return dui;
     }
 
     public void setDui(String dui) {
-        Dui = dui;
+        this.dui = dui;
     }
 
     public String getCorreo() {
@@ -138,26 +156,10 @@ public class Empleados {
     private int idcargo;
 
 
-
-
-    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza, String proyecto) {
-        this.id = id;
-        this.nombre = nombre;
-
-        Dui = dui;
-
-        this.sueldoDia = sueldoDia;
-        this.sueldoHora = sueldoHora;
-        this.cargo = cargo;
-        this.plaza = plaza;
-        this.proyecto = proyecto;
-    }
-
-
     public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
         this.id = id;
         this.nombre = nombre;
-        Dui = dui;
+        this.dui = dui;
         this.correo = correo;
         this.sueldoDia = sueldoDia;
         this.sueldoHora = sueldoHora;
@@ -183,4 +185,7 @@ public class Empleados {
     public void setSeleccionado(boolean seleccionado) {
         this.seleccionado = seleccionado;
     }
+
+
+
 }

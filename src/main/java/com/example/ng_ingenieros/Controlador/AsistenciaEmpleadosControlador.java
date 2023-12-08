@@ -1,6 +1,5 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.Asistencia;
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
@@ -171,7 +170,7 @@ public class AsistenciaEmpleadosControlador {
 
     }
 
-    
+
     private void CargarAsistencia() {
         // Crear una lista observable para almacenar los datos
         ObservableList<String> data = FXCollections.observableArrayList();
@@ -275,37 +274,37 @@ public class AsistenciaEmpleadosControlador {
 
     private void buscarDatos(String busqueda) {
 
-            TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
+        TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
-            try (Connection conn = Conexion.obtenerConexion();
-                 PreparedStatement stmt = conn.prepareStatement(" \n" +
-                         "select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
-                         "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
-                         "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto " +
-                         "WHERE idpro.idproyecto = ? AND idemp.nombreCompleto LIKE ?")) {
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement stmt = conn.prepareStatement(" \n" +
+                     "select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
+                     "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
+                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto " +
+                     "WHERE idpro.idproyecto = ? AND idemp.nombreCompleto LIKE ?")) {
 
-                // Preparar el parámetro de búsqueda para la consulta SQL
-                String parametroBusqueda = "%" + busqueda + "%";
-                stmt.setInt(1, idProyectoSeleccionado);
-                stmt.setString(2, parametroBusqueda);
+            // Preparar el parámetro de búsqueda para la consulta SQL
+            String parametroBusqueda = "%" + busqueda + "%";
+            stmt.setInt(1, idProyectoSeleccionado);
+            stmt.setString(2, parametroBusqueda);
 
-                ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-                while (rs.next()) {
-                    // Obtener los datos y agregarlos a la tabla
-                    int id = rs.getInt("idempleado");
-                    String nombre = rs.getString("nombreCompleto");
-                    int idproyecto = rs.getInt("idproyecto");
-                    String nombr = rs.getString("nombre_proyecto");
+            while (rs.next()) {
+                // Obtener los datos y agregarlos a la tabla
+                int id = rs.getInt("idempleado");
+                String nombre = rs.getString("nombreCompleto");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombr = rs.getString("nombre_proyecto");
 
 
-                    TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr));
+                TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr));
 
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
 
     @FXML
@@ -374,37 +373,37 @@ public class AsistenciaEmpleadosControlador {
         //Aqui se puede poner directamente el codigo de agregar asistencia
 
 
-            String nombre = LblIdEmpleado.getText();
+        String nombre = LblIdEmpleado.getText();
 
-            int Asistencia = obtenerIdAsistenciaSeleccionado(cmbAsistencia);
+        int Asistencia = obtenerIdAsistenciaSeleccionado(cmbAsistencia);
 
-            String fechaentrada = LblHoraEntrada.getText();
+        String fechaentrada = LblHoraEntrada.getText();
 
-            String fechasalida = LblHoraSalida.getText();
-
-
-
-
-            try (Connection conn = Conexion.obtenerConexion()) {
-                String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida) " +
-                        "VALUES (?, ?, ?, ?)";
-                PreparedStatement ps =conn.prepareStatement(sql);
-                ps.setString(1,nombre);
-
-                ps.setInt(2,Asistencia);
-                ps.setString(3, fechaentrada);
-                ps.setString(4, fechasalida);
-
-                ps.executeUpdate();
-
-                agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
+        String fechasalida = LblHoraSalida.getText();
 
 
 
-            }catch (SQLException e) {
-                agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
-                e.printStackTrace();
-            }
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida) " +
+                    "VALUES (?, ?, ?, ?)";
+            PreparedStatement ps =conn.prepareStatement(sql);
+            ps.setString(1,nombre);
+
+            ps.setInt(2,Asistencia);
+            ps.setString(3, fechaentrada);
+            ps.setString(4, fechasalida);
+
+            ps.executeUpdate();
+
+            agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
+
+
+
+        }catch (SQLException e) {
+            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
 
 
 

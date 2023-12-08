@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
@@ -43,7 +45,7 @@
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></Button>
-      <Pane layoutX="359.0" layoutY="81.0" prefHeight="344.0" prefWidth="8.0" style="-fx-background-color: #000000;" />
+      <Pane layoutX="367.0" layoutY="81.0" prefHeight="344.0" prefWidth="8.0" style="-fx-background-color: #000000;" />
       <Label layoutX="72.0" layoutY="81.0" text="Datos del empleado" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="24.0" />
@@ -72,13 +74,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtHorasExtras" editable="false" layoutX="240.0" layoutY="231.0" prefHeight="25.0" prefWidth="101.0" />
-      <Label layoutX="21.0" layoutY="371.0" prefHeight="27.0" prefWidth="158.0" text="Total devengado:" textFill="WHITE">
+      <TextField fx:id="txtHorasExtras" editable="false" layoutX="230.0" layoutY="231.0" prefHeight="25.0" prefWidth="111.0" />
+      <Label layoutX="21.0" layoutY="377.0" prefHeight="27.0" prefWidth="158.0" text="Total devengado:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtTotalDev" editable="false" layoutX="173.0" layoutY="372.0" prefHeight="25.0" prefWidth="170.0" />
+      <TextField fx:id="txtTotalDev" editable="false" layoutX="173.0" layoutY="378.0" prefHeight="25.0" prefWidth="170.0" />
       <Label layoutX="404.0" layoutY="142.0" prefHeight="27.0" prefWidth="45.0" text="AFP:" textFill="WHITE">
          <font>
             <Font size="18.0" />
@@ -124,14 +126,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSalarioEmp" editable="false" layoutX="222.0" layoutY="277.0" prefHeight="25.0" prefWidth="121.0" />
-      <Label layoutX="20.0" layoutY="323.0" prefHeight="27.0" prefWidth="181.0" text="Salario por hora extra:" textFill="WHITE">
+      <TextField fx:id="txtSalarioEmp" editable="false" layoutX="210.0" layoutY="277.0" prefHeight="25.0" prefWidth="133.0" />
+      <Label layoutX="20.0" layoutY="329.0" prefHeight="27.0" prefWidth="181.0" text="Salario por hora extra:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSalarioHorasExtra" editable="false" layoutX="221.0" layoutY="325.0" prefHeight="25.0" prefWidth="121.0" />
-      <Button fx:id="btnVerSalarios" layoutX="484.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: ORANGE; -fx-background-radius: 20;" text="Ver planillas" textFill="WHITE">
+      <TextField fx:id="txtSalarioHorasExtra" editable="false" layoutX="212.0" layoutY="329.0" prefHeight="25.0" prefWidth="62.0" />
+      <Button fx:id="btnVerSalarios" layoutX="476.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: ORANGE; -fx-background-radius: 20;" text="Ver planillas" textFill="WHITE">
          <effect>
             <DropShadow>
                <color>
@@ -143,6 +145,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Button fx:id="btnEditarHorasExtra" layoutX="292.0" layoutY="318.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="51.0">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnEditarFondo.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
     </children>
 
 </AnchorPane>

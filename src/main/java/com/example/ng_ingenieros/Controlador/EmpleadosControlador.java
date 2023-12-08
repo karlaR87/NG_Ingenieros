@@ -100,33 +100,27 @@ public class EmpleadosControlador {
     }
 
 
+    // Dentro del método cargarDatos() en la clase EmpleadosControlador
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("Select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt,\n" +
-                     "c.cargo, \n" +
-                     "tp.tipoPlaza \n" +
-
-                     "from tbempleados emp\n" +
+             ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza from tbempleados emp\n" +
                      "inner join tbcargos c on c.idcargo = emp.idcargo\n" +
                      "inner join tbtipoPlazas tp on tp.idTipoPlaza = emp.idTipoPlaza")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idempleado");
                 String nombre = rs.getString("nombreCompleto");
-
-
                 String dui = rs.getString("dui");
-
                 Double sueldoDia = rs.getDouble("sueldo_dia");
-
                 Double sueldoHora = rs.getDouble("sueldo_horaExt");
                 String cargo = rs.getString("cargo");
-                String plazo = rs.getString("tipoPlaza");
+                String plaza = rs.getString("tipoPlaza");
 
 
 
-                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plazo));
+                // Agregar los datos a la tabla
+                TableEmpleados.getItems().add(new Empleados(id, nombre, dui, sueldoDia, sueldoHora, cargo, plaza));
             }
         } catch (Exception e) {
             e.printStackTrace();

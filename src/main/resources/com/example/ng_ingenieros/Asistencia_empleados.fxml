@@ -30,20 +30,20 @@
       </Pane>
       <TableView fx:id="TbAsistencia" layoutX="14.0" layoutY="123.0" prefHeight="357.0" prefWidth="278.0">
          <columns>
-            <TableColumn prefWidth="50.0" text="idempleado">
-               <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+            <TableColumn prefWidth="50.0" text="ID">
+               <cellValueFactory><PropertyValueFactory property="idE" /></cellValueFactory>
             </TableColumn>
 
-            <TableColumn prefWidth="100.0" text="nombre">
-               <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
+            <TableColumn prefWidth="150.0" text="nombre">
+               <cellValueFactory><PropertyValueFactory property="idempleado" /></cellValueFactory>
             </TableColumn>
 
-            <TableColumn prefWidth="70.0" text="IdProyecto">
+            <TableColumn prefWidth="77.0" text="IdProyecto">
                <cellValueFactory><PropertyValueFactory property="idproyecto" /></cellValueFactory>
             </TableColumn>
 
-            <TableColumn prefWidth="60.0" text="Proyecto">
-               <cellValueFactory><PropertyValueFactory property="proyecto" /></cellValueFactory>
+            <TableColumn prefWidth="150.0" text="Proyecto">
+               <cellValueFactory><PropertyValueFactory property="nombreProyecto" /></cellValueFactory>
             </TableColumn>
 
 
@@ -121,7 +121,7 @@
       <ComboBox fx:id="cmbAMPM2" layoutX="610.0" layoutY="333.0" prefHeight="25.0" prefWidth="87.0" promptText="Horario" />
       <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="276.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="335.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
-      <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="138.0" prefHeight="27.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
+      <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="138.0" prefHeight="27.0" prefWidth="57.0" text="Label" textFill="WHITE" />
       <Button fx:id="btnMostrar" layoutX="628.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="26.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">

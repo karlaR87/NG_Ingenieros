@@ -13,88 +13,86 @@
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane fx:id="Empleados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="734.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.EmpleadosControlador">
-   <children>
-      <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="703.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <Pane prefHeight="35.0" prefWidth="560.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </BorderPane.margin>
-               <children>
-                  <TextField fx:id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
-                  <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Imagenes/lupaBlanca.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </top>
-         <center>
-            <Pane prefHeight="440.0" prefWidth="631.0" BorderPane.alignment="CENTER">
-               <children>
-                   
-                  <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="689.0" style="-fx-background-color: #4E5456;">
-                    <columns>
-                      <TableColumn prefWidth="65.0" text="ID">
-                         <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
-                      </TableColumn>
+    <children>
+        <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="703.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <Pane prefHeight="35.0" prefWidth="560.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </BorderPane.margin>
+                    <children>
+                        <TextField fx:id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="498.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
+                        <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Imagenes/lupaBlanca.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </Pane>
+            </top>
+            <center>
+                <Pane prefHeight="440.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+                    <children>
 
-                       <TableColumn prefWidth="150.0" text="nombre">
-                          <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
-                       </TableColumn>
+                        <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="689.0" style="-fx-background-color: #4E5456;">
+                            <columns>
+                                <TableColumn prefWidth="65.0" text="ID">
+                                    <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+                                </TableColumn>
 
-                       <TableColumn text="dui">
-                          <cellValueFactory><PropertyValueFactory property="Dui" /></cellValueFactory>
-                       </TableColumn>
+                                <TableColumn prefWidth="200.0" text="nombre">
+                                    <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
+                                </TableColumn>
 
+                                <TableColumn prefWidth="120.0" text="DUI">
+                                    <cellValueFactory><PropertyValueFactory property="dui" /></cellValueFactory>
+                                </TableColumn>
 
-                       <TableColumn text="sueldo_dia">
-                          <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
-                       </TableColumn>
+                                <TableColumn prefWidth="120.0" text="Sueldo diario ($)">
+                                    <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
+                                </TableColumn>
 
-                       <TableColumn prefWidth="110.0" text="sueldo_horaExtra">
-                          <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
-                       </TableColumn>
+                                <TableColumn prefWidth="120.0" text="Sueldo horaExtra ($)">
+                                    <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
+                                </TableColumn>
 
-                       <TableColumn prefWidth="105.0" text="Cargo">
-                          <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
-                       </TableColumn>
+                                <TableColumn prefWidth="120.0" text="Cargo">
+                                    <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
+                                </TableColumn>
 
-                       <TableColumn prefWidth="100.0" text="Plaza">
-                          <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
-                       </TableColumn>
+                                <TableColumn prefWidth="120.0" text="Plaza">
+                                    <cellValueFactory><PropertyValueFactory property="plaza" /></cellValueFactory>
+                                </TableColumn>
 
-
-                    </columns>
-                  </TableView>
-                  <Button fx:id="btnEliminarEmp" layoutX="181.0" layoutY="345.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8;">
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Imagenes/btnEliminar.png" />
-                           </image></ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="btnAgregarEmp" layoutX="28.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Imagenes/btnAgregar.png" />
-                           </image></ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="btnEditarEmp" layoutX="103.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Imagenes/btnEditarFondo.png" />
-                           </image></ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </Pane>
-         </center>
-      </BorderPane>
-   </children>
+                            </columns>
+                        </TableView>
+                        <Button fx:id="btnEliminarEmp" layoutX="181.0" layoutY="345.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8;">
+                            <graphic>
+                                <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Imagenes/btnEliminar.png" />
+                                    </image></ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnAgregarEmp" layoutX="28.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+                            <graphic>
+                                <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Imagenes/btnAgregar.png" />
+                                    </image></ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnEditarEmp" layoutX="103.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+                            <graphic>
+                                <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Imagenes/btnEditarFondo.png" />
+                                    </image></ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </Pane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>
