@@ -91,18 +91,18 @@ public class AsistenciaEmpleadosControlador {
 
         cmbAsistencia.setOnAction(event -> {
             String selectedItem = (String) cmbAsistencia.getSelectionModel().getSelectedItem();
-            if ("Inasistencia".equals(selectedItem)) {
-                // Deshabilitar los campos si se selecciona "Inasistencia"
-                deshabilitarCampos();
-            } else {
-                // Habilitar los campos si se selecciona otra opción diferente de "Inasistencia"
+            if ("Asistencia".equals(selectedItem)) {
+                //Habilitar campos
                 habilitarCampos();
+            } else if("Inasistencia".equals(selectedItem)){
+                //deshabilitar campos
+                deshabilitarCampos();
             }
         });
 
-        configurarSpinner(spHoraEn1, 0, 23);
+        configurarSpinner(spHoraEn1, 0, 11);
         configurarSpinner(spHoraEn2, 0, 59);
-        configurarSpinner(spHoraSa1, 0, 23);
+        configurarSpinner(spHoraSa1, 0, 11);
         configurarSpinner(spHoraSa2, 0, 59);
 
         ObservableList<String> opcionesAsistencia = FXCollections.observableArrayList("A.M.", "P.M.");
@@ -232,7 +232,7 @@ public class AsistenciaEmpleadosControlador {
         SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max);
         spinner.setValueFactory(valueFactory);
-        spinner.setEditable(true);
+        spinner.setEditable(false);
 
 
         spinner.getValueFactory().setConverter(new StringConverter<Integer>() {
@@ -281,11 +281,13 @@ public class AsistenciaEmpleadosControlador {
                  PreparedStatement stmt = conn.prepareStatement(" \n" +
                          "select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
                          "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
-                         "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto WHERE idemp.nombreCompleto LIKE ?")) {
+                         "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto " +
+                         "WHERE idpro.idproyecto = ? AND idemp.nombreCompleto LIKE ?")) {
 
                 // Preparar el parámetro de búsqueda para la consulta SQL
                 String parametroBusqueda = "%" + busqueda + "%";
-                stmt.setString(1, parametroBusqueda);
+                stmt.setInt(1, idProyectoSeleccionado);
+                stmt.setString(2, parametroBusqueda);
 
                 ResultSet rs = stmt.executeQuery();
 
