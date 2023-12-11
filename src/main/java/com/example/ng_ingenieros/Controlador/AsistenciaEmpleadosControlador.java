@@ -75,8 +75,7 @@ public class AsistenciaEmpleadosControlador {
 
     @FXML
     private Label lblidproyecto;
-    @FXML
-    private TextField txtProyecto;
+
     private int idProyectoSeleccionado;
 
     public void recibirIdProyecto(int idProyecto) {
@@ -176,15 +175,24 @@ public class AsistenciaEmpleadosControlador {
 
     public void abrirVentanaMostrar() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_visualizar.fxml"));
-        Parent root;
+        try {
+            // Verifica la ruta al archivo AsistenciaEmpleados.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_visualizar.fxml")); // Asegúrate de la ruta correcta
+            Parent root = loader.load();
 
-        root = loader.load();
+            // Accede al controlador de AsistenciaEmpleados
+            AsistenciaDatosControlador controller = loader.getController();
 
+            // Establece el ID del proyecto en el controlador de AsistenciaEmpleados
+            controller.recibirIdProyecto(idProyectoSeleccionado);
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+            // Mostrar la ventana
+            Stage stage1 = new Stage();
+            stage1.setScene(new Scene(root));
+            stage1.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -339,6 +347,7 @@ public class AsistenciaEmpleadosControlador {
                 // Asignar el nombre al TextField
                 txtEmpleadoSel.setText(empleadoSeleccionado.getIdempleado());
 
+                lblidproyecto.setText(String.valueOf(empleadoSeleccionado.getIdproyecto()));
 
             }
         }
@@ -416,6 +425,7 @@ public class AsistenciaEmpleadosControlador {
 
             agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
 
+            borrarTexto();
 
 
         }catch (SQLException e) {
@@ -425,15 +435,24 @@ public class AsistenciaEmpleadosControlador {
 
 
 
-
     }
 
+    public void borrarTexto()
+    {
+        txtEmpleadoSel.setText("");
+        LblIdEmpleado.setText("");
+        cmbAsistencia.setValue("");
+
+        cmbDiaAsistencia.setValue("");
+
+        cmbDiaSalida.setValue("");
+
+        cmbAMPM.setValue("");
+
+        cmbAMPM2.setValue("");
 
 
-
-
-
-
+    }
 
 
 
