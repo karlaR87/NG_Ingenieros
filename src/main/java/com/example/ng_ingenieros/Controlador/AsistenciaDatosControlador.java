@@ -226,18 +226,23 @@ public class AsistenciaDatosControlador {
         TBMostrarAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
-                     "inner join tbEmpleadosProyectos id on id.idEmpleado = aa.idempleado\n" +
-                     "inner join tbempleados empleado on empleado.idempleado = id.idEmpleado\n" +
-                     "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
-                     "inner join tbAsistencia asis on asis.idAsistencia = aa.idAsistencia\n" +
-                     "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
-                     "where WHERE idpro.idproyecto = ? and empleado.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto " +
+                     "FROM tbAsistencia aa " +
+                     "INNER JOIN tbEmpleadosProyectos id ON id.idEmpleado = aa.idempleado " +
+                     "INNER JOIN tbempleados empleado ON empleado.idempleado = id.idEmpleado " +
+                     "INNER JOIN tbProyectos pro ON pro.idproyecto = id.idProyecto " +
+                     "INNER JOIN tbAsistencia asis ON asis.idAsistencia = aa.idAsistencia " +
+                     "INNER JOIN tbAsistenciaMarcar asia ON asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
+                     "WHERE id.idproyecto = ? " +
+                     "AND (empleado.nombreCompleto LIKE ? OR asia.asistencia LIKE ? OR aa.hora_entrada LIKE ? " +
+                     "OR aa.hora_salida LIKE ? OR pro.nombre_proyecto LIKE ?)")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
             stmt.setInt(1, idProyectoSeleccionado);
-            stmt.setString(2, parametroBusqueda);
+            for (int i = 2; i <= 6; i++) {
+                stmt.setString(i, parametroBusqueda);
+            }
 
             ResultSet rs = stmt.executeQuery();
 

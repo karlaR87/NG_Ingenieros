@@ -132,11 +132,17 @@ public class EmpleadosControlador {
         TableEmpleados.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza FROM tbempleados emp INNER JOIN tbcargos c ON c.idcargo = emp.idcargo INNER JOIN tbtipoPlazas tp ON tp.idTipoPlaza = emp.idTipoPlaza WHERE emp.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza " +
+                     "FROM tbempleados emp " +
+                     "INNER JOIN tbcargos c ON c.idcargo = emp.idcargo " +
+                     "INNER JOIN tbtipoPlazas tp ON tp.idTipoPlaza = emp.idTipoPlaza " +
+                     "WHERE emp.nombreCompleto LIKE ? OR emp.dui LIKE ? OR emp.sueldo_dia LIKE ? OR emp.sueldo_horaExt LIKE ? OR c.cargo LIKE ? OR tp.tipoPlaza LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
-            stmt.setString(1, parametroBusqueda);
+            for (int i = 1; i <= 6; i++) {
+                stmt.setString(i, parametroBusqueda);
+            }
 
             ResultSet rs = stmt.executeQuery();
 

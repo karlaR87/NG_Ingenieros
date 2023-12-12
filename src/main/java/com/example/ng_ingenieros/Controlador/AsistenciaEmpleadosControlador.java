@@ -303,16 +303,19 @@ public class AsistenciaEmpleadosControlador {
         TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement(" \n" +
-                     "select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
-                     "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
-                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto " +
-                     "WHERE idpro.idproyecto = ? AND idemp.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto " +
+                     "FROM tbEmpleadosProyectos id " +
+                     "INNER JOIN tbempleados idemp ON idemp.idempleado = id.idEmpleado " +
+                     "INNER JOIN tbProyectos idpro ON idpro.idproyecto = id.idProyecto " +
+                     "WHERE idpro.idproyecto = ? " +
+                     "AND (idemp.nombreCompleto LIKE ? OR idpro.nombre_proyecto LIKE ?)")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
             stmt.setInt(1, idProyectoSeleccionado);
-            stmt.setString(2, parametroBusqueda);
+            for (int i = 2; i <= 3; i++) {
+                stmt.setString(i, parametroBusqueda);
+            }
 
             ResultSet rs = stmt.executeQuery();
 
