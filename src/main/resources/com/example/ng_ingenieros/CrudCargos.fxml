@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,24 +14,28 @@
 
 <AnchorPane prefHeight="353.0" prefWidth="575.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudCargosControlador">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="353.0" prefWidth="575.0" style="-fx-background-color: #2D3250;">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="417.0" prefWidth="589.0" style="-fx-background-color: #2D3250;">
          <children>
             <Pane layoutX="-10.0" layoutY="-10.0" prefHeight="67.0" prefWidth="599.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
                <children>
-                  <Label layoutX="256.0" layoutY="13.0" prefHeight="38.0" prefWidth="120.0" text="Cargos" textFill="WHITE">
+                  <Label layoutX="254.0" layoutY="13.0" prefHeight="38.0" prefWidth="120.0" text="Cargos" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="36.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <TableView fx:id="tbCargo" layoutX="96.0" layoutY="77.0" prefHeight="200.0" prefWidth="402.0">
+            <TableView fx:id="tbCargo" layoutX="94.0" layoutY="127.0" prefHeight="200.0" prefWidth="402.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="100.0" text="ID">
+                     <cellValueFactory><PropertyValueFactory property="idCargo" /></cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="300.0" text="Nombre del cargo">
+                     <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
+                  </TableColumn>
                </columns>
             </TableView>
-            <Button fx:id="btnAgregarCargo" layoutX="204.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+            <Button fx:id="btnAgregarCargo" layoutX="206.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -38,7 +44,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEditarCargo" layoutX="271.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+            <Button fx:id="btnEditarCargo" layoutX="269.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +53,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEliminarCargo" layoutX="338.0" layoutY="296.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+            <Button fx:id="btnEliminarCargo" layoutX="333.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,5 +64,15 @@
             </Button>
          </children>
       </AnchorPane>
+      <Pane layoutX="100.0" layoutY="81.0" prefHeight="35.0" prefWidth="410.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;">
+         <children>
+            <TextField fx:id="txtBusqueda" layoutX="46.0" layoutY="4.0" prefHeight="25.0" prefWidth="346.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
+            <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="12.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/lupaBlanca.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -30,6 +30,8 @@ public class CrudBancosControlador {
     private TableView tbBanco;
     @FXML
     private Button btnAgregarBanco, btnEditarBanco, btnEliminarBanco, btnAtras;
+    @FXML
+    private TextField txtBusqueda;
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -66,6 +68,8 @@ public class CrudBancosControlador {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

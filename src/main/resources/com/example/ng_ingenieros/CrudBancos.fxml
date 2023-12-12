@@ -4,30 +4,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="353.0" prefWidth="575.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudBancosControlador">
+<AnchorPane prefHeight="419.0" prefWidth="599.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudBancosControlador">
    <children>
-      <Pane layoutY="-3.0" prefHeight="64.0" prefWidth="593.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+      <Pane layoutY="-3.0" prefHeight="54.0" prefWidth="599.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
          <children>
-            <Label layoutX="237.0" layoutY="12.0" prefHeight="38.0" prefWidth="120.0" text="Bancos" textFill="WHITE">
+            <Label layoutX="240.0" layoutY="8.0" prefHeight="38.0" prefWidth="120.0" text="Bancos" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="36.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tbBanco" layoutX="96.0" layoutY="77.0" prefHeight="200.0" prefWidth="402.0">
+      <TableView fx:id="tbBanco" layoutX="99.0" layoutY="125.0" prefHeight="200.0" prefWidth="402.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button fx:id="btnAgregarBanco" layoutX="204.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+      <Button fx:id="btnAgregarBanco" layoutX="207.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fx:id="btnAgregar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -36,7 +37,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEditarBanco" layoutX="271.0" layoutY="296.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+      <Button fx:id="btnEditarBanco" layoutX="274.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fx:id="btnEditar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,7 +46,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEliminarBanco" layoutX="338.0" layoutY="296.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnEliminarBanco" layoutX="341.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fx:id="btnEliminar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -54,5 +55,15 @@
             </ImageView>
          </graphic>
       </Button>
+      <Pane layoutX="98.0" layoutY="69.0" prefHeight="35.0" prefWidth="410.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;">
+         <children>
+            <TextField fx:id="txtBusqueda" layoutX="46.0" layoutY="4.0" prefHeight="25.0" prefWidth="346.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
+            <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="12.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/lupaBlanca.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

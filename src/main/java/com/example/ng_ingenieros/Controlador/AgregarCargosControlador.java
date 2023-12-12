@@ -5,6 +5,7 @@ import com.example.ng_ingenieros.HelloApplication;
 import com.example.ng_ingenieros.Validaciones;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -30,26 +31,18 @@ public class AgregarCargosControlador {
     @FXML
     private TextField txtNombreBanco;
     @FXML
-    private Button btnAgregarBanco, btnCancelar;
+    private Button btnAgregarBanco, btnCancelarCargo;
 
     public void initialize() {
         // Configura el evento de clic para el botón
-        btnCancelar.setOnAction(this::btnCancelarOnAction);
+        btnCancelarCargo.setOnAction(this::cerrarVentana);
 
     }
-    private void btnCancelarOnAction(ActionEvent event){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/CrudCargos.fxml"));
-            Parent root = loader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
 }
