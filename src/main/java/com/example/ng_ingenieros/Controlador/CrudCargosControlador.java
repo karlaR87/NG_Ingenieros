@@ -31,6 +31,7 @@ public class CrudCargosControlador {
         // Configura el evento de clic para el botón
         btnAgregarCargo.setOnAction(this::btnAgregarCargoOnAction);
         btnEditarCargo.setOnAction(this::btnEditarCargoOnAction);
+        btnEliminarCargo.setOnAction(this::eliminarDatos);
         cargarDatos();
         txtBusqueda.setOnKeyReleased(event -> {
 
@@ -55,18 +56,36 @@ public class CrudCargosControlador {
     }
 
     private void btnEditarCargoOnAction(ActionEvent event){
-        try {
+        Cargos cargoSeleccionado = (Cargos) tbCargo.getSelectionModel().getSelectedItem();
+
+        if (cargoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ActualizarCargo.fxml"));
-            Parent root = loader.load();
+            Parent root;
+            try {
 
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                ActualizarCargoControlador actualizar_CargoControlador = loader.getController();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                // Pasar la referencia de TableEmpleados al controlador de la ventana de actualización
+                actualizar_CargoControlador.initialize(cargoSeleccionado);
+
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                actualizar_CargoControlador.setTableCargos(tbCargo);
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
         }
+    }
+
+    private void eliminarDatos(ActionEvent event){
+        eliminarCargo();
     }
 
     private void cargarDatos() {
@@ -116,4 +135,41 @@ public class CrudCargosControlador {
             e.printStackTrace();
         }
     }
+
+
+    private void eliminarCargo() {
+        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
+        int idCargo = obtenerIdCargoSeleccionado();
+
+        try (Connection connection = Conexion.obtenerConexion()) {
+            String sql = "DELETE FROM tbcargos WHERE idcargo = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, idCargo);
+
+            int filasAfectadas = statement.executeUpdate();
+            if (filasAfectadas > 0) {
+                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+
+            } else {
+                agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
+            }
+            cargarDatos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    private int obtenerIdCargoSeleccionado() {
+        Cargos cargoSeleccionado = (Cargos) tbCargo.getSelectionModel().getSelectedItem();
+
+        if (cargoSeleccionado != null) {
+            return cargoSeleccionado.getIdCargo();
+        } else {
+            return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
+        }
+    }
+
 }

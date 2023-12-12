@@ -29,13 +29,14 @@ import javax.swing.*;
 public class AgregarCargosControlador {
 
     @FXML
-    private TextField txtNombreBanco;
+    private TextField txtNombrecargo;
     @FXML
-    private Button btnAgregarBanco, btnCancelarCargo;
+    private Button btnAgregarCargos, btnCancelarCargo;
 
     public void initialize() {
         // Configura el evento de clic para el botón
         btnCancelarCargo.setOnAction(this::cerrarVentana);
+        btnAgregarCargos.setOnAction(this::agregarDatos);
 
     }
 
@@ -43,6 +44,31 @@ public class AgregarCargosControlador {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    private void agregarDatos(javafx.event.ActionEvent actionEvent){
+        agregarCargos();
+    }
+
+
+
+    public void agregarCargos(){
+        String cargo = txtNombrecargo.getText();
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "INSERT INTO tbcargos (cargo) VALUES (?)";
+            PreparedStatement ps =conn.prepareStatement(sql);
+            ps.setString(1,cargo);
+
+            ps.executeUpdate();
+            agregar_empleadosControlador.mostrarAlerta("Inserción de datos", "los datos han sido agregados exitosamente", Alert.AlertType.INFORMATION);
+
+
+
+        }catch (SQLException e) {
+            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
     }
 
 }
