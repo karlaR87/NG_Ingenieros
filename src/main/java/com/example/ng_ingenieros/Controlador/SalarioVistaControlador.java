@@ -52,7 +52,8 @@ public class SalarioVistaControlador {
              ResultSet rs = stmt.executeQuery("select p.idplanilla,em.nombreCompleto, p.diasRemunerados, p.horasExtTrabajadas, p.totalDevengado, p.AFP, p.seguro_social, p.descuento_Renta, p.salarioFinal\n" +
                      "\n" +
                      "from tbplanillas p\n" +
-                     "inner join tbempleados em on em.idempleado = p.idempleado")) {
+                     "inner join tbempleados em on em.idempleado = p.idempleado " +
+                     "order by em.idempleado DESC")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idplanilla");
@@ -78,15 +79,17 @@ public class SalarioVistaControlador {
         tbMostrarSalario.getItems().clear();
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("select p.idplanilla,em.nombreCompleto, p.diasRemunerados, p.horasExtTrabajadas, p.totalDevengado, p.AFP, p.seguro_social, p.descuento_Renta, p.salarioFinal\n" +
-                     "\n" +
-                     "from tbplanillas p\n" +
-                     "inner join tbempleados em on em.idempleado = p.idempleado " +
-                     "where em.nombreCompleto LIKE ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT p.idplanilla, em.nombreCompleto, p.diasRemunerados, p.horasExtTrabajadas, p.totalDevengado, p.AFP, p.seguro_social, p.descuento_Renta, p.salarioFinal " +
+                     "FROM tbplanillas p " +
+                     "INNER JOIN tbempleados em ON em.idempleado = p.idempleado " +
+                     "WHERE em.nombreCompleto LIKE ? OR p.diasRemunerados LIKE ? OR p.horasExtTrabajadas LIKE ? OR p.totalDevengado LIKE ? " +
+                     "OR p.AFP LIKE ? OR p.seguro_social LIKE ? OR p.descuento_Renta LIKE ? OR p.salarioFinal LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
-            stmt.setString(1, parametroBusqueda);
+            for (int i = 1; i <= 8; i++) {
+                stmt.setString(i, parametroBusqueda);
+            }
 
             ResultSet rs = stmt.executeQuery();
 

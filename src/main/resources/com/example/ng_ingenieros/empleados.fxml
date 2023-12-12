@@ -35,6 +35,7 @@
                     <children>
 
                         <TableView fx:id="TableEmpleados" layoutX="25.0" layoutY="24.0" prefHeight="273.0" prefWidth="689.0" style="-fx-background-color: #4E5456;">
+
                             <columns>
                                 <TableColumn prefWidth="65.0" text="ID">
                                     <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>

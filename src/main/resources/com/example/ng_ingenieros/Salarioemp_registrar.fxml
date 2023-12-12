@@ -126,13 +126,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSalarioEmp" editable="false" layoutX="210.0" layoutY="277.0" prefHeight="25.0" prefWidth="133.0" />
+      <TextField fx:id="txtSalarioEmp" editable="false" layoutX="210.0" layoutY="278.0" prefHeight="25.0" prefWidth="62.0" />
       <Label layoutX="20.0" layoutY="329.0" prefHeight="27.0" prefWidth="181.0" text="Salario por hora extra:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSalarioHorasExtra" editable="false" layoutX="212.0" layoutY="329.0" prefHeight="25.0" prefWidth="62.0" />
+      <TextField fx:id="txtSalarioHorasExtra" editable="false" layoutX="212.0" layoutY="330.0" prefHeight="25.0" prefWidth="62.0" />
       <Button fx:id="btnVerSalarios" layoutX="476.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: ORANGE; -fx-background-radius: 20;" text="Ver planillas" textFill="WHITE">
          <effect>
             <DropShadow>
@@ -145,14 +145,23 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnEditarHorasExtra" layoutX="292.0" layoutY="318.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="51.0">
+      <Button fx:id="btnEditarHorasExtra" layoutX="294.0" layoutY="325.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/btnEditarFondo.png" />
                </image>
             </ImageView>
          </graphic></Button>
+      <Button fx:id="btnEditarSalarioEMP" layoutX="293.0" layoutY="270.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="45.0">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnEditarFondo.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 
 </AnchorPane>

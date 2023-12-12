@@ -78,6 +78,8 @@ public class SalarioEmpleadoControlador {
     private Button btnVerSalarios;
     @FXML
     private Button btnEditarHorasExtra;
+    @FXML
+    private Button btnEditarSalarioEMP;
 
 
     public void initialize(AsistenciaVista empleadoSeleccionado) {
@@ -100,6 +102,24 @@ public class SalarioEmpleadoControlador {
         SalarioEmpleadoPorHoraExtra(empleadoSeleccionado.getIdempleado());
 
         txtSalarioHorasExtra.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Verificar si el nuevo valor es un número válido
+            if (newValue.matches("\\d*\\.?\\d*")) { // Verifica si el valor es un número (acepta decimales)
+                // Calcular nuevamente los valores basados en el nuevo salario de horas extra
+                CalcularSalarioTotal();
+                txtSalarioFinal();
+            } else {
+                // Si el nuevo valor no es un número válido, mostrar un mensaje de error o tomar alguna acción apropiada
+                // En este ejemplo, simplemente se limpian los campos
+                txtTotalDev.setText("");
+                txtAFP.setText("");
+                txtSeguroSocial.setText("");
+                txtRenta.setText("");
+                txtSalarioFinal.setText("");
+
+            }
+        });
+
+        txtSalarioEmp.textProperty().addListener((observable, oldValue, newValue) -> {
             // Verificar si el nuevo valor es un número válido
             if (newValue.matches("\\d*\\.?\\d*")) { // Verifica si el valor es un número (acepta decimales)
                 // Calcular nuevamente los valores basados en el nuevo salario de horas extra
@@ -154,6 +174,17 @@ public class SalarioEmpleadoControlador {
             } else {
                 // Si no está editable, habilitar la edición
                 txtSalarioHorasExtra.setEditable(true);
+            }
+        });
+
+        btnEditarSalarioEMP.setOnAction(actionEvent -> {
+            // Verificar si el campo txtHorasExtras está editable
+            if (txtSalarioEmp.isEditable()) {
+                // Si está editable, deshabilitar la edición
+                txtSalarioEmp.setEditable(false);
+            } else {
+                // Si no está editable, habilitar la edición
+                txtSalarioEmp.setEditable(true);
             }
         });
 

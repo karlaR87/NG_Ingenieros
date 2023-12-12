@@ -35,7 +35,7 @@ public class EmpleadosControlador {
 
         txtBusqueda.setOnKeyReleased(event -> {
 
-            buscarDatos(txtBusqueda.getText());
+                buscarDatos(txtBusqueda.getText());
 
         });
 
@@ -194,7 +194,7 @@ public class EmpleadosControlador {
             return empleadoSeleccionado.getId();
         } else {
             return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
-        }
+}
     }
 
 
@@ -203,3 +203,18 @@ public class EmpleadosControlador {
 
 
 }
+
+
+
+
+
+
+
+        /*txtBusqueda.setOnKeyReleased(event -> {
+        if (!txtBusqueda.getText().isEmpty()) {
+            BuscarDatos();
+        }
+        });*/
+
+
+
