@@ -32,6 +32,9 @@ public class EmpleadosAsignadosControlador {
     private Button btnActualizar;
 
     @FXML
+    private Button btnGuardar;
+
+    @FXML
     private Button btnAgregar_ListEmpleados;
 
 
@@ -48,8 +51,37 @@ public class EmpleadosAsignadosControlador {
         btnEliminar.setOnAction(this::eliminarEmpleado);
         btnActualizar.setOnAction(this::abrirActualizar);
         btnAgregar_ListEmpleados.setOnAction(this::AgregarList);
+        btnGuardar.setOnAction(this::AbrirGestion);
+        tbEmpleados.setItems(empleados);
+
 
     }
+    @FXML
+    private void AbrirGestion(ActionEvent actionEvent) {
+        try {
+            // Cargar el archivo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ProyectosAgregar.fxml"));
+            Parent root = loader.load();
+
+            // Accede al controlador de la nueva ventana
+            ProyectosAgregarControlador proyectosAgregarControlador = loader.getController();
+
+            // Pasa la lista de empleados al controlador de "ProyectosAgregarControlador"
+            proyectosAgregarControlador.setEmpleados(empleados);
+
+            // Imprime mensaje de depuración
+            System.out.println("Datos enviados a ProyectosAgregarControlador.");
+
+            Node source = (Node) actionEvent.getSource();
+            Stage stage = (Stage) source.getScene().getWindow();
+            stage.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void abrirActualizar(ActionEvent event) {
         // Obtiene el empleado seleccionado
@@ -185,8 +217,9 @@ public class EmpleadosAsignadosControlador {
         stage.close();
     }
 
-
-
-
+    public void setEmpleadosProyecto(ObservableList<Empleados> empleadosProyecto) {
+        this.empleados.setAll(empleadosProyecto);
+        tbEmpleados.setItems(empleadosProyecto);
+    }
 
 }

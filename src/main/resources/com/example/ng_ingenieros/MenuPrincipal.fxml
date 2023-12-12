@@ -87,7 +87,7 @@
                      </graphic>
                   </Button>
 
-                  <Button fx:id="btnCerrar" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" onAction="#atras">
+                  <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#atras" prefHeight="50.0" prefWidth="50.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

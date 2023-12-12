@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,8 +36,6 @@ public class ProyectosAgregarControlador {
 
     @FXML
     private Button btnGestionar;
-    @FXML
-    private Button btnGuardarProyecto;
 
     @FXML
     private TextField txtNombre;
@@ -52,6 +51,10 @@ public class ProyectosAgregarControlador {
 
     @FXML
     private DatePicker dateFinalizacion;
+    private ObservableList<Empleados> empleadosProyecto = FXCollections.observableArrayList();
+    private EmpleadosAsignadosControlador empleadosAsignadosControlador;
+
+
 
     public void initialize() throws SQLException {
         // Configura el evento de clic para el botón
@@ -61,7 +64,6 @@ public class ProyectosAgregarControlador {
 
 
         btnGestionar.setOnAction(this::AbrirGestion);
-        btnGuardarProyecto.setOnAction(this::AgregarProyecto);
 
         llenarComboEstado(cmEstado);
         llenarComboingACargo(cmIngeniero);
@@ -69,13 +71,27 @@ public class ProyectosAgregarControlador {
 
     }
 
+    // ... otros métodos ...
+
+    public void setEmpleados(ObservableList<Empleados> empleados) {
+        empleadosProyecto.addAll(empleados);
+        System.out.println("Datos recibidos en ProyectosAgregarControlador: " + empleadosProyecto);
+    }
 
 
+@FXML
     private void AbrirGestion(ActionEvent actionEvent) {
         try {
             // Cargar el archivo FXML
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Empleados_Asignados.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Empleados_Asignados.fxml"));
             Parent root = loader.load();
+
+            // Acceder al controlador de la nueva ventana
+            EmpleadosAsignadosControlador empleadosAsignadosControlador = loader.getController();
+
+            // Pasa la lista actualizada de empleados
+            empleadosAsignadosControlador.setEmpleadosProyecto(empleadosProyecto);
+            System.out.println("Hashcode del controlador: " + empleadosAsignadosControlador.hashCode());
 
             // Crear un nuevo Stage
             Stage stage = new Stage();
@@ -83,16 +99,17 @@ public class ProyectosAgregarControlador {
             // Configurar la modalidad (bloquea la ventana principal)
             stage.initModality(Modality.APPLICATION_MODAL);
 
-            //  quitar la barra de título
+            // Quitar la barra de título
             stage.initStyle(StageStyle.UNDECORATED);
 
             stage.setScene(new Scene(root));
             stage.showAndWait(); // Mostrar y esperar hasta que se cierre
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     private void AgregarProyecto (ActionEvent actionEvent) {
         String nombre = txtNombre.getText();
@@ -140,6 +157,10 @@ public class ProyectosAgregarControlador {
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
+
+        // Eliminar la instancia actual del controlador
+        empleadosAsignadosControlador = null;
+
         stage.close();
     }
 
@@ -232,7 +253,7 @@ public class ProyectosAgregarControlador {
         PreparedStatement pst = null;
         ResultSet result = null;
 
-        String SSQL = "SELECT nombreCompleto FROM tbempleados WHERE idcargo = 7 AND idproyecto IS NULL";
+        String SSQL = "SELECT nombreCompleto FROM tbempleados WHERE idcargo = 7";
 
         try {
             conectar = Conexion.obtenerConexion();
