@@ -71,7 +71,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="txtEmpleadoSel" editable="false" layoutX="395.0" layoutY="164.0" prefHeight="25.0" prefWidth="302.0" />
+      <TextField fx:id="txtEmpleadoSel" editable="false" layoutX="395.0" layoutY="164.0" prefHeight="25.0" prefWidth="302.0" promptText="Seleccione un empleado para registrar su asistencia" />
       <ComboBox fx:id="cmbAsistencia" layoutX="394.0" layoutY="218.0" prefHeight="25.0" prefWidth="302.0" />
       <Label layoutX="301.0" layoutY="162.0" prefHeight="27.0" prefWidth="119.0" text="Empleado:" textFill="WHITE">
          <font>
@@ -121,7 +121,7 @@
       <ComboBox fx:id="cmbAMPM2" layoutX="610.0" layoutY="333.0" prefHeight="25.0" prefWidth="87.0" promptText="Horario" />
       <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="276.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="335.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
-      <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="138.0" prefHeight="27.0" prefWidth="57.0" text="Label" textFill="#fafbfc" />
+      <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="138.0" prefHeight="27.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
       <Button fx:id="btnMostrar" layoutX="628.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="26.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -131,5 +131,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="lblidproyecto" layoutX="533.0" layoutY="137.0" prefHeight="27.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
    </children>
 </AnchorPane>

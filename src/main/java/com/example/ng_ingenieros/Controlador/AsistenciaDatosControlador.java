@@ -26,10 +26,19 @@ public class AsistenciaDatosControlador {
     @FXML
     private Button btnMostrarSalario;
 
+    private int idProyectoSeleccionado;
+
+    public void recibirIdProyecto(int idProyecto) {
+        idProyectoSeleccionado = idProyecto;
+        // Llama a un método para cargar los empleados según el ID del proyecto
+        cargarDatos();
+    }
+
 
     public void initialize()
     {
-        cargarDatos();
+        recibirIdProyecto(idProyectoSeleccionado);
+
         txtBusqueda.setOnKeyReleased(event -> {
 
             buscarDatos(txtBusqueda.getText());
@@ -181,13 +190,20 @@ public class AsistenciaDatosControlador {
 
     private void cargarDatos() {
         try (Connection conn = Conexion.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
+             PreparedStatement statement = conn.prepareStatement("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
                      "inner join tbEmpleadosProyectos id on id.idEmpleado = aa.idempleado\n" +
                      "inner join tbempleados empleado on empleado.idempleado = id.idEmpleado\n" +
                      "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
                      "inner join tbAsistencia asis on asis.idAsistencia = aa.idAsistencia\n" +
-                     "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar")) {
+                     "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
+                     "WHERE pro.idproyecto = ?")) {
+
+            // Establece el ID del proyecto en la consulta SQL
+            statement.setInt(1, idProyectoSeleccionado);
+
+            ResultSet rs = statement.executeQuery();
+
+
 
             while (rs.next()) {
                 int id = rs.getInt("idAsistencia");
@@ -216,11 +232,12 @@ public class AsistenciaDatosControlador {
                      "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
                      "inner join tbAsistencia asis on asis.idAsistencia = aa.idAsistencia\n" +
                      "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
-                     "where empleado.nombreCompleto LIKE ?")) {
+                     "where WHERE idpro.idproyecto = ? and empleado.nombreCompleto LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
-            stmt.setString(1, parametroBusqueda);
+            stmt.setInt(1, idProyectoSeleccionado);
+            stmt.setString(2, parametroBusqueda);
 
             ResultSet rs = stmt.executeQuery();
 

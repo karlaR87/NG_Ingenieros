@@ -1,5 +1,8 @@
 package com.example.ng_ingenieros;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Empleados {
     private  int id;
     private String nombre;
@@ -13,6 +16,7 @@ public class Empleados {
 
     private String cuentaBancaria;
 
+    public static ObservableList<Empleados> empleados = FXCollections.observableArrayList();
 
 
     public Empleados(String nombre, String dui, String correo, String cargo, Double pagoExtra, String numCuenta, Double sueldo) {
@@ -186,5 +190,11 @@ public class Empleados {
         this.seleccionado = seleccionado;
     }
 
-
+    @Override
+    public String toString() {
+        return "Personas{" +
+                "nombre='" + nombre + '\'' +
+                ", dui='" + dui + '\'' +
+                '}';
+    }
 }
