@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,8 +25,12 @@
       </Pane>
       <TableView fx:id="tbBanco" layoutX="99.0" layoutY="125.0" prefHeight="200.0" prefWidth="402.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+           <TableColumn prefWidth="100.0" text="ID">
+              <cellValueFactory><PropertyValueFactory property="idbanco" /></cellValueFactory>
+           </TableColumn>
+           <TableColumn prefWidth="300.0" text="Nombre del banco">
+              <cellValueFactory><PropertyValueFactory property="banco" /></cellValueFactory>
+           </TableColumn>
         </columns>
       </TableView>
       <Button fx:id="btnAgregarBanco" layoutX="207.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">

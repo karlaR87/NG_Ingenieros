@@ -1,8 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.HelloApplication;
-import com.example.ng_ingenieros.Validaciones;
+import com.example.ng_ingenieros.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,6 +36,14 @@ public class CrudBancosControlador {
         btnAgregarBanco.setOnAction(this::btnAgregarBancoOnAction);
         btnEditarBanco.setOnAction(this::btnEditarBancoOnAction);
 
+        cargarDatos();
+
+        txtBusqueda.setOnKeyReleased(event -> {
+
+            buscarDatos(txtBusqueda.getText());
+
+        });
+
     }
     private void btnAgregarBancoOnAction(ActionEvent event){
         try {
@@ -69,7 +75,53 @@ public class CrudBancosControlador {
         }
     }
 
+    private void cargarDatos() {
+        try (Connection conn = Conexion.obtenerConexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("select * from tbBancos")) {
 
+            while (rs.next()) {
+                int id = rs.getInt("idBanco");
+                String nombre = rs.getString("banco");
+
+
+
+
+                // Agregar los datos a la tabla
+                tbBanco.getItems().add(new Bancos(id, nombre));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void buscarDatos(String busqueda) {
+        tbBanco.getItems().clear(); // Limpiar los elementos actuales de la tabla
+
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement stmt = conn.prepareStatement("select idBanco, banco from tbBancos where banco LIKE ?")) {
+
+            // Preparar el parámetro de búsqueda para la consulta SQL
+            String parametroBusqueda = "%" + busqueda + "%";
+
+            stmt.setString(1, parametroBusqueda);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Obtener los datos y agregarlos a la tabla
+                int id = rs.getInt("idBanco");
+                String nombre = rs.getString("banco");
+
+
+                tbBanco.getItems().add(new Bancos(id, nombre));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
