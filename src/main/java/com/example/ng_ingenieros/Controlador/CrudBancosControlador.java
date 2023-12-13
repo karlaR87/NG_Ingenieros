@@ -61,17 +61,31 @@ public class CrudBancosControlador {
     }
 
     private void btnEditarBancoOnAction(ActionEvent event){
-        try {
+        Bancos bancoSeleccionado = (Bancos) tbBanco.getSelectionModel().getSelectedItem();
+
+        if (bancoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ActualizarBanco.fxml"));
-            Parent root = loader.load();
+            Parent root;
+            try {
 
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                ActualizarBancoControlador Actuzalizar_Bancocontrolador = loader.getController();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                // Pasar la referencia de TableEmpleados al controlador de la ventana de actualización
+                Actuzalizar_Bancocontrolador.initialize(bancoSeleccionado);
+
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                Actuzalizar_Bancocontrolador.setTableBancos(tbBanco);
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
         }
     }
 

@@ -36,22 +36,54 @@ public class AgregarBancosControlador {
     public void initialize() {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::btnCancelarOnAction);
+        btnAgregarBanco.setOnAction(this::BtnAgregarBancoOnAction);
 
     }
     private void btnCancelarOnAction(ActionEvent event){
+        ((Stage) txtNombreBanco.getScene().getWindow()).close();
+    }
+    private void BtnAgregarBancoOnAction(ActionEvent event){
+        AgregarBanco();
+    }
+
+    private void AgregarBanco(){
+        String nombre = txtNombreBanco.getText();
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.obtenerConexion();
+
+        //ahora crea un String para hacer la insercion
+        String Insercion = "insert into tbBancos(banco) values(?);";
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/CrudBancos.fxml"));
-            Parent root = loader.load();
+            PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
+            preparedStatement.setString(1, nombre);
+            preparedStatement.executeUpdate();
+                /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/.fxml"));
+                Parent root = loader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
+                Stage stage = new Stage();
+                stage.setTitle("Registrarse");
 
-        } catch (Exception e) {
+                stage.setScene(new Scene(root));
+                stage.show();*/
+            mostrarAlerta("Alerta", "Se agrego el banco con exito");
+
+
+                // Opcional: Cerrar la ventana actual
+                ((Stage) txtNombreBanco.getScene().getWindow()).close();
+
+
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+    }
 
-}
+

@@ -78,9 +78,9 @@ public class SalarioEmpleadoControlador {
     private Button btnVerSalarios;
     @FXML
     private Button btnEditarHorasExtra;
-    @FXML
-    private Button btnEditarSalarioEMP;
 
+    @FXML
+    private Button btnEditarTotalDev;
 
     public void initialize(AsistenciaVista empleadoSeleccionado) {
         txtNombreEmp.setText(String.valueOf(empleadoSeleccionado.getIdempleado()));
@@ -106,7 +106,9 @@ public class SalarioEmpleadoControlador {
             if (newValue.matches("\\d*\\.?\\d*")) { // Verifica si el valor es un número (acepta decimales)
                 // Calcular nuevamente los valores basados en el nuevo salario de horas extra
                 CalcularSalarioTotal();
+                txtDescuentos();
                 txtSalarioFinal();
+
             } else {
                 // Si el nuevo valor no es un número válido, mostrar un mensaje de error o tomar alguna acción apropiada
                 // En este ejemplo, simplemente se limpian los campos
@@ -119,12 +121,33 @@ public class SalarioEmpleadoControlador {
             }
         });
 
-        txtSalarioEmp.textProperty().addListener((observable, oldValue, newValue) -> {
+
+
+
+        CalcularSalarioTotal();
+        txtDescuentos();
+
+        btnEditarTotalDev.setOnAction(actionEvent -> {
+            // Verificar si el campo txtTotalDev está editable
+
+            if (txtTotalDev.isEditable()) {
+                // Si está editable, deshabilitar la edición
+                txtTotalDev.setEditable(false);
+            } else {
+                // Si no está editable, habilitar la edición
+                txtTotalDev.setEditable(true);
+            }
+        });
+
+
+        txtTotalDev.textProperty().addListener((observable, oldValue, newValue) -> {
             // Verificar si el nuevo valor es un número válido
             if (newValue.matches("\\d*\\.?\\d*")) { // Verifica si el valor es un número (acepta decimales)
                 // Calcular nuevamente los valores basados en el nuevo salario de horas extra
-                CalcularSalarioTotal();
+
+                txtDescuentos();
                 txtSalarioFinal();
+
             } else {
                 // Si el nuevo valor no es un número válido, mostrar un mensaje de error o tomar alguna acción apropiada
                 // En este ejemplo, simplemente se limpian los campos
@@ -135,9 +158,9 @@ public class SalarioEmpleadoControlador {
                 txtSalarioFinal.setText("");
 
             }
+
         });
 
-        CalcularSalarioTotal();
         txtSalarioFinal();
 
 
@@ -177,16 +200,6 @@ public class SalarioEmpleadoControlador {
             }
         });
 
-        btnEditarSalarioEMP.setOnAction(actionEvent -> {
-            // Verificar si el campo txtHorasExtras está editable
-            if (txtSalarioEmp.isEditable()) {
-                // Si está editable, deshabilitar la edición
-                txtSalarioEmp.setEditable(false);
-            } else {
-                // Si no está editable, habilitar la edición
-                txtSalarioEmp.setEditable(true);
-            }
-        });
 
     }
 
@@ -489,19 +502,13 @@ public class SalarioEmpleadoControlador {
         }
     }
 
-    public void CalcularSalarioTotal()
-    {
+    public void CalcularSalarioTotal() {
         //aqui se calculará todo el salario, incluyendo los descuentos
         float salariobruto;
         float salariohoraextra;
         int horasextra;
         int diasrem;
-        //variables para los descuentos de renta
-        float tramo2 = 0.10F;
-        float tramo3 = 0.20F;
-        float tramo4 = 0.30F;
-        float sal1 = 0;
-        float sal2;
+
 
 
         salariobruto = Float.parseFloat(txtSalarioEmp.getText());
@@ -516,6 +523,24 @@ public class SalarioEmpleadoControlador {
         totaldevengado = (float) (Math.round(totaldevengado * 100.0) / 100.0);
 
         txtTotalDev.setText(String.valueOf(totaldevengado));
+
+    }
+
+    private void txtDescuentos()
+    {
+        //aqui se calculará todo el salario, incluyendo los descuentos
+        float salariobruto;
+        float salariohoraextra;
+        int horasextra;
+        int diasrem;
+        //variables para los descuentos de renta
+        float tramo2 = 0.10F;
+        float tramo3 = 0.20F;
+        float tramo4 = 0.30F;
+        float sal1 = 0;
+        float sal2;
+
+        float totaldevengado = Float.parseFloat(txtTotalDev.getText());
 
         double AFP = totaldevengado * 0.0725;
         double ISSS = totaldevengado * 0.03;
@@ -551,6 +576,7 @@ public class SalarioEmpleadoControlador {
         }
 
     }
+
 
     public void txtSalarioFinal()
     {
