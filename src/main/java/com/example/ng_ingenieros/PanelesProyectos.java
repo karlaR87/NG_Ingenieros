@@ -1,5 +1,6 @@
 package com.example.ng_ingenieros;
 import com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador;
+import com.example.ng_ingenieros.Controlador.agregar_empleadosControlador;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -230,26 +231,35 @@ public class PanelesProyectos {
 
         btnMostrarAsistencia.setStyle("-fx-background-color:  #55AF64; -fx-background-radius: 10");
         btnMostrarAsistencia.setPrefSize(170, 40);
-        btnMostrarAsistencia.setOnAction(actionEvent -> {
-            try {
-                // Verifica la ruta al archivo AsistenciaEmpleados.fxml
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml")); // Asegúrate de la ruta correcta
-                Parent root = loader.load();
+        String estadpoo = labelestado.getText();
+        System.out.println(estadpoo);
 
-                // Accede al controlador de AsistenciaEmpleados
-                AsistenciaEmpleadosControlador controller = loader.getController();
+            btnMostrarAsistencia.setOnAction(actionEvent -> {
 
-                // Establece el ID del proyecto en el controlador de AsistenciaEmpleados
-                controller.recibirIdProyecto(id);
+                    try {
+                        // Verifica la ruta al archivo AsistenciaEmpleados.fxml
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml")); // Asegúrate de la ruta correcta
+                        Parent root = loader.load();
 
-                // Mostrar la ventana
-                Stage stage1 = new Stage();
-                stage1.setScene(new Scene(root));
-                stage1.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+                        // Accede al controlador de AsistenciaEmpleados
+                        AsistenciaEmpleadosControlador controller = loader.getController();
+
+                        // Establece el ID del proyecto en el controlador de AsistenciaEmpleados
+                        controller.recibirIdProyecto(id);
+
+                        // Mostrar la ventana
+                        Stage stage1 = new Stage();
+                        stage1.setScene(new Scene(root));
+                        stage1.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+            });
+
+
+
 
         // Agregar etiquetas al Panel
         panel.getChildren().addAll(labelID, labelProyecto, labelLugar, labelHoras, labelfechai, labelfechaf, labelestado, btnMostrarAsistencia);

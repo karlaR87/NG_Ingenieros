@@ -152,10 +152,10 @@ public class AsistenciaEmpleadosControlador {
     }
 
     private void habilitarCampos() {
-        spHoraEn1.setDisable(false);
-        spHoraEn2.setDisable(false);
-        spHoraSa1.setDisable(false);
-        spHoraSa2.setDisable(false);
+        configurarSpinner(spHoraEn1, 0, 11);
+        configurarSpinner(spHoraEn2, 0, 59);
+        configurarSpinner(spHoraSa1, 0, 11);
+        configurarSpinner(spHoraSa2, 0, 59);
         cmbAMPM.setDisable(false);
         cmbAMPM2.setDisable(false);
         cmbDiaAsistencia.setDisable(false);
