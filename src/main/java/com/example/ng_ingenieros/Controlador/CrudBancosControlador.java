@@ -32,9 +32,11 @@ public class CrudBancosControlador {
     private TextField txtBusqueda;
 
     public void initialize() {
+
         // Configura el evento de clic para el botón
         btnAgregarBanco.setOnAction(this::btnAgregarBancoOnAction);
         btnEditarBanco.setOnAction(this::btnEditarBancoOnAction);
+        btnEliminarBanco.setOnAction(this::btnEliminarOnAction);
 
         cargarDatos();
 
@@ -86,6 +88,43 @@ public class CrudBancosControlador {
             } catch (IOException e) {
                 // Manejo de excepciones
             }
+        }
+    }
+
+    private void btnEliminarOnAction(ActionEvent event){
+        eliminarBanco();
+    }
+
+
+    private void eliminarBanco() {
+        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
+        int idBanco = obtenerIdBancoSeleccionado();
+
+        try (Connection connection = Conexion.obtenerConexion()) {
+            String sql = "DELETE FROM tbBancos WHERE idBanco = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, idBanco);
+
+            int filasAfectadas = statement.executeUpdate();
+            if (filasAfectadas > 0) {
+                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+
+            } else {
+                agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
+            }
+            cargarDatos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int obtenerIdBancoSeleccionado() {
+        Bancos bancoSeleccionado = (Bancos) tbBanco.getSelectionModel().getSelectedItem();
+
+        if (bancoSeleccionado != null) {
+            return bancoSeleccionado.getIdbanco();
+        } else {
+            return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
         }
     }
 
