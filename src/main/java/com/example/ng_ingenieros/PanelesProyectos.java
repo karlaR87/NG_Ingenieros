@@ -31,6 +31,7 @@ public class PanelesProyectos {
     private VBox contenedorPrincipal;
     @FXML
     private TextField txtBusqueda;
+    private String estadoProyectoSeleccionado;
 
 
     public void initialize() {
@@ -152,9 +153,12 @@ public class PanelesProyectos {
                     String proyectoSeleccionadoFechaFin = fechaFIIn;
                     String proyectoSeleccionadoEstado = estado;
 
+                    estadoProyectoSeleccionado = estado;
+
                     cargarDetallesProyecto(proyectoSeleccionadoId, proyectoSeleccionadoNombre, proyectoSeleccionadoLugar,
                             proyectoSeleccionadoHoras, proyectoSeleccionadoFechaInicio, proyectoSeleccionadoFechaFin,
                             proyectoSeleccionadoEstado);
+
 
                 });
 
@@ -231,32 +235,42 @@ public class PanelesProyectos {
 
         btnMostrarAsistencia.setStyle("-fx-background-color:  #55AF64; -fx-background-radius: 10");
         btnMostrarAsistencia.setPrefSize(170, 40);
-        String estadpoo = labelestado.getText();
-        System.out.println(estadpoo);
+
+
 
             btnMostrarAsistencia.setOnAction(actionEvent -> {
+                if (estadoProyectoSeleccionado != null) {
+                    if (estadoProyectoSeleccionado.equals("Finalizado")) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Proyecto Finalizado");
+                        alert.setHeaderText(null);
+                        alert.setContentText("No se puede registrar asistencia en un proyecto ya finalizado.");
+                        alert.showAndWait();
+                    } else if (estadoProyectoSeleccionado.equals("En Ejecución")) {
+                        try {
+                            // Verifica la ruta al archivo AsistenciaEmpleados.fxml
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml")); // Asegúrate de la ruta correcta
+                            Parent root = loader.load();
 
-                    try {
-                        // Verifica la ruta al archivo AsistenciaEmpleados.fxml
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml")); // Asegúrate de la ruta correcta
-                        Parent root = loader.load();
+                            // Accede al controlador de AsistenciaEmpleados
+                            AsistenciaEmpleadosControlador controller = loader.getController();
 
-                        // Accede al controlador de AsistenciaEmpleados
-                        AsistenciaEmpleadosControlador controller = loader.getController();
+                            // Establece el ID del proyecto en el controlador de AsistenciaEmpleados
+                            controller.recibirIdProyecto(id);
 
-                        // Establece el ID del proyecto en el controlador de AsistenciaEmpleados
-                        controller.recibirIdProyecto(id);
+                            // Mostrar la ventana
+                            Stage stage1 = new Stage();
+                            stage1.setScene(new Scene(root));
+                            stage1.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                        // Mostrar la ventana
-                        Stage stage1 = new Stage();
-                        stage1.setScene(new Scene(root));
-                        stage1.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                }
+                    });
 
 
-            });
 
 
 
