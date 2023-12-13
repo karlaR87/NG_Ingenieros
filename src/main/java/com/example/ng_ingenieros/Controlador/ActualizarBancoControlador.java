@@ -39,17 +39,25 @@ public class ActualizarBancoControlador {
     public void initialize(Bancos bancoSeleccionado) {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::btnCancelarOnAction);
-        btnActualizarBanco.setOnAction(this::btnActualizarBancoOnAction);
+
+
+        btnActualizarBanco.setOnAction(actionEvent -> {
+            try {
+                btnActualizarBancoOnAction(actionEvent);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         txtActualizarBanco.setText(bancoSeleccionado.getBanco());
     }
     private void btnCancelarOnAction(ActionEvent event){
         ((Stage) txtActualizarBanco.getScene().getWindow()).close();
     }
-    private void btnActualizarBancoOnAction(ActionEvent event){
+    private void btnActualizarBancoOnAction(ActionEvent event) throws SQLException {
         actualizarbanco();
     }
-    private void actualizarbanco() {
+    private void actualizarbanco() throws SQLException {
         String CargoN = txtActualizarBanco.getText();
         // Obtener el empleado seleccionado en la tabla
         Bancos cargoSeleccionado = obtenerEmpleadoSeleccionadoDesdeTabla();
@@ -62,6 +70,16 @@ public class ActualizarBancoControlador {
                 ps.setInt(2, cargoSeleccionado.getIdbanco()); // Asegúrate de tener un método getIdEmpleado() en tu clase Empleado
                 ps.executeUpdate();
 
+                // Actualizar la tabla
+                if (tbBanco != null) {
+                    tbBanco.getItems().clear();
+                    CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
+                    crudBancosControlador.setTableBanco(tbBanco);
+                    crudBancosControlador.cargarDatos();
+
+                    // Cerrar la ventana actual
+                    ((Stage) txtActualizarBanco.getScene().getWindow()).close();
+
                 agregar_empleadosControlador.mostrarAlerta("Actualización de Datos", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }
         } catch (SQLException e) {
@@ -70,8 +88,10 @@ public class ActualizarBancoControlador {
 
         }
     }
-    private Bancos obtenerEmpleadoSeleccionadoDesdeTabla() {
 
+}
+
+    private Bancos obtenerEmpleadoSeleccionadoDesdeTabla() {
         return tbBanco.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
     }
 }

@@ -86,6 +86,7 @@ public class CrudCargosControlador {
 
     private void eliminarDatos(ActionEvent event){
         eliminarCargo();
+
     }
 
     private void cargarDatos() {

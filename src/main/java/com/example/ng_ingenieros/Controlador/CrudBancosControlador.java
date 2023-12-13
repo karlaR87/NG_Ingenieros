@@ -31,6 +31,8 @@ public class CrudBancosControlador {
     @FXML
     private TextField txtBusqueda;
 
+
+
     public void initialize() {
 
         // Configura el evento de clic para el botón
@@ -47,10 +49,17 @@ public class CrudBancosControlador {
         });
 
     }
-    private void btnAgregarBancoOnAction(ActionEvent event){
+
+    public void setTableBanco(TableView<Bancos> tbBanco) {
+        this.tbBanco = tbBanco;
+    }
+    private void btnAgregarBancoOnAction(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/AgregarBancos.fxml"));
             Parent root = loader.load();
+
+            AgregarBancosControlador agregarBancosControlador = loader.getController();
+            agregarBancosControlador.setTableBanco(tbBanco);
 
             Stage stage = new Stage();
             stage.setTitle("Nueva");
@@ -73,26 +82,26 @@ public class CrudBancosControlador {
 
                 root = loader.load();
                 // Obtener el controlador de la ventana de actualización
-                ActualizarBancoControlador Actuzalizar_Bancocontrolador = loader.getController();
+                ActualizarBancoControlador actualizarBancoControlador = loader.getController();
 
                 // Pasar la referencia de TableEmpleados al controlador de la ventana de actualización
-                Actuzalizar_Bancocontrolador.initialize(bancoSeleccionado);
-
+                actualizarBancoControlador.setTableBancos(tbBanco);
+                actualizarBancoControlador.initialize(bancoSeleccionado);
 
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
-
-                Actuzalizar_Bancocontrolador.setTableBancos(tbBanco);
             } catch (IOException e) {
                 // Manejo de excepciones
+                e.printStackTrace();
             }
         }
     }
 
     private void btnEliminarOnAction(ActionEvent event){
         eliminarBanco();
+
     }
 
 
@@ -128,7 +137,9 @@ public class CrudBancosControlador {
         }
     }
 
-    private void cargarDatos() {
+    public void cargarDatos() {
+        tbBanco.getItems().clear();
+
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("select * from tbBancos")) {
