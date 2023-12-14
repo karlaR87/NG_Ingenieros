@@ -21,14 +21,15 @@ public class EmpleadosControlador {
     @FXML
     public TableView<Empleados> TableEmpleados;
     @FXML
-    private TextField txtBusqueda;
+    private TextField
+            txtBusqueda;
 
     @FXML
     private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp;
 
     public void initialize() {
         //configurarTabla();
-        cargarDatos();
+
         btnEditarEmp.setOnAction(this::btnEditarOnAction);
         btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
         btnEliminarEmp.setOnAction(this::eliminardatos);
@@ -38,6 +39,7 @@ public class EmpleadosControlador {
                 buscarDatos(txtBusqueda.getText());
 
         });
+        cargarDatos();
 
 
     }
@@ -66,7 +68,7 @@ public class EmpleadosControlador {
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
 
         eliminarEmpleado();
-        cargarDatos();
+
     }
 
     public void abrirVentanaActualizar() {
@@ -102,6 +104,7 @@ public class EmpleadosControlador {
 
     // Dentro del método cargarDatos() en la clase EmpleadosControlador
     private void cargarDatos() {
+        TableEmpleados.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("select emp.idempleado, emp.nombreCompleto, emp.dui, emp.sueldo_dia, emp.sueldo_horaExt, c.cargo, tp.tipoPlaza from tbempleados emp\n" +
@@ -184,6 +187,7 @@ public class EmpleadosControlador {
             } else {
                 agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
             }
+            TableEmpleados.getItems().clear();
             cargarDatos();
         } catch (SQLException e) {
             e.printStackTrace();
