@@ -433,12 +433,7 @@ public class AsistenciaEmpleadosControlador {
 
             agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
 
-            if (TbAsistencia != null) {
-                TbAsistencia.getItems().clear();
-                AsistenciaEmpleadosControlador AsistenciaEmpleadosControlador = new AsistenciaEmpleadosControlador();
-                AsistenciaEmpleadosControlador.setTbAsistencia(TbAsistencia);
-                AsistenciaEmpleadosControlador.cargarDatos();
-            }
+
 
             borrarTexto();
 

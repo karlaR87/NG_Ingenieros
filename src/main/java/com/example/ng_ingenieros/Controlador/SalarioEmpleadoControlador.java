@@ -293,6 +293,8 @@ public class SalarioEmpleadoControlador {
     }
 
     private double calcularHorasEntreEntradaYSalida(String horaEntrada, String horaSalida) {
+
+
         String[] partesHoraEntrada = horaEntrada.split(", ");
         String tiempoEntrada = partesHoraEntrada[1];
 
@@ -315,13 +317,42 @@ public class SalarioEmpleadoControlador {
         int horasSalida = Integer.parseInt(horasYMinutosSalida[0]);
         int minutosSalida = Integer.parseInt(horasYMinutosSalida[1]);
 
-        if (periodoSalida.equals("P.M.")) {
+        if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
             horasSalida += 12;
+            System.out.println("Horas trabajadas aqui, a.m. p.m.");
+
         }
-        System.out.println("Hora de salida: " + horasSalida);
+
+        if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("P.M.")) {
+            // Si ambos son "P.M.", sumar 12 a las horas de entrada y salida
+            horasEntrada += 12;
+            horasSalida += 12;
+            System.out.println("Horas trabajadas aqui, p.m. p.m.");
+        }
+
+        if (periodoSalida.equalsIgnoreCase("A.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
+            // Si ambos son "A.M.", sumar 0 a las horas de entrada y salida
+            horasEntrada += 0;
+            horasSalida += 0;
+            System.out.println("Horas trabajadas aqui a.m. a.m.");
+        }
+
+        if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
+            // Si ambos son "A.M.", sumar 0 a las horas de entrada y salida
+            int hora;
+
+            horasEntrada += 12;
+            hora = 24 - horasEntrada;
+            horasEntrada = hora;
+
+            horasSalida += 0;
+            System.out.println("Horas trabajadas aqui a.m. a.m.");
+        }
+
 
         // Calcular las horas trabajadas
         double horasTrabajadas = horasSalida - horasEntrada - 1; // Descontando 1 hora de almuerzo
+
 
         System.out.println("Horas trabajadas: " + horasTrabajadas);
         // Si las horas trabajadas son negativas, establecer en 0
