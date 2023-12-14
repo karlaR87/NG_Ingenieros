@@ -82,7 +82,8 @@ public class actualizar_empleadosControlador {
 
 
     private void actualizarDatos(javafx.event.ActionEvent actionEvent) {
-        validaciones();
+        //validaciones();
+        actualizarEmpleado();
     }
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
@@ -128,6 +129,15 @@ public class actualizar_empleadosControlador {
                 ps.executeUpdate();
 
                 agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
+
+                if (TableEmpleados != null) {
+                    TableEmpleados.getItems().clear();
+                    EmpleadosControlador empleadosControlador = new EmpleadosControlador();
+                    empleadosControlador.setTableEmpleados(TableEmpleados);
+                    empleadosControlador.cargarDatos();
+                }
+
+                ((Stage) txtNombreEmp2.getScene().getWindow()).close();
             }
         } catch (SQLException e) {
             agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
@@ -243,7 +253,7 @@ public class actualizar_empleadosControlador {
     }
 
     //Validaciones
-    public void validaciones() {
+   /* public void validaciones() {
         if (NoVacio(txtNombreEmp2.getText()) && NoVacio(txtCorreoEmp2.getText()) && NoVacio(txtNumCuenta2.getText())&& NoVacio(txtDuiEmp2.getText())&& NoVacio(txtPagoHorasExEmp2.getText())&& NoVacio(txtSueldoEmp2.getText())){
             if (validarLetras(txtNombreEmp2.getText())){
             if (validarCorreo(txtCorreoEmp2.getText())){
@@ -306,7 +316,7 @@ public class actualizar_empleadosControlador {
     private boolean validarDui(String dui) {
         // Se puede implementar una lógica más avanzada según el formato real de DUI
         return dui.matches("\\d{8}-\\d{1}");
-    }
+    }*/
 
 
 }

@@ -630,6 +630,13 @@ public class SalarioEmpleadoControlador {
 
             agregar_empleadosControlador.mostrarAlerta("Inserción de salario", "Salario registrado exitosamente", Alert.AlertType.INFORMATION);
 
+            if (TBMostrarAsistencia != null) {
+                TBMostrarAsistencia.getItems().clear();
+                AsistenciaDatosControlador asistenciaDatosControlador = new AsistenciaDatosControlador();
+                asistenciaDatosControlador.setTableAsistencia(TBMostrarAsistencia);
+                asistenciaDatosControlador.cargarDatos();
+            }
+
 
 
         }catch (SQLException e) {

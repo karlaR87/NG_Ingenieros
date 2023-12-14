@@ -43,6 +43,8 @@ public class agregar_empleadosControlador {
     @FXML
     private Button btnGuardar1, btnCancelar1;
 
+    private TableView<Empleados> TableEmpleados;
+
 
 
 
@@ -57,6 +59,10 @@ public class agregar_empleadosControlador {
 
         cbCargoEmp.setPromptText("Seleccione el cargo del empleado");
         cbPlazaEmp.setPromptText("Seleccione la plaza del empleado");
+    }
+
+    public void setTableEmpleados(TableView<Empleados> tableEmpleados) {
+        this.TableEmpleados = tableEmpleados;
     }
 
     private void guardarDatos(ActionEvent event) {
@@ -96,6 +102,14 @@ public class agregar_empleadosControlador {
             ps.setInt(8, idPlaza);
             ps.executeUpdate();
             mostrarAlerta("Inserción de empleados", "El empleado ha sido agregado exitosamente", Alert.AlertType.INFORMATION);
+
+            if (TableEmpleados != null) {
+                TableEmpleados.getItems().clear();
+                EmpleadosControlador empleadosControlador = new EmpleadosControlador();
+                empleadosControlador.setTableEmpleados(TableEmpleados);
+                empleadosControlador.cargarDatos();
+            }
+
             ((Stage) txtNombreEmp.getScene().getWindow()).close();
 
 

@@ -330,6 +330,15 @@ public class AsistenciaActualizarControlador {
                 ps.setInt(5, empleadoSeleccionado.getId());
                 ps.executeUpdate();
                 agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
+
+
+                if (TBMostrarAsistencia != null) {
+                    TBMostrarAsistencia.getItems().clear();
+                    AsistenciaDatosControlador asistenciaDatosControlador = new AsistenciaDatosControlador();
+                    asistenciaDatosControlador.setTableAsistencia(TBMostrarAsistencia);
+                    asistenciaDatosControlador.cargarDatos();
+                }
+
             }
         } catch (SQLException e) {
             agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);

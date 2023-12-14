@@ -68,6 +68,11 @@ public class AsistenciaDatosControlador {
             }
         });
     }
+
+    public void setTableAsistencia(TableView<AsistenciaVista> TBMostrarAsistencia) {
+        this.TBMostrarAsistencia = TBMostrarAsistencia;
+    }
+
     private void btnEliminarOnAction(javafx.event.ActionEvent actionEvent) throws IOException{
         eliminarAsistencia();
     }
@@ -94,6 +99,7 @@ public class AsistenciaDatosControlador {
                 // Obtener el controlador de la ventana de actualización
                 AsistenciaActualizarControlador asistenciaActualizarControlador = loader.getController();
 
+                asistenciaActualizarControlador.setTableAsistencia(TBMostrarAsistencia);
                 // Pasar la referencia de TableAsistencia al controlador de la ventana de actualización
                 asistenciaActualizarControlador.initialize(empleadoSeleccionado);
 
@@ -103,7 +109,7 @@ public class AsistenciaDatosControlador {
                 stage.setScene(new Scene(root));
                 stage.show();
 
-                asistenciaActualizarControlador.setTableAsistencia(TBMostrarAsistencia);
+
             } catch (IOException e) {
                 // Manejo de excepciones
             }
@@ -124,7 +130,7 @@ public class AsistenciaDatosControlador {
                 // Obtener el controlador de la ventana de actualización
                 SalarioEmpleadoControlador asistenciaActualizarControlador = loader.getController();
 
-                // Pasar la referencia de TableAsistencia al controlador de la ventana de actualización
+                asistenciaActualizarControlador.setTableAsistencia(TBMostrarAsistencia);
                 asistenciaActualizarControlador.initialize(empleadoSeleccionado);
 
 
@@ -133,7 +139,7 @@ public class AsistenciaDatosControlador {
                 stage.setScene(new Scene(root));
                 stage.show();
 
-                asistenciaActualizarControlador.setTableAsistencia(TBMostrarAsistencia);
+
             } catch (IOException e) {
                 // Manejo de excepciones
             }
@@ -156,7 +162,8 @@ public class AsistenciaDatosControlador {
             } else {
                 mostrarAlerta("Alerta","No hay ningun elemento seleccionado", Alert.AlertType.WARNING);
             }
-
+            TBMostrarAsistencia.getItems().clear();
+            cargarDatos();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -188,7 +195,8 @@ public class AsistenciaDatosControlador {
 
 
 
-    private void cargarDatos() {
+    public void cargarDatos() {
+        TBMostrarAsistencia.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              PreparedStatement statement = conn.prepareStatement("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
                      "inner join tbEmpleadosProyectos id on id.idEmpleado = aa.idempleado\n" +

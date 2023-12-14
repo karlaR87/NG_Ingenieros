@@ -44,10 +44,18 @@ public class EmpleadosControlador {
 
     }
 
+    public void setTableEmpleados(TableView<Empleados> tableEmpleados) {
+        this.TableEmpleados = tableEmpleados;
+    }
+
     private void btnAgregarOnAction(javafx.event.ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/agregar_empledos.fxml"));
             Parent root = loader.load();
+
+            agregar_empleadosControlador agregarEmpleadosControlador = loader.getController();
+            agregarEmpleadosControlador.setTableEmpleados(TableEmpleados);
+
 
             Stage stage = new Stage();
             stage.setTitle("Ingreso de empleados");
@@ -60,19 +68,6 @@ public class EmpleadosControlador {
     }
 
     private void btnEditarOnAction(javafx.event.ActionEvent actionEvent) {
-        abrirVentanaActualizar();
-    }
-
-
-
-    private void eliminardatos(javafx.event.ActionEvent actionEvent) {
-
-        eliminarEmpleado();
-
-    }
-
-    public void abrirVentanaActualizar() {
-        // Obtener la fila seleccionada
         Empleados empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
 
         if (empleadoSeleccionado != null) {
@@ -85,7 +80,7 @@ public class EmpleadosControlador {
                 // Obtener el controlador de la ventana de actualización
                 actualizar_empleadosControlador actualizarEmpleadosControlador = loader.getController();
 
-                // Pasar la referencia de TableEmpleados al controlador de la ventana de actualización
+                actualizarEmpleadosControlador.setTableEmpleados(TableEmpleados);
                 actualizarEmpleadosControlador.initialize(empleadoSeleccionado);
 
 
@@ -102,8 +97,18 @@ public class EmpleadosControlador {
     }
 
 
+
+    private void eliminardatos(javafx.event.ActionEvent actionEvent) {
+
+        eliminarEmpleado();
+
+    }
+
+
+
+
     // Dentro del método cargarDatos() en la clase EmpleadosControlador
-    private void cargarDatos() {
+    public void cargarDatos() {
         TableEmpleados.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();

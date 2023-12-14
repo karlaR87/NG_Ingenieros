@@ -142,6 +142,10 @@ public class AsistenciaEmpleadosControlador {
 
     }
 
+    public void setTbAsistencia(TableView<AsistenciaVista> TbAsistencia) {
+        this.TbAsistencia = TbAsistencia;
+    }
+
 
     private void deshabilitarCampos() {
         configurarSpinner(spHoraEn1, 0, 0);
@@ -274,6 +278,7 @@ public class AsistenciaEmpleadosControlador {
     }
 
     private void cargarDatos() {
+        TbAsistencia.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              PreparedStatement statement = conn.prepareStatement("select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
                      "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
@@ -427,6 +432,13 @@ public class AsistenciaEmpleadosControlador {
             ps.executeUpdate();
 
             agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
+
+            if (TbAsistencia != null) {
+                TbAsistencia.getItems().clear();
+                AsistenciaEmpleadosControlador AsistenciaEmpleadosControlador = new AsistenciaEmpleadosControlador();
+                AsistenciaEmpleadosControlador.setTbAsistencia(TbAsistencia);
+                AsistenciaEmpleadosControlador.cargarDatos();
+            }
 
             borrarTexto();
 

@@ -47,6 +47,7 @@ public class SalarioVistaControlador {
     }
 
     private void cargarDatos() {
+        tbMostrarSalario.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("select p.idplanilla,em.nombreCompleto, p.diasRemunerados, p.horasExtTrabajadas, p.totalDevengado, p.AFP, p.seguro_social, p.descuento_Renta, p.salarioFinal\n" +
@@ -130,6 +131,8 @@ public class SalarioVistaControlador {
                 mostrarAlerta("Alerta","No hay ningun elemento seleccionado", Alert.AlertType.WARNING);
             }
 
+            tbMostrarSalario.getItems().clear();
+            cargarDatos();
         } catch (SQLException e) {
             e.printStackTrace();
         }
