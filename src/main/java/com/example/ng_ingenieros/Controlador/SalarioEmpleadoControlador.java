@@ -317,63 +317,81 @@ public class SalarioEmpleadoControlador {
         int horasSalida = Integer.parseInt(horasYMinutosSalida[0]);
         int minutosSalida = Integer.parseInt(horasYMinutosSalida[1]);
 
-        if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
-            horasSalida += 12;
-            System.out.println("Horas trabajadas aqui, a.m. p.m.");
+        if (periodoEntrada.equalsIgnoreCase("P.M.") && periodoSalida.equalsIgnoreCase("A.M.")) {
+            horasEntrada += 12; // Sumar 12 a horasEntrada si cmbAMPM es "P.M." y cmbAMPM2 es "A.M."
 
+            // Realizar el cálculo teniendo en cuenta la hora de salida es anterior a la hora de entrada (horario nocturno)
+            double horasTrabajadas = (24 - horasEntrada) + horasSalida - 1;
+
+            // Asegurarse de que las horas trabajadas no sean negativas
+            if (horasTrabajadas < 0) {
+                horasTrabajadas = 0;
+            }
+
+            int minutosTrabajados = 0;
+            if (minutosSalida > minutosEntrada) {
+                minutosTrabajados = minutosSalida - minutosEntrada;
+            } else if (minutosSalida < minutosEntrada) {
+                minutosTrabajados = minutosEntrada + minutosSalida;
+            }
+
+            // Imprimir los resultados
+            System.out.println("Horas trabajadas: " + horasTrabajadas);
+
+
+            return horasTrabajadas;
         }
 
-        if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("P.M.")) {
-            // Si ambos son "P.M.", sumar 12 a las horas de entrada y salida
-            horasEntrada += 12;
-            horasSalida += 12;
-            System.out.println("Horas trabajadas aqui, p.m. p.m.");
+        else {
+            if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
+                horasSalida += 12;
+                System.out.println("Horas trabajadas aqui, a.m. p.m.");
+
+            }
+
+            if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("P.M.")) {
+                // Si ambos son "P.M.", sumar 12 a las horas de entrada y salida
+                horasEntrada += 12;
+                horasSalida += 12;
+                System.out.println("Horas trabajadas aqui, p.m. p.m.");
+            }
+
+            if (periodoSalida.equalsIgnoreCase("A.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
+                // Si ambos son "A.M.", sumar 0 a las horas de entrada y salida
+                horasEntrada += 0;
+                horasSalida += 0;
+                System.out.println("Horas trabajadas aqui a.m. a.m.");
+            }
+
+
+
+
+            // Calcular las horas trabajadas
+            double horasTrabajadas = horasSalida - horasEntrada - 1; // Descontando 1 hora de almuerzo
+
+
+            System.out.println("Horas trabajadas: " + horasTrabajadas);
+            // Si las horas trabajadas son negativas, establecer en 0
+            if (horasTrabajadas < 0) {
+                horasTrabajadas = 0;
+            }
+
+            int minutosTrabajados = 0;
+            if (minutosSalida > minutosEntrada) {
+                minutosTrabajados = minutosSalida - minutosEntrada;
+            } else if (minutosSalida < minutosEntrada) {
+                minutosTrabajados = minutosEntrada + minutosSalida;
+
+            }
+
+            //System.out.println("Horas: " + horasTrabajadas);
+            //System.out.println("Minutos: " + minutosTrabajados);
+
+
+
+            return horasTrabajadas;
         }
 
-        if (periodoSalida.equalsIgnoreCase("A.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
-            // Si ambos son "A.M.", sumar 0 a las horas de entrada y salida
-            horasEntrada += 0;
-            horasSalida += 0;
-            System.out.println("Horas trabajadas aqui a.m. a.m.");
-        }
-
-        if (periodoSalida.equalsIgnoreCase("P.M.") && periodoEntrada.equalsIgnoreCase("A.M.")) {
-            // Si ambos son "A.M.", sumar 0 a las horas de entrada y salida
-            int hora;
-
-            horasEntrada += 12;
-            hora = 24 - horasEntrada;
-            horasEntrada = hora;
-
-            horasSalida += 0;
-            System.out.println("Horas trabajadas aqui a.m. a.m.");
-        }
-
-
-        // Calcular las horas trabajadas
-        double horasTrabajadas = horasSalida - horasEntrada - 1; // Descontando 1 hora de almuerzo
-
-
-        System.out.println("Horas trabajadas: " + horasTrabajadas);
-        // Si las horas trabajadas son negativas, establecer en 0
-        if (horasTrabajadas < 0) {
-            horasTrabajadas = 0;
-        }
-
-        int minutosTrabajados = 0;
-        if (minutosSalida > minutosEntrada) {
-            minutosTrabajados = minutosSalida - minutosEntrada;
-        } else if (minutosSalida < minutosEntrada) {
-            minutosTrabajados = minutosEntrada + minutosSalida;
-
-        }
-
-        //System.out.println("Horas: " + horasTrabajadas);
-        //System.out.println("Minutos: " + minutosTrabajados);
-
-
-
-        return horasTrabajadas;
     }
 
     private double calcularMinutosEntreEntradaYSalida(String horaEntrada, String horaSalida) {

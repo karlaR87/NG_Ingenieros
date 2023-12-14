@@ -239,11 +239,21 @@ public class agregar_empleadosControlador {
             if (validarDui(txtDuiEmp.getText())){
             if (validarLetras(txtNombreEmp.getText())){
                 if (validarCorreo(txtCorreoEmp.getText())){
-                    if (validarNumero(txtCuentaBEmp.getText())&& validarNumero(txtSueldoEmp.getText()) && validarNumero(txtPagoHorasExEmp.getText())){
-                        agregarEmpleados();
+                    if (validarNumeroc(txtCuentaBEmp.getText())){
+                        if (validarNumeroS(txtSueldoEmp.getText())){
+                            if (validarNumeroS(txtPagoHorasExEmp.getText())){
+                                agregarEmpleados();
+                            }
+                            else {
+                                mostrarAlerta("Error de Validación", "Ingrese solo números en Pago por horas Extra");
+                            }
+                        }
+                        else {
+                            mostrarAlerta("Error de Validación", "Ingrese solo números en sueldo empleado");
+                        }
 
                     }else {
-                        mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                        mostrarAlerta("Error de Validación", "Ingrese solo números en el numero de cuenta.");
                     }
 
                 } else {
@@ -269,6 +279,12 @@ public class agregar_empleadosControlador {
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");
     }
+
+    public static boolean validarNumeroc(String input) {
+        return input.matches("[0-9\\-]+");
+    }
+    public static boolean validarNumeroS(String input) {
+        return input.matches("[0-9.]+");    }
 
     public static boolean validarLetras(String input) {
         return input.matches("[a-zA-Z ]+");

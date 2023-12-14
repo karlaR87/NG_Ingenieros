@@ -39,25 +39,16 @@ public class ActualizarBancoControlador {
     public void initialize(Bancos bancoSeleccionado) {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::btnCancelarOnAction);
-
-
-        btnActualizarBanco.setOnAction(actionEvent -> {
-            try {
-                btnActualizarBancoOnAction(actionEvent);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        btnActualizarBanco.setOnAction(this::btnActualizarBancoOnAction);
 
         txtActualizarBanco.setText(bancoSeleccionado.getBanco());
     }
     private void btnCancelarOnAction(ActionEvent event){
         ((Stage) txtActualizarBanco.getScene().getWindow()).close();
     }
-    private void btnActualizarBancoOnAction(ActionEvent event) throws SQLException {
-        actualizarbanco();
+    private void btnActualizarBancoOnAction(ActionEvent event){validaciones();
     }
-    private void actualizarbanco() throws SQLException {
+    private void actualizarbanco() {
         String CargoN = txtActualizarBanco.getText();
         // Obtener el empleado seleccionado en la tabla
         Bancos cargoSeleccionado = obtenerEmpleadoSeleccionadoDesdeTabla();
@@ -70,16 +61,6 @@ public class ActualizarBancoControlador {
                 ps.setInt(2, cargoSeleccionado.getIdbanco()); // Asegúrate de tener un método getIdEmpleado() en tu clase Empleado
                 ps.executeUpdate();
 
-                // Actualizar la tabla
-                if (tbBanco != null) {
-                    tbBanco.getItems().clear();
-                    CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
-                    crudBancosControlador.setTableBanco(tbBanco);
-                    crudBancosControlador.cargarDatos();
-
-                    // Cerrar la ventana actual
-                    ((Stage) txtActualizarBanco.getScene().getWindow()).close();
-
                 agregar_empleadosControlador.mostrarAlerta("Actualización de Datos", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }
         } catch (SQLException e) {
@@ -88,11 +69,27 @@ public class ActualizarBancoControlador {
 
         }
     }
-
-}
-
     private Bancos obtenerEmpleadoSeleccionadoDesdeTabla() {
+
         return tbBanco.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
+    }
+    public void validaciones(){
+        if (validarLetras(txtActualizarBanco.getText())){
+            actualizarbanco();
+        }
+        else {
+            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+        }
+    }
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z ]+");
     }
 }
 

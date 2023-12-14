@@ -1,7 +1,9 @@
 package com.example.ng_ingenieros.Controlador;
 
 
-import com.example.ng_ingenieros.*;
+import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.HelloApplication;
+import com.example.ng_ingenieros.Validaciones;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,8 +33,6 @@ public class AgregarBancosControlador {
     @FXML
     private Button btnAgregarBanco, btnCancelar;
 
-    private TableView<Bancos> tbBanco;
-
     public void initialize() {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::btnCancelarOnAction);
@@ -40,23 +40,17 @@ public class AgregarBancosControlador {
 
 
     }
-    public void setTableBanco(TableView<Bancos> tbBanco) {
-        this.tbBanco = tbBanco;
-    }
-
-
     private void btnCancelarOnAction(ActionEvent event){
         ((Stage) txtNombreBanco.getScene().getWindow()).close();
     }
     private void BtnAgregarBancoOnAction(ActionEvent event){
-        AgregarBanco();
+        validaciones();
     }
 
     private void AgregarBanco(){
         String nombre = txtNombreBanco.getText();
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
-
         //ahora crea un String para hacer la insercion
         String Insercion = "insert into tbBancos(banco) values(?);";
         try {
@@ -71,20 +65,10 @@ public class AgregarBancosControlador {
 
                 stage.setScene(new Scene(root));
                 stage.show();*/
-
-            // Opcional: Actualizar la tabla en tiempo real
-
             mostrarAlerta("Alerta", "Se agrego el banco con exito");
-            // Opcional: Actualizar la tabla en tiempo real
-            if (tbBanco != null) {
-                tbBanco.getItems().clear();
-                CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
-                crudBancosControlador.setTableBanco(tbBanco);
-                crudBancosControlador.cargarDatos();
-            }
 
 
-            // Opcional: Cerrar la ventana actual
+                // Opcional: Cerrar la ventana actual
                 ((Stage) txtNombreBanco.getScene().getWindow()).close();
 
 
@@ -93,6 +77,14 @@ public class AgregarBancosControlador {
         }
     }
 
+    public void validaciones(){
+        if (validarLetras(txtNombreBanco.getText())){
+            AgregarBanco();
+        }
+        else {
+            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+        }
+    }
     public static void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -100,6 +92,10 @@ public class AgregarBancosControlador {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z ]+");
     }
+
+}
 
 

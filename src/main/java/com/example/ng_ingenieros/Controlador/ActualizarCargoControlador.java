@@ -61,7 +61,7 @@ private TableView<Cargos> tbCargo;
 
 
     private void actualizarDatos(ActionEvent event) throws SQLException {
-        actualizarCargos();
+        validaciones();
     }
 
     public void actualizarCargos() {
@@ -106,4 +106,22 @@ private TableView<Cargos> tbCargo;
         return tbCargo.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
     }
 
+    public void validaciones(){
+        if (validarLetras(txtActualizarCargo.getText())){
+            actualizarCargos();
+        }
+        else {
+            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+        }
+    }
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z ]+");
+    }
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 }

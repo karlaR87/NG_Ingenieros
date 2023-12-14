@@ -49,7 +49,7 @@ public class AgregarCargosControlador {
     }
 
     private void BtnAgregarCargosOnAction(ActionEvent event){
-        agregarCargos();
+        validaciones();
     }
 
 
@@ -90,6 +90,24 @@ public class AgregarCargosControlador {
     }
 
 
+    public void validaciones(){
+        if (validarLetras(txtNombrecargo.getText())){
+            agregarCargos();
+        }
+        else {
+            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+        }
+    }
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z ]+");
+    }
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 }
 
 
