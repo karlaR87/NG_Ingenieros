@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +35,14 @@ private TableView<Cargos> tbCargo;
 
     public void initialize(Cargos cargoSeleccionado) {
         btnCancelar.setOnAction(this::cerrarVentana);
-        btnActualizarCargo.setOnAction(this::actualizarDatos);
+
+        btnActualizarCargo.setOnAction(actionEvent -> {
+            try {
+               actualizarDatos(actionEvent);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
 
         txtActualizarCargo.setText(cargoSeleccionado.getCargo());
@@ -52,7 +60,7 @@ private TableView<Cargos> tbCargo;
     }
 
 
-    private void actualizarDatos(javafx.event.ActionEvent actionEvent){
+    private void actualizarDatos(ActionEvent event) throws SQLException {
         actualizarCargos();
     }
 
@@ -72,6 +80,16 @@ private TableView<Cargos> tbCargo;
                 ps.setString(1, CargoN);
                 ps.setInt(2, cargoSeleccionado.getIdCargo()); // Asegúrate de tener un método getIdEmpleado() en tu clase Empleado
                 ps.executeUpdate();
+
+                if ( tbCargo != null) {
+                    tbCargo.getItems().clear();
+                    CrudCargosControlador crudCargosControlador = new CrudCargosControlador();
+                    crudCargosControlador.setTableCargos(tbCargo);
+                    crudCargosControlador.cargarDatos();
+                }
+
+                // Opcional: Cerrar la ventana actual
+                ((Stage) txtActualizarCargo.getScene().getWindow()).close();
 
                 agregar_empleadosControlador.mostrarAlerta("Actualización de Datos", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }

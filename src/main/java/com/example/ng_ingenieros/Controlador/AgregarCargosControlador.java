@@ -1,8 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.HelloApplication;
-import com.example.ng_ingenieros.Validaciones;
+import com.example.ng_ingenieros.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,20 +31,24 @@ public class AgregarCargosControlador {
     @FXML
     private Button btnAgregarCargos, btnCancelarCargo;
 
+    private TableView<Cargos> tbCargo;
+
     public void initialize() {
         // Configura el evento de clic para el botón
-        btnCancelarCargo.setOnAction(this::cerrarVentana);
-        btnAgregarCargos.setOnAction(this::agregarDatos);
+        btnCancelarCargo.setOnAction(this::btnCancelarOnAction);
+        btnAgregarCargos.setOnAction(this::BtnAgregarCargosOnAction);
 
     }
 
-    private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+    public void setTableCargos(TableView<Cargos> tbCargo) {
+        this.tbCargo = tbCargo;
     }
 
-    private void agregarDatos(javafx.event.ActionEvent actionEvent){
+    private void btnCancelarOnAction(ActionEvent event){
+        ((Stage) txtNombrecargo.getScene().getWindow()).close();
+    }
+
+    private void BtnAgregarCargosOnAction(ActionEvent event){
         agregarCargos();
     }
 
@@ -54,14 +56,30 @@ public class AgregarCargosControlador {
 
     public void agregarCargos(){
         String cargo = txtNombrecargo.getText();
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.obtenerConexion();
 
-        try (Connection conn = Conexion.obtenerConexion()) {
-            String sql = "INSERT INTO tbcargos (cargo) VALUES (?)";
+        String sql = "INSERT INTO tbcargos (cargo) VALUES (?)";
+        try  {
+
             PreparedStatement ps =conn.prepareStatement(sql);
             ps.setString(1,cargo);
-
             ps.executeUpdate();
+
+            if ( tbCargo != null) {
+                tbCargo.getItems().clear();
+                CrudCargosControlador crudCargosControlador = new CrudCargosControlador();
+                crudCargosControlador.setTableCargos(tbCargo);
+                crudCargosControlador.cargarDatos();
+            }
+
+
             agregar_empleadosControlador.mostrarAlerta("Inserción de datos", "los datos han sido agregados exitosamente", Alert.AlertType.INFORMATION);
+
+            // Opcional: Cerrar la ventana actual
+            ((Stage) txtNombrecargo.getScene().getWindow()).close();
+
+
 
 
 
@@ -71,4 +89,7 @@ public class AgregarCargosControlador {
         }
     }
 
+
 }
+
+
