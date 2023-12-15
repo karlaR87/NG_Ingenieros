@@ -1,7 +1,9 @@
 package com.example.ng_ingenieros.Controlador;
 
 
-import com.example.ng_ingenieros.*;
+import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.HelloApplication;
+import com.example.ng_ingenieros.Validaciones;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,8 +32,7 @@ public class AgregarBancosControlador {
     private TextField txtNombreBanco;
     @FXML
     private Button btnAgregarBanco, btnCancelar;
-
-    private TableView<Bancos> tbBanco;
+    private TableView<CrudBancosControlador> tbBanco;
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -40,11 +41,6 @@ public class AgregarBancosControlador {
 
 
     }
-
-    public void setTableBanco(TableView<Bancos> tbBanco) {
-        this.tbBanco = tbBanco;
-    }
-
     private void btnCancelarOnAction(ActionEvent event){
         ((Stage) txtNombreBanco.getScene().getWindow()).close();
     }
@@ -72,15 +68,7 @@ public class AgregarBancosControlador {
                 stage.show();*/
             mostrarAlerta("Alerta", "Se agrego el banco con exito");
 
-            // Opcional: Actualizar la tabla en tiempo real
-            if (tbBanco != null) {
-                tbBanco.getItems().clear();
-                CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
-                crudBancosControlador.setTableBanco(tbBanco);
-                crudBancosControlador.cargarDatos();
-            }
-
-
+                setTableBanco(tbBanco);
                 // Opcional: Cerrar la ventana actual
                 ((Stage) txtNombreBanco.getScene().getWindow()).close();
 
@@ -109,6 +97,9 @@ public class AgregarBancosControlador {
         return input.matches("[a-zA-Z ]+");
     }
 
+    public void setTableBanco(TableView tbBanco) {
+        this.tbBanco = tbBanco;
+    }
 }
 
 
