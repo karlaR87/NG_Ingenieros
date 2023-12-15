@@ -59,7 +59,8 @@ public class CrudBancosControlador {
             Parent root = loader.load();
 
 
-
+            AgregarBancosControlador agregarBancosControlador = loader.getController();
+            agregarBancosControlador.setTableBanco(tbBanco);
 
             Stage stage = new Stage();
             stage.setTitle("Nueva");

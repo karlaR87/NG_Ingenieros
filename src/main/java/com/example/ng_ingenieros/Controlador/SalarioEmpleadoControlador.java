@@ -320,6 +320,8 @@ public class SalarioEmpleadoControlador {
         int minutosSalida = Integer.parseInt(horasYMinutosSalida[1]);
 
 
+
+
         if (periodoEntrada.equalsIgnoreCase("P.M.") && periodoSalida.equalsIgnoreCase("A.M.")) {
             horasEntrada += 12; // Sumar 12 a horasEntrada si cmbAMPM es "P.M." y cmbAMPM2 es "A.M."
 
