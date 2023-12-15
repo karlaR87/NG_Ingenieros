@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AdministrarControlador">
    <children>
-      <Button fx:id="btnBancos" layoutX="112.0" layoutY="78.0" mnemonicParsing="false" text="Bancos" />
+      <Button fx:id="btnBancos" layoutX="61.0" layoutY="69.0" mnemonicParsing="false" prefHeight="171.0" prefWidth="181.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="159.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/Banco.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btncargos" layoutX="306.0" layoutY="69.0" mnemonicParsing="false" prefHeight="151.0" prefWidth="134.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="171.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/cargos.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
