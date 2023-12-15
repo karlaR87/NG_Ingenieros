@@ -254,17 +254,16 @@ public class SalarioEmpleadoControlador {
             e.printStackTrace();
         }
     }
-
     public void calcularHorasTrabajadas(int idEmpleado) {
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT hora_entrada, hora_salida FROM tbAsistencia WHERE idempleado = ? AND idAsistenciaMarcar = 1")) {
+             PreparedStatement pstmt = conn.prepareStatement("SELECT hora_entrada, hora_salida FROM tbAsistencia WHERE idempleado LIKE ? AND idAsistenciaMarcar = 1")) {
 
             pstmt.setInt(1, idEmpleado);
 
-            try (ResultSet rs = pstmt.executeQuery()) {
-                double totalHoras = 0;
-                double totalminutos = 0;
+            double totalHorasTrabajadas = 0;
+            double totalMinutosTrabajados = 0;
 
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     String horaEntrada = rs.getString("hora_entrada");
                     String horaSalida = rs.getString("hora_salida");
@@ -272,19 +271,22 @@ public class SalarioEmpleadoControlador {
                     double horasTrabajadas = calcularHorasEntreEntradaYSalida(horaEntrada, horaSalida);
                     double minutosTrabajados = calcularMinutosEntreEntradaYSalida(horaEntrada, horaSalida);
 
-                    totalminutos += minutosTrabajados;
-
-                    totalHoras += horasTrabajadas;
+                    totalMinutosTrabajados += minutosTrabajados;
+                    totalHorasTrabajadas += horasTrabajadas;
                 }
 
-                int horas = (int) totalHoras; // Tomar solo la parte entera de las horas
-                int minutos = (int) totalminutos;
+                int horas = (int) totalHorasTrabajadas; // Tomar solo la parte entera de las horas
+                int minutos = (int) totalMinutosTrabajados;
 
+                // Si hay minutos suficientes para sumar una hora adicional, ajustar el total de horas
+                if (minutos >= 60) {
+                    horas += minutos / 60;
+                    minutos = minutos % 60;
+                }
 
-                //System.out.println("Total horas trabajadas: " + horas);
-                lblhorasasistidas.setText(String.valueOf(horas));
-                //System.out.println("Total de minutos trabajados: " + minutos);
-                lblhorassalida.setText(String.valueOf(minutos));
+                System.out.println("Total horas trabajadas: " + horas); // Imprimir las horas totales trabajadas
+
+                lblhorasasistidas.setText(String.valueOf(totalHorasTrabajadas));
 
             }
         } catch (Exception e) {
@@ -316,6 +318,7 @@ public class SalarioEmpleadoControlador {
         String[] horasYMinutosSalida = horaSalidaString.split(":");
         int horasSalida = Integer.parseInt(horasYMinutosSalida[0]);
         int minutosSalida = Integer.parseInt(horasYMinutosSalida[1]);
+
 
         if (periodoEntrada.equalsIgnoreCase("P.M.") && periodoSalida.equalsIgnoreCase("A.M.")) {
             horasEntrada += 12; // Sumar 12 a horasEntrada si cmbAMPM es "P.M." y cmbAMPM2 es "A.M."
@@ -371,6 +374,7 @@ public class SalarioEmpleadoControlador {
 
 
             System.out.println("Horas trabajadas: " + horasTrabajadas);
+
             // Si las horas trabajadas son negativas, establecer en 0
             if (horasTrabajadas < 0) {
                 horasTrabajadas = 0;
@@ -384,8 +388,7 @@ public class SalarioEmpleadoControlador {
 
             }
 
-            //System.out.println("Horas: " + horasTrabajadas);
-            //System.out.println("Minutos: " + minutosTrabajados);
+
 
 
 
@@ -430,8 +433,6 @@ public class SalarioEmpleadoControlador {
         }
 
 
-        //System.out.println("Minutos: " + minutosTrabajados);
-
 
 
         return minutosTrabajados;
@@ -470,25 +471,25 @@ public class SalarioEmpleadoControlador {
         }
     }
 
+
     public void CalcularHorasExtra ()
     {
-        int horas = 0;
-        int minutos = 0;
-        int horaproyecto = 0;
+        double horas;
+        double horaproyecto = 0.0;
 
 
-        horas = Integer.parseInt(lblhorasasistidas.getText());
-        minutos = Integer.parseInt(lblhorassalida.getText());
-        horaproyecto = Integer.parseInt(lblhorassalidas.getText());
 
-        int totalhoras = horas - horaproyecto;
+        horas = Double.parseDouble(lblhorasasistidas.getText());
 
-        if(totalhoras <= 0)
-        {
+        horaproyecto = Double.parseDouble(lblhorassalidas.getText());
+
+
+        double totalhoras = horas - horaproyecto;
+
+
+        if (totalhoras <= 0) {
             txtHorasExtras.setText("0");
-        }
-        else if (totalhoras > 0)
-        {
+        } else {
             txtHorasExtras.setText(String.valueOf(totalhoras));
         }
 

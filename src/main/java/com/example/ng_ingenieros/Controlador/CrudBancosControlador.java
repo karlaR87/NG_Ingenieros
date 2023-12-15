@@ -58,8 +58,8 @@ public class CrudBancosControlador {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/AgregarBancos.fxml"));
             Parent root = loader.load();
 
-            AgregarBancosControlador agregarBancosControlador = loader.getController();
-            agregarBancosControlador.setTableBanco(tbBanco);
+
+
 
             Stage stage = new Stage();
             stage.setTitle("Nueva");
