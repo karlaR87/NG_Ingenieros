@@ -66,15 +66,16 @@ public class AgregarCargosControlador {
             ps.setString(1,cargo);
             ps.executeUpdate();
 
+
+
+
+            agregar_empleadosControlador.mostrarAlerta("Inserción de datos", "los datos han sido agregados exitosamente", Alert.AlertType.INFORMATION);
             if ( tbCargo != null) {
                 tbCargo.getItems().clear();
                 CrudCargosControlador crudCargosControlador = new CrudCargosControlador();
                 crudCargosControlador.setTableCargos(tbCargo);
                 crudCargosControlador.cargarDatos();
             }
-
-
-            agregar_empleadosControlador.mostrarAlerta("Inserción de datos", "los datos han sido agregados exitosamente", Alert.AlertType.INFORMATION);
 
             // Opcional: Cerrar la ventana actual
             ((Stage) txtNombrecargo.getScene().getWindow()).close();

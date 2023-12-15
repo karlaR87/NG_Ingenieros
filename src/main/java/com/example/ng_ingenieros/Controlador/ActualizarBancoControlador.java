@@ -39,16 +39,33 @@ public class ActualizarBancoControlador {
     public void initialize(Bancos bancoSeleccionado) {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::btnCancelarOnAction);
-        btnActualizarBanco.setOnAction(this::btnActualizarBancoOnAction);
+        btnActualizarBanco.setOnAction(actionEvent -> {
+            try {
+                btnActualizarBancoOnAction(actionEvent);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         txtActualizarBanco.setText(bancoSeleccionado.getBanco());
     }
     private void btnCancelarOnAction(ActionEvent event){
         ((Stage) txtActualizarBanco.getScene().getWindow()).close();
     }
-    private void btnActualizarBancoOnAction(ActionEvent event){validaciones();
+    private void btnActualizarBancoOnAction(ActionEvent event) throws SQLException {
+        validaciones();
     }
-    private void actualizarbanco() {
+
+    private void validaciones() throws SQLException {
+        if (validarLetras(txtActualizarBanco.getText())){
+            actualizarbanco();
+        }
+        else {
+            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+        }
+    }
+
+    private void actualizarbanco() throws SQLException {
         String CargoN = txtActualizarBanco.getText();
         // Obtener el empleado seleccionado en la tabla
         Bancos cargoSeleccionado = obtenerEmpleadoSeleccionadoDesdeTabla();
@@ -62,6 +79,11 @@ public class ActualizarBancoControlador {
                 ps.executeUpdate();
 
                 agregar_empleadosControlador.mostrarAlerta("Actualización de Datos", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
+                if (tbBanco != null) {
+                    tbBanco.getItems().clear();
+                    CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
+                    crudBancosControlador.setTableBanco(tbBanco);
+                    crudBancosControlador.cargarDatos();
             }
         } catch (SQLException e) {
             agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
@@ -69,27 +91,23 @@ public class ActualizarBancoControlador {
 
         }
     }
-    private Bancos obtenerEmpleadoSeleccionadoDesdeTabla() {
 
-        return tbBanco.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
-    }
-    public void validaciones(){
-        if (validarLetras(txtActualizarBanco.getText())){
-            actualizarbanco();
-        }
-        else {
-            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-        }
-    }
-    public static void mostrarAlerta(String titulo, String mensaje) {
+}
+
+    private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-    public static boolean validarLetras(String input) {
-        return input.matches("[a-zA-Z ]+");
+
+    private boolean validarLetras(String text) {
+        return text.matches("[a-zA-Z ]+");
     }
-}
+
+    private Bancos obtenerEmpleadoSeleccionadoDesdeTabla() {
+        return tbBanco.getSelectionModel().getSelectedItem(); // Reemplaza con la lógica real
+    }
+    }
 
