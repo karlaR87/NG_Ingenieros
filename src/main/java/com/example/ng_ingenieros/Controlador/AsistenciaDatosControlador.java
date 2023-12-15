@@ -204,7 +204,7 @@ public class AsistenciaDatosControlador {
                      "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
                      "inner join tbAsistencia asis on asis.idAsistencia = aa.idAsistencia\n" +
                      "inner join tbAsistenciaMarcar asia on asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
-                     "WHERE pro.idproyecto = ?")) {
+                     "WHERE pro.idproyecto = ? order by empleado.idempleado")) {
 
             // Establece el ID del proyecto en la consulta SQL
             statement.setInt(1, idProyectoSeleccionado);

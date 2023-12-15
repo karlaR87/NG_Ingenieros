@@ -41,11 +41,11 @@
                     <cellValueFactory><PropertyValueFactory property="marcarasistencia" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn prefWidth="100.0" text="Entrada">
+                <TableColumn prefWidth="110.0" text="Entrada">
                     <cellValueFactory><PropertyValueFactory property="hora_entrada" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn prefWidth="100.0" text="Salida">
+                <TableColumn prefWidth="110.0" text="Salida">
                     <cellValueFactory><PropertyValueFactory property="hora_salida" /></cellValueFactory>
                 </TableColumn>
 
