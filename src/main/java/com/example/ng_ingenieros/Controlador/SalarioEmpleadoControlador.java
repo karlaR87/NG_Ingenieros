@@ -372,8 +372,11 @@ public class SalarioEmpleadoControlador {
 
 
             // Calcular las horas trabajadas
-            double horasTrabajadas = horasSalida - horasEntrada - 1; // Descontando 1 hora de almuerzo
+            double horasTrabajadas = horasSalida - horasEntrada ; // Descontando 1 hora de almuerzo
 
+            if (horasTrabajadas > 5) {
+                horasTrabajadas -= 1;
+            }
 
             System.out.println("Horas trabajadas: " + horasTrabajadas);
 
@@ -389,10 +392,6 @@ public class SalarioEmpleadoControlador {
                 minutosTrabajados = minutosEntrada + minutosSalida;
 
             }
-
-
-
-
 
             return horasTrabajadas;
         }
