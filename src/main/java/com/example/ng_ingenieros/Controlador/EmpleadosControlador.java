@@ -25,7 +25,7 @@ public class EmpleadosControlador {
             txtBusqueda;
 
     @FXML
-    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp;
+    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp, btnReportes;
 
     public void initialize() {
         //configurarTabla();
@@ -43,6 +43,24 @@ public class EmpleadosControlador {
 
 
     }
+
+    /*private void generarReporte(javafx.event.ActionEvent actionEvent) {
+        try {
+            // Ruta al archivo .jrxml o .jasper que contiene el diseño del informe
+            String rutaInforme = "/ruta/al/informe/ReporteEmpleados.jasper";
+
+            // Cargar el informe
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream(rutaInforme));
+
+            // Crear un objeto Jaspe rPrint con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, Conexion.obtenerConexion());
+
+            // Mostrar el informe en una ventana
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }*/
 
     public void setTableEmpleados(TableView<Empleados> tableEmpleados) {
         this.TableEmpleados = tableEmpleados;
