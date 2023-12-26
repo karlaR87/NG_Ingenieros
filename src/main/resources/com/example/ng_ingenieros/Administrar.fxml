@@ -7,20 +7,20 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AdministrarControlador">
    <children>
-      <Button fx:id="btnBancos" layoutX="61.0" layoutY="69.0" mnemonicParsing="false" prefHeight="171.0" prefWidth="181.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnBancos" layoutX="110.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="159.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="128.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagenes/Banco.png" />
+                  <Image url="@Imagenes/Bancos.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btncargos" layoutX="306.0" layoutY="69.0" mnemonicParsing="false" prefHeight="151.0" prefWidth="134.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnCargos" layoutX="378.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="171.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="121.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagenes/cargos.png" />
+                  <Image url="@Imagenes/Cargos.png" />
                </image>
             </ImageView>
          </graphic>

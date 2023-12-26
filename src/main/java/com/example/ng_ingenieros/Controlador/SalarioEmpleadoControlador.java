@@ -82,6 +82,8 @@ public class SalarioEmpleadoControlador {
     @FXML
     private Button btnEditarTotalDev;
 
+    agregar_empleadosControlador emp = new agregar_empleadosControlador();
+
     public void initialize(AsistenciaVista empleadoSeleccionado) {
         txtNombreEmp.setText(String.valueOf(empleadoSeleccionado.getIdempleado()));
 
@@ -103,21 +105,14 @@ public class SalarioEmpleadoControlador {
 
         txtSalarioHorasExtra.textProperty().addListener((observable, oldValue, newValue) -> {
             // Verificar si el nuevo valor es un número válido
-            if (newValue.matches("\\d*\\.?\\d*")) { // Verifica si el valor es un número (acepta decimales)
-                // Calcular nuevamente los valores basados en el nuevo salario de horas extra
+            if (!newValue.matches("\\d*(\\.\\d{0,2})?")) {
+                agregar_empleadosControlador.mostrarAlerta("Formato no válido", "No puede ingresar letras ni caracteres especiales que no sean el punto (.)", Alert.AlertType.WARNING);
+                txtSalarioHorasExtra.setText(oldValue);
+
+            } else {
                 CalcularSalarioTotal();
                 txtDescuentos();
                 txtSalarioFinal();
-
-            } else {
-                // Si el nuevo valor no es un número válido, mostrar un mensaje de error o tomar alguna acción apropiada
-                // En este ejemplo, simplemente se limpian los campos
-                txtTotalDev.setText("");
-                txtAFP.setText("");
-                txtSeguroSocial.setText("");
-                txtRenta.setText("");
-                txtSalarioFinal.setText("");
-
             }
         });
 
@@ -142,21 +137,16 @@ public class SalarioEmpleadoControlador {
 
         txtTotalDev.textProperty().addListener((observable, oldValue, newValue) -> {
             // Verificar si el nuevo valor es un número válido
-            if (newValue.matches("\\d*\\.?\\d*")) { // Verifica si el valor es un número (acepta decimales)
-                // Calcular nuevamente los valores basados en el nuevo salario de horas extra
-
+            if (!newValue.matches("\\d*(\\.\\d{0,2})?")) {
+                agregar_empleadosControlador.mostrarAlerta("Formato no válido", "Ingrese un número válido. Restricciones: \n" +
+                        "Máximo un punto decimal \n" +
+                        "No debe contener letras ni caracteres especiales que no sean el punto \n" +
+                        "No debe contener tres números después del punto decimal \n" +
+                        "El número debe ser menor a 0", Alert.AlertType.WARNING);
+                txtTotalDev.setText(oldValue);
+            } else {
                 txtDescuentos();
                 txtSalarioFinal();
-
-            } else {
-                // Si el nuevo valor no es un número válido, mostrar un mensaje de error o tomar alguna acción apropiada
-                // En este ejemplo, simplemente se limpian los campos
-                txtTotalDev.setText("");
-                txtAFP.setText("");
-                txtSeguroSocial.setText("");
-                txtRenta.setText("");
-                txtSalarioFinal.setText("");
-
             }
 
         });
@@ -370,8 +360,11 @@ public class SalarioEmpleadoControlador {
 
 
             // Calcular las horas trabajadas
-            double horasTrabajadas = horasSalida - horasEntrada - 1; // Descontando 1 hora de almuerzo
+            double horasTrabajadas = horasSalida - horasEntrada ; // Descontando 1 hora de almuerzo
 
+            if (horasTrabajadas > 5) {
+                horasTrabajadas -= 1;
+            }
 
             System.out.println("Horas trabajadas: " + horasTrabajadas);
 
@@ -387,10 +380,6 @@ public class SalarioEmpleadoControlador {
                 minutosTrabajados = minutosEntrada + minutosSalida;
 
             }
-
-
-
-
 
             return horasTrabajadas;
         }

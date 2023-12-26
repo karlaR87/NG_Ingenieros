@@ -10,13 +10,11 @@ import javafx.stage.Stage;
 
 public class AdministrarControlador {
     @FXML
-    private Button btnBancos;
-    @FXML
-    private Button btncargos;
+    private Button btnBancos,btnCargos ;
     public void initialize() {
         // Configura el evento de clic para el botón
         btnBancos.setOnAction(this::btnBancosOnAction);
-        btncargos.setOnAction(this::btncargosOnAction);
+        btnCargos.setOnAction(this::btnCargosOnAction);
     }
     private void btnBancosOnAction(ActionEvent event){
         try {
@@ -32,7 +30,7 @@ public class AdministrarControlador {
             e.printStackTrace();
         }
     }
-    private void btncargosOnAction(ActionEvent event){
+    private void btnCargosOnAction(ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/CrudCargos.fxml"));
             Parent root = loader.load();

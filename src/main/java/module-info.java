@@ -7,6 +7,7 @@ module com.example.ng_ingenieros {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.desktop;
+    requires jasperreports;
     //requires java.mail;
 
 

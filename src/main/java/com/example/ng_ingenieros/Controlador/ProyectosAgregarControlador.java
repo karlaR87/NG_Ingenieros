@@ -38,6 +38,10 @@ public class ProyectosAgregarControlador {
     private Button btnGestionar;
 
     @FXML
+    private Button btnGuardarProyecto;
+
+
+    @FXML
     private TextField txtNombre;
 
     @FXML
@@ -64,6 +68,8 @@ public class ProyectosAgregarControlador {
 
 
         btnGestionar.setOnAction(this::AbrirGestion);
+
+        btnGuardarProyecto.setOnAction(this::AgregarProyecto);
 
         llenarComboEstado(cmEstado);
         llenarComboingACargo(cmIngeniero);
@@ -110,45 +116,87 @@ public class ProyectosAgregarControlador {
     }
 
 
-
-    private void AgregarProyecto (ActionEvent actionEvent) {
+    @FXML
+    private void AgregarProyecto(ActionEvent actionEvent) {
         String nombre = txtNombre.getText();
         String lugar = txtLugar.getText();
         String horas = txtHoras.getText();
-        String dinicio = dateInicio.getValue().toString();  // Obtener la fecha de inicio
-        String dfinal = dateFinalizacion.getValue().toString();  // Obtener la fecha de finalización
-        String estado = cmEstado.getValue();  // Obtener el estado del proyecto
+        String dinicio = dateInicio.getValue().toString();
+        String dfinal = dateFinalizacion.getValue().toString();
+        String estado = cmEstado.getValue();
+
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Lugar: " + lugar);
+        System.out.println("Horas: " + horas);
+        System.out.println("Fecha Inicio: " + dinicio);
+        System.out.println("Fecha Finalización: " + dfinal);
+        System.out.println("Estado: " + estado);
 
         try {
             // Obtener el ID del estado seleccionado
             int idEstadoProyecto = IdRetornoEstado(estado);
 
             Connection conn = Conexion.obtenerConexion();
-            String query = "INSERT INTO tbProyectos (nombre_proyecto, lugar_proyecto, horas_trabajo, fechaInicio, FechaFin, idEstadoProyecto)\n" +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, nombre);
-            statement.setString(2, lugar);
-            statement.setInt(3, Integer.parseInt(horas));  // Convertir a entero
-            statement.setString(4, dinicio);
-            statement.setString(5, dfinal);
-            statement.setInt(6, idEstadoProyecto);
+            String query = "EXEC AgregarProyectoConEmpleados " +
+                    "@nombreProyecto = ?, " +
+                    "@lugarProyecto = ?, " +
+                    "@horasTrabajo = ?, " +
+                    "@fechaInicio = ?, " +
+                    "@fechaFin = ?, " +
+                    "@idEstadoProyecto = ?, " +
+                    "@nombreEmpleado = ?, " +
+                    "@duiEmpleado = ?, " +
+                    "@correoEmpleado = ?, " +
+                    "@sueldoDia = ?, " +
+                    "@sueldoHoraExt = ?, " +
+                    "@numeroCuentaBancaria = ?, " +
+                    "@idCargo = ?";
+            CallableStatement statement = conn.prepareCall(query);
 
-            statement.executeUpdate();
+            // Configurar los parámetros del proyecto
+            statement.setString("nombreProyecto", nombre);
+            statement.setString("lugarProyecto", lugar);
+            statement.setInt("horasTrabajo", Integer.parseInt(horas));
+            statement.setString("fechaInicio", dinicio);
+            statement.setString("fechaFin", dfinal);
+            statement.setInt("idEstadoProyecto", idEstadoProyecto);
+
+            // Obtener la lista de empleados asociados al proyecto
+            for (Empleados empleado : empleadosProyecto) {
+                // Obtener el ID del ingeniero seleccionado
+                int idIngeniero = IdRetornoIngAcargo(empleado.getNombre());
+
+                // Agregar parámetros del empleado al procedimiento almacenado
+                statement.setString("nombreEmpleado", empleado.getNombre());
+                statement.setString("duiEmpleado", empleado.getDui());
+                statement.setString("correoEmpleado", empleado.getCorreo());
+                statement.setDouble("sueldoDia", empleado.getSueldoDia());
+                statement.setDouble("sueldoHoraExt", empleado.getSueldoHora());
+                statement.setString("numeroCuentaBancaria", empleado.getCuentaBancaria());
+                statement.setInt("idCargo", idIngeniero);
+
+                // Ejecutar el procedimiento almacenado para agregar el proyecto con empleados
+                statement.executeUpdate();
+
+                // Mensajes de depuración
+                System.out.println("Empleado agregado al proyecto: " + empleado.getNombre());
+            }
+
+            // Mensajes de depuración
+            System.out.println("Proyecto agregado con empleados exitosamente.");
 
             // Puedes limpiar los campos después de la inserción si es necesario
-            txtNombre.clear();
-            txtLugar.clear();
-            txtHoras.clear();
-            dateInicio.setValue(null);
-            dateFinalizacion.setValue(null);
-            cmEstado.setValue(null);
+            // ...
+
+            // Limpiar la lista de empleados después de agregar el proyecto
+            empleadosProyecto.clear();
 
             statement.close();
             conn.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
+            // Mensaje de depuración en caso de error
+            System.err.println("Error al agregar proyecto con empleados: " + e.getMessage());
         }
     }
 
