@@ -11,9 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.util.Random;
-//import javax.mail.*;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 import java.util.Properties;
@@ -48,19 +48,7 @@ public class RecuperacionContraseñaControlador {
     }
     private void btnEnviarOnAction(ActionEvent event) {
         validaciones();
-       // enviarcorreo();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Nueva");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       enviarcorreo();
 
     }
 
@@ -87,7 +75,7 @@ public class RecuperacionContraseñaControlador {
     }
 
 
-    /*public void enviarcorreo() {
+    public void enviarcorreo() {
         String codigoAleatorio = generarCodigoAleatorio();
         final String correoRemitente = "liamrh855@gmail.com"; // Cambia esto por tu dirección de correo
         final String passwordCorreoRemitente = "nhgh sort xahs kqks"; // Cambia esto por tu contraseña
@@ -123,11 +111,26 @@ public class RecuperacionContraseñaControlador {
 
             System.out.println("¡Correo enviado!");
             RecuperarContraseñaDosControlador.setCodigoEnviado(codigoAleatorio);
+            RecuperarContraseñaDosControlador.setCorreodestinatario(txtCorreoRecu.getText());
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Nueva");
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
+
+
     public static String generarCodigoAleatorio() {
         Random random = new Random();
         int codigo = 100000 + random.nextInt(900000); // Generar un número aleatorio de 6 dígitos
