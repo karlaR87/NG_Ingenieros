@@ -34,7 +34,7 @@
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></Button>
-        <Button fx:id="btnRegistrarSalario" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+        <Button fx:id="btnRegistrarSalario" layoutX="274.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
             <effect>
                 <DropShadow>
                     <color>
@@ -163,6 +163,7 @@
          </graphic>
       </Button>
       <Label fx:id="lblIdProyecto" layoutX="305.0" layoutY="87.0" prefHeight="25.0" prefWidth="51.0" text="Label" textFill="#2d3250" />
+      <Label fx:id="lblNombreProyecto" layoutX="408.0" layoutY="394.0" prefHeight="25.0" prefWidth="266.0" text="Label" textFill="WHITE" />
     </children>
 
 </AnchorPane>

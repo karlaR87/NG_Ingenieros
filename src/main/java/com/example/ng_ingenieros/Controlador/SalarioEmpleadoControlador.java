@@ -59,6 +59,8 @@ public class SalarioEmpleadoControlador {
     @FXML
     private Label lblIdProyecto;
 
+
+
     @FXML
     private Label lblhorassalida;
 
@@ -68,6 +70,7 @@ public class SalarioEmpleadoControlador {
     private TextField txtSalarioEmp;
     @FXML
     private TextField txtSalarioHorasExtra;
+
 
     @FXML
     private Button btncancelar;
@@ -83,7 +86,12 @@ public class SalarioEmpleadoControlador {
     @FXML
     private Button btnEditarTotalDev;
 
+    @FXML
+    private Label lblNombreProyecto; // Asegúrate de que está correctamente vinculado en el FXML
+
     agregar_empleadosControlador emp = new agregar_empleadosControlador();
+
+    SalarioVistaControlador s = new SalarioVistaControlador();
 
     public void initialize(AsistenciaVista empleadoSeleccionado) {
         txtNombreEmp.setText(String.valueOf(empleadoSeleccionado.getIdempleado()));
@@ -93,6 +101,10 @@ public class SalarioEmpleadoControlador {
         lblidEmpleado.setText(String.valueOf(empleadoSeleccionado.getIdE()));
 
         lblIdProyecto.setText(String.valueOf(empleadoSeleccionado.getIdproyecto()));
+
+        lblNombreProyecto.setText(empleadoSeleccionado.getNombreProyecto());
+
+
 
         calcularHorasTrabajadas(empleadoSeleccionado.getIdE());
 

@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.*;
 
 public class SalarioVistaControlador {
 
@@ -15,19 +18,29 @@ public class SalarioVistaControlador {
     @FXML
     private TableView tbMostrarSalario;
     @FXML
-    private TextField txtBusqueda;
+    private TextField txtBusqueda, txtNombreProyecto;
 
     @FXML
-    private Button btnEliminar;
+    private Button btnEliminar, btnGenerarPlanillaReporte;
+
 
     public void initialize()
     {
+
         cargarDatos();
 
         TableColumn<SalarioEmp, ?> columnaProyecto = (TableColumn<SalarioEmp, ?>) tbMostrarSalario.getColumns().get(11); // El índice 9 representa la columna del proyecto
         columnaProyecto.setVisible(false);
-        TableColumn<SalarioEmp, ?> columnaProyecto2 = (TableColumn<SalarioEmp, ?>) tbMostrarSalario.getColumns().get(12); // El índice 10 representa la columna del proyecto
-        columnaProyecto2.setVisible(false);
+
+        tbMostrarSalario.setOnMouseClicked(event -> {
+            SalarioEmp salarioSeleccionado = (SalarioEmp) tbMostrarSalario.getSelectionModel().getSelectedItem();
+            if (salarioSeleccionado != null) {
+                // Obtener el nombre del proyecto y establecerlo en el TextField
+                String nombreProyecto = salarioSeleccionado.getNombreProyecto();
+                txtNombreProyecto.setText(nombreProyecto);
+            }
+        });
+
 
         txtBusqueda.setOnKeyReleased(event -> {
 
@@ -42,6 +55,31 @@ public class SalarioVistaControlador {
                 throw new RuntimeException(e);
             }
         });
+        btnGenerarPlanillaReporte.setOnAction(this::generarReporte);
+    }
+
+    private void generarReporte(javafx.event.ActionEvent actionEvent) {
+        try {
+            String rutaInforme = "/PlanillaReporte.jasper"; // Ruta relativa al archivo .jasper
+            InputStream inputStream = getClass().getResourceAsStream(rutaInforme);
+
+            if (inputStream != null) {
+                // Obtener el texto del TextField txtNombreProyecto
+                String nombreProyecto = txtNombreProyecto.getText();
+
+                // Crear un parámetro para enviar al informe
+                java.util.Map<String, Object> parametros = new java.util.HashMap<>();
+                parametros.put("Proyecto", nombreProyecto);
+
+                // Llenar el reporte con el parámetro y la conexión
+                JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros, Conexion.obtenerConexion());
+                JasperViewer.viewReport(jasperPrint, false);
+            } else {
+                System.out.println("No se pudo cargar el archivo del informe");
+            }
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
     private void btnEliminarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -64,7 +102,7 @@ public class SalarioVistaControlador {
                      "inner join tbempleados em on em.idempleado = emp.idEmpleado\n" +
                      "inner join tbProyectos pro on pro.idproyecto = emp.idProyecto\n" +
                      "\n" +
-                     "order by em.idempleado DESC")) {
+                     "order by em.idempleado ASC")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idplanilla");
@@ -105,7 +143,7 @@ public class SalarioVistaControlador {
                      "inner join tbProyectos pro on pro.idproyecto = emp.idProyecto " +
                      "WHERE em.nombreCompleto LIKE ? OR p.diasRemunerados LIKE ? OR p.horasExtTrabajadas LIKE ? OR p.totalDevengado LIKE ? " +
                      "OR p.AFP LIKE ? OR p.seguro_social LIKE ? OR p.descuento_Renta LIKE ? OR p.salarioFinal LIKE ? " +
-                     "order by em.idempleado DESC")) {
+                     "order by em.idempleado ASC")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
