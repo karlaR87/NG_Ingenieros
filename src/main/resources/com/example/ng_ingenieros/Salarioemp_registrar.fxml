@@ -162,6 +162,7 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="lblIdProyecto" layoutX="305.0" layoutY="87.0" prefHeight="25.0" prefWidth="51.0" text="Label" textFill="#2d3250" />
     </children>
 
 </AnchorPane>

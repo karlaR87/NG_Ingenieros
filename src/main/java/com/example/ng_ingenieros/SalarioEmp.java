@@ -9,6 +9,9 @@ public class SalarioEmp {
 
     private String nombrempleado;
 
+    private String DUI;
+    private String numerocuenta;
+
     private int diasremunerados;
 
     private String horasextras;
@@ -23,11 +26,18 @@ public class SalarioEmp {
 
     private float salariofinal;
 
+    private int idProyecto;
+    private String NombreProyecto;
 
 
-    public SalarioEmp(int idSalario, int idasistencia, int diasremunerados, String horasextras, float totaldevengado, float AFP, float segurosocial, float descuentorenta, float salariofinal) {
+
+
+    public SalarioEmp(int idSalario, String nombrempleado, String DUI, String numerocuenta, int diasremunerados, String horasextras, float totaldevengado, float AFP, float segurosocial, float descuentorenta, float salariofinal, int idProyecto, String nombreProyecto) {
         this.idSalario = idSalario;
-        this.idasistencia = idasistencia;
+        this.idempleado = idempleado;
+        this.nombrempleado = nombrempleado;
+        this.DUI = DUI;
+        this.numerocuenta = numerocuenta;
         this.diasremunerados = diasremunerados;
         this.horasextras = horasextras;
         this.totaldevengado = totaldevengado;
@@ -35,6 +45,8 @@ public class SalarioEmp {
         this.segurosocial = segurosocial;
         this.descuentorenta = descuentorenta;
         this.salariofinal = salariofinal;
+        this.idProyecto = idProyecto;
+        this.NombreProyecto = nombreProyecto;
     }
 
     public int getIdSalario() {
@@ -109,6 +121,14 @@ public class SalarioEmp {
         this.salariofinal = salariofinal;
     }
 
+    public int getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(int idProyecto) {
+        this.idProyecto = idProyecto;
+    }
+
     public SalarioEmp(int idSalario, int idasistencia, int idempleado, String nombrempleado, int diasremunerados, String horasextras, float totaldevengado, float AFP, float segurosocial, float descuentorenta, float salariofinal) {
         this.idSalario = idSalario;
         this.idasistencia = idasistencia;
@@ -150,5 +170,29 @@ public class SalarioEmp {
 
     public void setNombrempleado(String nombrempleado) {
         this.nombrempleado = nombrempleado;
+    }
+
+    public String getNombreProyecto() {
+        return NombreProyecto;
+    }
+
+    public void setNombreProyecto(String nombreProyecto) {
+        NombreProyecto = nombreProyecto;
+    }
+
+    public String getDUI() {
+        return DUI;
+    }
+
+    public void setDUI(String DUI) {
+        this.DUI = DUI;
+    }
+
+    public String getNumerocuenta() {
+        return numerocuenta;
+    }
+
+    public void setNumerocuenta(String numerocuenta) {
+        this.numerocuenta = numerocuenta;
     }
 }

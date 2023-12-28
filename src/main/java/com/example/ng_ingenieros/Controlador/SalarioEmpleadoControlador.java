@@ -56,7 +56,8 @@ public class SalarioEmpleadoControlador {
     @FXML
     private Label lblhorassalidas;
 
-
+    @FXML
+    private Label lblIdProyecto;
 
     @FXML
     private Label lblhorassalida;
@@ -90,6 +91,8 @@ public class SalarioEmpleadoControlador {
         lblIdAsistenciaregistrar.setText(String.valueOf(empleadoSeleccionado.getId()));
 
         lblidEmpleado.setText(String.valueOf(empleadoSeleccionado.getIdE()));
+
+        lblIdProyecto.setText(String.valueOf(empleadoSeleccionado.getIdproyecto()));
 
         calcularHorasTrabajadas(empleadoSeleccionado.getIdE());
 

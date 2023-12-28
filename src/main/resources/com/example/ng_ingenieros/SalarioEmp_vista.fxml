@@ -30,11 +30,19 @@
                     <cellValueFactory><PropertyValueFactory property="idSalario" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn prefWidth="100.0" text="Empleado">
+                <TableColumn prefWidth="170.0" text="Empleado">
                     <cellValueFactory><PropertyValueFactory property="nombrempleado" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn prefWidth="100.0" text="Días remunerados">
+                <TableColumn prefWidth="170.0" text="DUI">
+                    <cellValueFactory><PropertyValueFactory property="DUI" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="170.0" text="Número Cuenta">
+                    <cellValueFactory><PropertyValueFactory property="numerocuenta" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="120.0" text="Días remunerados">
                     <cellValueFactory><PropertyValueFactory property="diasremunerados" /></cellValueFactory>
                 </TableColumn>
 
@@ -42,24 +50,32 @@
                     <cellValueFactory><PropertyValueFactory property="horasextras" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn prefWidth="100.0" text="Total devengado">
+                <TableColumn prefWidth="120.0" text="\$ Total Devengado">
                     <cellValueFactory><PropertyValueFactory property="totaldevengado" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn prefWidth="100.0" text="AFP">
+                <TableColumn prefWidth="100.0" text="\$ AFP">
                     <cellValueFactory><PropertyValueFactory property="AFP" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn text="Seguro social">
+                <TableColumn prefWidth="100.0" text="\$ Seguro Social">
                     <cellValueFactory><PropertyValueFactory property="segurosocial" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn text="Renta">
+                <TableColumn prefWidth="100.0" text="\$ Renta">
                     <cellValueFactory><PropertyValueFactory property="descuentorenta" /></cellValueFactory>
                 </TableColumn>
 
-                <TableColumn text="Salario a pagar">
+                <TableColumn prefWidth="130.0" text="\$ Salario a pagar">
                     <cellValueFactory><PropertyValueFactory property="salariofinal" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="100.0" text="Proyecto N°">
+                    <cellValueFactory><PropertyValueFactory property="idProyecto" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="100.0" text="Nombre del proyecto">
+                    <cellValueFactory><PropertyValueFactory property="NombreProyecto" /></cellValueFactory>
                 </TableColumn>
 
             </columns>

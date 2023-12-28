@@ -4,10 +4,7 @@ import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.SalarioEmp;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.sql.*;
@@ -26,6 +23,11 @@ public class SalarioVistaControlador {
     public void initialize()
     {
         cargarDatos();
+
+        TableColumn<SalarioEmp, ?> columnaProyecto = (TableColumn<SalarioEmp, ?>) tbMostrarSalario.getColumns().get(11); // El índice 9 representa la columna del proyecto
+        columnaProyecto.setVisible(false);
+        TableColumn<SalarioEmp, ?> columnaProyecto2 = (TableColumn<SalarioEmp, ?>) tbMostrarSalario.getColumns().get(12); // El índice 10 representa la columna del proyecto
+        columnaProyecto2.setVisible(false);
 
         txtBusqueda.setOnKeyReleased(event -> {
 
@@ -50,15 +52,25 @@ public class SalarioVistaControlador {
         tbMostrarSalario.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select p.idplanilla,em.nombreCompleto, p.diasRemunerados, p.horasExtTrabajadas, p.totalDevengado, p.AFP, p.seguro_social, p.descuento_Renta, p.salarioFinal\n" +
-                     "\n" +
+             ResultSet rs = stmt.executeQuery("\n" +
+                     "select p.idplanilla, em.nombreCompleto, em.dui, em.numero_cuentabancaria, pro.idproyecto, pro.nombre_proyecto, p.diasRemunerados, p.horasExtTrabajadas, \n" +
+                     "CAST(p.totalDevengado AS DECIMAL(10, 2)) as totalDevengado, \n" +
+                     "CAST(p.AFP AS DECIMAL(10, 2)) as AFP, \n" +
+                     "CAST(p.seguro_social AS DECIMAL(10, 2)) as seguro_social, \n" +
+                     "CAST(p.descuento_Renta AS DECIMAL(10, 2)) as descuento_Renta, \n" +
+                     "CAST(p.salarioFinal AS DECIMAL(10, 2)) as salarioFinal\n" +
                      "from tbplanillas p\n" +
-                     "inner join tbempleados em on em.idempleado = p.idempleado " +
+                     "inner join tbEmpleadosProyectos emp on emp.idempleado = p.idempleado\n" +
+                     "inner join tbempleados em on em.idempleado = emp.idEmpleado\n" +
+                     "inner join tbProyectos pro on pro.idproyecto = emp.idProyecto\n" +
+                     "\n" +
                      "order by em.idempleado DESC")) {
 
             while (rs.next()) {
                 int id = rs.getInt("idplanilla");
                 String nombreemp = rs.getString("nombreCompleto");
+                String dui = rs.getString("dui");
+                String cuenta = rs.getString("numero_cuentabancaria");
                 int diasrem = rs.getInt("diasRemunerados");
                 String horasextra = rs.getString("horasExtTrabajadas");
                 float tot = rs.getFloat("totalDevengado");
@@ -66,9 +78,10 @@ public class SalarioVistaControlador {
                 float seguro = rs.getFloat("seguro_social");
                 float desc = rs.getFloat("descuento_Renta");
                 float sal = rs.getFloat("salarioFinal");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombrepory = rs.getString("nombre_proyecto");
 
-
-                tbMostrarSalario.getItems().add(new SalarioEmp(id, nombreemp, diasrem, horasextra, tot, afp, seguro, desc, sal));
+                tbMostrarSalario.getItems().add(new SalarioEmp(id, nombreemp, dui, cuenta, diasrem, horasextra, tot, afp, seguro, desc, sal, idproyecto, nombrepory));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,11 +93,19 @@ public class SalarioVistaControlador {
         tbMostrarSalario.getItems().clear();
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT p.idplanilla, em.nombreCompleto, p.diasRemunerados, p.horasExtTrabajadas, p.totalDevengado, p.AFP, p.seguro_social, p.descuento_Renta, p.salarioFinal " +
-                     "FROM tbplanillas p " +
-                     "INNER JOIN tbempleados em ON em.idempleado = p.idempleado " +
+             PreparedStatement stmt = conn.prepareStatement("select p.idplanilla, em.nombreCompleto,  em.dui, em.numero_cuentabancaria, pro.idproyecto, pro.nombre_proyecto, p.diasRemunerados, p.horasExtTrabajadas, \n" +
+                     "CAST(p.totalDevengado AS DECIMAL(10, 2)) as totalDevengado, \n" +
+                     "CAST(p.AFP AS DECIMAL(10, 2)) as AFP, \n" +
+                     "CAST(p.seguro_social AS DECIMAL(10, 2)) as seguro_social, \n" +
+                     "CAST(p.descuento_Renta AS DECIMAL(10, 2)) as descuento_Renta, \n" +
+                     "CAST(p.salarioFinal AS DECIMAL(10, 2)) as salarioFinal\n" +
+                     "from tbplanillas p\n" +
+                     "inner join tbEmpleadosProyectos emp on emp.idempleado = p.idempleado\n" +
+                     "inner join tbempleados em on em.idempleado = emp.idEmpleado\n" +
+                     "inner join tbProyectos pro on pro.idproyecto = emp.idProyecto " +
                      "WHERE em.nombreCompleto LIKE ? OR p.diasRemunerados LIKE ? OR p.horasExtTrabajadas LIKE ? OR p.totalDevengado LIKE ? " +
-                     "OR p.AFP LIKE ? OR p.seguro_social LIKE ? OR p.descuento_Renta LIKE ? OR p.salarioFinal LIKE ?")) {
+                     "OR p.AFP LIKE ? OR p.seguro_social LIKE ? OR p.descuento_Renta LIKE ? OR p.salarioFinal LIKE ? " +
+                     "order by em.idempleado DESC")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
@@ -97,6 +118,8 @@ public class SalarioVistaControlador {
             while (rs.next()) {
                 int id = rs.getInt("idplanilla");
                 String nombreemp = rs.getString("nombreCompleto");
+                String dui = rs.getString("dui");
+                String cuenta = rs.getString("numero_cuentabancaria");
                 int diasrem = rs.getInt("diasRemunerados");
                 String horasextra = rs.getString("horasExtTrabajadas");
                 float tot = rs.getFloat("totalDevengado");
@@ -104,9 +127,10 @@ public class SalarioVistaControlador {
                 float seguro = rs.getFloat("seguro_social");
                 float desc = rs.getFloat("descuento_Renta");
                 float sal = rs.getFloat("salarioFinal");
+                int idproyecto = rs.getInt("idproyecto");
+                String nombrepory = rs.getString("nombre_proyecto");
 
-
-                tbMostrarSalario.getItems().add(new SalarioEmp(id, nombreemp, diasrem, horasextra, tot, afp, seguro, desc, sal));
+                tbMostrarSalario.getItems().add(new SalarioEmp(id, nombreemp, dui, cuenta, diasrem, horasextra, tot, afp, seguro, desc, sal, idproyecto, nombrepory));
             }
         } catch (Exception e) {
             e.printStackTrace();
