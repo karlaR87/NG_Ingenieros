@@ -90,7 +90,7 @@
                 </ImageView>
             </children>
         </Pane>
-        <Button fx:id="btnEliminar" layoutX="228.0" layoutY="398.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+        <Button fx:id="btnEliminar" layoutX="244.0" layoutY="398.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
             <graphic>
                 <ImageView fx:id="btnEliminarAsist" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -103,7 +103,7 @@
          <graphic>
             <ImageView fx:id="btnEliminarAsist1" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagenes/btnEliminar.png" />
+                  <Image url="@Imagenes/BotonReporte.png" />
                </image>
             </ImageView>
          </graphic>
