@@ -661,23 +661,23 @@ public class SalarioEmpleadoControlador {
 
     public void RegistrarSalario()
     {
-        System.out.println("aqui paso");
+
         int diasrem = Integer.parseInt(txtDiasRemunerados.getText());
-        System.out.println("aqui paso");
+
         int horasextras = (int) Double.parseDouble(txtHorasExtras.getText());
-        System.out.println("aqui paso");
+
         double totaldev = Double.parseDouble(txtTotalDev.getText());
-        System.out.println("aqui paso");
+
         double afp = Double.parseDouble(txtAFP.getText());
-        System.out.println("aqui paso");
+
         double isss = Double.parseDouble(txtSeguroSocial.getText());
-        System.out.println("aqui paso");
+
         double renta = Double.parseDouble(txtRenta.getText());
-        System.out.println("aqui paso");
+
         double salariof = Double.parseDouble(txtSalarioFinal.getText());
-        System.out.println("aqui paso");
+
         int idempleado = Integer.parseInt(lblidEmpleado.getText());
-        System.out.println("aqui paso");
+
 
         try (Connection conn = Conexion.obtenerConexion()) {
             String sql = "INSERT INTO tbplanillas (diasRemunerados, horasExtTrabajadas, totalDevengado, AFP, " +
@@ -686,11 +686,11 @@ public class SalarioEmpleadoControlador {
             PreparedStatement ps =conn.prepareStatement(sql);
 
             ps.setInt(1, diasrem);
-            System.out.println("aqui paso");
+
             ps.setInt(2, horasextras);
-            System.out.println("aqui paso");
+
             ps.setDouble(3, totaldev);
-            System.out.println("aqui paso");
+
             ps.setDouble(4, afp);
             ps.setDouble(5, isss);
             ps.setDouble(6, renta);
