@@ -276,6 +276,7 @@ public class SalarioEmpleadoControlador {
                     double horasTrabajadas = calcularHorasEntreEntradaYSalida(horaEntrada, horaSalida);
                     double minutosTrabajados = calcularMinutosEntreEntradaYSalida(horaEntrada, horaSalida);
 
+
                     totalMinutosTrabajados += minutosTrabajados;
                     totalHorasTrabajadas += horasTrabajadas;
                 }
@@ -566,9 +567,13 @@ public class SalarioEmpleadoControlador {
 
 
         salariobruto = Float.parseFloat(txtSalarioEmp.getText());
+
         salariohoraextra = Float.parseFloat(txtSalarioHorasExtra.getText());
-        horasextra = Integer.parseInt(txtHorasExtras.getText());
+
+        horasextra = (int) Double.parseDouble(txtHorasExtras.getText());
+
         diasrem = Integer.parseInt(txtDiasRemunerados.getText());
+
 
         float primerresultado = salariobruto * (float) diasrem;
         float segundoresultado = salariohoraextra * (float) horasextra;
