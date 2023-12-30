@@ -95,11 +95,33 @@ public class AsistenciaEmpleadosControlador {
             if ("Asistencia".equals(selectedItem)) {
                 //Habilitar campos
                 habilitarCampos();
-                txtTurno.setEditable(false);
+
+
             } else if("Inasistencia".equals(selectedItem)){
                 //deshabilitar campos
                 deshabilitarCampos();
-                txtTurno.setEditable(true);
+
+            }
+        });
+
+        spHoraEn1.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if ("Asistencia".equals(cmbAsistencia.getSelectionModel().getSelectedItem())) {
+                actualizarTxtTurno();
+            }
+
+        });
+
+        cmbAMPM.setOnAction(event -> {
+            if ("Asistencia".equals(cmbAsistencia.getSelectionModel().getSelectedItem())) {
+                actualizarTxtTurno();
+            }
+        });
+        cmbAsistencia.setOnAction(event -> {
+            String selectedItem = (String) cmbAsistencia.getSelectionModel().getSelectedItem();
+            if ("Asistencia".equals(selectedItem)) {
+                actualizarTxtTurno();
+            } else if ("Inasistencia".equals(selectedItem)) {
+                txtTurno.setText("No asistió");
             }
         });
 
@@ -144,6 +166,27 @@ public class AsistenciaEmpleadosControlador {
 
     }
 
+    private void actualizarTxtTurno() {
+        int horaEn1 = (int) spHoraEn1.getValue();
+        String seleccionComboBox1 = (String) cmbAMPM.getSelectionModel().getSelectedItem();
+
+        if ((horaEn1 < 6 && "A.M.".equals(seleccionComboBox1)) || (horaEn1 >= 6 && "P.M.".equals(seleccionComboBox1))) {
+            System.out.println("Turno nocturno");
+            txtTurno.setText("Nocturno");
+        } else if (horaEn1 >= 6 && "A.M.".equals(seleccionComboBox1)) {
+            System.out.println("Turno diurno");
+            txtTurno.setText("Diurno");
+        }
+    }
+
+    private void actu()
+    {
+        if(cmbAsistencia.getSelectionModel().getSelectedItem() == "Inasistencia")
+        {
+            txtTurno.setText("No asistió");
+        }
+    }
+
     public void setTbAsistencia(TableView<AsistenciaVista> TbAsistencia) {
         this.TbAsistencia = TbAsistencia;
     }
@@ -166,6 +209,7 @@ public class AsistenciaEmpleadosControlador {
         cmbAMPM2.setDisable(false);
         cmbDiaAsistencia.setDisable(false);
         cmbDiaSalida.setDisable(false);
+
     }
 
 
@@ -407,21 +451,6 @@ public class AsistenciaEmpleadosControlador {
             LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
         }
 
-        if(horaEn1 < 6 && seleccionComboBox1 == "A.M.")
-        {
-            System.out.println("Turno nocturno");
-            txtTurno.setText("Nocturno");
-        }
-        else if(horaEn1 >= 6 && seleccionComboBox1 == "P.M.")
-        {
-            System.out.println("Turno nocturno");
-            txtTurno.setText("Nocturno");
-        }
-        else if(horaEn1 >= 6 && seleccionComboBox1 == "A.M.")
-        {
-            System.out.println("Turno nocturno");
-            txtTurno.setText("Diurno");
-        }
 
 
         //Aqui se puede poner directamente el codigo de agregar asistencia
