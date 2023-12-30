@@ -62,7 +62,7 @@ public class AsistenciaEmpleadosControlador {
     private TextField txtBusqueda;
 
     @FXML
-    private TextField txtEmpleadoSel;
+    private TextField txtEmpleadoSel, txtTurno;
     @FXML
     private Label LblIdEmpleado;
     @FXML
@@ -95,9 +95,11 @@ public class AsistenciaEmpleadosControlador {
             if ("Asistencia".equals(selectedItem)) {
                 //Habilitar campos
                 habilitarCampos();
+                txtTurno.setEditable(false);
             } else if("Inasistencia".equals(selectedItem)){
                 //deshabilitar campos
                 deshabilitarCampos();
+                txtTurno.setEditable(true);
             }
         });
 
@@ -405,6 +407,23 @@ public class AsistenciaEmpleadosControlador {
             LblHoraSalida.setText("" + diasalida + ", " + horaSal1 + ":" + minutosEn + " " + seleccionComboBox2);
         }
 
+        if(horaEn1 < 6 && seleccionComboBox1 == "A.M.")
+        {
+            System.out.println("Turno nocturno");
+            txtTurno.setText("Nocturno");
+        }
+        else if(horaEn1 >= 6 && seleccionComboBox1 == "P.M.")
+        {
+            System.out.println("Turno nocturno");
+            txtTurno.setText("Nocturno");
+        }
+        else if(horaEn1 >= 6 && seleccionComboBox1 == "A.M.")
+        {
+            System.out.println("Turno nocturno");
+            txtTurno.setText("Diurno");
+        }
+
+
         //Aqui se puede poner directamente el codigo de agregar asistencia
 
 
@@ -416,18 +435,19 @@ public class AsistenciaEmpleadosControlador {
 
         String fechasalida = LblHoraSalida.getText();
 
-
+        String turno = txtTurno.getText();
 
 
         try (Connection conn = Conexion.obtenerConexion()) {
-            String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida) " +
-                    "VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO tbAsistencia (idempleado, idAsistenciaMarcar, hora_entrada, hora_salida, turno) " +
+                    "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps =conn.prepareStatement(sql);
             ps.setString(1,nombre);
 
             ps.setInt(2,Asistencia);
             ps.setString(3, fechaentrada);
             ps.setString(4, fechasalida);
+            ps.setString(5, turno);
 
             ps.executeUpdate();
 
@@ -461,7 +481,7 @@ public class AsistenciaEmpleadosControlador {
 
         cmbAMPM2.setValue("");
 
-
+        txtTurno.setText("");
     }
 
 

@@ -198,7 +198,7 @@ public class AsistenciaDatosControlador {
     public void cargarDatos() {
         TBMostrarAsistencia.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement statement = conn.prepareStatement("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
+             PreparedStatement statement = conn.prepareStatement("select aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, aa.turno, pro.idproyecto, pro.nombre_proyecto from tbAsistencia aa\n" +
                      "inner join tbEmpleadosProyectos id on id.idEmpleado = aa.idempleado\n" +
                      "inner join tbempleados empleado on empleado.idempleado = id.idEmpleado\n" +
                      "inner join tbProyectos pro on pro.idproyecto = id.idProyecto\n" +
@@ -220,10 +220,11 @@ public class AsistenciaDatosControlador {
                 String asistencia = rs.getString("asistencia");
                 String fechaentrada = rs.getString("hora_entrada");
                 String fechasalida = rs.getString("hora_salida");
+                String turno = rs.getString("turno");
                 int idproyecto = rs.getInt("idproyecto");
                 String nombrepro = rs.getString("nombre_proyecto");
 
-                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida, idproyecto, nombrepro));
+                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id, ide, nombre, asistencia, fechaentrada, fechasalida, turno, idproyecto, nombrepro));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +235,7 @@ public class AsistenciaDatosControlador {
         TBMostrarAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, pro.idproyecto, pro.nombre_proyecto " +
+             PreparedStatement stmt = conn.prepareStatement("SELECT aa.idAsistencia, empleado.idempleado, empleado.nombreCompleto, asia.asistencia, aa.hora_entrada, aa.hora_salida, aa.turno, pro.idproyecto, pro.nombre_proyecto " +
                      "FROM tbAsistencia aa " +
                      "INNER JOIN tbEmpleadosProyectos id ON id.idEmpleado = aa.idempleado " +
                      "INNER JOIN tbempleados empleado ON empleado.idempleado = id.idEmpleado " +
@@ -243,12 +244,12 @@ public class AsistenciaDatosControlador {
                      "INNER JOIN tbAsistenciaMarcar asia ON asia.idAsistenciaMarcar = asis.idAsistenciaMarcar " +
                      "WHERE id.idproyecto = ? " +
                      "AND (empleado.nombreCompleto LIKE ? OR asia.asistencia LIKE ? OR aa.hora_entrada LIKE ? " +
-                     "OR aa.hora_salida LIKE ? OR pro.nombre_proyecto LIKE ?)")) {
+                     "OR aa.hora_salida LIKE ? OR aa.turno LIKE ? OR pro.nombre_proyecto LIKE ?)")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
             stmt.setInt(1, idProyectoSeleccionado);
-            for (int i = 2; i <= 6; i++) {
+            for (int i = 2; i <= 7; i++) {
                 stmt.setString(i, parametroBusqueda);
             }
 
@@ -262,10 +263,11 @@ public class AsistenciaDatosControlador {
                 String asistencia = rs.getString("asistencia");
                 String fechaentrada = rs.getString("hora_entrada");
                 String fechasalida = rs.getString("hora_salida");
+                String turno = rs.getString("turno");
                 int idproyecto = rs.getInt("idproyecto");
                 String nombrepro = rs.getString("nombre_proyecto");
 
-                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida, idproyecto, nombrepro));
+                TBMostrarAsistencia.getItems().add(new AsistenciaVista(id,ide, nombre, asistencia, fechaentrada, fechasalida, turno, idproyecto, nombrepro));
             }
         } catch (Exception e) {
             e.printStackTrace();

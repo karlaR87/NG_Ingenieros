@@ -43,7 +43,7 @@ public class AsistenciaActualizarControlador {
     private ComboBox cmbDiaSalida;
 
     @FXML
-    private TextField txtEmpleadoSel;
+    private TextField txtEmpleadoSel, txtTurno;
     @FXML
     private Label LblIdEmpleado;
     @FXML
@@ -67,7 +67,7 @@ public class AsistenciaActualizarControlador {
         cmbAsistencia.setValue(empleadoSeleccionado.getMarcarasistencia());
         lblHoraEntrada.setText(empleadoSeleccionado.getHora_entrada());
         lblHoraSalida.setText(empleadoSeleccionado.getHora_salida());
-
+        txtTurno.setText(empleadoSeleccionado.getTurno());
 
         // Llamar a las funciones para separar los datos
 
@@ -87,9 +87,11 @@ public class AsistenciaActualizarControlador {
             if ("Asistencia".equals(selectedItem)) {
                 //Habilitar campos
                 habilitarCampos();
+                txtTurno.setEditable(false);
             } else if("Inasistencia".equals(selectedItem)){
                 //deshabilitar campos
                 deshabilitarCampos();
+                txtTurno.setEditable(true);
             }
         });
 
@@ -312,22 +314,22 @@ public class AsistenciaActualizarControlador {
 
         String fechasalidaN = lblHoraSalida.getText();
 
-
+        String turno = txtTurno.getText();
 
         // Obtener los datos actualizados de los campos
 
          AsistenciaVista empleadoSeleccionado = obtenerEmpleadoSeleccionadoDesdeTabla();
         // Realizar la actualización en la base de datos
         try (Connection conn = Conexion.obtenerConexion()) {
-            String sql = "UPDATE  tbAsistencia SET idempleado=?, idAsistenciaMarcar=?, hora_entrada=?, hora_salida=? WHERE idAsistencia =?";
+            String sql = "UPDATE  tbAsistencia SET idempleado=?, idAsistenciaMarcar=?, hora_entrada=?, hora_salida=?, turno = ? WHERE idAsistencia =?";
 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1,nombreN);
                 ps.setInt(2, AsistenciaN);
                 ps.setString(3,fechaentradaN);
                 ps.setString(4, fechasalidaN);
-
-                ps.setInt(5, empleadoSeleccionado.getId());
+                ps.setString(5, turno);
+                ps.setInt(6, empleadoSeleccionado.getId());
                 ps.executeUpdate();
                 agregar_empleadosControlador.mostrarAlerta("Actualización de empleados", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
 

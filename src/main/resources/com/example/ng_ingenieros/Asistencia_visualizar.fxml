@@ -49,6 +49,10 @@
                     <cellValueFactory><PropertyValueFactory property="hora_salida" /></cellValueFactory>
                 </TableColumn>
 
+                <TableColumn prefWidth="110.0" text="Turno trabajado">
+                    <cellValueFactory><PropertyValueFactory property="turno" /></cellValueFactory>
+                </TableColumn>
+
                 <TableColumn text="IdProyecto">
                     <cellValueFactory><PropertyValueFactory property="idproyecto" /></cellValueFactory>
                 </TableColumn>
