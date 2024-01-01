@@ -91,7 +91,6 @@
                                     </image></ImageView>
                             </graphic>
                         </Button>
-                  <Button fx:id="btnReporte" layoutX="318.0" layoutY="345.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="Button" />
                     </children>
                 </Pane>
             </center>

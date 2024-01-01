@@ -21,7 +21,7 @@ public class SalarioVistaControlador {
     private TextField txtBusqueda, txtNombreProyecto;
 
     @FXML
-    private Button btnEliminar, btnGenerarPlanillaReporte;
+    private Button btnEliminar, btnGenerarPlanillaReporte, btnConsolidarPago;
     @FXML
     private Label lblIdProyecto;
 
@@ -67,6 +67,7 @@ public class SalarioVistaControlador {
             }
         });
         btnGenerarPlanillaReporte.setOnAction(this::generarReporte);
+        btnConsolidarPago.setOnAction(this::generarReportePagos);
     }
 
     private void generarReporte(javafx.event.ActionEvent actionEvent) {
@@ -84,6 +85,22 @@ public class SalarioVistaControlador {
 
                 // Llenar el reporte con el parámetro y la conexión
                 JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros, Conexion.obtenerConexion());
+                JasperViewer.viewReport(jasperPrint, false);
+            } else {
+                System.out.println("No se pudo cargar el archivo del informe");
+            }
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void generarReportePagos(javafx.event.ActionEvent actionEvent) {
+        try {
+            String rutaInforme = "/ConsolidadoPagos.jasper"; // Ruta relativa al archivo .jasper
+            InputStream inputStream = getClass().getResourceAsStream(rutaInforme);
+
+            if (inputStream != null) {
+                JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, null, Conexion.obtenerConexion());
                 JasperViewer.viewReport(jasperPrint, false);
             } else {
                 System.out.println("No se pudo cargar el archivo del informe");

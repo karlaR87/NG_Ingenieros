@@ -24,11 +24,10 @@ public class EmpleadosControlador {
     @FXML
     public TableView<Empleados> TableEmpleados;
     @FXML
-    private TextField
-            txtBusqueda;
+    private TextField txtBusqueda;
 
     @FXML
-    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp, btnReporte;
+    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp;
 
     public void initialize() {
         //configurarTabla();
@@ -43,25 +42,6 @@ public class EmpleadosControlador {
 
         });
         cargarDatos();
-        btnReporte.setOnAction(this::generarReporte);
-
-    }
-
-    //aquí está el código par generar reportes, por el momento los reportes deben ponerse en el paquete resources
-    private void generarReporte(javafx.event.ActionEvent actionEvent) {
-        try {
-            String rutaInforme = "/ReporteEmpleados.jasper"; // Ruta relativa al archivo .jasper
-            InputStream inputStream = getClass().getResourceAsStream(rutaInforme);
-
-            if (inputStream != null) {
-                JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, null, Conexion.obtenerConexion());
-                JasperViewer.viewReport(jasperPrint, false);
-            } else {
-                System.out.println("No se pudo cargar el archivo del informe");
-            }
-        } catch (JRException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setTableEmpleados(TableView<Empleados> tableEmpleados) {

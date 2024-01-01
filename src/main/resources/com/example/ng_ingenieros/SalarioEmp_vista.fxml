@@ -90,7 +90,7 @@
                 </ImageView>
             </children>
         </Pane>
-        <Button fx:id="btnEliminar" layoutX="244.0" layoutY="398.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+        <Button fx:id="btnEliminar" layoutX="194.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="77.0" style="-fx-background-radius: 8;">
             <graphic>
                 <ImageView fx:id="btnEliminarAsist" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -99,7 +99,7 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Button fx:id="btnGenerarPlanillaReporte" layoutX="406.0" layoutY="398.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnGenerarPlanillaReporte" layoutX="322.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="77.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fx:id="btnEliminarAsist1" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -108,9 +108,18 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtNombreProyecto" layoutX="29.0" layoutY="414.0" prefHeight="25.0" prefWidth="164.0" style="-fx-background-color: #2D3250;" />
-      <Label layoutX="150.0" layoutY="120.0" prefHeight="17.0" prefWidth="392.0" text="Seleccione un empleado para poder registrar el proyecto para el reporte" textFill="WHITE" />
+      <TextField fx:id="txtNombreProyecto" layoutX="574.0" layoutY="116.0" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #2D3250;" />
+      <Label layoutX="159.0" layoutY="120.0" prefHeight="17.0" prefWidth="392.0" text="Seleccione un empleado para poder registrar el proyecto para el reporte" textFill="WHITE" />
       <Label fx:id="lblIdProyecto" layoutX="586.0" layoutY="120.0" prefHeight="17.0" prefWidth="71.0" text="Label" textFill="#2d3250" />
+      <Button fx:id="btnConsolidarPago" layoutX="450.0" layoutY="396.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="54.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/botonpago.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 
 </AnchorPane>
