@@ -78,8 +78,7 @@ public class SalarioEmpleadoControlador {
     @FXML
     private Button btnRegistrarSalario;
 
-    @FXML
-    private Button btnVerSalarios;
+
     @FXML
     private Button btnEditarHorasExtra;
 
@@ -186,13 +185,6 @@ public class SalarioEmpleadoControlador {
             }
         });
 
-        btnVerSalarios.setOnAction(actionEvent -> {
-            try {
-                mostrarVentanaSalarioOnAction(actionEvent);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
 
         btnEditarHorasExtra.setOnAction(actionEvent -> {
             // Verificar si el campo txtHorasExtras está editable
@@ -211,9 +203,7 @@ public class SalarioEmpleadoControlador {
     private void btnRegistrarSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         RegistrarSalario();
     }
-    private void mostrarVentanaSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
-        mostrarVentanaSalario();
-    }
+
 
     private void btnCancelarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         Node source = (Node) actionEvent.getSource();
@@ -221,21 +211,7 @@ public class SalarioEmpleadoControlador {
         stage.close();
     }
 
-    public void mostrarVentanaSalario() throws IOException
-    {
 
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/SalarioEmp_vista.fxml"));
-        Parent root;
-
-        root = loader.load();
-
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    }
 
 
     public void setTableAsistencia(TableView<AsistenciaVista> TBMostrarAsistencia) {
@@ -582,6 +558,7 @@ public class SalarioEmpleadoControlador {
         totaldevengado = (float) (Math.round(totaldevengado * 100.0) / 100.0);
 
         txtTotalDev.setText(String.valueOf(totaldevengado));
+
 
     }
 

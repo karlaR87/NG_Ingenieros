@@ -23,7 +23,7 @@
                 </Label>
             </children>
         </Pane>
-        <Button fx:id="btncancelar" layoutX="67.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
+        <Button fx:id="btncancelar" layoutX="158.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
             <effect>
                 <DropShadow>
                     <color>
@@ -34,7 +34,7 @@
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor></Button>
-        <Button fx:id="btnRegistrarSalario" layoutX="274.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+        <Button fx:id="btnRegistrarSalario" layoutX="408.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
             <effect>
                 <DropShadow>
                     <color>
@@ -75,12 +75,12 @@
          </font>
       </Label>
       <TextField fx:id="txtHorasExtras" editable="false" layoutX="230.0" layoutY="231.0" prefHeight="25.0" prefWidth="121.0" />
-      <Label layoutX="21.0" layoutY="379.0" prefHeight="27.0" prefWidth="158.0" text="Total devengado:" textFill="WHITE">
+      <Label layoutX="21.0" layoutY="381.0" prefHeight="27.0" prefWidth="158.0" text="Total devengado:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtTotalDev" editable="false" layoutX="170.0" layoutY="380.0" prefHeight="25.0" prefWidth="121.0" />
+      <TextField fx:id="txtTotalDev" editable="false" layoutX="170.0" layoutY="383.0" prefHeight="25.0" prefWidth="121.0" />
       <Label layoutX="411.0" layoutY="142.0" prefHeight="27.0" prefWidth="45.0" text="AFP:" textFill="WHITE">
          <font>
             <Font size="18.0" />
@@ -127,25 +127,13 @@
          </font>
       </Label>
       <TextField fx:id="txtSalarioEmp" editable="false" layoutX="210.0" layoutY="278.0" prefHeight="25.0" prefWidth="140.0" />
-      <Label layoutX="20.0" layoutY="329.0" prefHeight="27.0" prefWidth="181.0" text="Salario por hora extra:" textFill="WHITE">
+      <Label layoutX="20.0" layoutY="328.0" prefHeight="27.0" prefWidth="181.0" text="Salario por hora extra:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <TextField fx:id="txtSalarioHorasExtra" editable="false" layoutX="212.0" layoutY="330.0" prefHeight="25.0" prefWidth="77.0" />
-      <Button fx:id="btnVerSalarios" layoutX="476.0" layoutY="440.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: ORANGE; -fx-background-radius: 20;" text="Ver planillas" textFill="WHITE">
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.3552631437778473" green="0.3503289520740509" blue="0.3503289520740509" />
-               </color>
-            </DropShadow>
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="btnEditarHorasExtra" layoutX="305.0" layoutY="325.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+      <Button fx:id="btnEditarHorasExtra" layoutX="305.0" layoutY="322.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -153,7 +141,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btnEditarTotalDev" layoutX="305.0" layoutY="376.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+      <Button fx:id="btnEditarTotalDev" layoutX="305.0" layoutY="377.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -164,6 +152,8 @@
       </Button>
       <Label fx:id="lblIdProyecto" layoutX="305.0" layoutY="87.0" prefHeight="25.0" prefWidth="51.0" text="Label" textFill="#2d3250" />
       <Label fx:id="lblNombreProyecto" layoutX="408.0" layoutY="394.0" prefHeight="25.0" prefWidth="266.0" text="Label" textFill="#2d3250" />
+      <Label fx:id="lbl1" layoutX="21.0" layoutY="357.0" prefHeight="25.0" prefWidth="51.0" text="Label" textFill="WHITE" />
+      <Label fx:id="lbl2" layoutX="112.0" layoutY="357.0" prefHeight="25.0" prefWidth="51.0" text="Label" textFill="WHITE" />
     </children>
 
 </AnchorPane>

@@ -108,8 +108,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txtNombreProyecto" layoutX="29.0" layoutY="414.0" prefHeight="25.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF;" />
+      <TextField fx:id="txtNombreProyecto" layoutX="29.0" layoutY="414.0" prefHeight="25.0" prefWidth="164.0" style="-fx-background-color: #2D3250;" />
       <Label layoutX="150.0" layoutY="120.0" prefHeight="17.0" prefWidth="392.0" text="Seleccione un empleado para poder registrar el proyecto para el reporte" textFill="WHITE" />
+      <Label fx:id="lblIdProyecto" layoutX="586.0" layoutY="120.0" prefHeight="17.0" prefWidth="71.0" text="Label" textFill="#2d3250" />
     </children>
 
 </AnchorPane>

@@ -24,7 +24,7 @@ public class AsistenciaDatosControlador {
     private Button btnEliminar;
 
     @FXML
-    private Button btnMostrarSalario;
+    private Button btnRegistrarSalarios, btnVerSalarios;
 
     private int idProyectoSeleccionado;
 
@@ -60,9 +60,17 @@ public class AsistenciaDatosControlador {
             }
         });
 
-        btnMostrarSalario.setOnAction(actionEvent -> {
+        btnRegistrarSalarios.setOnAction(actionEvent -> {
             try {
                 btnMostrarSalarioOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        btnVerSalarios.setOnAction(actionEvent -> {
+            try {
+                mostrarVentanaSalarioOnAction(actionEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -71,6 +79,9 @@ public class AsistenciaDatosControlador {
 
     public void setTableAsistencia(TableView<AsistenciaVista> TBMostrarAsistencia) {
         this.TBMostrarAsistencia = TBMostrarAsistencia;
+    }
+    private void mostrarVentanaSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        mostrarVentanaSalario();
     }
 
     private void btnEliminarOnAction(javafx.event.ActionEvent actionEvent) throws IOException{
@@ -144,6 +155,38 @@ public class AsistenciaDatosControlador {
                 // Manejo de excepciones
             }
         }
+    }
+
+    public void mostrarVentanaSalario() throws IOException {
+        AsistenciaVista empleadoSeleccionado = (AsistenciaVista) TBMostrarAsistencia.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/SalarioEmp_vista.fxml"));
+            Parent root;
+            try {
+
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                SalarioVistaControlador asistenciaActualizarControlador = loader.getController();
+                asistenciaActualizarControlador.recibirIdProyecto(idProyectoSeleccionado);
+
+                // Pasar la referencia de TableAsistencia al controlador de la ventana de actualización
+                asistenciaActualizarControlador.initialize(empleadoSeleccionado);
+
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
+        }
+
+
     }
 
     private void eliminarAsistencia() {

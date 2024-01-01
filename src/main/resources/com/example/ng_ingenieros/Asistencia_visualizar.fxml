@@ -23,7 +23,7 @@
                 </Label>
             </children>
         </Pane>
-        <TableView fx:id="TBMostrarAsistencia" layoutX="29.0" layoutY="123.0" prefHeight="246.0" prefWidth="663.0">
+        <TableView fx:id="TBMostrarAsistencia" layoutX="29.0" layoutY="146.0" prefHeight="223.0" prefWidth="663.0">
             <columns>
                 <TableColumn text="Asistencia N°">
                     <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
@@ -73,7 +73,7 @@
                 </ImageView>
             </children>
         </Pane>
-      <Button fx:id="btnActualizar" layoutX="193.0" layoutY="385.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnActualizar" layoutX="154.0" layoutY="385.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="77.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -82,7 +82,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEliminar" layoutX="311.0" layoutY="384.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnEliminar" layoutX="269.0" layoutY="384.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fx:id="btnEliminarAsist" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -91,14 +91,24 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnMostrarSalario" layoutX="423.0" layoutY="384.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnRegistrarSalarios" layoutX="384.0" layoutY="383.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="77.0" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="48.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="51.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/SalarioCalculo.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btnVerSalarios" layoutX="498.0" layoutY="383.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fitHeight="52.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/salarioboton.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+      </Button>
+      <Label layoutX="163.0" layoutY="118.0" prefHeight="17.0" prefWidth="392.0" text="Seleccione un empleado para abrir la ventana correspondiente al botón" textFill="WHITE" />
     </children>
 
 </AnchorPane>

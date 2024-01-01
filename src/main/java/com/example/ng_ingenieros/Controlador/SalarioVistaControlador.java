@@ -22,14 +22,25 @@ public class SalarioVistaControlador {
 
     @FXML
     private Button btnEliminar, btnGenerarPlanillaReporte;
+    @FXML
+    private Label lblIdProyecto;
 
+    private int idProyectoSeleccionado;
 
-    public void initialize()
+    public void recibirIdProyecto(int idProyecto) {
+        idProyectoSeleccionado = idProyecto;
+        // Llama a un método para cargar los empleados según el ID del proyecto
+        cargarDatos();
+    }
+
+    public void initialize(AsistenciaVista empleadoSeleccionado)
     {
 
-        cargarDatos();
+        lblIdProyecto.setText(String.valueOf(empleadoSeleccionado.getIdproyecto()));
 
-        TableColumn<SalarioEmp, ?> columnaProyecto = (TableColumn<SalarioEmp, ?>) tbMostrarSalario.getColumns().get(11); // El índice 9 representa la columna del proyecto
+        recibirIdProyecto(idProyectoSeleccionado);
+
+        TableColumn<SalarioEmp, ?> columnaProyecto = (TableColumn<SalarioEmp, ?>) tbMostrarSalario.getColumns().get(8); // El índice 9 representa la columna del proyecto
         columnaProyecto.setVisible(false);
 
         tbMostrarSalario.setOnMouseClicked(event -> {
@@ -89,8 +100,7 @@ public class SalarioVistaControlador {
     private void cargarDatos() {
         tbMostrarSalario.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("\n" +
+             PreparedStatement statement = conn.prepareStatement("\n" +
                      "select p.idplanilla, em.nombreCompleto, em.dui, em.numero_cuentabancaria, pro.idproyecto, pro.nombre_proyecto, p.diasRemunerados, p.horasExtTrabajadas, \n" +
                      "CAST(p.totalDevengado AS DECIMAL(10, 2)) as totalDevengado, \n" +
                      "CAST(p.AFP AS DECIMAL(10, 2)) as AFP, \n" +
@@ -101,8 +111,13 @@ public class SalarioVistaControlador {
                      "inner join tbEmpleadosProyectos emp on emp.idempleado = p.idempleado\n" +
                      "inner join tbempleados em on em.idempleado = emp.idEmpleado\n" +
                      "inner join tbProyectos pro on pro.idproyecto = emp.idProyecto\n" +
-                     "\n" +
+                     "where pro.idproyecto = ?\n" +
                      "order by em.idempleado ASC")) {
+
+            // Establece el ID del proyecto en la consulta SQL
+            statement.setInt(1, idProyectoSeleccionado);
+
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("idplanilla");
@@ -141,13 +156,15 @@ public class SalarioVistaControlador {
                      "inner join tbEmpleadosProyectos emp on emp.idempleado = p.idempleado\n" +
                      "inner join tbempleados em on em.idempleado = emp.idEmpleado\n" +
                      "inner join tbProyectos pro on pro.idproyecto = emp.idProyecto " +
-                     "WHERE em.nombreCompleto LIKE ? OR p.diasRemunerados LIKE ? OR p.horasExtTrabajadas LIKE ? OR p.totalDevengado LIKE ? " +
-                     "OR p.AFP LIKE ? OR p.seguro_social LIKE ? OR p.descuento_Renta LIKE ? OR p.salarioFinal LIKE ? " +
+                     "WHERE pro.idproyecto = ? " +
+                     "AND(em.nombreCompleto LIKE ? OR p.diasRemunerados LIKE ? OR p.horasExtTrabajadas LIKE ? OR p.totalDevengado LIKE ? " +
+                     "OR p.AFP LIKE ? OR p.seguro_social LIKE ? OR p.descuento_Renta LIKE ? OR p.salarioFinal LIKE ?) " +
                      "order by em.idempleado ASC")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
-            for (int i = 1; i <= 8; i++) {
+            stmt.setInt(1, idProyectoSeleccionado);
+            for (int i = 2; i <= 9; i++) {
                 stmt.setString(i, parametroBusqueda);
             }
 
@@ -224,4 +241,7 @@ public class SalarioVistaControlador {
 
     }
 
+    public void setTableAsistencia(TableView<SalarioEmp> tbMostrarSalario) {
+        this.tbMostrarSalario = tbMostrarSalario;
+    }
 }
