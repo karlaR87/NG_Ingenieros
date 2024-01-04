@@ -67,7 +67,7 @@ public class EmpleadosAsignadosControlador {
             ProyectosAgregarControlador proyectosAgregarControlador = loader.getController();
 
             // Pasa la lista de empleados al controlador de "ProyectosAgregarControlador"
-            proyectosAgregarControlador.setEmpleados(empleados);
+            proyectosAgregarControlador.setEmpleadosProyecto(empleados);
 
             // Imprime mensaje de depuración
             System.out.println("Datos enviados a ProyectosAgregarControlador.");
@@ -218,8 +218,14 @@ public class EmpleadosAsignadosControlador {
     }
 
     public void setEmpleadosProyecto(ObservableList<Empleados> empleadosProyecto) {
-        this.empleados.setAll(empleadosProyecto);
-        tbEmpleados.setItems(empleadosProyecto);
+        empleados.setAll(empleadosProyecto);
+        tbEmpleados.setItems(empleados);
+
+        System.out.println("Datos recibidos en EmpleadosAsignadosControlador: " + empleadosProyecto);
+        System.out.println("Número de empleados recibidos: " + empleados.size());
     }
 
+    public ObservableList<Empleados> getEmpleadosProyecto() {
+        return empleados;
+    }
 }

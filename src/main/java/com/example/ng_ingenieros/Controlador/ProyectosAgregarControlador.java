@@ -21,6 +21,7 @@ import org.w3c.dom.Text;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -55,9 +56,10 @@ public class ProyectosAgregarControlador {
 
     @FXML
     private DatePicker dateFinalizacion;
-    private ObservableList<Empleados> empleadosProyecto = FXCollections.observableArrayList();
-    private EmpleadosAsignadosControlador empleadosAsignadosControlador;
 
+
+    private ObservableList<Empleados> empleadosProyecto = FXCollections.observableArrayList();
+    private EmpleadosAsignadosControlador empleadosAsignadosController;
 
 
     public void initialize() throws SQLException {
@@ -71,24 +73,23 @@ public class ProyectosAgregarControlador {
 
         btnGuardarProyecto.setOnAction(this::AgregarProyecto);
 
-        llenarComboEstado(cmEstado);
-        llenarComboingACargo(cmIngeniero);
+        llenarComboEstado();
+        llenarComboingACargo();
 
 
     }
+
 
     // ... otros métodos ...
 
     public void setEmpleados(ObservableList<Empleados> empleados) {
         empleadosProyecto.addAll(empleados);
-        System.out.println("Datos recibidos en ProyectosAgregarControlador: " + empleadosProyecto);
     }
 
 
-@FXML
+    @FXML
     private void AbrirGestion(ActionEvent actionEvent) {
         try {
-            // Cargar el archivo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Empleados_Asignados.fxml"));
             Parent root = loader.load();
 
@@ -110,7 +111,14 @@ public class ProyectosAgregarControlador {
 
             stage.setScene(new Scene(root));
             stage.showAndWait(); // Mostrar y esperar hasta que se cierre
-        } catch (Exception e) {
+
+            ObservableList<Empleados> empleadosActualizados = empleadosAsignadosControlador.getEmpleadosProyecto();
+            System.out.println("Datos recibidos en ProyectosAgregarControlador: " + empleadosActualizados);
+
+            // Actualiza la lista de empleados en ProyectosAgregarControlador
+            empleadosProyecto.clear();
+            empleadosProyecto.addAll(empleadosActualizados);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -118,86 +126,71 @@ public class ProyectosAgregarControlador {
 
     @FXML
     private void AgregarProyecto(ActionEvent actionEvent) {
-        String nombre = txtNombre.getText();
-        String lugar = txtLugar.getText();
-        String horas = txtHoras.getText();
-        String dinicio = dateInicio.getValue().toString();
-        String dfinal = dateFinalizacion.getValue().toString();
-        String estado = cmEstado.getValue();
+        Connection conn = Conexion.obtenerConexion();
+        System.out.println("Conexión establecida correctamente.");
 
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Lugar: " + lugar);
-        System.out.println("Horas: " + horas);
-        System.out.println("Fecha Inicio: " + dinicio);
-        System.out.println("Fecha Finalización: " + dfinal);
-        System.out.println("Estado: " + estado);
+        String nombreProyecto = txtNombre.getText();
+        String lugarProyecto = txtLugar.getText();
+        int horasTrabajo = Integer.parseInt(txtHoras.getText());
+        Date fechaInicio = Date.valueOf(dateInicio.getValue());
+        Date fechaFin = Date.valueOf(dateFinalizacion.getValue());
 
+        // Obtener el ID del estado del proyecto
+        int idEstadoProyecto = -1;
         try {
-            // Obtener el ID del estado seleccionado
-            int idEstadoProyecto = IdRetornoEstado(estado);
-
-            Connection conn = Conexion.obtenerConexion();
-            String query = "EXEC AgregarProyectoConEmpleados " +
-                    "@nombreProyecto = ?, " +
-                    "@lugarProyecto = ?, " +
-                    "@horasTrabajo = ?, " +
-                    "@fechaInicio = ?, " +
-                    "@fechaFin = ?, " +
-                    "@idEstadoProyecto = ?, " +
-                    "@nombreEmpleado = ?, " +
-                    "@duiEmpleado = ?, " +
-                    "@correoEmpleado = ?, " +
-                    "@sueldoDia = ?, " +
-                    "@sueldoHoraExt = ?, " +
-                    "@numeroCuentaBancaria = ?, " +
-                    "@idCargo = ?";
-            CallableStatement statement = conn.prepareCall(query);
-
-            // Configurar los parámetros del proyecto
-            statement.setString("nombreProyecto", nombre);
-            statement.setString("lugarProyecto", lugar);
-            statement.setInt("horasTrabajo", Integer.parseInt(horas));
-            statement.setString("fechaInicio", dinicio);
-            statement.setString("fechaFin", dfinal);
-            statement.setInt("idEstadoProyecto", idEstadoProyecto);
-
-            // Obtener la lista de empleados asociados al proyecto
-            for (Empleados empleado : empleadosProyecto) {
-                // Obtener el ID del ingeniero seleccionado
-                int idIngeniero = IdRetornoIngAcargo(empleado.getNombre());
-
-                // Agregar parámetros del empleado al procedimiento almacenado
-                statement.setString("nombreEmpleado", empleado.getNombre());
-                statement.setString("duiEmpleado", empleado.getDui());
-                statement.setString("correoEmpleado", empleado.getCorreo());
-                statement.setDouble("sueldoDia", empleado.getSueldoDia());
-                statement.setDouble("sueldoHoraExt", empleado.getSueldoHora());
-                statement.setString("numeroCuentaBancaria", empleado.getCuentaBancaria());
-                statement.setInt("idCargo", idIngeniero);
-
-                // Ejecutar el procedimiento almacenado para agregar el proyecto con empleados
-                statement.executeUpdate();
-
-                // Mensajes de depuración
-                System.out.println("Empleado agregado al proyecto: " + empleado.getNombre());
-            }
-
-            // Mensajes de depuración
-            System.out.println("Proyecto agregado con empleados exitosamente.");
-
-            // Puedes limpiar los campos después de la inserción si es necesario
-            // ...
-
-            // Limpiar la lista de empleados después de agregar el proyecto
-            empleadosProyecto.clear();
-
-            statement.close();
-            conn.close();
+            idEstadoProyecto = IdRetornoEstado(cmEstado.getValue());
         } catch (SQLException e) {
             e.printStackTrace();
-            // Mensaje de depuración en caso de error
-            System.err.println("Error al agregar proyecto con empleados: " + e.getMessage());
+            System.err.println("Error al obtener el ID del estado del proyecto: " + e.getMessage());
+            return;
         }
+
+        // Verifica si hay empleados a agregar
+        if (empleadosProyecto.isEmpty()) {
+            System.err.println("Error: No hay empleados para agregar al proyecto.");
+            return;
+        }
+
+        //  información sobre los empleados a agregar
+        System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
+
+        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
+            cs.setString(1, nombreProyecto);
+            cs.setString(2, lugarProyecto);
+            cs.setInt(3, horasTrabajo);
+            cs.setDate(4, fechaInicio);
+            cs.setDate(5, fechaFin);
+            cs.setInt(6, idEstadoProyecto);
+
+            // Itera sobre los empleados y agrega cada uno al procedimiento almacenado
+            for (Empleados empleado : empleadosProyecto) {
+                cs.setString(7, empleado.getNombre());
+                cs.setString(8, empleado.getDui());
+                cs.setString(9, empleado.getCorreo());
+                cs.setDouble(10, empleado.getSueldoDia());
+                cs.setDouble(11, empleado.getSueldoHora());
+                cs.setString(12, empleado.getCuentaBancaria());
+                cs.setInt(13, empleado.getIdcargo());
+
+                // Ejecuta el procedimiento almacenado para cada empleado
+                cs.execute();
+            }
+
+            System.out.println("Proyecto y empleados asociados agregados con éxito.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
+            System.err.println("Error SQL: " + e.getSQLState());
+            System.err.println("Código de error: " + e.getErrorCode());
+            System.err.println("Mensaje: " + e.getMessage());
+        }
+    }
+
+    public void setEmpleadosProyecto(ObservableList<Empleados> empleados) {
+        empleadosProyecto.clear();
+        empleadosProyecto.addAll(empleados);
+        System.out.println("Datos recibidos en ProyectosAgregarControlador: " + empleadosProyecto);
     }
 
 
@@ -205,76 +198,56 @@ public class ProyectosAgregarControlador {
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
-
-        // Eliminar la instancia actual del controlador
-        empleadosAsignadosControlador = null;
-
         stage.close();
     }
 
     //LLENAR
-    public void llenarComboEstado(ComboBox<String> Estado) throws SQLException {
-        ObservableList<String> items = FXCollections.observableArrayList();
-        Connection conectar = null;
-        PreparedStatement pst = null;
-        ResultSet result = null;
 
-        String SSQL = "select Estado_proyecto from tbEstadoProyectos";
 
-        try {
-            conectar = Conexion.obtenerConexion();
-            pst = conectar.prepareStatement(SSQL);
-            result = pst.executeQuery();
+    private void llenarComboEstado() {
+        // Crear una lista observable para almacenar los datos
+        ObservableList<String> data = FXCollections.observableArrayList();
 
-            while (result.next()) {
-                String nombre = result.getString("Estado_proyecto");
-                items.add(nombre);
+        // Conectar a la base de datos y recuperar los datos
+        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
+            String query = "select Estado_proyecto from tbEstadoProyectos"; // Reemplaza con tu consulta SQL
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Recorrer los resultados y agregarlos a la lista observable
+            while (resultSet.next()) {
+                String item = resultSet.getString("Estado_proyecto"); // Reemplaza con el nombre de la columna de tu tabla
+                data.add(item);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            // Cerrar recursos
-            if (result != null) {
-                result.close();
-            }
-            if (pst != null) {
-                pst.close();
-            }
-            if (conectar != null) {
-                conectar.close();
-            }
+            e.printStackTrace();
+            // Manejo de errores
         }
 
         // Asignar los datos al ComboBox
-        Estado.setItems(items);
+        cmEstado.setItems(data);
     }
 
-    public int IdRetornoEstado(String id) throws SQLException {
+
+    public int IdRetornoEstado(String Cargo) throws SQLException {
         Connection conectar = null;
         PreparedStatement pst = null;
         ResultSet result = null;
-        int gen = -1;
-
-
+        int idEstado = -1;
 
         String SSQL = "SELECT idEstadoProyecto FROM tbEstadoProyectos WHERE Estado_proyecto = ?";
 
-
-
         try {
             conectar = Conexion.obtenerConexion();
             pst = conectar.prepareStatement(SSQL);
-            pst.setString(1, id);
+            pst.setString(1, Cargo);
             result = pst.executeQuery();
 
-
-
             if (result.next()) {
-                gen = result.getInt("idEstadoProyecto");
+                idEstado = result.getInt("idEstadoProyecto");
+            } else {
+                System.err.println("El Estado seleccionado no existe en la base de datos.");
             }
-
-
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         } finally {
@@ -290,63 +263,56 @@ public class ProyectosAgregarControlador {
             }
         }
 
-
-
-        return gen;
+        return idEstado;
     }
 
-    public void llenarComboingACargo(ComboBox<String> Estado) throws SQLException {
-        ObservableList<String> items = FXCollections.observableArrayList();
-        Connection conectar = null;
-        PreparedStatement pst = null;
-        ResultSet result = null;
 
-        String SSQL = "SELECT nombreCompleto FROM tbempleados WHERE idcargo = 7";
 
-        try {
-            conectar = Conexion.obtenerConexion();
-            pst = conectar.prepareStatement(SSQL);
-            result = pst.executeQuery();
 
-            while (result.next()) {
-                String nombre = result.getString("nombreCompleto");
-                items.add(nombre);
+
+    private void llenarComboingACargo() {
+        // Crear una lista observable para almacenar los datos
+        ObservableList<String> data = FXCollections.observableArrayList();
+
+        // Conectar a la base de datos y recuperar los datos
+        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
+            String query = "SELECT nombreCompleto FROM tbempleados WHERE idcargo = 7"; // Reemplaza con tu consulta SQL
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Recorrer los resultados y agregarlos a la lista observable
+            while (resultSet.next()) {
+                String item = resultSet.getString("nombreCompleto"); // Reemplaza con el nombre de la columna de tu tabla
+                data.add(item);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            // Cerrar recursos
-            if (result != null) {
-                result.close();
-            }
-            if (pst != null) {
-                pst.close();
-            }
-            if (conectar != null) {
-                conectar.close();
-            }
+            e.printStackTrace();
+            // Manejo de errores
         }
 
         // Asignar los datos al ComboBox
-        Estado.setItems(items);
+        cmIngeniero.setItems(data);
     }
 
-    public int IdRetornoIngAcargo(String nombreEmpleado) throws SQLException {
+
+    public int IdRetornoIngAcargo(String inge) throws SQLException {
         Connection conectar = null;
         PreparedStatement pst = null;
         ResultSet result = null;
-        int gen = -1;
+        int idInge = -1;
 
         String SSQL = "SELECT idempleado FROM tbempleados WHERE nombreCompleto = ? AND idcargo = 7 AND idproyecto IS NULL";
 
         try {
             conectar = Conexion.obtenerConexion();
             pst = conectar.prepareStatement(SSQL);
-            pst.setString(1, nombreEmpleado);
+            pst.setString(1, inge);
             result = pst.executeQuery();
 
             if (result.next()) {
-                gen = result.getInt("idempleado");
+                idInge = result.getInt("idempleado");
+            } else {
+                System.err.println("El Inge seleccionado no existe en la base de datos.");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -363,8 +329,10 @@ public class ProyectosAgregarControlador {
             }
         }
 
-        return gen;
+        return idInge;
     }
+
+
 
     //Validaciones
     public void validaciones() {

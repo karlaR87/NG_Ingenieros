@@ -9,7 +9,7 @@ module com.example.ng_ingenieros {
     requires java.desktop;
     requires jasperreports;
     requires java.mail;
-    //requires java.mail;
+
 
 
     opens com.example.ng_ingenieros to javafx.fxml;

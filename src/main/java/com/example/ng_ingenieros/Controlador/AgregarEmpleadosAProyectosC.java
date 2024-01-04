@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,11 +34,11 @@ public class AgregarEmpleadosAProyectosC {
     @FXML
     private ComboBox<String> cbPlaza;
     @FXML
-    private TextField txtPagoHorasExEmp;
+    public TextField txtPagoHorasExEmp;
     @FXML
-    private TextField txtNumCuenta;
+    public TextField txtNumCuenta;
     @FXML
-    private TextField txtSueldoEmp;
+    public TextField txtSueldoEmp;
     @FXML
     private Button btnCancelar;
 
@@ -83,36 +84,84 @@ public class AgregarEmpleadosAProyectosC {
     }
 
 
+    public int IdRetornoCargo(String Cargo) throws SQLException {
+        Connection conectar = null;
+        PreparedStatement pst = null;
+        ResultSet result = null;
+        int idCargo = -1;
+
+        String SSQL = "SELECT idcargo FROM tbcargos WHERE cargo = ?";
+
+        try {
+            conectar = Conexion.obtenerConexion();
+            pst = conectar.prepareStatement(SSQL);
+            pst.setString(1, Cargo);
+            result = pst.executeQuery();
+
+            if (result.next()) {
+                idCargo = result.getInt("idcargo");
+            } else {
+                System.err.println("El cargo seleccionado no existe en la base de datos.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            // Cerrar recursos
+            if (result != null) {
+                result.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (conectar != null) {
+                conectar.close();
+            }
+        }
+
+        return idCargo;
+    }
+
+
 
     ///GUARDAR EN ARRAY
-    @FXML
-    private void agregarEmpleado(javafx.event.ActionEvent actionEvent){
-        //obtener todos los valores
-
+        @FXML
+        private void agregarEmpleado(javafx.event.ActionEvent actionEvent) {
+        // Obtener todos los valores
         String nombre = txtNombreEmp.getText();
         String dui = txtDuiEmp.getText();
         String correo = txtCorreoEmp.getText();
-        String cargo = cbCargoEmp.getValue();
+        String cargoNombre = cbCargoEmp.getValue();
         Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
         String numCuenta = txtNumCuenta.getText();
         Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
 
-// Crea una nueva instancia de Empleados y agrega a la lista observable
-        Empleados empleado = new Empleados(nombre, dui,correo,cargo,sueldoHora,numCuenta,sueldo);
-        empleados.add(empleado);
-// Imprime un mensaje en consola con todas las personas
-        System.out.println("Personas agregadas: " + empleado);
-// Después de utilizar los valores, limpiar los campos
-        txtNombreEmp.clear();
-        txtDuiEmp.clear();
-        txtCorreoEmp.clear();
-        cbCargoEmp.setValue(null);
-        txtPagoHorasExEmp.clear();
-        txtNumCuenta.clear();
-        txtSueldoEmp.clear();
+        try {
+            // Obtener el idcargo correspondiente al nombre seleccionado en el ComboBox
+            int idCargo = IdRetornoCargo(cargoNombre);
 
+            // Crear una nueva instancia de Empleados y agregar a la lista observable
+            Empleados empleado = new Empleados(nombre, dui, correo, idCargo, sueldoHora, numCuenta, sueldo);
+            empleados.add(empleado);
 
+            // Imprimir un mensaje en consola con todas las personas
+            System.out.println("Empleado agregado: " + empleado);
+
+            // Después de utilizar los valores, limpiar los campos
+            txtNombreEmp.clear();
+            txtDuiEmp.clear();
+            txtCorreoEmp.clear();
+            cbCargoEmp.setValue(null);
+            txtPagoHorasExEmp.clear();
+            txtNumCuenta.clear();
+            txtSueldoEmp.clear();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+            mostrarAlerta("Error", "Error al obtener el idcargo: " + e.getMessage());
+        }
     }
+//...
+
 
     private void Guardar(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
@@ -129,6 +178,10 @@ public class AgregarEmpleadosAProyectosC {
 
 
     public ObservableList<Empleados> getPersonas() {
+        return empleados;
+    }
+
+    public ObservableList<Empleados> getEmpleadosList() {
         return empleados;
     }
 

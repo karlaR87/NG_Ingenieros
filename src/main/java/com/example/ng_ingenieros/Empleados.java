@@ -16,20 +16,27 @@ public class Empleados {
 
     private String cuentaBancaria;
 
+    private String cargo;
+    private String plaza;
+    private String proyecto;
+
+    private int idplaza;
+    private int idcargo;
+    private boolean seleccionado;
+
+
     public static ObservableList<Empleados> empleados = FXCollections.observableArrayList();
 
-
-    public Empleados(String nombre, String dui, String correo, String cargo, Double pagoExtra, String numCuenta, Double sueldo) {
-        this.nombre = nombre;
-        this.dui = dui;
-        this.correo=correo;
-        this.cargo = cargo;
-
-        this.sueldoHora = pagoExtra;
-        this.cuentaBancaria=numCuenta;
-        this.sueldoDia = sueldo;
-    }
-
+//CONSTRUCTOR PARA EMPLEADOS DE PROYECTOS
+public Empleados(String nombre, String dui, String correo, int idCargo, Double pagoExtra, String numCuenta, Double sueldo) {
+    this.nombre = nombre;
+    this.dui = dui;
+    this.correo = correo;
+    this.idcargo = idCargo;
+    this.sueldoHora = pagoExtra;
+    this.cuentaBancaria = numCuenta;
+    this.sueldoDia = sueldo;
+}
 
     public Empleados(int id, String nombre, String dui, Double sueldoDia, Double sueldoHora, String cargo, String plazo) {
         this.id = id;
@@ -135,9 +142,7 @@ public class Empleados {
         this.proyecto = proyecto;
     }
 
-    private String cargo;
-    private String plaza;
-    private String proyecto;
+
 
     public int getIdplaza() {
         return idplaza;
@@ -147,7 +152,6 @@ public class Empleados {
         this.idplaza = idplaza;
     }
 
-    private int idplaza;
 
     public int getIdcargo() {
         return idcargo;
@@ -157,7 +161,6 @@ public class Empleados {
         this.idcargo = idcargo;
     }
 
-    private int idcargo;
 
 
     public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
@@ -172,7 +175,6 @@ public class Empleados {
         this.plaza = plaza;
     }
 
-    private boolean seleccionado;
 
     // Constructor que incluye el nuevo campo
     public Empleados(int id, String nombre, boolean seleccionado) {
@@ -192,9 +194,14 @@ public class Empleados {
 
     @Override
     public String toString() {
-        return "Personas{" +
+        return "Empleados{" +
                 "nombre='" + nombre + '\'' +
                 ", dui='" + dui + '\'' +
+                ", correo='" + correo + '\'' +
+                ", sueldoDia=" + sueldoDia +
+                ", sueldoHora=" + sueldoHora +
+                ", cuentaBancaria='" + cuentaBancaria + '\'' +
+                ", idcargo=" + idcargo +
                 '}';
     }
 }
