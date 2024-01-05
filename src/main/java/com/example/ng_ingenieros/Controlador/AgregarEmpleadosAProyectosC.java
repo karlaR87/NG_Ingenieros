@@ -59,6 +59,8 @@ public class AgregarEmpleadosAProyectosC {
 
     }
 
+
+
     private void CargarCargo() {
         // Crear una lista observable para almacenar los datos
         ObservableList<String> data = FXCollections.observableArrayList();

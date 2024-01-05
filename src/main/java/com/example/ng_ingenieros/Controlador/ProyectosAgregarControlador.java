@@ -71,6 +71,8 @@ public class ProyectosAgregarControlador {
 
         btnGestionar.setOnAction(this::AbrirGestion);
 
+
+
         btnGuardarProyecto.setOnAction(this::AgregarProyecto);
 
         llenarComboEstado();
@@ -172,10 +174,11 @@ public class ProyectosAgregarControlador {
                 cs.setDouble(11, empleado.getSueldoHora());
                 cs.setString(12, empleado.getCuentaBancaria());
                 cs.setInt(13, empleado.getIdcargo());
-
-                // Ejecuta el procedimiento almacenado para cada empleado
                 cs.execute();
+
             }
+
+            // Ejecuta el procedimiento almacenado una vez para todos los empleados
 
             System.out.println("Proyecto y empleados asociados agregados con éxito.");
         } catch (SQLException e) {
