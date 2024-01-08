@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="469.0" prefWidth="721.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.SalarioVistaControlador">
+<AnchorPane prefHeight="469.0" prefWidth="721.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.SalarioVistaControlador">
 
     <children>
         <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #DD890B; -fx-background-radius: 20;">
@@ -90,7 +84,7 @@
                 </ImageView>
             </children>
         </Pane>
-        <Button fx:id="btnEliminar" layoutX="194.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+        <Button fx:id="btnEliminar" layoutX="194.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="64.0" style="-fx-background-radius: 8;">
             <graphic>
                 <ImageView fx:id="btnEliminarAsist" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -99,7 +93,7 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Button fx:id="btnGenerarPlanillaReporte" layoutX="322.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnGenerarPlanillaReporte" layoutX="280.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="66.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fx:id="btnEliminarAsist1" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -111,11 +105,20 @@
       <TextField fx:id="txtNombreProyecto" layoutX="574.0" layoutY="116.0" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #2D3250;" />
       <Label layoutX="159.0" layoutY="120.0" prefHeight="17.0" prefWidth="392.0" text="Seleccione un empleado para poder registrar el proyecto para el reporte" textFill="WHITE" />
       <Label fx:id="lblIdProyecto" layoutX="586.0" layoutY="120.0" prefHeight="17.0" prefWidth="71.0" text="Label" textFill="#2d3250" />
-      <Button fx:id="btnConsolidarPago" layoutX="450.0" layoutY="396.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="77.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnConsolidarPago" layoutX="363.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="71.0" style="-fx-background-radius: 8;">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/botonpago.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnRefresh" layoutX="450.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="71.0" style="-fx-background-radius: 8;">
+         <graphic>
+            <ImageView fx:id="btnRefresh" fitHeight="54.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/refresh.png" />
                </image>
             </ImageView>
          </graphic>

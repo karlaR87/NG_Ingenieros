@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
 
@@ -27,7 +28,7 @@ public class EmpleadosControlador {
     private TextField txtBusqueda;
 
     @FXML
-    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp;
+    private Button btnAgregarEmp, btnEditarEmp, btnEliminarEmp, btnRefresh;
 
     public void initialize() {
         //configurarTabla();
@@ -35,6 +36,7 @@ public class EmpleadosControlador {
         btnEditarEmp.setOnAction(this::btnEditarOnAction);
         btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
         btnEliminarEmp.setOnAction(this::eliminardatos);
+        btnRefresh.setOnAction(this::refrescar);
 
         txtBusqueda.setOnKeyReleased(event -> {
 
@@ -102,6 +104,10 @@ public class EmpleadosControlador {
 
         eliminarEmpleado();
 
+    }
+
+    private void refrescar(javafx.event.ActionEvent actionEvent){
+        cargarDatos();
     }
 
 

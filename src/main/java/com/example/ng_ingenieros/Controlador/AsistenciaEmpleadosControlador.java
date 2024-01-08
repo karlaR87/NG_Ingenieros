@@ -74,6 +74,9 @@ public class AsistenciaEmpleadosControlador {
     private Button btncancelar;
 
     @FXML
+    private Button btnRefresh;
+
+    @FXML
     private Label lblidproyecto;
 
     private int idProyectoSeleccionado;
@@ -164,6 +167,14 @@ public class AsistenciaEmpleadosControlador {
             }
         });
 
+        btnRefresh.setOnAction(actionEvent -> {
+            try {
+                btnRefreshOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
 
     private void actualizarTxtTurno() {
@@ -215,6 +226,10 @@ public class AsistenciaEmpleadosControlador {
 
     private void btnMostrarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         abrirVentanaMostrar();
+    }
+
+    private void btnRefreshOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        cargarDatos();
     }
 
     private void btnCancelarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {

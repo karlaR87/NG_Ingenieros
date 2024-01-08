@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="353.0" prefWidth="575.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudCargosControlador">
+<AnchorPane prefHeight="353.0" prefWidth="575.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudCargosControlador">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="417.0" prefWidth="589.0" style="-fx-background-color: #2D3250;">
          <children>
@@ -35,7 +29,7 @@
                   </TableColumn>
                </columns>
             </TableView>
-            <Button fx:id="btnAgregarCargo" layoutX="206.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+            <Button fx:id="btnAgregarCargo" layoutX="175.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -44,7 +38,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEditarCargo" layoutX="269.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+            <Button fx:id="btnEditarCargo" layoutX="238.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,11 +47,20 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEliminarCargo" layoutX="333.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+            <Button fx:id="btnEliminarCargo" layoutX="302.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/btnEliminar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnRefresh" layoutX="364.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagenes/refresh.png" />
                      </image>
                   </ImageView>
                </graphic>

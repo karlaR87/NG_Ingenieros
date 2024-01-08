@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.sql.*;
@@ -17,7 +18,7 @@ public class CrudBancosControlador {
     @FXML
     private TableView tbBanco;
     @FXML
-    private Button btnAgregarBanco, btnEditarBanco, btnEliminarBanco, btnAtras;
+    private Button btnAgregarBanco, btnEditarBanco, btnEliminarBanco, btnRefresh;
     @FXML
     private TextField txtBusqueda;
 
@@ -29,6 +30,7 @@ public class CrudBancosControlador {
         btnAgregarBanco.setOnAction(this::btnAgregarBancoOnAction);
         btnEditarBanco.setOnAction(this::btnEditarBancoOnAction);
         btnEliminarBanco.setOnAction(this::btnEliminarOnAction);
+        btnRefresh.setOnAction(this::btnRefreshOnAction);
 
         cargarDatos();
 
@@ -92,6 +94,10 @@ public class CrudBancosControlador {
     private void btnEliminarOnAction(ActionEvent event){
         eliminarBanco();
 
+    }
+
+    private void btnRefreshOnAction(ActionEvent event){
+        cargarDatos();
     }
 
 

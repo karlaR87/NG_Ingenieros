@@ -24,7 +24,7 @@ public class AsistenciaDatosControlador {
     private Button btnEliminar;
 
     @FXML
-    private Button btnRegistrarSalarios, btnVerSalarios;
+    private Button btnRegistrarSalarios, btnVerSalarios, btnRefresh;
 
     private int idProyectoSeleccionado;
 
@@ -68,6 +68,14 @@ public class AsistenciaDatosControlador {
             }
         });
 
+        btnRefresh.setOnAction(actionEvent -> {
+            try {
+                btnRefreshOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         btnVerSalarios.setOnAction(actionEvent -> {
             try {
                 mostrarVentanaSalarioOnAction(actionEvent);
@@ -90,6 +98,10 @@ public class AsistenciaDatosControlador {
 
     private void btnActualizarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         abrirVentanaActualizar();
+    }
+
+    private void btnRefreshOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        cargarDatos();
     }
 
     private void btnMostrarSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -26,7 +27,7 @@ public class CrudCargosControlador {
     @FXML
     private TableView tbCargo;
     @FXML
-    private Button btnAgregarCargo, btnEditarCargo, btnEliminarCargo, btnAtras;
+    private Button btnAgregarCargo, btnEditarCargo, btnEliminarCargo, btnRefresh;
     @FXML
     private TextField txtBusqueda;
 
@@ -35,6 +36,7 @@ public class CrudCargosControlador {
         btnAgregarCargo.setOnAction(this::btnAgregarCargoOnAction);
         btnEditarCargo.setOnAction(this::btnEditarCargoOnAction);
         btnEliminarCargo.setOnAction(this::btnEliminarOnAction);
+        btnRefresh.setOnAction(this::btnRefreshOnAction);
 
         cargarDatos();
 
@@ -103,6 +105,10 @@ public class CrudCargosControlador {
     private void btnEliminarOnAction(ActionEvent event){
         eliminarCargo();
 
+    }
+
+    private void btnRefreshOnAction(ActionEvent event){
+        cargarDatos();
     }
 
     private void eliminarCargo() {

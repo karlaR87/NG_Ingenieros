@@ -21,7 +21,7 @@ public class SalarioVistaControlador {
     private TextField txtBusqueda, txtNombreProyecto;
 
     @FXML
-    private Button btnEliminar, btnGenerarPlanillaReporte, btnConsolidarPago;
+    private Button btnEliminar, btnGenerarPlanillaReporte, btnConsolidarPago, btnRefresh;
     @FXML
     private Label lblIdProyecto;
 
@@ -62,6 +62,15 @@ public class SalarioVistaControlador {
         btnEliminar.setOnAction(actionEvent -> {
             try {
                 btnEliminarOnAction(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+        btnRefresh.setOnAction(actionEvent -> {
+            try {
+                btnRefreshOnAction(actionEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -112,6 +121,10 @@ public class SalarioVistaControlador {
 
     private void btnEliminarOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
         eliminarSalario();
+    }
+
+    private void btnRefreshOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+        cargarDatos();
     }
 
     private void cargarDatos() {
