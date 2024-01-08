@@ -356,6 +356,15 @@ public class SalarioEmpleadoControlador {
 
             if (horasTrabajadas > 5) {
                 horasTrabajadas -= 1;
+                System.out.println(horasTrabajadas);
+            }
+            System.out.println(minutosEntrada);
+            System.out.println(minutosSalida);
+
+            if(minutosSalida < minutosEntrada)
+            {
+                horasTrabajadas-=1;
+                System.out.println(horasTrabajadas);
             }
 
             System.out.println("Horas trabajadas: " + horasTrabajadas);
