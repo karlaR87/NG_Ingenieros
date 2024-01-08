@@ -5,20 +5,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AdministrarControlador">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AdministrarControlador">
    <children>
       <Button fx:id="btnBancos" layoutX="110.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="128.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="180.0" fitWidth="396.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagenes/Bancos.png" />
+                  <Image url="@Imagenes/bi_bank.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnCargos" layoutX="378.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+      <Button fx:id="btnCargos" layoutX="489.0" layoutY="57.0" mnemonicParsing="false" prefWidth="181.0" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fitHeight="121.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="185.0" fitWidth="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/Cargos.png" />
                </image>
