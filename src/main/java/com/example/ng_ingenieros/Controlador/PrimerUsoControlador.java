@@ -74,18 +74,17 @@ public class PrimerUsoControlador {
         Connection connection = conexion.obtenerConexion();
 
         String user = txtUser.getText();
-        String correo = txtCorreo.getText();
+
         String contra = txtContraseña.getText();
         String confirmarCon = txtConfirmarContraseña.getText();
 
           //ahora crea un String para hacer la insercion
-        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, correo, idNivelUsuario) values(?,?,?,2);";
+        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idNivelUsuario) values(?,?,2);";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, contra);
-            preparedStatement.setString(3, correo);
             preparedStatement.executeUpdate();
 
             if (txtConfirmarContraseña.getText().equals(txtContraseña.getText())) {
@@ -119,13 +118,9 @@ public class PrimerUsoControlador {
     public void validaciones() {
         if (NoVacio(txtUser.getText()) && NoVacio(txtContraseña.getText())){
            if (validarLongitud(txtUser.getText(), 8, 20)){
-                if (validarCorreo(txtCorreo.getText())){
-                    registrardatos();
-                }
-                else {
-                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
 
-                }
+                    registrardatos();
+
 
            }    else {
                mostrarAlerta("Error de Validación", "La longitud de los campos debe estar entre 8 y 20 caracteres.");
