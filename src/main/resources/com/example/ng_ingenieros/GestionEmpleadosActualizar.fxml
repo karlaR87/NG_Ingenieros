@@ -52,6 +52,9 @@
       </Button>
       <TableView fx:id="tbEmpleados" layoutX="52.0" layoutY="102.0" prefHeight="264.0" prefWidth="649.0">
          <columns>
+            <TableColumn prefWidth="65.0" text="ID">
+               <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+            </TableColumn>
             <TableColumn prefWidth="75.0" text="Nombre">
                <cellValueFactory>
                   <PropertyValueFactory property="nombre" />
@@ -83,6 +86,12 @@
                </cellValueFactory>
             </TableColumn>
             <TableColumn prefWidth="75.0" text="sueldo_dia">
+               <cellValueFactory>
+                  <PropertyValueFactory property="sueldoDia" />
+               </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn prefWidth="75.0" text="Estado">
                <cellValueFactory>
                   <PropertyValueFactory property="sueldoDia" />
                </cellValueFactory>

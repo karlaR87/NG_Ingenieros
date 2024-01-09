@@ -17,6 +17,8 @@ public class Empleados {
     private String cuentaBancaria;
 
     private String cargo;
+    private String actividad;
+
     private String plaza;
     private String proyecto;
 
@@ -60,6 +62,27 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
         this.sueldoHora = sueldoHora;
         this.cargo = cargo;
         this.plaza = plaza;
+    }
+
+    public Empleados(String nombre, String dui, String corre, double sueldodia, double sueldohora, String cuenta, String cargo) {
+        this.nombre = nombre;
+        this.dui = dui;
+        this.correo = corre;
+        this.sueldoDia = sueldodia;
+
+        this.sueldoHora = sueldohora;
+        this.cuentaBancaria = cuenta;
+        this.cargo = cargo;
+
+
+    }
+
+    public String getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
     }
 
     public  int getId() {
@@ -175,9 +198,11 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
         this.plaza = plaza;
     }
 
+    //constructor para rmpledos de proyectos
+
+
 
     // Constructor de empleados a elegir
-
 
     public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo) {
         this.id = id;

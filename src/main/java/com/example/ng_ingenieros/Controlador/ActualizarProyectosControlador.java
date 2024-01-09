@@ -47,6 +47,13 @@ public class ActualizarProyectosControlador {
     @FXML
     private Button btnCancelar;
 
+    private int idProyecto;
+
+    public void setIdProyecto(int idProyecto) {
+        this.idProyecto = idProyecto;
+        System.out.println("ID del Proyecto establecido en ActualizarProyectosControlador: " + idProyecto);
+    }
+
     public void initialize() throws SQLException {
         cmIngeniero.setPromptText("Seleccionar Ingeniero a cargo");
         cmEstado.setPromptText("Seleccionar el estado");
@@ -58,6 +65,7 @@ public class ActualizarProyectosControlador {
         llenarComboEstado();
         llenarComboingACargo();
 
+        System.out.println("ID del Proyecto recibido: " + idProyecto);
 
     }
 
@@ -66,8 +74,16 @@ public class ActualizarProyectosControlador {
     private void gestionarEmpleados(ActionEvent event) {
         try {
             // Cargar la vista de GestionEmpleadosActualizar desde su archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/GestionEmpleadosActualizar.fxml")); // Reemplaza con la ruta correcta
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/GestionEmpleadosActualizar.fxml"));
             Parent root = loader.load();
+
+            // Obtener el controlador de la nueva ventana
+            GestionEmpleadosActualizarControlador gestionEmpleadosActualizarControlador = loader.getController();
+
+            // Establecer el ID del proyecto en el controlador de GestionEmpleadosActualizar
+            gestionEmpleadosActualizarControlador.setIdProyecto(idProyecto);
+            System.out.println("ID del Proyecto enviado a GestionEmpleadosActualizarControlador: " + idProyecto);
+
 
             // Crear un nuevo escenario (Stage)
             Stage stage = new Stage();
@@ -85,6 +101,7 @@ public class ActualizarProyectosControlador {
             e.printStackTrace();
         }
     }
+
     public void cargarDatosProyecto(Proyecto proyecto) {
         // Configura los campos de texto y otros elementos según la información del proyecto
         txtNombre.setText(proyecto.getNombre());
@@ -97,8 +114,10 @@ public class ActualizarProyectosControlador {
         dateInicio.setValue(LocalDate.parse(proyecto.getInicio()));
         dateFinalizacion.setValue(LocalDate.parse(proyecto.getFinal()));
 
-        // Puedes agregar lógica adicional según sea necesario
     }
+
+
+
 
     private void llenarComboEstado() {
         // Crear una lista observable para almacenar los datos

@@ -59,6 +59,9 @@ public class ProyectosControlador {
                 // Llamar a un método en el controlador de ActualizarProyectos para cargar la información del proyecto
                 actualizarProyectosControlador.cargarDatosProyecto(proyectoSeleccionado);
 
+
+                actualizarProyectosControlador.setIdProyecto(proyectoSeleccionado.getId());
+
                 // Crear un nuevo Stage
                 Stage stage = new Stage();
                 stage.setTitle("Actualizar Proyecto");
@@ -68,7 +71,8 @@ public class ProyectosControlador {
 
                 // Configurar el estilo para quitar la barra de título
                 stage.initStyle(StageStyle.UNDECORATED);
-
+                // Imprimir el ID del proyecto para verificar
+                System.out.println("ID del Proyecto antes de abrir la ventana de actualización: " + proyectoSeleccionado.getId());
                 stage.setScene(new Scene(root));
                 stage.showAndWait(); // Mostrar y esperar hasta que se cierre
             } catch (Exception e) {
