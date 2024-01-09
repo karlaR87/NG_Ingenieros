@@ -27,7 +27,8 @@ public class ProyectosControlador {
     private Button btnAgregar;
     @FXML
     private Button btnEmilinar;
-
+    @FXML
+    private Button btnEditar;
 
     @FXML
     private TableView<Proyecto> tbProyectos;
@@ -37,10 +38,43 @@ public class ProyectosControlador {
     public void initialize() {
         // Configura el evento de clic para el botón
         btnEmilinar.setOnAction(this::eliminarProyecto);
+        btnEditar.setOnAction(this::editarProyecto);
 
         btnAgregar.setOnAction(this::Abrir);
 
         cargarDatosProyectos();
+    }
+
+    public void editarProyecto(ActionEvent actionEvent) {
+        Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();
+        if (proyectoSeleccionado != null) {
+            try {
+                // Cargar el archivo FXML de ActualizarProyectos.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ActualizarProyectos.fxml"));
+                Parent root = loader.load();
+
+                // Obtener el controlador de la nueva ventana
+                ActualizarProyectosControlador actualizarProyectosControlador = loader.getController();
+
+                // Llamar a un método en el controlador de ActualizarProyectos para cargar la información del proyecto
+                actualizarProyectosControlador.cargarDatosProyecto(proyectoSeleccionado);
+
+                // Crear un nuevo Stage
+                Stage stage = new Stage();
+                stage.setTitle("Actualizar Proyecto");
+
+                // Configurar la modalidad (bloquea la ventana principal)
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                // Configurar el estilo para quitar la barra de título
+                stage.initStyle(StageStyle.UNDECORATED);
+
+                stage.setScene(new Scene(root));
+                stage.showAndWait(); // Mostrar y esperar hasta que se cierre
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void eliminarProyecto(ActionEvent actionEvent) {

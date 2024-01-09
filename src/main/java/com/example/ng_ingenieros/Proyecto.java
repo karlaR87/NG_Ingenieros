@@ -10,6 +10,7 @@ public class Proyecto{
     private String Final;
     private String estado;
 
+    private String ing;
 
     public int getId() {
         return id;
@@ -17,6 +18,14 @@ public class Proyecto{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getIng() {
+        return ing;
+    }
+
+    public void setIng(String ing) {
+        this.ing = ing;
     }
 
     public String getNombre() {
