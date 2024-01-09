@@ -101,10 +101,9 @@ public class RecuperacionContraseñaControlador {
             // Creación del mensaje
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(correoRemitente));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(destinatario));
-            message.setSubject("Recuperación obligame Contarseña");
-            message.setText("Este es el código para poder recuperar su contraseña " + codigoAleatorio );
+            message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinatario));
+            message.setSubject("Recuperación Contarseña");
+            message.setText("Codigo de verificación: " + codigoAleatorio );
 
             // Envío del mensaje
             Transport.send(message);
