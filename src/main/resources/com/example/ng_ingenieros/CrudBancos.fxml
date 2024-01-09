@@ -66,7 +66,7 @@
       </Pane>
       <Button fx:id="btnRefresh" layoutX="377.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fx:id="btnRefresh" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/refresh.png" />
                </image>
