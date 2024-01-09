@@ -2,14 +2,17 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosControlador">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #616E73;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ProyectosControlador">
    <children>
       <BorderPane layoutX="63.0" layoutY="138.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -28,11 +31,9 @@
             </Pane>
          </top>
          <center>
-            <Pane prefHeight="449.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutX="25.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
-                  <Pane layoutX="329.0" layoutY="24.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;" />
-                  <Button fx:id="btnAgregar" layoutX="14.0" layoutY="358.0" prefHeight="51.0" prefWidth="52.0" style="-fx-background-color: #616E73;">
+                  <Button fx:id="btnAgregar" layoutX="14.0" layoutY="449.0" prefHeight="51.0" prefWidth="52.0" style="-fx-background-color: #616E73;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0">
                            <image>
@@ -41,7 +42,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEditar" layoutX="70.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #616E73;">
+                  <Button fx:id="btnEditar" layoutX="69.0" layoutY="451.0" mnemonicParsing="false" style="-fx-background-color: #616E73;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -50,7 +51,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEmilinar" layoutX="126.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #616E73;">
+                  <Button fx:id="btnEmilinar" layoutX="125.0" layoutY="451.0" mnemonicParsing="false" style="-fx-background-color: #616E73;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -59,6 +60,38 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <TableView fx:id="tbProyectos" layoutX="69.0" layoutY="29.0" prefHeight="331.0" prefWidth="662.0">
+                     <columns>
+                        <TableColumn prefWidth="50.0" text="ID">
+                           <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="100.0" text="Nombre">
+                           <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="80.0" text="Lugar">
+                           <cellValueFactory><PropertyValueFactory property="lugar" /></cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="100.0" text="Horas a trabajar">
+                           <cellValueFactory><PropertyValueFactory property="horas" /></cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="80.0" text="Inicio">
+                           <cellValueFactory><PropertyValueFactory property="inicio" /></cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="80.0" text="Final">
+                           <cellValueFactory><PropertyValueFactory property="Final" /></cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="80.0" text="Estado">
+                           <cellValueFactory><PropertyValueFactory property="estado" /></cellValueFactory>
+                        </TableColumn>
+                     </columns>
+
+                  </TableView>
                </children>
             </Pane>
          </center>

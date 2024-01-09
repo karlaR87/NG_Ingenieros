@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProyectosAgregarControlador {
@@ -82,7 +83,6 @@ public class ProyectosAgregarControlador {
     }
 
 
-    // ... otros métodos ...
 
     public void setEmpleados(ObservableList<Empleados> empleados) {
         empleadosProyecto.addAll(empleados);
@@ -100,7 +100,6 @@ public class ProyectosAgregarControlador {
 
             // Pasa la lista actualizada de empleados
             empleadosAsignadosControlador.setEmpleadosProyecto(empleadosProyecto);
-            System.out.println("Hashcode del controlador: " + empleadosAsignadosControlador.hashCode());
 
             // Crear un nuevo Stage
             Stage stage = new Stage();
@@ -153,10 +152,23 @@ public class ProyectosAgregarControlador {
             return;
         }
 
+        // Obtener el nombre del ingeniero seleccionado en el ComboBox
+        String nombreIngeniero = cmIngeniero.getValue();
+
+        // Obtener el ID del ingeniero a cargo
+        int idIngeniero = -1;
+        try {
+            idIngeniero = IdRetornoIngAcargo(nombreIngeniero);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error al obtener el ID del ingeniero a cargo: " + e.getMessage());
+            return;
+        }
+
         //  información sobre los empleados a agregar
         System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
 
-        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
         try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
             cs.setString(1, nombreProyecto);
             cs.setString(2, lugarProyecto);
@@ -174,12 +186,12 @@ public class ProyectosAgregarControlador {
                 cs.setDouble(11, empleado.getSueldoHora());
                 cs.setString(12, empleado.getCuentaBancaria());
                 cs.setInt(13, empleado.getIdcargo());
-                cs.execute();
+                cs.setInt(14, idIngeniero); // Agregar el ID del ingeniero como último parámetro
 
+                cs.execute();
             }
 
             // Ejecuta el procedimiento almacenado una vez para todos los empleados
-
             System.out.println("Proyecto y empleados asociados agregados con éxito.");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,10 +202,10 @@ public class ProyectosAgregarControlador {
         }
     }
 
+
     public void setEmpleadosProyecto(ObservableList<Empleados> empleados) {
         empleadosProyecto.clear();
         empleadosProyecto.addAll(empleados);
-        System.out.println("Datos recibidos en ProyectosAgregarControlador: " + empleadosProyecto);
     }
 
 

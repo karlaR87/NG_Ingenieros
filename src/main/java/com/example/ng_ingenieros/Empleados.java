@@ -176,11 +176,18 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
     }
 
 
-    // Constructor que incluye el nuevo campo
-    public Empleados(int id, String nombre, boolean seleccionado) {
+    // Constructor de empleados a elegir
+
+
+    public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo) {
         this.id = id;
         this.nombre = nombre;
-        this.seleccionado = seleccionado;
+        this.dui = dui;
+        this.correo = correo;
+        this.sueldoDia = sueldoDia;
+        this.sueldoHora = sueldoHora;
+        this.cuentaBancaria = cuentaBancaria;
+        this.cargo = cargo;
     }
 
     // Getters y setters para el nuevo campo

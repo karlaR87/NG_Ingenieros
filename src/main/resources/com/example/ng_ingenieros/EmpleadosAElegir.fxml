@@ -58,11 +58,32 @@
                 <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
             </TableColumn>
 
-           <TableColumn prefWidth="50.0" text="Seleccionar">
-              <cellValueFactory><PropertyValueFactory property="checkBox" /></cellValueFactory>
-              <cellFactory>
-              </cellFactory>
+           <TableColumn prefWidth="565.0" text="Dui">
+              <cellValueFactory><PropertyValueFactory property="dui" /></cellValueFactory>
            </TableColumn>
+
+           <TableColumn prefWidth="565.0" text="Correo">
+              <cellValueFactory><PropertyValueFactory property="correo" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="565.0" text="Sueldo del dia">
+              <cellValueFactory><PropertyValueFactory property="sueldoDia" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="565.0" text="Sueldo por hora extra">
+              <cellValueFactory><PropertyValueFactory property="sueldoHora" /></cellValueFactory>
+           </TableColumn>
+           <TableColumn prefWidth="565.0" text="Numero de cuenta bancaria">
+              <cellValueFactory><PropertyValueFactory property="cuentaBancaria" /></cellValueFactory>
+           </TableColumn>
+
+           <TableColumn prefWidth="565.0" text="Cargo">
+              <cellValueFactory><PropertyValueFactory property="cargo" /></cellValueFactory>
+           </TableColumn>
+
+
+
+
         </columns>
       </TableView>
    </children>
