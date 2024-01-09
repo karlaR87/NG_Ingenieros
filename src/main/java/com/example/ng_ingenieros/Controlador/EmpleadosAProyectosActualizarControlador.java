@@ -139,7 +139,6 @@ public class EmpleadosAProyectosActualizarControlador {
                     if (validarDui(txtDuiEmp.getText())){
                         if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())){
 
-
                         }else {
                             mostrarAlerta("Error de Validación", "Ingrese solo números.");
                         }

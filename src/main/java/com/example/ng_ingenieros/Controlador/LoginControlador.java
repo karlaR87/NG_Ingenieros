@@ -163,7 +163,6 @@ public class LoginControlador {
                     }
                 }
                 else{
-
                     lbmensaje.setText("Credenciales no válidas");
                 }
 

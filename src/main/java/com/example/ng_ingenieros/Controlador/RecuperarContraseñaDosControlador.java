@@ -181,7 +181,7 @@ public class RecuperarContraseñaDosControlador {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(destinatario));
             message.setSubject("Recuperación obligame Contarseña");
-            message.setText("Este es el código para poder recuperar su contraseña " + codigoAleatorio );
+            message.setText("Codigo de verificacion: " + codigoAleatorio );
 
             // Envío del mensaje
             Transport.send(message);
