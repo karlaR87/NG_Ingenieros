@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
                     if(queryResult.getInt(1)==0){
                         try {
                             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("PrimerUsoEMP.fxml"));
-                            Scene scene = new Scene(fxmlLoader.load(), 360, 436); //width, heigth
+                            Scene scene = new Scene(fxmlLoader.load(), 787, 436); //width, heigth
                             stage.setTitle("NG Ingenieros");
                             stage.setScene(scene);
                             stage.show();
