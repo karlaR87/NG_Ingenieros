@@ -147,7 +147,7 @@ public class AsistenciaEmpleadosControlador {
 
         });
 
-        cmbAsistencia.setPromptText("Asistencio o inasistencia del empleado");
+        cmbAsistencia.setPromptText("Asistencia o inasistencia del empleado");
         CargarAsistencia();
 
         btnMostrar.setOnAction(actionEvent -> {

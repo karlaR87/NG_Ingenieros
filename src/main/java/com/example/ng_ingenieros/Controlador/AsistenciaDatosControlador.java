@@ -78,7 +78,7 @@ public class AsistenciaDatosControlador {
 
         btnVerSalarios.setOnAction(actionEvent -> {
             try {
-                mostrarVentanaSalarioOnAction(actionEvent);
+                mostrarVentanaSalario(actionEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -88,7 +88,7 @@ public class AsistenciaDatosControlador {
     public void setTableAsistencia(TableView<AsistenciaVista> TBMostrarAsistencia) {
         this.TBMostrarAsistencia = TBMostrarAsistencia;
     }
-    private void mostrarVentanaSalarioOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
+    private void mostrarVentanaSalario(javafx.event.ActionEvent actionEvent) throws IOException {
         mostrarVentanaSalario();
     }
 
