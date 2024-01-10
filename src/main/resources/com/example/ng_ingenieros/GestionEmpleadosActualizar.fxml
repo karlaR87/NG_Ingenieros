@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #485256;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.GestionEmpleadosActualizarControlador">
+   <children>
+      <Pane prefHeight="71.0" prefWidth="750.0" style="-fx-background-color: #40669F;">
+         <children>
+            <Label layoutX="280.0" layoutY="22.0" prefHeight="26.0" prefWidth="227.0" text="EMPLEADOS ASIGNADOS" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="18.0" />
+               </font>
+            </Label>
+            <Pane layoutY="68.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #1C3B69;" />
+         </children>
+      </Pane>
+      <Button fx:id="btnCancelar" layoutX="556.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.2368421107530594" green="0.23464912176132202" blue="0.23464912176132202" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="btnGuardar" layoutX="367.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #55AF64;" text="Guardar" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.2368421107530594" green="0.23464912176132202" blue="0.23464912176132202" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <TableView fx:id="tbEmpleados" layoutX="52.0" layoutY="102.0" prefHeight="264.0" prefWidth="649.0">
+         <columns>
+            <TableColumn prefWidth="65.0" text="ID">
+               <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Nombre">
+               <cellValueFactory>
+                  <PropertyValueFactory property="nombre" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Dui">
+               <cellValueFactory>
+                  <PropertyValueFactory property="dui" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Correo">
+               <cellValueFactory>
+                  <PropertyValueFactory property="correo" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Idcargo">
+               <cellValueFactory>
+                  <PropertyValueFactory property="cargo" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Sueldo_horaExt">
+               <cellValueFactory>
+                  <PropertyValueFactory property="sueldoHora" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="NumeroCuenta">
+               <cellValueFactory>
+                  <PropertyValueFactory property="cuentaBancaria" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="sueldo_dia">
+               <cellValueFactory>
+                  <PropertyValueFactory property="sueldoDia" />
+               </cellValueFactory>
+            </TableColumn>
+
+            <TableColumn prefWidth="75.0" text="Estado">
+               <cellValueFactory>
+                  <PropertyValueFactory property="sueldoDia" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <Button fx:id="btnAgregar2" layoutX="14.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnAgregar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnEliminar" layoutX="80.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/btnEliminar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

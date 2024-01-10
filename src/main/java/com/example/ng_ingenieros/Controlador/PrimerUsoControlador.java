@@ -15,10 +15,10 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,6 +56,60 @@ public class PrimerUsoControlador {
     public static boolean NoVacio(String input) {
         return !input.trim().isEmpty();
     }
+    private static String contraseñaEncriptada;
+    public void contraseña()  {
+        String contraseña = txtContraseña.getText();
+        contraseñaEncriptada = encriptarContraseña(contraseña);
+        System.out.println("Contraseña original: " + contraseña);
+        System.out.println("Contraseña encriptada: " + contraseñaEncriptada);
+    }
+
+    public static String encriptarContraseña(String contraseña) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(contraseña.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexHash = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexHash.append('0');
+                }
+                hexHash.append(hex);
+            }
+
+            return hexHash.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private static String nombreemp;
+    public static void setnombre(String nombre) {
+        nombreemp = nombre;
+    }
+    private int obteneridempleado() {
+        int idempleado = -1; // Valor predeterminado en caso de error o no selección
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String sql = "SELECT idempleado FROM tbempleados WHERE nombreCompleto = '" + nombreemp+"';" ;
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idempleado = rs.getInt("idempleado");
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idempleado;
+    }
+
 
     public void initialize() {
         // Configura el evento de clic para el botón
@@ -72,21 +126,21 @@ public class PrimerUsoControlador {
     public void registrardatos(){
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
+        contraseña();
 
         String user = txtUser.getText();
-        String correo = txtCorreo.getText();
-        String contra = txtContraseña.getText();
+        String contra = contraseñaEncriptada;
         String confirmarCon = txtConfirmarContraseña.getText();
-
-          //ahora crea un String para hacer la insercion
-        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, correo, idNivelUsuario) values(?,?,?,2);";
-
+        int idempledo = obteneridempleado();
+        //hora crea un String para hacer la insercion
+        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idempleado) values(?,?,"+idempledo+");";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, contra);
-            preparedStatement.setString(3, correo);
+
             preparedStatement.executeUpdate();
+            contraseña();
 
             if (txtConfirmarContraseña.getText().equals(txtContraseña.getText())) {
                 try {
@@ -94,7 +148,7 @@ public class PrimerUsoControlador {
                     Parent root = loader.load();
 
                     Stage stage = new Stage();
-                    stage.setTitle("Login");
+                    stage.setTitle("Registrarse");
 
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -110,22 +164,16 @@ public class PrimerUsoControlador {
 
         } catch (Exception e){
             e.printStackTrace();
-
-
         }
     }
+
 
 
     public void validaciones() {
         if (NoVacio(txtUser.getText()) && NoVacio(txtContraseña.getText())){
            if (validarLongitud(txtUser.getText(), 8, 20)){
-                if (validarCorreo(txtCorreo.getText())){
                     registrardatos();
-                }
-                else {
-                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
 
-                }
 
            }    else {
                mostrarAlerta("Error de Validación", "La longitud de los campos debe estar entre 8 y 20 caracteres.");

@@ -6,11 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -24,7 +21,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javafx.scene.control.CheckBox;
 
 public class LoginControlador {
 
@@ -48,7 +44,8 @@ public class LoginControlador {
         btnRegistrar.setOnAction(this::btnRegistrarOnAction);
         btnContraseña.setOnAction(this::btnContraseñaOnAction);
     }
-    private void btnContraseñaOnAction(ActionEvent event){
+
+    private void btnContraseñaOnAction(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperacionContraseña.fxml"));
             Parent root = loader.load();
@@ -66,13 +63,13 @@ public class LoginControlador {
     // Método para abrir una nueva ventana
     private void btnIngresarOnAction(ActionEvent event) {
 
-        if (txtUsuario.getText().isBlank() == false && txtContraseña.getText().isBlank() == false){
+        if (txtUsuario.getText().isBlank() == false && txtContraseña.getText().isBlank() == false) {
             validatelogin();
         }
 
     }
 
-   private void btnRegistrarOnAction(ActionEvent event){
+    private void btnRegistrarOnAction(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Registrarse.fxml"));
             Parent root = loader.load();
@@ -80,6 +77,7 @@ public class LoginControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            ((Stage) txtUsuario.getScene().getWindow()).close();
             stage.show();
 
         } catch (Exception e) {
@@ -103,7 +101,8 @@ public class LoginControlador {
     }*/
 
     private static String contraseñaEncriptada;
-    public void contraseña()  {
+
+    public void contraseña() {
         String contraseña = txtContraseña.getText();
         contraseñaEncriptada = encriptarContraseña(contraseña);
         System.out.println("Contraseña original: " + contraseña);
@@ -130,7 +129,8 @@ public class LoginControlador {
             return null;
         }
     }
-    public void validatelogin(){
+
+    public void validatelogin() {
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
         contraseña();
@@ -144,8 +144,8 @@ public class LoginControlador {
             ResultSet queryResult = preparedStatement.executeQuery();
 
 
-            while(queryResult.next()){
-                if(queryResult.getInt(1)==1){
+            while (queryResult.next()) {
+                if (queryResult.getInt(1) == 1) {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
                         Parent root = loader.load();
@@ -161,17 +161,14 @@ public class LoginControlador {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                else{
-
-                    lbmensaje.setText("Credenciales no válidas");
+                } else {
+                    mostrarAlerta("Error", "Las contraseña o el usuario es incorrecto");
                 }
 
             }
 
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }
@@ -191,6 +188,11 @@ public class LoginControlador {
 
         }*/
 
-
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
-
+}

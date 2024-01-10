@@ -74,25 +74,7 @@ public class EmpleadosAProyectosActualizarControlador {
 
     @FXML
     private void guardar(ActionEvent event) {
-
-        // Actualiza los datos del empleado con los valores de los campos del formulario
-        if (empleadoParaActualizar != null) {
-            empleadoParaActualizar.setNombre(txtNombreEmp.getText());
-            empleadoParaActualizar.setDui(txtDuiEmp.getText());
-            empleadoParaActualizar.setCorreo(txtCorreoEmp.getText());
-            empleadoParaActualizar.setCargo(cbCargoEmp.getValue());
-            empleadoParaActualizar.setSueldoHora(Double.parseDouble(txtPagoHorasExEmp.getText()));
-            empleadoParaActualizar.setCuentaBancaria(txtNumCuenta.getText());
-            empleadoParaActualizar.setSueldoDia(Double.parseDouble(txtSueldoEmp.getText()));
-        }
-
-
-        // Imprimir en la consola los datos actualizados
-        System.out.println("Datos actualizados: " + empleadoParaActualizar.toString());
-
-        // Cierra la ventana después de guardar cambios
-        cerrarVentana(event);
-
+        validaciones();
     }
     @FXML
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
@@ -138,7 +120,22 @@ public class EmpleadosAProyectosActualizarControlador {
                 if (validarCorreo(txtCorreoEmp.getText())){
                     if (validarDui(txtDuiEmp.getText())){
                         if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())){
+                            // Actualiza los datos del empleado con los valores de los campos del formulario
+                            if (empleadoParaActualizar != null) {
+                                empleadoParaActualizar.setNombre(txtNombreEmp.getText());
+                                empleadoParaActualizar.setDui(txtDuiEmp.getText());
+                                empleadoParaActualizar.setCorreo(txtCorreoEmp.getText());
+                                empleadoParaActualizar.setCargo(cbCargoEmp.getValue());
+                                empleadoParaActualizar.setSueldoHora(Double.parseDouble(txtPagoHorasExEmp.getText()));
+                                empleadoParaActualizar.setCuentaBancaria(txtNumCuenta.getText());
+                                empleadoParaActualizar.setSueldoDia(Double.parseDouble(txtSueldoEmp.getText()));
+                            }
 
+
+                            // Imprimir en la consola los datos actualizados
+                            System.out.println("Datos actualizados: " + empleadoParaActualizar.toString());
+
+                            // Cierra la ventana después de guardar cambios
 
                         }else {
                             mostrarAlerta("Error de Validación", "Ingrese solo números.");

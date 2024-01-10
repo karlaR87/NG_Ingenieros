@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.List;
 
 public class EmpleadosAsignadosControlador {
 
@@ -63,14 +64,15 @@ public class EmpleadosAsignadosControlador {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ProyectosAgregar.fxml"));
             Parent root = loader.load();
 
-            // Accede al controlador de la nueva ventana
+            // Acceso al controlador de la nueva ventana
             ProyectosAgregarControlador proyectosAgregarControlador = loader.getController();
 
-            // Pasa la lista de empleados al controlador de "ProyectosAgregarControlador"
+            //  la lista de empleados al controlador de "ProyectosAgregarControlador"
             proyectosAgregarControlador.setEmpleadosProyecto(empleados);
 
-            // Imprime mensaje de depuración
             System.out.println("Datos enviados a ProyectosAgregarControlador.");
+
+
 
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
@@ -80,8 +82,15 @@ public class EmpleadosAsignadosControlador {
             e.printStackTrace();
         }
     }
+    public void setEmpleadoselect(List<Empleados> nuevosEmpleados) {
+        empleados.addAll(nuevosEmpleados);
+        tbEmpleados.setItems(empleados);
 
+    }
 
+    public List<Empleados> getEmpleadosAElegirProyecto() {
+        return empleados;
+    }
 
     private void abrirActualizar(ActionEvent event) {
         // Obtiene el empleado seleccionado
@@ -190,18 +199,23 @@ public class EmpleadosAsignadosControlador {
             // Configurar la modalidad (bloquea la ventana principal)
             stageNueva.initModality(Modality.APPLICATION_MODAL);
             stageNueva.initStyle(StageStyle.UNDECORATED);
+
+
             // Accede al controlador de la nueva ventana
-            EmpleadosAElegirControlador empleados = loader.getController();
+            EmpleadosAElegirControlador empleadosAElegir = loader.getController();
 
             stageNueva.setScene(new Scene(root));
             // Muestra la nueva ventana
             stageNueva.showAndWait();
 
+            // Agrega las personas desde agregarPersonasController a la lista
+            empleados.addAll(empleadosAElegir.getEmpleadosAElegir());
+
+            // Actualiza la tabla con las personas
+            tbEmpleados.setItems(empleados);
 
             // Cierra la ventana de AgregarPersonasController
             stageNueva.close();
-
-
         }
 
      catch (IOException e) {
@@ -221,7 +235,7 @@ public class EmpleadosAsignadosControlador {
         empleados.setAll(empleadosProyecto);
         tbEmpleados.setItems(empleados);
 
-        System.out.println("Datos recibidos en EmpleadosAsignadosControlador: " + empleadosProyecto);
+        System.out.println("Datos recibidos de empleados nuevo en EmpleadosAsignadosControlador: " + empleadosProyecto);
         System.out.println("Número de empleados recibidos: " + empleados.size());
     }
 

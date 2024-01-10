@@ -260,7 +260,7 @@ public class RegistrarseSegundoControlador {
                registrardatos();
 
            } else {
-               mostrarAlerta("Error de Validación", "La longitud de los campos debe estar entre 8 y 20 caracteres.");
+               mostrarAlerta("Error de Validación", "La longitud del nombre de usuario debe estar entre 8 y 20 caracteres.");
            }
 
        } else  {

@@ -24,7 +24,10 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProyectosAgregarControlador {
     @FXML
@@ -82,7 +85,6 @@ public class ProyectosAgregarControlador {
     }
 
 
-    // ... otros métodos ...
 
     public void setEmpleados(ObservableList<Empleados> empleados) {
         empleadosProyecto.addAll(empleados);
@@ -100,7 +102,6 @@ public class ProyectosAgregarControlador {
 
             // Pasa la lista actualizada de empleados
             empleadosAsignadosControlador.setEmpleadosProyecto(empleadosProyecto);
-            System.out.println("Hashcode del controlador: " + empleadosAsignadosControlador.hashCode());
 
             // Crear un nuevo Stage
             Stage stage = new Stage();
@@ -128,72 +129,13 @@ public class ProyectosAgregarControlador {
 
     @FXML
     private void AgregarProyecto(ActionEvent actionEvent) {
-        Connection conn = Conexion.obtenerConexion();
-        System.out.println("Conexión establecida correctamente.");
-
-        String nombreProyecto = txtNombre.getText();
-        String lugarProyecto = txtLugar.getText();
-        int horasTrabajo = Integer.parseInt(txtHoras.getText());
-        Date fechaInicio = Date.valueOf(dateInicio.getValue());
-        Date fechaFin = Date.valueOf(dateFinalizacion.getValue());
-
-        // Obtener el ID del estado del proyecto
-        int idEstadoProyecto = -1;
-        try {
-            idEstadoProyecto = IdRetornoEstado(cmEstado.getValue());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Error al obtener el ID del estado del proyecto: " + e.getMessage());
-            return;
-        }
-
-        // Verifica si hay empleados a agregar
-        if (empleadosProyecto.isEmpty()) {
-            System.err.println("Error: No hay empleados para agregar al proyecto.");
-            return;
-        }
-
-        //  información sobre los empleados a agregar
-        System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
-
-        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
-        try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
-            cs.setString(1, nombreProyecto);
-            cs.setString(2, lugarProyecto);
-            cs.setInt(3, horasTrabajo);
-            cs.setDate(4, fechaInicio);
-            cs.setDate(5, fechaFin);
-            cs.setInt(6, idEstadoProyecto);
-
-            // Itera sobre los empleados y agrega cada uno al procedimiento almacenado
-            for (Empleados empleado : empleadosProyecto) {
-                cs.setString(7, empleado.getNombre());
-                cs.setString(8, empleado.getDui());
-                cs.setString(9, empleado.getCorreo());
-                cs.setDouble(10, empleado.getSueldoDia());
-                cs.setDouble(11, empleado.getSueldoHora());
-                cs.setString(12, empleado.getCuentaBancaria());
-                cs.setInt(13, empleado.getIdcargo());
-                cs.execute();
-
-            }
-
-            // Ejecuta el procedimiento almacenado una vez para todos los empleados
-
-            System.out.println("Proyecto y empleados asociados agregados con éxito.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
-            System.err.println("Error SQL: " + e.getSQLState());
-            System.err.println("Código de error: " + e.getErrorCode());
-            System.err.println("Mensaje: " + e.getMessage());
-        }
+        validaciones();
     }
+
 
     public void setEmpleadosProyecto(ObservableList<Empleados> empleados) {
         empleadosProyecto.clear();
         empleadosProyecto.addAll(empleados);
-        System.out.println("Datos recibidos en ProyectosAgregarControlador: " + empleadosProyecto);
     }
 
 
@@ -338,18 +280,123 @@ public class ProyectosAgregarControlador {
 
 
     //Validaciones
+
+    //Validaciones
     public void validaciones() {
-        if (NoVacio(txtNombre.getText()) && NoVacio(txtHoras.getText()) && NoVacio(txtLugar.getText())){
+        if (NoVacio(txtNombre.getText()) && NoVacio(txtLugar.getText()) && NoVacio(txtHoras.getText())){
+                if (validarLetras(txtNombre.getText())){
+                    if (validarNumeroS(txtHoras.getText())){
+                        Connection conn = Conexion.obtenerConexion();
+                        System.out.println("Conexión establecida correctamente.");
+
+                        String nombreProyecto = txtNombre.getText();
+                        String lugarProyecto = txtLugar.getText();
+                        int horasTrabajo = Integer.parseInt(txtHoras.getText());
+                        Date fechaInicio = Date.valueOf(dateInicio.getValue());
+                        Date fechaFin = Date.valueOf(dateFinalizacion.getValue());
+
+                        // Obtener el ID del estado del proyecto
+                        int idEstadoProyecto = -1;
+                        try {
+                            idEstadoProyecto = IdRetornoEstado(cmEstado.getValue());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            System.err.println("Error al obtener el ID del estado del proyecto: " + e.getMessage());
+                            return;
+                        }
+
+                        // Verifica si hay empleados a agregar
+                        if (empleadosProyecto.isEmpty()) {
+                            System.err.println("Error: No hay empleados para agregar al proyecto.");
+                            return;
+                        }
+
+                        // Obtener el nombre del ingeniero seleccionado en el ComboBox
+                        String nombreIngeniero = cmIngeniero.getValue();
+
+                        // Obtener el ID del ingeniero a cargo
+                        int idIngeniero = -1;
+                        try {
+                            idIngeniero = IdRetornoIngAcargo(nombreIngeniero);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            System.err.println("Error al obtener el ID del ingeniero a cargo: " + e.getMessage());
+                            return;
+                        }
+
+                        //  información sobre los empleados a agregar
+                        System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
+
+                        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                        try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
+                            cs.setString(1, nombreProyecto);
+                            cs.setString(2, lugarProyecto);
+                            cs.setInt(3, horasTrabajo);
+                            cs.setDate(4, fechaInicio);
+                            cs.setDate(5, fechaFin);
+                            cs.setInt(6, idEstadoProyecto);
+
+                            // Itera sobre los empleados y agrega cada uno al procedimiento almacenado
+                            for (Empleados empleado : empleadosProyecto) {
+                                cs.setString(7, empleado.getNombre());
+                                cs.setString(8, empleado.getDui());
+                                cs.setString(9, empleado.getCorreo());
+                                cs.setDouble(10, empleado.getSueldoDia());
+                                cs.setDouble(11, empleado.getSueldoHora());
+                                cs.setString(12, empleado.getCuentaBancaria());
+                                cs.setInt(13, empleado.getIdcargo());
+                                cs.setInt(14, idIngeniero); // Agregar el ID del ingeniero como último parámetro
+
+                                cs.execute();
+                            }
+
+                            // Ejecuta el procedimiento almacenado una vez para todos los empleados
+                            System.out.println("Proyecto y empleados asociados agregados con éxito.");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
+                            System.err.println("Error SQL: " + e.getSQLState());
+                            System.err.println("Código de error: " + e.getErrorCode());
+                            System.err.println("Mensaje: " + e.getMessage());
+                        }
+
+                } else{
+                    mostrarAlerta("Error de Validación", "Solo se pueden ingresar numeros en el nombre.");
+                }
+
+            } else {
+                mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
+
+            }
 
         }else {
             mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
         }
 
-
     }
 
-
     //Validaciones
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarNumeroc(String input) {
+        return input.matches("[0-9\\-]+");
+    }
+    public static boolean validarNumeroS(String input) {
+        return input.matches("[0-9.]+");    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z ]+");
+    }
+
+    public static boolean validarCorreo(String input) {
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
     public static boolean NoVacio(String input) {
         return !input.trim().isEmpty();
     }
@@ -360,6 +407,13 @@ public class ProyectosAgregarControlador {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
+    private boolean validarDui(String dui) {
+        // Se puede implementar una lógica más avanzada según el formato real de DUI
+        return dui.matches("\\d{8}-\\d{1}");
+    }
+
 
 
 }
