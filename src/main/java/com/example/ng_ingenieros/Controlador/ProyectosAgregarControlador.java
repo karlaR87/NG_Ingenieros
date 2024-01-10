@@ -246,12 +246,17 @@ public class ProyectosAgregarControlador {
         ResultSet result = null;
         int idInge = -1;
 
-        String SSQL = "SELECT idempleado FROM tbempleados WHERE nombreCompleto = ? AND idcargo = 7 AND idproyecto IS NULL";
+        String SSQL = "SELECT e.idempleado " +
+                "FROM tbempleados e " +
+                "LEFT JOIN tbEmpleadosProyectos ep ON e.idempleado = ep.idempleado " +
+                "LEFT JOIN tbProyectos p ON ep.idProyecto = p.idproyecto " +
+                "WHERE e.idcargo = 7 " +
+                "  AND (ep.idproyecto IS NULL OR p.idEstadoProyecto = 2) " +
+                "  AND e.idactividad = 2;";
 
         try {
             conectar = Conexion.obtenerConexion();
             pst = conectar.prepareStatement(SSQL);
-            pst.setString(1, inge);
             result = pst.executeQuery();
 
             if (result.next()) {
@@ -260,7 +265,7 @@ public class ProyectosAgregarControlador {
                 System.err.println("El Inge seleccionado no existe en la base de datos.");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace(); // Imprime la excepción en lugar de mostrar un diálogo de mensaje
         } finally {
             // Cerrar recursos
             if (result != null) {
@@ -276,6 +281,7 @@ public class ProyectosAgregarControlador {
 
         return idInge;
     }
+
 
 
 
@@ -345,19 +351,18 @@ public class ProyectosAgregarControlador {
                                 cs.setDouble(11, empleado.getSueldoHora());
                                 cs.setString(12, empleado.getCuentaBancaria());
                                 cs.setInt(13, empleado.getIdcargo());
-                                cs.setInt(14, idIngeniero); // Agregar el ID del ingeniero como último parámetro
+                                cs.setInt(14, idIngeniero);
 
                                 cs.execute();
                             }
+
 
                             // Ejecuta el procedimiento almacenado una vez para todos los empleados
                             System.out.println("Proyecto y empleados asociados agregados con éxito.");
                         } catch (SQLException e) {
                             e.printStackTrace();
                             System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
-                            System.err.println("Error SQL: " + e.getSQLState());
-                            System.err.println("Código de error: " + e.getErrorCode());
-                            System.err.println("Mensaje: " + e.getMessage());
+
                         }
 
                 } else{

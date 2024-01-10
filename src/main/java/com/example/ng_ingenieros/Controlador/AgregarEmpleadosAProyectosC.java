@@ -75,6 +75,9 @@ public class AgregarEmpleadosAProyectosC {
             while (resultSet.next()) {
                 String item = resultSet.getString("cargo"); // Reemplaza con el nombre de la columna de tu tabla
                 data.add(item);
+
+                empleados.forEach(emp -> emp.setCargo(item));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,6 +146,8 @@ public class AgregarEmpleadosAProyectosC {
 
             // Crear una nueva instancia de Empleados y agregar a la lista observable
             Empleados empleado = new Empleados(nombre, dui, correo, idCargo, sueldoHora, numCuenta, sueldo);
+            empleado.setCargo(cargoNombre); // Establecer el nombre del cargo
+
             empleados.add(empleado);
 
             // Imprimir un mensaje en consola con todas las personas
