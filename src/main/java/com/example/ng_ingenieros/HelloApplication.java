@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
                 while(queryResult.next()){
                     if(queryResult.getInt(1)==0){
                         try {
-                            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("PrimerUsoEMP.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuPrincipal.fxml"));
                             Scene scene = new Scene(fxmlLoader.load(), 360, 436); //width, heigth
                             stage.setTitle("NG Ingenieros");
                             stage.setScene(scene);
@@ -38,7 +38,7 @@ public class HelloApplication extends Application {
                         }
                     }
                     else{
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuPrincipal.fxml"));
                         Scene scene = new Scene(fxmlLoader.load(), 727, 458); //width, heigth
                         stage.setTitle("NG Ingenieros");
                         stage.setScene(scene);

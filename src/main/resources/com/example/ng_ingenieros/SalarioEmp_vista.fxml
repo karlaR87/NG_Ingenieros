@@ -116,7 +116,7 @@
       </Button>
       <Button fx:id="btnRefresh" layoutX="450.0" layoutY="397.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="71.0" style="-fx-background-radius: 8;">
          <graphic>
-            <ImageView fx:id="btnRefresh" fitHeight="54.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="" fitHeight="54.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/refresh.png" />
                </image>
