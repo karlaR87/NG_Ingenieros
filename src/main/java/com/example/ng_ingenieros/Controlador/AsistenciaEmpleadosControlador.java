@@ -356,7 +356,7 @@ public class AsistenciaEmpleadosControlador {
                 String nombre = rs.getString("nombreCompleto");
                 int idproyecto = rs.getInt("idproyecto");
                 String nombr = rs.getString("nombre_proyecto");
-                String nombra = rs.getString("Actividad");
+                String nombra = rs.getString("Actividad"); //codigo
 
 
                 TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr, nombra));
