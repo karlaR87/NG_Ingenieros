@@ -341,9 +341,10 @@ public class AsistenciaEmpleadosControlador {
     private void cargarDatos() {
         TbAsistencia.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement statement = conn.prepareStatement("select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto from tbEmpleadosProyectos id\n" +
+             PreparedStatement statement = conn.prepareStatement("select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto, act.Actividad from tbEmpleadosProyectos id\n" +
                      "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
-                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto WHERE idpro.idproyecto = ?")) {
+                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto\n" +
+                     "inner join tbActividad act on act.idactividad = idemp.idactividad WHERE idpro.idproyecto = ? AND act.Actividad = 'Activo'")) {
 
             // Establece el ID del proyecto en la consulta SQL
             statement.setInt(1, idProyectoSeleccionado);
@@ -355,9 +356,10 @@ public class AsistenciaEmpleadosControlador {
                 String nombre = rs.getString("nombreCompleto");
                 int idproyecto = rs.getInt("idproyecto");
                 String nombr = rs.getString("nombre_proyecto");
+                String nombra = rs.getString("Actividad");
 
 
-                TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr));
+                TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr, nombra));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -369,10 +371,10 @@ public class AsistenciaEmpleadosControlador {
         TbAsistencia.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto " +
-                     "FROM tbEmpleadosProyectos id " +
-                     "INNER JOIN tbempleados idemp ON idemp.idempleado = id.idEmpleado " +
-                     "INNER JOIN tbProyectos idpro ON idpro.idproyecto = id.idProyecto " +
+             PreparedStatement stmt = conn.prepareStatement("select idemp.idEmpleado, idemp.nombreCompleto, idpro.idProyecto, idpro.nombre_proyecto, act.Actividad from tbEmpleadosProyectos id\n" +
+                     "inner join tbempleados idemp on idemp.idempleado = id.idEmpleado\n" +
+                     "inner join tbProyectos idpro on idpro.idproyecto = id.idProyecto\n" +
+                     "inner join tbActividad act on act.idactividad = idemp.idactividad " +
                      "WHERE idpro.idproyecto = ? " +
                      "AND (idemp.nombreCompleto LIKE ? OR idpro.nombre_proyecto LIKE ?)")) {
 
@@ -391,9 +393,10 @@ public class AsistenciaEmpleadosControlador {
                 String nombre = rs.getString("nombreCompleto");
                 int idproyecto = rs.getInt("idproyecto");
                 String nombr = rs.getString("nombre_proyecto");
+                String nombra = rs.getString("Actividad");
 
 
-                TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr));
+                TbAsistencia.getItems().add(new AsistenciaVista(id, nombre, idproyecto, nombr, nombra));
 
             }
         } catch (Exception e) {

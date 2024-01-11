@@ -42,7 +42,7 @@ public class AsistenciaVista {
 
     private String nombreProyecto;
 
-
+    private String actividad;
 
     public String getNombreProyecto() {
         return nombreProyecto;
@@ -117,12 +117,20 @@ public class AsistenciaVista {
         this.turno = turno;
     }
 
-    public AsistenciaVista(int idE, String idempleado, int idproyecto, String nombreProyecto) {
+    public String getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(String actividad) {
+        this.actividad = actividad;
+    }
+
+
+    public AsistenciaVista(int idE, String idempleado, int idproyecto, String nombreProyecto, String actividad) {
         this.idE = idE;
         this.idempleado = idempleado;
         this.idproyecto = idproyecto;
         this.nombreProyecto = nombreProyecto;
+        this.actividad = actividad;
     }
-
-
 }
