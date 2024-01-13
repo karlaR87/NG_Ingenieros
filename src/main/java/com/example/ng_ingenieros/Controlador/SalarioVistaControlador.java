@@ -105,13 +105,14 @@ public class SalarioVistaControlador {
 
     private void generarReportePagos(javafx.event.ActionEvent actionEvent) {
         try {
-            String rutaInforme = "/ConsolidadoPagos.jasper"; // Ruta relativa al archivo .jasper
+            String rutaInforme = "/ConsolidadoPagos.jasper";  // Ruta relativa al archivo .jasper
             InputStream inputStream = getClass().getResourceAsStream(rutaInforme);
 
             if (inputStream != null) {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, null, Conexion.obtenerConexion());
                 JasperViewer.viewReport(jasperPrint, false);
             } else {
+
                 System.out.println("No se pudo cargar el archivo del informe");
             }
         } catch (JRException e) {
