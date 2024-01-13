@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #485256;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.GestionProyectosControlador">
+   <children>
+      <AnchorPane layoutX="-6.0" prefHeight="700.0" prefWidth="900.0">
+         <children>
+            <Pane layoutX="-7.0" prefHeight="58.0" prefWidth="916.0" style="-fx-background-color: #DD890B; -fx-background-radius: 0;">
+               <children>
+                  <Pane layoutX="-2.0" layoutY="55.0" prefHeight="7.0" prefWidth="916.0" style="-fx-background-color: #9E5F00;" />
+                  <Label layoutX="280.0" layoutY="10.0" prefHeight="38.0" prefWidth="190.0" text="PROYECTO" textAlignment="RIGHT" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="btnGuardarProyecto" layoutX="275.0" layoutY="623.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.34210526943206787" green="0.32151558995246887" blue="0.32151558995246887" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button fx:id="btnCancelar" layoutX="469.0" layoutY="623.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.3815789520740509" green="0.3674463927745819" blue="0.3674463927745819" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Label layoutX="483.0" layoutY="102.0" prefHeight="17.0" prefWidth="55.0" text="Lugar:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbLugar" layoutX="549.0" layoutY="102.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbProyecto" layoutX="251.0" layoutY="102.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbHoras" layoutX="323.0" layoutY="214.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="147.0" layoutY="214.0" prefHeight="30.0" prefWidth="158.0" text="Horas de trabajo:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="483.0" layoutY="158.0" prefHeight="30.0" prefWidth="150.0" text="Fecha de Inicio:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbInicio" layoutX="635.0" layoutY="157.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="147.0" layoutY="158.0" prefHeight="30.0" prefWidth="205.0" text="Fecha de Finalización:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbFinal" layoutX="347.0" layoutY="158.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="483.0" layoutY="214.0" prefHeight="30.0" prefWidth="205.0" text="Estado del proyecto:" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="147.0" layoutY="102.0" prefHeight="30.0" prefWidth="93.0" text="Proyecto: " textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmEstado" layoutX="680.0" layoutY="216.0" prefHeight="26.0" prefWidth="144.0" />
+            <TableView fx:id="tbEmpleados" layoutX="145.0" layoutY="293.0" prefHeight="215.0" prefWidth="649.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Nombre">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="nombre" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Dui">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="dui" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Correo">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="correo" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Idcargo">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="cargo" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Sueldo_horaExt">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="sueldoHora" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="NumeroCuenta">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="cuentaBancaria" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="sueldo_dia">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="sueldoDia" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <TableColumn prefWidth="75.0" text="Actividad">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="Actividad" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+            </TableView>
+            <ComboBox fx:id="cmbActividad" layoutX="230.0" layoutY="543.0" prefWidth="150.0" />
+            <Button fx:id="btnCambio" layoutX="518.0" layoutY="539.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="135.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Cambiar" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.40789473056793213" green="0.40789473056793213" blue="0.40789473056793213" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>

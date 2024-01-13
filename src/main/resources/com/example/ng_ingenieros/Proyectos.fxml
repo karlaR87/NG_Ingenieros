@@ -61,36 +61,36 @@
                      </graphic>
                   </Button>
                   <TableView fx:id="tbProyectos" layoutX="69.0" layoutY="29.0" prefHeight="331.0" prefWidth="662.0">
-                     <columns>
-                        <TableColumn prefWidth="50.0" text="ID">
-                           <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
-                        </TableColumn>
+                    <columns>
 
-                        <TableColumn prefWidth="100.0" text="Nombre">
-                           <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
-                        </TableColumn>
+                       <TableColumn prefWidth="50.0" text="ID">
+                          <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+                       </TableColumn>
+                       <TableColumn prefWidth="565.0" text="Nombre">
+                          <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
+                       </TableColumn>
 
-                        <TableColumn prefWidth="80.0" text="Lugar">
-                           <cellValueFactory><PropertyValueFactory property="lugar" /></cellValueFactory>
-                        </TableColumn>
+                       <TableColumn prefWidth="50.0" text="Lugar">
+                          <cellValueFactory><PropertyValueFactory property="lugar" /></cellValueFactory>
+                       </TableColumn>
 
-                        <TableColumn prefWidth="100.0" text="Horas a trabajar">
-                           <cellValueFactory><PropertyValueFactory property="horas" /></cellValueFactory>
-                        </TableColumn>
+                       <TableColumn prefWidth="50.0" text="Horas a trabajar">
+                          <cellValueFactory><PropertyValueFactory property="horas" /></cellValueFactory>
+                       </TableColumn>
 
-                        <TableColumn prefWidth="80.0" text="Inicio">
-                           <cellValueFactory><PropertyValueFactory property="inicio" /></cellValueFactory>
-                        </TableColumn>
+                       <TableColumn prefWidth="50.0" text="Inicio">
+                          <cellValueFactory><PropertyValueFactory property="inicio" /></cellValueFactory>
+                       </TableColumn>
 
-                        <TableColumn prefWidth="80.0" text="Final">
-                           <cellValueFactory><PropertyValueFactory property="Final" /></cellValueFactory>
-                        </TableColumn>
+                       <TableColumn prefWidth="50.0" text="Final">
+                          <cellValueFactory><PropertyValueFactory property="final" /></cellValueFactory>
+                       </TableColumn>
 
-                        <TableColumn prefWidth="80.0" text="Estado">
-                           <cellValueFactory><PropertyValueFactory property="estado" /></cellValueFactory>
-                        </TableColumn>
-                     </columns>
+                       <TableColumn prefWidth="50.0" text="Estado">
+                          <cellValueFactory><PropertyValueFactory property="estado" /></cellValueFactory>
+                       </TableColumn>
 
+                    </columns>
                   </TableView>
                </children>
             </Pane>

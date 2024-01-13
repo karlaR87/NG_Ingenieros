@@ -52,9 +52,6 @@
       </Button>
       <TableView fx:id="tbEmpleados" layoutX="52.0" layoutY="102.0" prefHeight="264.0" prefWidth="649.0">
          <columns>
-            <TableColumn prefWidth="65.0" text="ID">
-               <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
-            </TableColumn>
             <TableColumn prefWidth="75.0" text="Nombre">
                <cellValueFactory>
                   <PropertyValueFactory property="nombre" />
@@ -90,12 +87,12 @@
                   <PropertyValueFactory property="sueldoDia" />
                </cellValueFactory>
             </TableColumn>
-
-            <TableColumn prefWidth="75.0" text="Estado">
+            <TableColumn prefWidth="75.0" text="Actividad">
                <cellValueFactory>
-                  <PropertyValueFactory property="sueldoDia" />
+                  <PropertyValueFactory property="Actividad" />
                </cellValueFactory>
             </TableColumn>
+
          </columns>
       </TableView>
       <Button fx:id="btnAgregar2" layoutX="14.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #485256;">
