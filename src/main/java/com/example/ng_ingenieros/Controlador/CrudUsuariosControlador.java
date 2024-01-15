@@ -3,7 +3,6 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 
-import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Usuarios;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,26 +18,26 @@ import java.io.IOException;
 import java.sql.*;
 
 public class CrudUsuariosControlador {
-@FXML
+    @FXML
     private TableView<Usuarios> TBUsuarios;
-@FXML
-    private Button  btnEditarUser, btnEliminarUser, btnRefresh, btnVerContra;
-@FXML
+    @FXML
+    private Button btnEditarUser, btnEliminarUser, btnRefresh, btnVerContra;
+    @FXML
     private TextField txtBusqueda;
 
 
+    public void initialize() {
+        btnEliminarUser.setOnAction(this::eliminardatos);
+        btnEditarUser.setOnAction(this::btnEditarOnAction);
+        txtBusqueda.setOnKeyReleased(event -> {
 
-public void initialize(){
-    btnEliminarUser.setOnAction(this::eliminardatos);
-    btnEditarUser.setOnAction(this::btnEditarOnAction);
-    txtBusqueda.setOnKeyReleased(event -> {
+            buscarDatos(txtBusqueda.getText());
 
-        buscarDatos(txtBusqueda.getText());
+        });
+        cargarDatos();
 
-    });
-    cargarDatos();
+    }
 
-}
     public void setTableUsuarios(TableView<Usuarios> TBUsuarios) {
         this.TBUsuarios = TBUsuarios;
     }
@@ -75,16 +74,15 @@ public void initialize(){
 
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
         eliminarUsuario();
+
     }
 
 
-
-
-    public void cargarDatos(){
+    public void cargarDatos() {
 
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select u.idUsuario, u.nombreUsuario, u.contraseña, nu.usuario, emp.nombreCompleto  from tbusuarios u\n" +
+             ResultSet rs = stmt.executeQuery("select u.idUsuario,emp.idempleado, u.nombreUsuario, u.contraseña, nu.usuario, emp.nombreCompleto  from tbusuarios u\n" +
                      "inner join tbNivelesUsuario nu on nu.idNivelUsuario = u.idNivelUsuario\n" +
                      "inner join tbempleados emp on emp.idempleado = u.idempleado ")) {
 
@@ -94,12 +92,11 @@ public void initialize(){
                 String contraU = rs.getString("contraseña");
                 String nombreEMP = rs.getString("nombreCompleto");
                 String NivelU = rs.getString("usuario");
-
-
+                int idEmp = rs.getInt("idempleado");
 
 
                 // Agregar los datos a la tabla
-                TBUsuarios.getItems().add(new Usuarios(idU, nombreU, contraU, NivelU, nombreEMP));
+                TBUsuarios.getItems().add(new Usuarios(idU, nombreU, contraU, NivelU, nombreEMP, idEmp));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,14 +107,14 @@ public void initialize(){
         TBUsuarios.getItems().clear(); // Limpiar los elementos actuales de la tabla
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement stmt = conn.prepareStatement("select u.idUsuario, u.nombreUsuario, u.contraseña, nu.usuario, emp.nombreCompleto  from tbusuarios u\n" +
+             PreparedStatement stmt = conn.prepareStatement("select u.idUsuario, emp.idempleado u.nombreUsuario, u.contraseña, nu.usuario, emp.nombreCompleto  from tbusuarios u\n" +
                      "inner join tbNivelesUsuario nu on nu.idNivelUsuario = u.idNivelUsuario \n" +
                      "inner join tbempleados emp on emp.idempleado = u.idempleado \n" +
-                     "WHERE emp.nombreCompleto LIKE ? OR nu.usuario LIKE ? OR u.nombreUsuario LIKE ? OR u.contraseña LIKE ?")) {
+                     "WHERE emp.nombreCompleto LIKE ? OR nu.usuario LIKE ? OR emp.idusuario LIKE ? or u.nombreUsuario LIKE ? OR u.contraseña LIKE ?")) {
 
             // Preparar el parámetro de búsqueda para la consulta SQL
             String parametroBusqueda = "%" + busqueda + "%";
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1; i <= 5; i++) {
                 stmt.setString(i, parametroBusqueda);
             }
 
@@ -129,12 +126,11 @@ public void initialize(){
                 String contraU = rs.getString("contraseña");
                 String nombreEMP = rs.getString("nombreCompleto");
                 String NivelU = rs.getString("usuario");
-
-
+                int idEmp = rs.getInt("idempleado");
 
 
                 // Agregar los datos a la tabla
-                TBUsuarios.getItems().add(new Usuarios(idU, nombreU, contraU, NivelU, nombreEMP));
+                TBUsuarios.getItems().add(new Usuarios(idU, nombreU, contraU, NivelU, nombreEMP, idEmp));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,19 +139,23 @@ public void initialize(){
 
     private void eliminarUsuario() {
         // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
-        int idUsuario = obtenerIdEmpleadoSeleccionado();
-
+        int idUsuario = obtenerIdUsuarioSeleccionado();
+        int idempleado = obtenerIdEmpleadoSeleccionado();
         try (Connection connection = Conexion.obtenerConexion()) {
-            String sql = "DELETE FROM tbusuarios WHERE idUsuario = ?";
+            String sql = "DELETE FROM tbusuarios WHERE idUsuario = ?\n"+
+                    "DELETE FROM tbempleados WHERE idempleado = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, idUsuario);
+            statement.setInt(2, idempleado);
+
+
 
             int filasAfectadas = statement.executeUpdate();
             if (filasAfectadas > 0) {
-                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos", "Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
 
             } else {
-                agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
+                agregar_empleadosControlador.mostrarAlerta("Alerta", "No se encontro ningun empleado", Alert.AlertType.WARNING);
             }
             TBUsuarios.getItems().clear();
             cargarDatos();
@@ -167,11 +167,25 @@ public void initialize(){
 
 
 
-    private int obtenerIdEmpleadoSeleccionado() {
+
+
+
+    private int obtenerIdUsuarioSeleccionado() {
         Usuarios empleadoSeleccionado = TBUsuarios.getSelectionModel().getSelectedItem();
 
         if (empleadoSeleccionado != null) {
             return empleadoSeleccionado.getIdUsuario();
+        } else {
+            return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
+        }
+    }
+
+    private int obtenerIdEmpleadoSeleccionado() {
+        Usuarios empleadoSeleccionado = TBUsuarios.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            return empleadoSeleccionado.getIdEmpleado();
+
         } else {
             return -1; // Retorna un valor que indique que no se ha seleccionado ningún proyecto.
         }

@@ -14,6 +14,16 @@ public class Usuarios {
 
     private String nombreEmp;
 
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    private int idEmpleado;
+
     public int getIdUsuario() {
         return IdUsuario;
     }
@@ -54,11 +64,12 @@ public class Usuarios {
         this.nombreEmp = nombreEmp;
     }
 
-    public Usuarios(int idU, String nombreU, String contraU, String nivelU, String nombreEMP) {
+    public Usuarios(int idU,  String nombreU, String contraU, String nivelU, String nombreEMP, int idEmp) {
     this.IdUsuario = idU;
     this.nombreUser = nombreU;
     this.contraUser = contraU;
     this.NivelUser = nivelU;
     this.nombreEmp = nombreEMP;
+    this.idEmpleado = idEmp;
     }
 }
