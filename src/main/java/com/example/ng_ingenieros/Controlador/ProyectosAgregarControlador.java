@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.EventObject;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -33,8 +34,7 @@ public class ProyectosAgregarControlador {
     @FXML
     private Button btnCancelar;
 
-    @FXML
-    private ComboBox<String> cmEstado;
+
     @FXML
     private ComboBox<String> cmIngeniero;
 
@@ -69,7 +69,6 @@ public class ProyectosAgregarControlador {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::cerrarVentana);
         cmIngeniero.setPromptText("Seleccionar Ingeniero a cargo");
-        cmEstado.setPromptText("Seleccionar el estado");
 
 
         btnGestionar.setOnAction(this::AbrirGestion);
@@ -129,7 +128,7 @@ public class ProyectosAgregarControlador {
 
     @FXML
     private void AgregarProyecto(ActionEvent actionEvent) {
-        validaciones();
+        validaciones(actionEvent);
     }
 
 
@@ -169,8 +168,6 @@ public class ProyectosAgregarControlador {
             // Manejo de errores
         }
 
-        // Asignar los datos al ComboBox
-        cmEstado.setItems(data);
     }
 
 
@@ -246,12 +243,17 @@ public class ProyectosAgregarControlador {
         ResultSet result = null;
         int idInge = -1;
 
-        String SSQL = "SELECT idempleado FROM tbempleados WHERE nombreCompleto = ? AND idcargo = 7 AND idproyecto IS NULL";
+        String SSQL = "SELECT e.idempleado " +
+                "FROM tbempleados e " +
+                "LEFT JOIN tbEmpleadosProyectos ep ON e.idempleado = ep.idempleado " +
+                "LEFT JOIN tbProyectos p ON ep.idProyecto = p.idproyecto " +
+                "WHERE e.idcargo = 7 " +
+                "  AND (ep.idproyecto IS NULL OR p.idEstadoProyecto = 2) " +
+                "  AND e.idactividad = 2;";
 
         try {
             conectar = Conexion.obtenerConexion();
             pst = conectar.prepareStatement(SSQL);
-            pst.setString(1, inge);
             result = pst.executeQuery();
 
             if (result.next()) {
@@ -260,7 +262,7 @@ public class ProyectosAgregarControlador {
                 System.err.println("El Inge seleccionado no existe en la base de datos.");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace(); // Imprime la excepción en lugar de mostrar un diálogo de mensaje
         } finally {
             // Cerrar recursos
             if (result != null) {
@@ -279,10 +281,11 @@ public class ProyectosAgregarControlador {
 
 
 
+
     //Validaciones
 
     //Validaciones
-    public void validaciones() {
+    public void validaciones(javafx.event.ActionEvent actionEvent) {
         if (NoVacio(txtNombre.getText()) && NoVacio(txtLugar.getText()) && NoVacio(txtHoras.getText())){
                 if (validarLetras(txtNombre.getText())){
                     if (validarNumeroS(txtHoras.getText())){
@@ -296,14 +299,7 @@ public class ProyectosAgregarControlador {
                         Date fechaFin = Date.valueOf(dateFinalizacion.getValue());
 
                         // Obtener el ID del estado del proyecto
-                        int idEstadoProyecto = -1;
-                        try {
-                            idEstadoProyecto = IdRetornoEstado(cmEstado.getValue());
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            System.err.println("Error al obtener el ID del estado del proyecto: " + e.getMessage());
-                            return;
-                        }
+
 
                         // Verifica si hay empleados a agregar
                         if (empleadosProyecto.isEmpty()) {
@@ -327,38 +323,41 @@ public class ProyectosAgregarControlador {
                         //  información sobre los empleados a agregar
                         System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
 
-                        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                         try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
                             cs.setString(1, nombreProyecto);
                             cs.setString(2, lugarProyecto);
                             cs.setInt(3, horasTrabajo);
                             cs.setDate(4, fechaInicio);
                             cs.setDate(5, fechaFin);
-                            cs.setInt(6, idEstadoProyecto);
 
                             // Itera sobre los empleados y agrega cada uno al procedimiento almacenado
                             for (Empleados empleado : empleadosProyecto) {
-                                cs.setString(7, empleado.getNombre());
-                                cs.setString(8, empleado.getDui());
-                                cs.setString(9, empleado.getCorreo());
-                                cs.setDouble(10, empleado.getSueldoDia());
-                                cs.setDouble(11, empleado.getSueldoHora());
-                                cs.setString(12, empleado.getCuentaBancaria());
-                                cs.setInt(13, empleado.getIdcargo());
-                                cs.setInt(14, idIngeniero); // Agregar el ID del ingeniero como último parámetro
+                                cs.setString(6, empleado.getNombre());
+                                cs.setString(7, empleado.getDui());
+                                cs.setString(8, empleado.getCorreo());
+                                cs.setDouble(9, empleado.getSueldoDia());
+                                cs.setDouble(10, empleado.getSueldoHora());
+                                cs.setString(11, empleado.getCuentaBancaria());
+                                cs.setInt(12, empleado.getIdcargo());
+                                cs.setInt(13, idIngeniero);
 
                                 cs.execute();
                             }
 
+
                             // Ejecuta el procedimiento almacenado una vez para todos los empleados
-                            System.out.println("Proyecto y empleados asociados agregados con éxito.");
+                            mostrarAlerta("Éxito", "Proyecto y empleados asociados agregados con éxito.");
                         } catch (SQLException e) {
                             e.printStackTrace();
                             System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
-                            System.err.println("Error SQL: " + e.getSQLState());
-                            System.err.println("Código de error: " + e.getErrorCode());
-                            System.err.println("Mensaje: " + e.getMessage());
+                            // Mostrar mensaje de error
+                            mostrarAlerta("Error", "Error al agregar el proyecto y empleados. Consulta la consola para más detalles.");
                         }
+
+                        Node source = (Node) actionEvent.getSource();
+                        Stage stage = (Stage) source.getScene().getWindow();
+                        stage.close();
 
                 } else{
                     mostrarAlerta("Error de Validación", "Solo se pueden ingresar numeros en el nombre.");

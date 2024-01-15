@@ -42,8 +42,52 @@ public class ProyectosControlador {
 
         btnAgregar.setOnAction(this::Abrir);
 
+        tbProyectos.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                // Detecta el doble clic y llama a la función para abrir la ventana
+                abrirVentanaDetalle();
+            }
+        });
+
         cargarDatosProyectos();
     }
+
+    private void abrirVentanaDetalle() {
+        Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();
+        if (proyectoSeleccionado != null) {
+            try {
+                // Cargar el archivo FXML de la ventana de detalles
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/GestionProyectos.fxml"));
+                Parent root = loader.load();
+
+                // Obtener el controlador de la nueva ventana
+                GestionProyectosControlador detallesControlador = loader.getController();
+
+                // Pasar los datos del proyecto seleccionado al controlador de detalles
+                detallesControlador.cargarDatosProyecto(proyectoSeleccionado);
+
+                // Pasar el ID del proyecto a través del nuevo método
+                detallesControlador.setIdProyectoDesdeVentanaPrincipal(proyectoSeleccionado.getId());
+
+                // Crear un nuevo Stage
+                Stage stage = new Stage();
+                stage.setTitle("Detalles del Proyecto");
+
+                // Configurar la modalidad (bloquea la ventana principal)
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                // Configurar el estilo para quitar la barra de título
+                stage.initStyle(StageStyle.UNDECORATED);
+
+                stage.setScene(new Scene(root));
+                stage.showAndWait(); // Mostrar y esperar hasta que se cierre
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
     public void editarProyecto(ActionEvent actionEvent) {
         Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();

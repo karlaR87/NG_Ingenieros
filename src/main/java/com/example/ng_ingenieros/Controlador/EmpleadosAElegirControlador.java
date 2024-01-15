@@ -46,7 +46,48 @@ public class EmpleadosAElegirControlador {
 
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("  SELECT e.idempleado, e.nombreCompleto, e.dui, e.correo, e.sueldo_dia, e.sueldo_horaExt, e.numero_cuentabancaria, e.idcargo FROM tbempleados e WHERE e.idempleado NOT IN (SELECT idempleado FROM tbEmpleadosProyectos WHERE idProyecto IS NOT NULL) OR (e.idempleado IN (SELECT ep.idempleado FROM tbEmpleadosProyectos ep INNER JOIN tbProyectos p ON ep.idProyecto = p.idproyecto WHERE p.idEstadoProyecto = 2) OR e.idactividad = 2);")) {
+             ResultSet rs = stmt.executeQuery("\t SELECT\n" +
+                     "  e.idempleado,\n" +
+                     "  e.nombreCompleto,\n" +
+                     "  e.dui,\n" +
+                     "  e.correo,\n" +
+                     "  COALESCE(e.sueldo_dia, 0) AS sueldo_dia,\n" +
+                     "  COALESCE(e.sueldo_horaExt, 0) AS sueldo_horaExt,\n" +
+                     "  e.numero_cuentabancaria,\n" +
+                     "  cargo.cargo AS nombreCargo\n" +
+                     "FROM\n" +
+                     "  tbempleados e\n" +
+                     "  LEFT JOIN tbcargos cargo ON e.idcargo = cargo.idcargo\n" +
+                     "WHERE\n" +
+                     "  NOT EXISTS (\n" +
+                     "    SELECT\n" +
+                     "      1\n" +
+                     "    FROM\n" +
+                     "      tbEmpleadosProyectos ep\n" +
+                     "    WHERE\n" +
+                     "      ep.idempleado = e.idempleado\n" +
+                     "      AND ep.idProyecto IS NOT NULL\n" +
+                     "  )\n" +
+                     "  OR (\n" +
+                     "    e.idempleado IN (\n" +
+                     "      SELECT\n" +
+                     "        ep.idempleado\n" +
+                     "      FROM\n" +
+                     "        tbEmpleadosProyectos ep\n" +
+                     "        INNER JOIN tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
+                     "      WHERE\n" +
+                     "        p.idEstadoProyecto = 2\n" +
+                     "    )\n" +
+                     "    OR e.idactividad = 2\n" +
+                     "  )\n" +
+                     "  AND e.idempleado NOT IN (\n" +
+                     "    SELECT\n" +
+                     "      idempleado\n" +
+                     "    FROM\n" +
+                     "      tbEmpleadosProyectos\n" +
+                     "    WHERE\n" +
+                     "      idProyecto IS NOT NULL\n" +
+                     "  );")) {
 
             // Crear columnas dinámicamente
             ObservableList<TableColumn<Empleados, ?>> columnas = tbEmpleados.getColumns();
@@ -100,7 +141,7 @@ public class EmpleadosAElegirControlador {
                 double sueldodia = Double.parseDouble(rs.getString("sueldo_dia"));
                 double sueldohora = Double.parseDouble(rs.getString("sueldo_horaExt"));
                 String cuenta = rs.getString("numero_cuentabancaria");
-                String cargo = rs.getString("idcargo");
+                String cargo = rs.getString("nombreCargo");
 
 
                 tbEmpleados.getItems().add(new Empleados(id, nombre, dui, corre, sueldodia, sueldohora, cuenta,cargo));

@@ -19,6 +19,9 @@ public class Empleados {
     private String cargo;
     private String actividad;
 
+    private int idactividad;
+
+
     private String plaza;
     private String proyecto;
 
@@ -54,16 +57,8 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
     }
 
 
-    public Empleados(int id, String nombre, String dui, double sueldoDia, double sueldoHora, String cargo, String plaza) {
-        this.id = id;
-        this.nombre = nombre;
-        this.dui = dui;
-        this.sueldoDia = sueldoDia;
-        this.sueldoHora = sueldoHora;
-        this.cargo = cargo;
-        this.plaza = plaza;
-    }
 
+///d
     public Empleados(String nombre, String dui, String corre, double sueldodia, double sueldohora, String cuenta, String cargo) {
         this.nombre = nombre;
         this.dui = dui;
@@ -75,6 +70,26 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
         this.cargo = cargo;
 
 
+    }
+    //constructo para gestionEmpleadosActualizar y gestion proyecto
+    public Empleados(int id, String nombre, String dui, String correo,  double sueldoHora,double sueldoDia ,String cuentaBancaria, String cargo, String actividad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.dui = dui;
+        this.correo = correo;
+        this.sueldoHora = sueldoHora;
+        this.sueldoDia = sueldoDia;
+        this.cuentaBancaria = cuentaBancaria;
+        this.cargo = cargo;
+        this.actividad = actividad;
+    }
+
+    public int getIdactividad() {
+        return idactividad;
+    }
+
+    public void setIdactividad(int idactividad) {
+        this.idactividad = idactividad;
     }
 
     public String getActividad() {
@@ -186,20 +201,9 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
 
 
 
-    public Empleados(int id, String nombre, String dui, String correo, double sueldoDia, double sueldoHora, String cuentaBancaria, String cargo, String plaza) {
-        this.id = id;
-        this.nombre = nombre;
-        this.dui = dui;
-        this.correo = correo;
-        this.sueldoDia = sueldoDia;
-        this.sueldoHora = sueldoHora;
-        this.cuentaBancaria = cuentaBancaria;
-        this.cargo = cargo;
-        this.plaza = plaza;
-    }
+
 
     //constructor para rmpledos de proyectos
-
 
 
     // Constructor de empleados a elegir
@@ -214,6 +218,7 @@ public Empleados(String nombre, String dui, String correo, int idCargo, Double p
         this.cuentaBancaria = cuentaBancaria;
         this.cargo = cargo;
     }
+
 
     // Getters y setters para el nuevo campo
     public boolean isSeleccionado() {

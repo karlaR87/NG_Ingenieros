@@ -75,6 +75,9 @@ public class AgregarEmpleadosAProyectosC {
             while (resultSet.next()) {
                 String item = resultSet.getString("cargo"); // Reemplaza con el nombre de la columna de tu tabla
                 data.add(item);
+
+                empleados.forEach(emp -> emp.setCargo(item));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,9 +131,41 @@ public class AgregarEmpleadosAProyectosC {
     ///GUARDAR EN ARRAY
         @FXML
         private void agregarEmpleado(javafx.event.ActionEvent actionEvent) {
-        validaciones();
         // Obtener todos los valores
+        String nombre = txtNombreEmp.getText();
+        String dui = txtDuiEmp.getText();
+        String correo = txtCorreoEmp.getText();
+        String cargoNombre = cbCargoEmp.getValue();
+        Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
+        String numCuenta = txtNumCuenta.getText();
+        Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
 
+        try {
+            // Obtener el idcargo correspondiente al nombre seleccionado en el ComboBox
+            int idCargo = IdRetornoCargo(cargoNombre);
+
+            // Crear una nueva instancia de Empleados y agregar a la lista observable
+            Empleados empleado = new Empleados(nombre, dui, correo, idCargo, sueldoHora, numCuenta, sueldo);
+            empleado.setCargo(cargoNombre); // Establecer el nombre del cargo
+
+            empleados.add(empleado);
+
+            // Imprimir un mensaje en consola con todas las personas
+            System.out.println("Empleado agregado: " + empleado);
+
+            // Después de utilizar los valores, limpiar los campos
+            txtNombreEmp.clear();
+            txtDuiEmp.clear();
+            txtCorreoEmp.clear();
+            cbCargoEmp.setValue(null);
+            txtPagoHorasExEmp.clear();
+            txtNumCuenta.clear();
+            txtSueldoEmp.clear();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+            mostrarAlerta("Error", "Error al obtener el idcargo: " + e.getMessage());
+        }
     }
 //...
 
@@ -163,38 +198,7 @@ public class AgregarEmpleadosAProyectosC {
                 if (validarCorreo(txtCorreoEmp.getText())){
                     if (validarDui(txtDuiEmp.getText())){
                         if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())){
-                            String nombre = txtNombreEmp.getText();
-                            String dui = txtDuiEmp.getText();
-                            String correo = txtCorreoEmp.getText();
-                            String cargoNombre = cbCargoEmp.getValue();
-                            Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
-                            String numCuenta = txtNumCuenta.getText();
-                            Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
 
-                            try {
-                                // Obtener el idcargo correspondiente al nombre seleccionado en el ComboBox
-                                int idCargo = IdRetornoCargo(cargoNombre);
-
-                                // Crear una nueva instancia de Empleados y agregar a la lista observable
-                                Empleados empleado = new Empleados(nombre, dui, correo, idCargo, sueldoHora, numCuenta, sueldo);
-                                empleados.add(empleado);
-
-                                // Imprimir un mensaje en consola con todas las personas
-                                System.out.println("Empleado agregado: " + empleado);
-
-                                // Después de utilizar los valores, limpiar los campos
-                                txtNombreEmp.clear();
-                                txtDuiEmp.clear();
-                                txtCorreoEmp.clear();
-                                cbCargoEmp.setValue(null);
-                                txtPagoHorasExEmp.clear();
-                                txtNumCuenta.clear();
-                                txtSueldoEmp.clear();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                                // Manejar la excepción, por ejemplo, mostrar un mensaje de error
-                                mostrarAlerta("Error", "Error al obtener el idcargo: " + e.getMessage());
-                            }
 
                         }else {
                             mostrarAlerta("Error de Validación", "Ingrese solo números.");

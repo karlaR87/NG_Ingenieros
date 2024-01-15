@@ -89,7 +89,7 @@ public class GestionEmpleadosActualizarControlador {
 
 
 
-                        tbEmpleados.getItems().add(new Empleados(id, nombre, dui, corre, sueldodia, sueldohora, cuenta,cargo, Actividad));
+                        tbEmpleados.getItems().add(new Empleados(id, nombre, dui, corre,sueldodia, sueldohora, cuenta, cargo, Actividad));
                     }
                 }
             }
