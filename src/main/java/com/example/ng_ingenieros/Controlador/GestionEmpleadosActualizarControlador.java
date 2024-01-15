@@ -3,11 +3,16 @@ package com.example.ng_ingenieros.Controlador;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -15,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class GestionEmpleadosActualizarControlador {
     @FXML
@@ -23,17 +29,52 @@ public class GestionEmpleadosActualizarControlador {
     private Button btnEliminar;
     @FXML
     private Button btnCancelar;
+    @FXML
+    private Button btnAgregar2;
 
-
+    @FXML
+    private Button btnRefresh;
     private int idProyecto;
 
     public void setIdProyecto(int idProyecto) {
         this.idProyecto = idProyecto;
         btnEliminar.setOnAction(this::eliminarEmpleado);
         btnCancelar.setOnAction(this::cerrarVentana);
-
+        btnAgregar2.setOnAction(this::abrirVentanaEmpleadosAElegir);
+        btnRefresh.setOnAction(this::refrescar);
+// Permitir selección múltiple con SHIFT y CTRL
+        tbEmpleados.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         cargarEmpleadosAsociados();
     }
+    private void refrescar(javafx.event.ActionEvent actionEvent){
+        cargarEmpleadosAsociados();
+    }
+
+
+    private void abrirVentanaEmpleadosAElegir(ActionEvent event) {
+        try {
+            // Cargar el archivo FXML de la ventana EmpleadosAElegirActualizar
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/EmpleadosAElegirActualizar.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el controlador de la ventana EmpleadosAElegirActualizar
+            EmpleadosAElegirActualizarControlador empleadosAElegirControlador = loader.getController();
+            // Pasar el idProyecto al controlador de la segunda ventana
+            empleadosAElegirControlador.setIdProyecto(idProyecto);
+
+            // Crear una nueva escena y mostrar la ventana
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); // Hacer que la ventana sea modal
+            stage.showAndWait(); // Mostrar la ventana y esperar hasta que se cierre
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Manejo de errores
+        }
+    }
+
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
@@ -91,6 +132,7 @@ public class GestionEmpleadosActualizarControlador {
 
                         tbEmpleados.getItems().add(new Empleados(id, nombre, dui, corre,sueldodia, sueldohora, cuenta, cargo, Actividad));
                     }
+
                 }
             }
         } catch (SQLException e) {
@@ -99,20 +141,32 @@ public class GestionEmpleadosActualizarControlador {
         }
     }
     public void eliminarEmpleado(ActionEvent event) {
-        Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
+        ObservableList<Empleados> empleadosSeleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
 
-        if (empleadoSeleccionado != null) {
-            // Obtener el ID del empleado y del proyecto
-            int idEmpleado = empleadoSeleccionado.getId();
-            int idProyecto = this.idProyecto;
+        if (empleadosSeleccionados.isEmpty()) {
+            System.out.println("Ningún empleado seleccionado.");
+            return;
+        }
 
-            // Lógica para eliminar el empleado de la relación con el proyecto y actualizar idActividad a 2
-            eliminarEmpleadoDeProyecto(idEmpleado, idProyecto);
+        // Mostrar una confirmación antes de eliminar
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("Eliminar Empleados");
+        alert.setContentText("¿Está seguro de que desea eliminar los empleados seleccionados?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Si el usuario confirma, procede con la eliminación
+            for (Empleados empleado : empleadosSeleccionados) {
+                int idEmpleado = empleado.getId();
+                eliminarEmpleadoDeProyecto(idEmpleado, idProyecto);
+            }
 
             // Volver a cargar los empleados asociados después de la eliminación
             cargarEmpleadosAsociados();
         }
     }
+
 
     private void eliminarEmpleadoDeProyecto(int idEmpleado, int idProyecto) {
         try (Connection conn = Conexion.obtenerConexion()) {

@@ -113,5 +113,14 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="btnRefresh" layoutX="149.0" layoutY="423.0" mnemonicParsing="false" style="-fx-background-color: #485256;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/refresh.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

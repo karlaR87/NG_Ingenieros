@@ -2,7 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
-import javafx.collections.FXCollections;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -13,25 +13,32 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmpleadosAElegirControlador {
+public class EmpleadosAElegirActualizarControlador {
     @FXML
     private TableView<Empleados> tbEmpleados;
 
     @FXML
     private Button btnAgregar; // Botón para guardar empleados
 
-    private List<Empleados> empleadosSeleccionados; // Lista para almacenar empleados seleccionados
 
     public void initialize() {
         configurarTabla();
         cargarDatos();
-        empleadosSeleccionados = new ArrayList<>(); // Inicializar la lista de empleados seleccionados
         btnAgregar.setOnAction(this::guardarEmpleadosSeleccionados);
+
+
+    }
+    private int idProyecto;
+
+    public void setIdProyecto(int idProyecto) {
+        this.idProyecto = idProyecto;
+        System.out.println("id: " + idProyecto);
 
     }
 
@@ -134,48 +141,73 @@ public class EmpleadosAElegirControlador {
     }
 
 
-
-    private EmpleadosAsignadosControlador empleadosAsignadosControlador;
-
-    public List<Empleados> getEmpleadosAElegir() {
-        return empleadosSeleccionados;
-    }
-    private void guardarEmpleadosSeleccionados(javafx.event.ActionEvent actionEvent) {
-        empleadosSeleccionados.clear();
-
-        ObservableList<Empleados> seleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
-        empleadosSeleccionados.addAll(seleccionados);
-
-        // Imprimir mensajes de depuración
-        System.out.println("Empleados a elegir seleccionados:");
-        for (Empleados empleado : empleadosSeleccionados) {
-            System.out.println("ID: " + empleado.getId() + ", Nombre: " + empleado.getNombre());
-        }
-
-        // Mandar datos a la ventana principal
-        if (empleadosAsignadosControlador != null) {
-            empleadosAsignadosControlador.setEmpleadoselect(empleadosSeleccionados);
-
-
-            System.out.println("Información enviada a EmpleadosAsignadosControlador:");
-            for (Empleados empleado : empleadosSeleccionados) {
-                System.out.println("ID: " + empleado.getId() + ", Nombre: " + empleado.getNombre());
-            }
-
-
-        }
-        System.out.println("Cerrando ventana EmpleadosAElegir.");
-
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
-
-
     @FXML
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
+    private void guardarEmpleadosSeleccionados(javafx.event.ActionEvent actionEvent) {
+        // Obtener la lista de empleados seleccionados
+        ObservableList<Empleados> empleadosSeleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
+
+        // Obtener los IDs de los empleados seleccionados
+        List<Integer> idsEmpleadosSeleccionados = new ArrayList<>();
+        for (Empleados empleado : empleadosSeleccionados) {
+            idsEmpleadosSeleccionados.add(empleado.getId());
+        }
+
+        // Llamar al método en el controlador principal para asociar empleados al proyecto
+        asociarEmpleadosAProyecto(idsEmpleadosSeleccionados);
+
+        // Cerrar la ventana actual
+        cerrarVentana(actionEvent);
+    }
+
+    private void asociarEmpleadosAProyecto(List<Integer> idsEmpleados) {
+        // Llamar al método en el controlador principal para asociar empleados al proyecto
+        if (idsEmpleados.isEmpty()) {
+            System.out.println("Ningún empleado seleccionado.");
+            return;
+        }
+
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement pstmtInsert = conn.prepareStatement("INSERT INTO tbEmpleadosProyectos (idEmpleado, idProyecto) VALUES (?, ?)");
+             PreparedStatement pstmtUpdateActividad = conn.prepareStatement("UPDATE tbempleados SET idactividad = ? WHERE idempleado = ?")) {
+
+            // Obtener el ID del proyecto actual
+            int idProyecto = this.idProyecto;
+
+            // Insertar registros en tbEmpleadosProyectos para asociar empleados al proyecto
+            for (int idEmpleado : idsEmpleados) {
+                // Asociar empleado al proyecto
+                pstmtInsert.setInt(1, idEmpleado);
+                pstmtInsert.setInt(2, idProyecto);
+                pstmtInsert.executeUpdate();
+
+                // Actualizar idactividad del empleado a activo (2)
+                pstmtUpdateActividad.setInt(1, 1);
+                pstmtUpdateActividad.setInt(2, idEmpleado);
+                pstmtUpdateActividad.executeUpdate();
+            }
+
+
+
+            System.out.println("Empleados asociados al proyecto con ID: " + idProyecto);
+
+            // Actualizar la tabla en el hilo de la interfaz gráfica
+            Platform.runLater(() -> cargarDatos());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
 }
