@@ -56,13 +56,12 @@ public class ActualizarProyectosControlador {
 
     public void initialize() throws SQLException {
         cmIngeniero.setPromptText("Seleccionar Ingeniero a cargo");
-        cmEstado.setPromptText("Seleccionar el estado");
         btnCancelar.setOnAction(this::cerrarVentana);
         btnGestionar.setOnAction(this::gestionarEmpleados);
+        btnGuardarProyecto.setOnAction(this::btnGuardarProyecto);
 
 
 
-        llenarComboEstado();
         llenarComboingACargo();
 
         System.out.println("ID del Proyecto recibido: " + idProyecto);
@@ -109,7 +108,6 @@ public class ActualizarProyectosControlador {
         txtHoras.setText(String.valueOf(proyecto.getHoras()));
         cmIngeniero.setValue(proyecto.getIng());
 
-        cmEstado.setValue(proyecto.getEstado());
         // Configura las fechas
         dateInicio.setValue(LocalDate.parse(proyecto.getInicio()));
         dateFinalizacion.setValue(LocalDate.parse(proyecto.getFinal()));
@@ -119,67 +117,7 @@ public class ActualizarProyectosControlador {
 
 
 
-    private void llenarComboEstado() {
-        // Crear una lista observable para almacenar los datos
-        ObservableList<String> data = FXCollections.observableArrayList();
 
-        // Conectar a la base de datos y recuperar los datos
-        try (Connection conn = Conexion.obtenerConexion()) { // Reemplaza con tu propia lógica de conexión
-            String query = "select Estado_proyecto from tbEstadoProyectos"; // Reemplaza con tu consulta SQL
-            PreparedStatement preparedStatement = conn.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // Recorrer los resultados y agregarlos a la lista observable
-            while (resultSet.next()) {
-                String item = resultSet.getString("Estado_proyecto"); // Reemplaza con el nombre de la columna de tu tabla
-                data.add(item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-
-        // Asignar los datos al ComboBox
-        cmEstado.setItems(data);
-    }
-
-
-    public int IdRetornoEstado(String Cargo) throws SQLException {
-        Connection conectar = null;
-        PreparedStatement pst = null;
-        ResultSet result = null;
-        int idEstado = -1;
-
-        String SSQL = "SELECT idEstadoProyecto FROM tbEstadoProyectos WHERE Estado_proyecto = ?";
-
-        try {
-            conectar = Conexion.obtenerConexion();
-            pst = conectar.prepareStatement(SSQL);
-            pst.setString(1, Cargo);
-            result = pst.executeQuery();
-
-            if (result.next()) {
-                idEstado = result.getInt("idEstadoProyecto");
-            } else {
-                System.err.println("El Estado seleccionado no existe en la base de datos.");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            // Cerrar recursos
-            if (result != null) {
-                result.close();
-            }
-            if (pst != null) {
-                pst.close();
-            }
-            if (conectar != null) {
-                conectar.close();
-            }
-        }
-
-        return idEstado;
-    }
 
 
 
@@ -252,4 +190,49 @@ public class ActualizarProyectosControlador {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void btnGuardarProyecto(ActionEvent event) {
+        // Obtener los valores de los campos
+        String nombre = txtNombre.getText();
+        String lugar = txtLugar.getText();
+        String horas = txtHoras.getText();
+        LocalDate fechaInicio = dateInicio.getValue();
+        LocalDate fechaFinalizacion = dateFinalizacion.getValue();
+
+        // Validar que los campos obligatorios no estén vacíos
+        if (nombre.isEmpty() || lugar.isEmpty()  || horas.isEmpty()  || fechaInicio == null || fechaFinalizacion == null) {
+            // Mostrar mensaje de error o alerta
+            System.out.println("Por favor, complete todos los campos.");
+            return;
+        }
+
+        try (Connection conn = Conexion.obtenerConexion()) {
+            // Crear la sentencia SQL para actualizar el proyecto
+            String query = "UPDATE tbProyectos SET nombre_proyecto = ?, lugar_proyecto = ?, horas_trabajo = ?, fechaInicio = ?, FechaFin = ? WHERE idproyecto = ?";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                // Establecer los valores de los parámetros en la sentencia SQL
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, lugar);
+                pstmt.setString(3, horas);
+                pstmt.setDate(4, java.sql.Date.valueOf(fechaInicio));
+                pstmt.setDate(5, java.sql.Date.valueOf(fechaFinalizacion));
+                pstmt.setInt(6, idProyecto);
+
+                // Ejecutar la sentencia SQL de actualización
+                int filasAfectadas = pstmt.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    System.out.println("Proyecto actualizado con éxito.");
+                } else {
+                    System.out.println("No se pudo actualizar el proyecto.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de errores
+        }
+    }
+
 }

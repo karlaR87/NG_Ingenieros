@@ -40,6 +40,12 @@ public class GestionProyectosControlador {
     private Button btnCancelar;
 
     @FXML
+    private Button btnCambio;
+    @FXML
+    private Button btnGuardarProyecto;
+
+
+    @FXML
     private ComboBox<String> cmEstado;
     @FXML
     private ComboBox<String> cmbActividad;
@@ -79,9 +85,37 @@ public class GestionProyectosControlador {
             }
         });
 
+
+        // Agregar evento al botón para realizar el cambio de actividad
+        btnCambio.setOnAction(event -> {
+            Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
+            if (empleadoSeleccionado != null) {
+                String nuevaActividad = cmbActividad.getValue();
+                actualizarActividadEmpleado(empleadoSeleccionado.getId(), nuevaActividad);
+                cargarEmpleadosAsociados(); // Vuelve a cargar la lista de empleados después de la actualización
+            }
+        });
+
+
         llenarComboEstado();
         ActividadCombobox();
 
+    }
+
+    // Método para realizar la actualización de la actividad del empleado en la base de datos
+    private void actualizarActividadEmpleado(int idEmpleado, String nuevaActividad) {
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String query = "UPDATE tbempleados SET idactividad = ? WHERE idempleado = ?";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+                int idActividad = IdRetornoActividad(nuevaActividad);
+                preparedStatement.setInt(1, idActividad);
+                preparedStatement.setInt(2, idEmpleado);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de errores
+        }
     }
 
     public void setIdProyecto(int idProyecto) {
