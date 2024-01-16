@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,13 +22,29 @@
                 </Label>
         </children>
     </Pane>
+
    <TableView fx:id="TBUsuarios" layoutX="90.0" layoutY="135.0" prefHeight="200.0" prefWidth="538.0">
      <columns>
-       <TableColumn prefWidth="75.0" text="ID" />
-       <TableColumn prefWidth="160" text="Nombre de usuario" />
-         <TableColumn prefWidth="160" text="Contraseña" />
-         <TableColumn prefWidth="160" text="Nivel de usuario" />
-         <TableColumn prefWidth="160" text="Empleado" />
+       <TableColumn prefWidth="92.0" text="ID">
+           <cellValueFactory><PropertyValueFactory property="idUsuario" /></cellValueFactory>
+       </TableColumn>
+         <TableColumn prefWidth="92.0" text="ID Empleado">
+             <cellValueFactory><PropertyValueFactory property="idEmpleado" /></cellValueFactory>
+         </TableColumn>
+
+       <TableColumn prefWidth="160" text="Nombre de usuario">
+           <cellValueFactory><PropertyValueFactory property="nombreUser" /></cellValueFactory>
+       </TableColumn>
+
+         <TableColumn prefWidth="160" text="Contraseña">
+             <cellValueFactory><PropertyValueFactory property="contraUser" /></cellValueFactory>
+         </TableColumn>
+         <TableColumn prefWidth="160" text="Nivel de usuario">
+             <cellValueFactory><PropertyValueFactory property="NivelUser" /></cellValueFactory>
+         </TableColumn>
+         <TableColumn prefWidth="160" text="Empleado">
+             <cellValueFactory><PropertyValueFactory property="nombreEmp" /></cellValueFactory>
+         </TableColumn>
      </columns>
    </TableView>
 
@@ -41,25 +58,7 @@
             </ImageView>
         </children>
     </Pane>
-   <Button fx:id="btnVerContra" layoutX="639.0" layoutY="135.0" mnemonicParsing="false">
-      <graphic>
-         <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@Imagenes/ojo.png" />
-            </image>
-         </ImageView>
-      </graphic>
-   </Button>
-   <Button fx:id="btnAgregarUser" layoutX="90.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
-      <graphic>
-         <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@Imagenes/btnAgregar.png" />
-            </image>
-         </ImageView>
-      </graphic>
-   </Button>
-   <Button fx:id="btnEditarUser" layoutX="153.0" layoutY="349.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+   <Button fx:id="btnEditarUser" layoutX="90.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -68,7 +67,7 @@
          </ImageView>
       </graphic>
    </Button>
-   <Button fx:id="btnEliminarUser" layoutX="217.0" layoutY="349.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+   <Button fx:id="btnEliminarUser" layoutX="214.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -77,11 +76,20 @@
          </ImageView>
       </graphic>
    </Button>
-   <Button fx:id="btnRefresh" layoutX="279.0" layoutY="349.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+   <Button fx:id="btnRefresh" layoutX="276.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Imagenes/refresh.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button fx:id="btnEditarPass" layoutX="152.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+      <graphic>
+         <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Imagenes/clave1.png" />
             </image>
          </ImageView>
       </graphic>

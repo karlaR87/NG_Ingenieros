@@ -66,6 +66,7 @@ public class RegistrarseSegundoControlador {
         alert.showAndWait();
     }
     private static String contraseñaEncriptada;
+
     public void contraseña()  {
         String contraseña = txtContraseña.getText();
         contraseñaEncriptada = encriptarContraseña(contraseña);
@@ -93,6 +94,8 @@ public class RegistrarseSegundoControlador {
             return null;
         }
     }
+
+
 
 
     public void initialize(){
