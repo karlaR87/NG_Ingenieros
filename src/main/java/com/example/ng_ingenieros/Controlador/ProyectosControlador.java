@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -41,6 +43,7 @@ public class ProyectosControlador {
         btnEditar.setOnAction(this::editarProyecto);
 
         btnAgregar.setOnAction(this::Abrir);
+        tbProyectos.setItems(listaProyectos);
 
         tbProyectos.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -92,38 +95,51 @@ public class ProyectosControlador {
     public void editarProyecto(ActionEvent actionEvent) {
         Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();
         if (proyectoSeleccionado != null) {
-            try {
-                // Cargar el archivo FXML de ActualizarProyectos.fxml
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ActualizarProyectos.fxml"));
-                Parent root = loader.load();
+            if ("Finalizado".equals(proyectoSeleccionado.getEstado())) {
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Alerta", "No se puede editar un proyecto finalizado.");
+            } else {
+                try {
+                    // Cargar el archivo FXML de ActualizarProyectos.fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ActualizarProyectos.fxml"));
+                    Parent root = loader.load();
 
-                // Obtener el controlador de la nueva ventana
-                ActualizarProyectosControlador actualizarProyectosControlador = loader.getController();
+                    // Obtener el controlador de la nueva ventana
+                    ActualizarProyectosControlador actualizarProyectosControlador = loader.getController();
 
-                // Llamar a un método en el controlador de ActualizarProyectos para cargar la información del proyecto
-                actualizarProyectosControlador.cargarDatosProyecto(proyectoSeleccionado);
+                    // Llamar a un método en el controlador de ActualizarProyectos para cargar la información del proyecto
+                    actualizarProyectosControlador.cargarDatosProyecto(proyectoSeleccionado);
 
 
-                actualizarProyectosControlador.setIdProyecto(proyectoSeleccionado.getId());
+                    actualizarProyectosControlador.setIdProyecto(proyectoSeleccionado.getId());
 
-                // Crear un nuevo Stage
-                Stage stage = new Stage();
-                stage.setTitle("Actualizar Proyecto");
+                    // Crear un nuevo Stage
+                    Stage stage = new Stage();
+                    stage.setTitle("Actualizar Proyecto");
 
-                // Configurar la modalidad (bloquea la ventana principal)
-                stage.initModality(Modality.APPLICATION_MODAL);
+                    // Configurar la modalidad (bloquea la ventana principal)
+                    stage.initModality(Modality.APPLICATION_MODAL);
 
-                // Configurar el estilo para quitar la barra de título
-                stage.initStyle(StageStyle.UNDECORATED);
-                // Imprimir el ID del proyecto para verificar
-                System.out.println("ID del Proyecto antes de abrir la ventana de actualización: " + proyectoSeleccionado.getId());
-                stage.setScene(new Scene(root));
-                stage.showAndWait(); // Mostrar y esperar hasta que se cierre
-            } catch (Exception e) {
-                e.printStackTrace();
+                    // Configurar el estilo para quitar la barra de título
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    // Imprimir el ID del proyecto para verificar
+                    System.out.println("ID del Proyecto antes de abrir la ventana de actualización: " + proyectoSeleccionado.getId());
+                    stage.setScene(new Scene(root));
+                    stage.showAndWait(); // Mostrar y esperar hasta que se cierre
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
+
+    private void mostrarAlerta(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 
     private void eliminarProyecto(ActionEvent actionEvent) {
         Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();

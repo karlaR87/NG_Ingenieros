@@ -64,10 +64,10 @@ public class EmpleadosAElegirControlador {
                      "LEFT JOIN \n" +
                      "    tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
                      "LEFT JOIN \n" +
-                     "    tbActividad a ON e.idactividad = a.idactividad\n" +
-                     "WHERE \n" +
+                     "    tbActividad a ON ep.idactividad = a.idactividad\n" +
+                     "WHERE\n" +
                      "    e.idcargo <> 7\n" +
-                     "    AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND a.idactividad = 2))")) {
+                     "    AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
 
             // Crear columnas dinámicamente
             ObservableList<TableColumn<Empleados, ?>> columnas = tbEmpleados.getColumns();

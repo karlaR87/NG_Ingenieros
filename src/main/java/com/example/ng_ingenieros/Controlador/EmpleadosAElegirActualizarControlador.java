@@ -54,27 +54,27 @@ public class EmpleadosAElegirActualizarControlador {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT \n" +
-                     "    e.idempleado,\n" +
-                     "    e.nombreCompleto,\n" +
-                     "    e.dui,\n" +
-                     "    e.correo,\n" +
-                     "    COALESCE(e.sueldo_dia, 0) AS sueldo_dia,\n" +
-                     "    COALESCE(e.sueldo_horaExt, 0) AS sueldo_horaExt,\n" +
-                     "    e.numero_cuentabancaria,\n" +
-                     "    c.cargo\n" +
-                     "FROM \n" +
-                     "    tbempleados e\n" +
-                     "INNER JOIN \n" +
-                     "    tbcargos c ON e.idcargo = c.idcargo\n" +
-                     "LEFT JOIN \n" +
-                     "    tbEmpleadosProyectos ep ON e.idempleado = ep.idEmpleado\n" +
-                     "LEFT JOIN \n" +
-                     "    tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
-                     "LEFT JOIN \n" +
-                     "    tbActividad a ON e.idactividad = a.idactividad\n" +
-                     "WHERE \n" +
-                     "    e.idcargo <> 7\n" +
-                     "    AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND a.idactividad = 2))")) {
+                     "                         e.idempleado,\n" +
+                     "                         e.nombreCompleto,\n" +
+                     "                         e.dui,\n" +
+                     "                         e.correo,\n" +
+                     "                         COALESCE(e.sueldo_dia, 0) AS sueldo_dia,\n" +
+                     "                         COALESCE(e.sueldo_horaExt, 0) AS sueldo_horaExt,\n" +
+                     "                         e.numero_cuentabancaria,\n" +
+                     "                         c.cargo\n" +
+                     "                     FROM \n" +
+                     "                         tbempleados e\n" +
+                     "                     INNER JOIN \n" +
+                     "                         tbcargos c ON e.idcargo = c.idcargo\n" +
+                     "                     LEFT JOIN \n" +
+                     "                         tbEmpleadosProyectos ep ON e.idempleado = ep.idEmpleado\n" +
+                     "                     LEFT JOIN \n" +
+                     "                         tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
+                     "                     LEFT JOIN \n" +
+                     "                         tbActividad a ON ep.idactividad = a.idactividad\n" +
+                     "                     WHERE\n" +
+                     "                         e.idcargo <> 7\n" +
+                     "                         AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
 
             // Crear columnas dinámicamente
             ObservableList<TableColumn<Empleados, ?>> columnas = tbEmpleados.getColumns();
@@ -166,33 +166,23 @@ public class EmpleadosAElegirActualizarControlador {
     }
 
     private void asociarEmpleadosAProyecto(List<Integer> idsEmpleados) {
-        // Llamar al método en el controlador principal para asociar empleados al proyecto
         if (idsEmpleados.isEmpty()) {
             System.out.println("Ningún empleado seleccionado.");
             return;
         }
 
         try (Connection conn = Conexion.obtenerConexion();
-             PreparedStatement pstmtInsert = conn.prepareStatement("INSERT INTO tbEmpleadosProyectos (idEmpleado, idProyecto) VALUES (?, ?)");
-             PreparedStatement pstmtUpdateActividad = conn.prepareStatement("UPDATE tbempleados SET idactividad = ? WHERE idempleado = ?")) {
+             PreparedStatement pstmtInsert = conn.prepareStatement("INSERT INTO tbEmpleadosProyectos (idEmpleado, idProyecto, idActividad) VALUES (?, ?, 1)")) {
 
-            // Obtener el ID del proyecto actual
             int idProyecto = this.idProyecto;
 
             // Insertar registros en tbEmpleadosProyectos para asociar empleados al proyecto
             for (int idEmpleado : idsEmpleados) {
-                // Asociar empleado al proyecto
+                // Asociar empleado al proyecto con idActividad = 1 (activo)
                 pstmtInsert.setInt(1, idEmpleado);
                 pstmtInsert.setInt(2, idProyecto);
                 pstmtInsert.executeUpdate();
-
-                // Actualizar idactividad del empleado a activo (2)
-                pstmtUpdateActividad.setInt(1, 1);
-                pstmtUpdateActividad.setInt(2, idEmpleado);
-                pstmtUpdateActividad.executeUpdate();
             }
-
-
 
             System.out.println("Empleados asociados al proyecto con ID: " + idProyecto);
 
@@ -202,6 +192,7 @@ public class EmpleadosAElegirActualizarControlador {
             e.printStackTrace();
         }
     }
+
 
 
 

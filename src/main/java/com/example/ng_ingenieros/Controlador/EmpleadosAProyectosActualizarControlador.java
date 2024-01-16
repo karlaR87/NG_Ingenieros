@@ -52,8 +52,10 @@ public class EmpleadosAProyectosActualizarControlador {
 
 
     public void initialize() {
+        btnGuardar.setOnAction(this::guardar);
 
         CargarCargo();
+
 
     }
     public void cargarDatosEmpleado(Empleados empleado) {
@@ -74,7 +76,8 @@ public class EmpleadosAProyectosActualizarControlador {
 
     @FXML
     private void guardar(ActionEvent event) {
-        validaciones();
+        validaciones(event);
+
     }
     @FXML
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
@@ -114,12 +117,12 @@ public class EmpleadosAProyectosActualizarControlador {
 
 
     //Validaciones
-    public void validaciones() {
-        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtNumCuenta.getText())&& NoVacio(txtDuiEmp.getText())&& NoVacio(txtPagoHorasExEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
-            if (validarLetras(txtNombreEmp.getText())){
-                if (validarCorreo(txtCorreoEmp.getText())){
-                    if (validarDui(txtDuiEmp.getText())){
-                        if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())){
+    public void validaciones(javafx.event.ActionEvent actionEvent) {
+        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtNumCuenta.getText()) && NoVacio(txtDuiEmp.getText()) && NoVacio(txtPagoHorasExEmp.getText()) && NoVacio(txtSueldoEmp.getText())) {
+            if (validarLetras(txtNombreEmp.getText())) {
+                if (validarCorreo(txtCorreoEmp.getText())) {
+                    if (validarDui(txtDuiEmp.getText())) {
+                        if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())) {
                             // Actualiza los datos del empleado con los valores de los campos del formulario
                             if (empleadoParaActualizar != null) {
                                 empleadoParaActualizar.setNombre(txtNombreEmp.getText());
@@ -131,31 +134,33 @@ public class EmpleadosAProyectosActualizarControlador {
                                 empleadoParaActualizar.setSueldoDia(Double.parseDouble(txtSueldoEmp.getText()));
                             }
 
-
                             // Imprimir en la consola los datos actualizados
                             System.out.println("Datos actualizados: " + empleadoParaActualizar.toString());
 
-                            // Cierra la ventana después de guardar cambios
+                            // Mostrar mensaje de confirmación
+                            mostrarAlerta("Confirmación", "Datos actualizados correctamente.");
+                            Node source = (Node) actionEvent.getSource();
+                            Stage stage = (Stage) source.getScene().getWindow();
+                            stage.close();
 
-                        }else {
+                        } else {
                             mostrarAlerta("Error de Validación", "Ingrese solo números.");
                         }
 
-                    }else {
+                    } else {
                         mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
                     }
 
-                }else {
+                } else {
                     mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
                 }
 
-            }else {
+            } else {
                 mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
             }
 
-        }else {
+        } else {
             mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
-
         }
     }
 

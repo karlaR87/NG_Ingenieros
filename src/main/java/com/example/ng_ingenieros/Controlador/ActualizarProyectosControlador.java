@@ -154,12 +154,17 @@ public class ActualizarProyectosControlador {
         ResultSet result = null;
         int idInge = -1;
 
-        String SSQL = "SELECT idempleado FROM tbempleados WHERE nombreCompleto = ? AND idcargo = 7 AND idproyecto IS NULL";
+        String SSQL = "SELECT e.idempleado \n" +
+                "FROM tbempleados e \n" +
+                "LEFT JOIN tbEmpleadosProyectos ep ON e.idempleado = ep.idempleado \n" +
+                "LEFT JOIN tbProyectos p ON ep.idProyecto = p.idproyecto \n" +
+                "WHERE e.idcargo = 7 \n" +
+                "  AND (ep.idproyecto IS NULL OR p.idEstadoProyecto = 2) \n" +
+                "  AND (ep.idactividad IS NULL OR ep.idactividad = 2);";
 
         try {
             conectar = Conexion.obtenerConexion();
             pst = conectar.prepareStatement(SSQL);
-            pst.setString(1, inge);
             result = pst.executeQuery();
 
             if (result.next()) {
@@ -168,7 +173,7 @@ public class ActualizarProyectosControlador {
                 System.err.println("El Inge seleccionado no existe en la base de datos.");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace(); // Imprime la excepción en lugar de mostrar un diálogo de mensaje
         } finally {
             // Cerrar recursos
             if (result != null) {

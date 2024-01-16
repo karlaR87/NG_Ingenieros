@@ -102,7 +102,7 @@ public class GestionEmpleadosActualizarControlador {
                     "INNER JOIN \n" +
                     "    tbcargos c ON e.idcargo = c.idcargo\n" +
                     "INNER JOIN \n" +
-                    "    tbActividad a ON e.idactividad = a.idactividad\n" +
+                    "    tbActividad a ON ep.idactividad = a.idactividad\n" +
                     "LEFT JOIN \n" +
                     "    tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
                     "WHERE \n" +
@@ -121,18 +121,15 @@ public class GestionEmpleadosActualizarControlador {
                         int id = rs.getInt("idempleado");
                         String nombre = rs.getString("nombreCompleto");
                         String dui = rs.getString("dui");
-                        String corre = rs.getString("correo");
+                        String correo = rs.getString("correo");
                         double sueldodia = Double.parseDouble(rs.getString("sueldo_dia"));
                         double sueldohora = Double.parseDouble(rs.getString("sueldo_horaExt"));
                         String cuenta = rs.getString("numero_cuentabancaria");
                         String cargo = rs.getString("cargo");
-                        String Actividad = rs.getString("Actividad");
+                        String actividad = rs.getString("Actividad");
 
-
-
-                        tbEmpleados.getItems().add(new Empleados(id, nombre, dui, corre,sueldodia, sueldohora, cuenta, cargo, Actividad));
+                        tbEmpleados.getItems().add(new Empleados(id, nombre, dui, correo, sueldodia, sueldohora, cuenta, cargo, actividad));
                     }
-
                 }
             }
         } catch (SQLException e) {
@@ -140,6 +137,7 @@ public class GestionEmpleadosActualizarControlador {
             // Manejo de errores
         }
     }
+
     public void eliminarEmpleado(ActionEvent event) {
         ObservableList<Empleados> empleadosSeleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
 
@@ -156,76 +154,19 @@ public class GestionEmpleadosActualizarControlador {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Si el usuario confirma, procede con la eliminación
-            for (Empleados empleado : empleadosSeleccionados) {
-                int idEmpleado = empleado.getId();
-                eliminarEmpleadoDeProyecto(idEmpleado, idProyecto);
-            }
-
-            // Volver a cargar los empleados asociados después de la eliminación
+            empleadosSeleccionados.forEach(empleado -> eliminarRelacionEmpleadoProyecto(empleado.getId(), idProyecto));
             cargarEmpleadosAsociados();
         }
     }
 
-
-    private void eliminarEmpleadoDeProyecto(int idEmpleado, int idProyecto) {
+    private void eliminarRelacionEmpleadoProyecto(int idEmpleado, int idProyecto) {
         try (Connection conn = Conexion.obtenerConexion()) {
-            // Obtener el idActividad actual del empleado
-            int idActividadActual = obtenerIdActividadActual(idEmpleado);
-
-            // Si el idActividadActual es diferente de 2 (inactivo), actualizarlo a 2
-            if (idActividadActual != 2) {
-                actualizarIdActividadEmpleado(idEmpleado, 2);
-            }
-
-            // Eliminar la relación entre el empleado y el proyecto
             String query = "DELETE FROM tbEmpleadosProyectos WHERE idEmpleado = ? AND idProyecto = ?;";
 
             try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
                 preparedStatement.setInt(1, idEmpleado);
                 preparedStatement.setInt(2, idProyecto);
 
-                // Ejecutar la sentencia de eliminación
-                preparedStatement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-    }
-
-    private int obtenerIdActividadActual(int idEmpleado) {
-        int idActividadActual = -1;
-
-        try (Connection conn = Conexion.obtenerConexion()) {
-            String query = "SELECT idActividad FROM tbempleados WHERE idempleado = ?;";
-
-            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-                preparedStatement.setInt(1, idEmpleado);
-
-                try (ResultSet rs = preparedStatement.executeQuery()) {
-                    if (rs.next()) {
-                        idActividadActual = rs.getInt("idActividad");
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de errores
-        }
-
-        return idActividadActual;
-    }
-
-    private void actualizarIdActividadEmpleado(int idEmpleado, int nuevoIdActividad) {
-        try (Connection conn = Conexion.obtenerConexion()) {
-            String query = "UPDATE tbempleados SET idActividad = ? WHERE idempleado = ?;";
-
-            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-                preparedStatement.setInt(1, nuevoIdActividad);
-                preparedStatement.setInt(2, idEmpleado);
-
-                // Ejecutar la sentencia de actualización
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {

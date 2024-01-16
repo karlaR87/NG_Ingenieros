@@ -89,7 +89,9 @@ public class ProyectosAgregarControlador {
         empleadosProyecto.addAll(empleados);
     }
 
-
+    public void setEmpleadoProyecto(ObservableList<Empleados> empleadosProyecto) {
+        this.empleadosProyecto.setAll(empleadosProyecto);
+    }
     @FXML
     private void AbrirGestion(ActionEvent actionEvent) {
         try {
@@ -243,13 +245,13 @@ public class ProyectosAgregarControlador {
         ResultSet result = null;
         int idInge = -1;
 
-        String SSQL = "SELECT e.idempleado " +
-                "FROM tbempleados e " +
-                "LEFT JOIN tbEmpleadosProyectos ep ON e.idempleado = ep.idempleado " +
-                "LEFT JOIN tbProyectos p ON ep.idProyecto = p.idproyecto " +
-                "WHERE e.idcargo = 7 " +
-                "  AND (ep.idproyecto IS NULL OR p.idEstadoProyecto = 2) " +
-                "  AND e.idactividad = 2;";
+        String SSQL = "SELECT e.idempleado \n" +
+                "FROM tbempleados e \n" +
+                "LEFT JOIN tbEmpleadosProyectos ep ON e.idempleado = ep.idempleado \n" +
+                "LEFT JOIN tbProyectos p ON ep.idProyecto = p.idproyecto \n" +
+                "WHERE e.idcargo = 7 \n" +
+                "  AND (ep.idproyecto IS NULL OR p.idEstadoProyecto = 2) \n" +
+                "  AND (ep.idactividad IS NULL OR ep.idactividad = 2);";
 
         try {
             conectar = Conexion.obtenerConexion();

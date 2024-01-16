@@ -1,5 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
+import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -16,6 +18,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 public class EmpleadosAsignadosControlador {
@@ -57,6 +63,28 @@ public class EmpleadosAsignadosControlador {
 
 
     }
+
+    private boolean empleadoExisteEnBaseDeDatos(Empleados empleado) {
+        // Lógica para verificar si el empleado existe en la base de datos
+        String consultaSQL = "SELECT COUNT(*) AS CantidadEmpleados FROM tbempleados WHERE dui = ?";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(consultaSQL)) {
+            pstmt.setString(1, empleado.getDui());
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    int cantidadEmpleados = rs.getInt("CantidadEmpleados");
+                    return cantidadEmpleados > 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     @FXML
     private void AbrirGestion(ActionEvent actionEvent) {
         try {
@@ -97,47 +125,60 @@ public class EmpleadosAsignadosControlador {
         Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
 
         if (empleadoSeleccionado != null) {
-            try {
-                // Carga la nueva ventana
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/EmpleadosAProyectosActualizar.fxml"));
-                Parent root = loader.load();
-                Stage stageNueva = new Stage();
-                // Configurar la modalidad (bloquea la ventana principal)
-                stageNueva.initModality(Modality.APPLICATION_MODAL);
-                stageNueva.initStyle(StageStyle.UNDECORATED);
+            // Verifica si el empleado ya está en el sistema
+                if (empleadoExisteEnBaseDeDatos(empleadoSeleccionado)) {
+                    mostrarAlerta(Alert.AlertType.INFORMATION, "Alerta", "No se puede actualizar. El empleado ya está en la base de datos.");
+                }else {
+                    try {
+                        // Carga la nueva ventana
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/EmpleadosAProyectosActualizar.fxml"));
+                        Parent root = loader.load();
+                        Stage stageNueva = new Stage();
+                        // Configurar la modalidad (bloquea la ventana principal)
+                        stageNueva.initModality(Modality.APPLICATION_MODAL);
+                        stageNueva.initStyle(StageStyle.UNDECORATED);
 
-                // Accede al controlador de la nueva ventana
-                EmpleadosAProyectosActualizarControlador actualizarController = loader.getController();
+                        // Accede al controlador de la nueva ventana
+                        EmpleadosAProyectosActualizarControlador actualizarController = loader.getController();
 
-                // Llama al método para cargar los datos del empleado seleccionado
-                actualizarController.cargarDatosEmpleado(empleadoSeleccionado);
+                        // Llama al método para cargar los datos del empleado seleccionado
+                        actualizarController.cargarDatosEmpleado(empleadoSeleccionado);
 
-                stageNueva.setScene(new Scene(root));
-                // Muestra la nueva ventana
-                stageNueva.showAndWait();
+                        stageNueva.setScene(new Scene(root));
+                        // Muestra la nueva ventana
+                        stageNueva.showAndWait();
 
-                // Actualiza los atributos del empleado existente en lugar de agregar uno nuevo
-                empleadoSeleccionado.setNombre(actualizarController.getPersonas().getNombre());
-                empleadoSeleccionado.setDui(actualizarController.getPersonas().getDui());
-                empleadoSeleccionado.setCorreo(actualizarController.getPersonas().getCorreo());
-                empleadoSeleccionado.setCargo(actualizarController.getPersonas().getCargo());
-                empleadoSeleccionado.setPlaza(actualizarController.getPersonas().getPlaza());
-                empleadoSeleccionado.setSueldoHora(actualizarController.getPersonas().getSueldoHora());
-                empleadoSeleccionado.setCuentaBancaria(actualizarController.getPersonas().getCuentaBancaria());
-                empleadoSeleccionado.setSueldoDia(actualizarController.getPersonas().getSueldoDia());
+                        // Actualiza los atributos del empleado existente en lugar de agregar uno nuevo
+                        empleadoSeleccionado.setNombre(actualizarController.getPersonas().getNombre());
+                        empleadoSeleccionado.setDui(actualizarController.getPersonas().getDui());
+                        empleadoSeleccionado.setCorreo(actualizarController.getPersonas().getCorreo());
+                        empleadoSeleccionado.setCargo(actualizarController.getPersonas().getCargo());
+                        empleadoSeleccionado.setPlaza(actualizarController.getPersonas().getPlaza());
+                        empleadoSeleccionado.setSueldoHora(actualizarController.getPersonas().getSueldoHora());
+                        empleadoSeleccionado.setCuentaBancaria(actualizarController.getPersonas().getCuentaBancaria());
+                        empleadoSeleccionado.setSueldoDia(actualizarController.getPersonas().getSueldoDia());
+
+                        // Actualiza la tabla con las personas
+                        tbEmpleados.refresh();
+                        tbEmpleados.setItems(empleados);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
 
-
-                // Actualiza la tabla con las personas
-                tbEmpleados.refresh();
-                tbEmpleados.setItems(empleados);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         } else {
-            System.out.println("No hay empleado seleccionado para actualizar.");
+            System.out.println("No hay empleado seleccionado.");
         }
     }
+    private void mostrarAlerta(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 
     private void eliminarEmpleado(ActionEvent event) {
         // Obtiene la fila seleccionada
