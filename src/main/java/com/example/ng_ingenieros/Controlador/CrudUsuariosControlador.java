@@ -21,7 +21,7 @@ public class CrudUsuariosControlador {
     @FXML
     private TableView<Usuarios> TBUsuarios;
     @FXML
-    private Button btnEditarUser, btnEliminarUser, btnRefresh, btnVerContra;
+    private Button btnEditarUser, btnEliminarUser, btnEditarPass, btnRefresh;
     @FXML
     private TextField txtBusqueda;
 
@@ -29,6 +29,8 @@ public class CrudUsuariosControlador {
     public void initialize() {
         btnEliminarUser.setOnAction(this::eliminardatos);
         btnEditarUser.setOnAction(this::btnEditarOnAction);
+        btnRefresh.setOnAction(this::refresh);
+        btnEditarPass.setOnAction(this::btnEditarPassOnAction);
         txtBusqueda.setOnKeyReleased(event -> {
 
             buscarDatos(txtBusqueda.getText());
@@ -71,6 +73,40 @@ public class CrudUsuariosControlador {
         }
     }
 
+    private void refresh(javafx.event.ActionEvent actionEvent) {
+        cargarDatos();
+
+    }
+
+    private void btnEditarPassOnAction(javafx.event.ActionEvent actionEvent) {
+        Usuarios contraSeleccionado = TBUsuarios.getSelectionModel().getSelectedItem();
+
+        if (contraSeleccionado != null) {
+            // Crear y mostrar la ventana de actualización con los datos de la fila seleccionada
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Actualizar_Contrausuarios.fxml"));
+            Parent root;
+            try {
+
+                root = loader.load();
+                // Obtener el controlador de la ventana de actualización
+                ActualizarContraUserControlador actualizarContraUsuariosControlador = loader.getController();
+
+                actualizarContraUsuariosControlador.setTableUsuarios(TBUsuarios);
+                actualizarContraUsuariosControlador.initialize(contraSeleccionado);
+
+
+                // Mostrar la ventana de actualización
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                actualizarContraUsuariosControlador.setTableUsuarios(TBUsuarios);
+            } catch (IOException e) {
+                // Manejo de excepciones
+            }
+        }
+    }
+
 
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
         eliminarUsuario();
@@ -79,7 +115,7 @@ public class CrudUsuariosControlador {
 
 
     public void cargarDatos() {
-
+        TBUsuarios.getItems().clear();
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("select u.idUsuario,emp.idempleado, u.nombreUsuario, u.contraseña, nu.usuario, emp.nombreCompleto  from tbusuarios u\n" +
