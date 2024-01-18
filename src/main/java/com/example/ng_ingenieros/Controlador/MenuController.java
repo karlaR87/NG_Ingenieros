@@ -43,7 +43,8 @@ public class MenuController implements Initializable {
     @FXML
     private BorderPane NuevoIdParaElCentro;
 
-
+    @FXML
+    public Button btnOtros;
 
 
     @FXML
@@ -51,9 +52,7 @@ public class MenuController implements Initializable {
         loadWindow("/com/example/ng_ingenieros/MostrarPaneles.fxml");
 
 
-
     }
-
 
 
     @FXML
@@ -67,17 +66,13 @@ public class MenuController implements Initializable {
     private void abrirEmpleados(ActionEvent event) {
         // Cambiar el color de fondo y el color del texto al hacer clic en el botón "Empleados"
 
-
         loadWindow("/com/example/ng_ingenieros/empleados.fxml");
-
-
     }
+
 
     @FXML
     private void abrirAdministrar(ActionEvent event) {
         loadWindow("/com/example/ng_ingenieros/Administrar.fxml");
-
-
     }
     @FXML
     private void atras(ActionEvent actionEvent) {

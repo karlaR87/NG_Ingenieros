@@ -13,15 +13,8 @@ import java.sql.ResultSet;
 public class HelloApplication extends Application {
 
     @Override
-
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuPrincipal.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 727, 458); //width, heigth
-        stage.setTitle("NG Ingenieros");
-        stage.setScene(scene);
-        stage.show();
-    }
-            /*Conexion conexion = new Conexion();
+            Conexion conexion = new Conexion();
             Connection connection = conexion.obtenerConexion();
 
             String verifylogin = "SELECT COUNT(1) FROM tbusuarios";
@@ -34,14 +27,22 @@ public class HelloApplication extends Application {
                 while(queryResult.next()){
                     if(queryResult.getInt(1)==0){
                         try {
-
+                            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("PrimerUsoEMP.fxml"));
+                            Scene scene = new Scene(fxmlLoader.load(), 787, 436); //width, heigth
+                            stage.setTitle("NG Ingenieros");
+                            stage.setScene(scene);
+                            stage.show();
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                     else{
-
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load(), 727, 458); //width, heigth
+                        stage.setTitle("NG Ingenieros");
+                        stage.setScene(scene);
+                        stage.show();
 
                     }
                 }
@@ -57,5 +58,5 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-*/
+
 }

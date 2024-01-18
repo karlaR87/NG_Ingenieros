@@ -133,37 +133,64 @@ public class LoginControlador {
     public void validatelogin() {
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
-        contraseña();
 
         String verifylogin = "SELECT COUNT(1) FROM tbusuarios WHERE nombreUsuario = ? AND contraseña = ?";
+        String nivel = "SELECT idNivelUsuario FROM tbusuarios WHERE nombreUsuario = ? AND contraseña = ?";
         try {
-
             PreparedStatement preparedStatement = connection.prepareStatement(verifylogin);
+            PreparedStatement preparedStatements = connection.prepareStatement(nivel);
             preparedStatement.setString(1, txtUsuario.getText());
             preparedStatement.setString(2, contraseñaEncriptada);
-            ResultSet queryResult = preparedStatement.executeQuery();
+            ResultSet queryResult = preparedStatement.executeQuery();            //---------------------
+            preparedStatements.setString(1, txtUsuario.getText());
+            preparedStatements.setString(2, contraseñaEncriptada);
+            ResultSet niveles = preparedStatements.executeQuery();
 
-
+            contraseña();
             while (queryResult.next()) {
-                if (queryResult.getInt(1) == 1) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
-                        Parent root = loader.load();
+                  if (queryResult.getInt(1) == 1){
+                      while (niveles.next()) {
+                          if (niveles.getInt(1) == 2) {
+                              try {
+                                  FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
+                                  Parent root = loader.load();
+                                  MenuController controller = loader.getController();
 
-                        Stage stage = new Stage();
-                        stage.setTitle("Registrarse");
+                                  controller.btnOtros.setVisible(true);
+
+                                  Stage stage = new Stage();
+                                  stage.setTitle("Registrarse");
 
 
-                        stage.setScene(new Scene(root));
-                        ((Stage) txtUsuario.getScene().getWindow()).close();
-                        stage.show();
+                                  stage.setScene(new Scene(root));
+                                  ((Stage) txtUsuario.getScene().getWindow()).close();
+                                  stage.show();
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    mostrarAlerta("Error", "Las contraseña o el usuario es incorrecto");
-                }
+                              } catch (Exception e) {
+                                  e.printStackTrace();
+                              }
+                          } else if (niveles.getInt(1) == 1) {
+                              FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/MenuPrincipal.fxml"));
+                              Parent root = loader.load();
+                              MenuController controller = loader.getController();
+
+                              controller.btnOtros.setVisible(false);
+
+                              Stage stage = new Stage();
+                              stage.setTitle("Registrarse");
+
+
+                              stage.setScene(new Scene(root));
+                              ((Stage) txtUsuario.getScene().getWindow()).close();
+                              stage.show();
+                          }
+                      }
+
+                  }
+                  else{
+                      mostrarAlerta("Error", "Las contraseña o el usuario es incorrecto");
+                  }
+
 
             }
 

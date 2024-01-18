@@ -133,7 +133,7 @@ public class PrimerUsoControlador {
         String confirmarCon = txtConfirmarContraseña.getText();
         int idempledo = obteneridempleado();
         //hora crea un String para hacer la insercion
-        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idempleado) values(?,?,"+idempledo+");";
+        String Insercion = "insert into tbusuarios(nombreUsuario, contraseña, idNivelUsuario, idempleado) values(?,?,2,"+idempledo+");";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, user);
