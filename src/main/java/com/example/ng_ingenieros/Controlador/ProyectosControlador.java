@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -21,6 +18,7 @@ import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -34,6 +32,8 @@ public class ProyectosControlador {
 
     @FXML
     private TableView<Proyecto> tbProyectos;
+    @FXML
+    private TextField txtBusqueda;
 
     private ObservableList<Proyecto> listaProyectos = FXCollections.observableArrayList();
 
@@ -50,6 +50,12 @@ public class ProyectosControlador {
                 // Detecta el doble clic y llama a la función para abrir la ventana
                 abrirVentanaDetalle();
             }
+        });
+
+        txtBusqueda.setOnKeyReleased(event -> {
+
+            buscarDatos(txtBusqueda.getText());
+
         });
 
         cargarDatosProyectos();
@@ -246,10 +252,81 @@ public class ProyectosControlador {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 
+    public void buscarDatos(String busqueda) {
+        tbProyectos.getItems().clear(); // Limpiar los elementos existentes
+
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement stmt = conn.prepareStatement("SELECT P.idproyecto, P.nombre_proyecto, P.lugar_proyecto, P.horas_trabajo, P.fechaInicio, P.FechaFin, E.Estado_proyecto \n" +
+                     "FROM tbProyectos P \n" +
+                     "JOIN tbEstadoProyectos E ON P.idEstadoProyecto = E.idEstadoProyecto\n" +
+                     "WHERE P.idproyecto LIKE ? OR P.nombre_proyecto LIKE ? OR P.lugar_proyecto LIKE ? OR P.horas_trabajo LIKE ? OR P.fechaInicio LIKE ? OR P.FechaFin LIKE ? OR E.Estado_proyecto LIKE ?;\n")) {
+
+            String parametroBusqueda = "%" + busqueda + "%";
+            for (int i = 1; i <= 7; i++) {
+                stmt.setString(i, parametroBusqueda);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            // Agregar datos a la tabla
+            while (rs.next()) {
+                int id = rs.getInt("idproyecto");
+                String nombre = rs.getString("nombre_proyecto");
+                String lugarProyecto = rs.getString("lugar_proyecto");
+                int horasTrabajo = rs.getInt("horas_trabajo");
+                String fechaInicio = rs.getString("fechaInicio");
+                String fechaFin = rs.getString("FechaFin");
+                String estadoProyecto = rs.getString("Estado_proyecto");
+
+                tbProyectos.getItems().add(new Proyecto(id, nombre, lugarProyecto, horasTrabajo, fechaInicio, fechaFin, estadoProyecto));
+            }
+
+            // Crear columnas dinámicamente si es necesario
+            if (tbProyectos.getColumns().isEmpty()) {
+                ObservableList<TableColumn<Proyecto, ?>> columnas = tbProyectos.getColumns();
+
+                // Agrega columnas necesarias para Proyecto (ajusta según sea necesario)
+                TableColumn<Proyecto, Integer> colId = new TableColumn<>("ID");
+                colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+                columnas.add(colId);
+
+                TableColumn<Proyecto, String> colNombre = new TableColumn<>("Nombre");
+                colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+                columnas.add(colNombre);
+
+                TableColumn<Proyecto, String> colLugar = new TableColumn<>("Lugar");
+                colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
+                columnas.add(colLugar);
+
+                TableColumn<Proyecto, Integer> colHorasTrabajo = new TableColumn<>("Horas de trabajo");
+                colHorasTrabajo.setCellValueFactory(new PropertyValueFactory<>("horas"));
+                columnas.add(colHorasTrabajo);
+
+                TableColumn<Proyecto, String> colFechaInicio = new TableColumn<>("Fecha de inicio");
+                colFechaInicio.setCellValueFactory(new PropertyValueFactory<>("inicio"));
+                columnas.add(colFechaInicio);
+
+                TableColumn<Proyecto, String> colFechaFin = new TableColumn<>("Fecha de fin");
+                colFechaFin.setCellValueFactory(new PropertyValueFactory<>("Final"));
+                columnas.add(colFechaFin);
+
+                TableColumn<Proyecto, String> colEstado = new TableColumn<>("Estado");
+                colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+                columnas.add(colEstado);
+            }
 
 
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
+

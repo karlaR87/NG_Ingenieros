@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -50,7 +51,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <TableView fx:id="tbEmpleados" layoutX="52.0" layoutY="102.0" prefHeight="264.0" prefWidth="649.0">
+      <TableView fx:id="tbEmpleados" layoutX="50.0" layoutY="145.0" prefHeight="264.0" prefWidth="649.0">
         <columns>
            <TableColumn prefWidth="75.0" text="Nombre">
               <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
@@ -121,5 +122,15 @@
             </ImageView>
          </graphic>
       </Button>
+      <Pane fx:id="" layoutX="73.0" layoutY="88.0" prefHeight="35.0" prefWidth="604.0" style="-fx-background-color: #4E5456; -fx-background-radius: 20;">
+         <children>
+            <TextField fx:id="txtBusqueda" layoutX="43.0" layoutY="5.0" prefHeight="25.0" prefWidth="530.0" promptText="Búsqueda" style="-fx-background-color: #4E5456;" />
+            <ImageView fitHeight="34.0" fitWidth="26.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Imagenes/lupaBlanca.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

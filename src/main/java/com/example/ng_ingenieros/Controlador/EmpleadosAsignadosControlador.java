@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,6 +45,9 @@ public class EmpleadosAsignadosControlador {
     @FXML
     private Button btnAgregar_ListEmpleados;
 
+    @FXML
+    private TextField txtBusqueda;
+
 
     @FXML
     private TableView<Empleados> tbEmpleados;
@@ -60,6 +64,9 @@ public class EmpleadosAsignadosControlador {
         btnAgregar_ListEmpleados.setOnAction(this::AgregarList);
         btnGuardar.setOnAction(this::AbrirGestion);
         tbEmpleados.setItems(empleados);
+
+        txtBusqueda.textProperty().addListener((observable, oldValue, newValue) -> buscarDatos(null));
+
 
 
     }
@@ -282,6 +289,35 @@ public class EmpleadosAsignadosControlador {
         System.out.println("Número de empleados recibidos: " + empleados.size());
     }
 
+    private void buscarDatos(ActionEvent event) {
+        // Obtén el texto ingresado en el campo de búsqueda
+        String busqueda = txtBusqueda.getText().toLowerCase();
+
+        // Crea una nueva lista para almacenar los empleados que coincidan con la búsqueda
+        ObservableList<Empleados> empleadosFiltrados = FXCollections.observableArrayList();
+
+        // Itera sobre la lista original y agrega los empleados que coincidan con la búsqueda
+        for (Empleados empleado : empleados) {
+            if (contieneTexto(empleado.getNombre(), busqueda) ||
+                    contieneTexto(empleado.getDui(), busqueda) ||
+                    contieneTexto(empleado.getCorreo(), busqueda) ||
+                    contieneTexto(empleado.getCargo(), busqueda) ||
+                    contieneTexto(empleado.getPlaza(), busqueda) ||
+                    contieneTexto(String.valueOf(empleado.getSueldoHora()), busqueda) ||
+                    contieneTexto(String.valueOf(empleado.getCuentaBancaria()), busqueda) ||
+                    contieneTexto(String.valueOf(empleado.getSueldoDia()), busqueda)) {
+
+                empleadosFiltrados.add(empleado);
+            }
+        }
+
+        // Actualiza la tabla con los empleados filtrados
+        tbEmpleados.setItems(empleadosFiltrados);
+    }
+
+    private boolean contieneTexto(String texto, String busqueda) {
+        return texto != null && texto.toLowerCase().contains(busqueda);
+    }
     public ObservableList<Empleados> getEmpleadosProyecto() {
         return empleados;
     }
