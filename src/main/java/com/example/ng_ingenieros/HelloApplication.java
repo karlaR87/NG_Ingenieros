@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
 
 
                 while(queryResult.next()){
-                    if(queryResult.getInt(1)==1){
+                    if(queryResult.getInt(1)==0){
                         try {
                             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("PrimerUsoEMP.fxml"));
                             Scene scene = new Scene(fxmlLoader.load(), 787, 436); //width, heigth

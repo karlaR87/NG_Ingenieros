@@ -3,6 +3,7 @@ package com.example.ng_ingenieros.Controlador;
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.SalarioEmp;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.sql.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
+
 
 public class SalarioVistaControlador {
 
@@ -79,23 +81,26 @@ public class SalarioVistaControlador {
         btnConsolidarPago.setOnAction(this::generarReportePagos);
     }
 
-    private void generarReporte(javafx.event.ActionEvent actionEvent) {
+    private void generarReporte(ActionEvent actionEvent) {
         try {
-            String rutaInforme = "/PlanillaReporte.jasper"; // Ruta relativa al archivo .jasper
-            InputStream inputStream = getClass().getResourceAsStream(rutaInforme);
+            // Ruta del informe
+
+
+            // Obtener el archivo de informe como flujo de entrada
+            InputStream inputStream = getClass().getResourceAsStream("/ReportePlan.jasper");
 
             if (inputStream != null) {
-                // Obtener el texto del TextField txtNombreProyecto
+                // Parámetros del informe
                 String nombreProyecto = txtNombreProyecto.getText();
-
-                // Crear un parámetro para enviar al informe
                 java.util.Map<String, Object> parametros = new java.util.HashMap<>();
-                parametros.put("Proyecto", nombreProyecto);
+                parametros.put("nombreProyecto", nombreProyecto);
 
-                // Llenar el reporte con el parámetro y la conexión
+
+                // Llenar el informe y generar la vista
                 JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros, Conexion.obtenerConexion());
                 JasperViewer.viewReport(jasperPrint, false);
             } else {
+                System.out.println("inputStream es igual a " + inputStream);
                 System.out.println("No se pudo cargar el archivo del informe");
             }
         } catch (JRException e) {
@@ -105,15 +110,16 @@ public class SalarioVistaControlador {
 
     private void generarReportePagos(javafx.event.ActionEvent actionEvent) {
         try {
-            String rutaInforme = "/ConsolidadoPagos.jasper";  // Ruta relativa al archivo .jasper
-            InputStream inputStream = getClass().getResourceAsStream(rutaInforme);
+               // Ruta relativa al archivo .jasper
+            InputStream inputStream = getClass().getResourceAsStream("/PagosConsolidados.jasper");
 
             if (inputStream != null) {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, null, Conexion.obtenerConexion());
                 JasperViewer.viewReport(jasperPrint, false);
             } else {
-
+                System.out.println("inputStream es igual a " + inputStream);
                 System.out.println("No se pudo cargar el archivo del informe");
+
             }
         } catch (JRException e) {
             e.printStackTrace();

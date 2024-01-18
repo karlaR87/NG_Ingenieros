@@ -694,7 +694,7 @@ public class SalarioEmpleadoControlador {
                 asistenciaDatosControlador.cargarDatos();
             }
 
-
+            ((Stage) txtAFP.getScene().getWindow()).close();
 
         }catch (SQLException e) {
             agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
