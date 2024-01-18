@@ -9,8 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import com.example.ng_ingenieros.Controlador.RecuperacionContraseñaControlador;
+import javafx.stage.StageStyle;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -27,6 +31,33 @@ public class RecuperarContraseñaDosControlador {
     private TextField txtCodigoRecu;
     @FXML
     private Button btnRegresar, btnReenviarCodigo, btnSiguiente;
+
+    @FXML
+    private Button btnClose;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
+    }
 
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");
@@ -71,10 +102,13 @@ public class RecuperarContraseñaDosControlador {
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Recuperar contraseña");
-
-
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root));
+            // Cierras la ventana actual
+            Stage currentStage = (Stage) btnClose.getScene().getWindow();
+            currentStage.close();
+
+            // Muestras la nueva ventana
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,15 +139,16 @@ public class RecuperarContraseñaDosControlador {
                 Parent root = loader.load();
 
                 Stage stage = new Stage();
-                stage.setTitle("Recuperar contraseña");
-
-
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(new Scene(root));
-                ((Stage) txtCodigoRecu.getScene().getWindow()).close();
+
+                // Cierras la ventana actual
+                Stage currentStage = (Stage) btnClose.getScene().getWindow();
+                currentStage.close();
+
                 stage.show();
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
             // Realizar acciones correspondientes...
         } else if (codigoIngresado.equals(codigoAleatorio)) {
@@ -123,12 +158,18 @@ public class RecuperarContraseñaDosControlador {
                 Parent root = loader.load();
 
                 Stage stage = new Stage();
-                stage.setTitle("Recuperar contraseña");
+                stage.initStyle(StageStyle.UNDECORATED);
 
 
                 stage.setScene(new Scene(root));
                 ((Stage) txtCodigoRecu.getScene().getWindow()).close();
+                // Cierras la ventana actual
+                Stage currentStage = (Stage) btnClose.getScene().getWindow();
+                currentStage.close();
                 stage.show();
+
+
+
             } catch (Exception e) {
                 e.printStackTrace();
 

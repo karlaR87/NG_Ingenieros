@@ -11,59 +11,76 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="364.0" prefWidth="764.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.RecuperarContraseñaDosControlador">
    <children>
       <AnchorPane layoutY="-6.0" prefHeight="377.0" prefWidth="764.0" style="-fx-background-color: #2D3250;">
          <children>
             <Pane prefHeight="377.0" prefWidth="290.0" style="-fx-background-color: #ffffffff; -fx-background-radius: 10;">
                <children>
-                  <ImageView fitHeight="154.0" fitWidth="240.0" layoutX="25.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="154.0" fitWidth="240.0" layoutX="25.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Imagenes/NGLogo.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnRegresar" layoutX="71.0" layoutY="267.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Regresar" textFill="WHITE">
+                  <Button fx:id="btnRegresar" layoutX="81.0" layoutY="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Regresar" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="16.0" />
+                     </font>
                      <effect>
-                        <DropShadow>
+                        <DropShadow height="10.0" radius="4.5" width="10.0">
                            <color>
-                              <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                              <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                            </color>
                         </DropShadow>
                      </effect>
                   </Button>
                </children>
             </Pane>
-            <Label alignment="CENTER" layoutX="398.0" layoutY="49.0" prefHeight="38.0" prefWidth="267.0" text="Recupera tu contraseña" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="398.0" layoutY="89.0" prefHeight="38.0" prefWidth="267.0" text="Recupera tu contraseña" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="24.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="340.0" layoutY="97.0" prefHeight="29.0" prefWidth="384.0" text="Ingresa el código que se mandó al correo ingresado anteriormente" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="340.0" layoutY="137.0" prefHeight="29.0" prefWidth="384.0" text="Ingresa el código que se mandó al correo ingresado anteriormente" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtCodigoRecu" layoutX="373.0" layoutY="170.0" prefHeight="38.0" prefWidth="317.0" promptText="Ingresa el código " style="-fx-background-radius: 10;" />
-            <Button fx:id="btnSiguiente" layoutX="554.0" layoutY="267.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Siguiente" textFill="WHITE">
+            <TextField fx:id="txtCodigoRecu" layoutX="374.0" layoutY="189.0" prefHeight="38.0" prefWidth="317.0" promptText="Ingresa el código " style="-fx-background-radius: 10;" />
+            <Button fx:id="btnReenviarCodigo" layoutX="361.0" layoutY="286.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Reenviar Codigo" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
                <effect>
-                  <DropShadow>
+                  <DropShadow height="10.0" radius="4.5" width="10.0">
                      <color>
-                        <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                        <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                      </color>
                   </DropShadow>
                </effect>
             </Button>
-            <Button fx:id="btnReenviarCodigo" layoutX="345.0" layoutY="267.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Reenviar código" textFill="WHITE">
+            <Button fx:id="btnSiguiente" layoutX="551.0" layoutY="286.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Siguiente" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
                <effect>
-                  <DropShadow>
+                  <DropShadow height="10.0" radius="4.5" width="10.0">
                      <color>
-                        <Color red="1.0" green="0.5254629850387573" blue="0.05092592537403107" />
+                        <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                      </color>
                   </DropShadow>
                </effect>
             </Button>
          </children>
       </AnchorPane>
+      <Pane fx:id="topPane" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="764.0">
+         <children>
+            <Button fx:id="btnClose" layoutX="702.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="62.0" style="-fx-background-color: #2D3250;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -46,6 +46,13 @@ public class MenuController implements Initializable {
     @FXML
     public Button btnOtros;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        loadWindow("/com/example/ng_ingenieros/MostrarPaneles.fxml");
+
+    }
+
 
     @FXML
     private void abrirInicio(ActionEvent event) {
@@ -114,11 +121,6 @@ public class MenuController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-    }
 
 
 }

@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +30,10 @@ public class HelloApplication extends Application {
                     if(queryResult.getInt(1)==0){
                         try {
                             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("PrimerUsoEMP.fxml"));
-                            Scene scene = new Scene(fxmlLoader.load(), 787, 436); //width, heigth
+                            Scene scene = new Scene(fxmlLoader.load(), 780, 450); //width, heigth
+                            // Configurar el estilo para quitar la barra de título
+                            stage.initStyle(StageStyle.UNDECORATED);
+
                             stage.setTitle("NG Ingenieros");
                             stage.setScene(scene);
                             stage.show();
@@ -38,9 +43,9 @@ public class HelloApplication extends Application {
                         }
                     }
                     else{
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmpleadosAElegirActualizar.fxml"));
-                        Scene scene = new Scene(fxmlLoader.load(), 727, 458); //width, heigth
-                        stage.setTitle("NG Ingenieros");
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load(), 800, 458); //width, heigth
+                        stage.initStyle(StageStyle.UNDECORATED);
                         stage.setScene(scene);
                         stage.show();
 

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,84 +16,96 @@
 
 <AnchorPane fx:id="login" prefHeight="458.0" prefWidth="727.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.LoginControlador">
    <children>
-      <Pane prefHeight="458.0" prefWidth="278.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;">
+      <Pane prefHeight="458.0" prefWidth="278.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <ImageView fitHeight="109.0" fitWidth="201.0" layoutX="41.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="109.0" fitWidth="201.0" layoutX="40.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/NGLogo.png" />
                </image>
             </ImageView>
-            <Label layoutX="62.0" layoutY="178.0" text="¿No tienes cuenta?">
+            <Label layoutX="61.0" layoutY="206.0" text="¿No tienes cuenta?">
                <font>
                   <Font name="Calibri Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="47.0" layoutY="220.0" text="Si no dispones de una cuenta">
+            <Label layoutX="46.0" layoutY="244.0" text="Si no dispones de una cuenta">
                <font>
                   <Font name="Calibri" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="92.0" layoutY="256.0" text="Crea una ahora">
+            <Label layoutX="89.0" layoutY="281.0" text="Crea una ahora">
                <font>
                   <Font name="Calibri" size="16.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Bloom threshold="0.22" />
+               </effect>
             </Label>
-            <Button fx:id="btnRegistrar" layoutX="75.0" layoutY="311.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: f7c081; -fx-background-radius: 20;" text="Registrarse" textFill="WHITE">
+            <Button fx:id="btnRegistrar" layoutX="75.0" layoutY="341.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Registrarse" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="16.0" />
                </font>
                <effect>
-                  <DropShadow>
+                  <DropShadow height="10.0" radius="4.5" width="10.0">
                      <color>
-                        <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                        <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                      </color>
                   </DropShadow>
                </effect>
             </Button>
          </children>
       </Pane>
-      <Label layoutX="378.0" layoutY="52.0" text="Label" />
-      <Label layoutX="427.0" layoutY="49.0" text="INICIO DE SESIÓN" textFill="WHITE">
+      <Label layoutX="473.0" layoutY="56.0" text="INICIO DE SESIÓN" textFill="WHITE">
          <font>
-            <Font name="Calibri Bold" size="20.0" />
+            <Font name="Calibri Bold" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="356.0" layoutY="120.0" text="Usuario" textFill="WHITE">
-         <font>
-            <Font name="Calibri Bold" size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="344.0" layoutY="182.0" text="Contraseña" textFill="WHITE">
+      <Label layoutX="352.0" layoutY="139.0" text="Usuario" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUsuario" layoutX="429.0" layoutY="112.0" prefHeight="33.0" prefWidth="226.0" promptText="Usuario" style="-fx-background-radius: 10;" />
-      <Button fx:id="btnIngresar" layoutX="420.0" layoutY="305.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="159.0" style="-fx-background-color: f7c081; -fx-background-radius: 20;" text="Ingresar" textFill="WHITE">
+      <Label layoutX="354.0" layoutY="220.0" text="Contraseña" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUsuario" layoutX="450.0" layoutY="131.0" prefHeight="33.0" prefWidth="226.0" promptText="Usuario" style="-fx-background-radius: 10;" />
+      <Button fx:id="btnIngresar" layoutX="473.0" layoutY="337.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="140.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Ingresar" textFill="WHITE">
          <font>
             <Font name="Calibri" size="16.0" />
          </font>
          <effect>
-            <DropShadow>
+            <DropShadow height="10.0" radius="4.5" width="10.0">
                <color>
-                  <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                  <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                </color>
             </DropShadow>
          </effect>
       </Button>
-      <PasswordField fx:id="txtContraseña" layoutX="429.0" layoutY="184.0" prefHeight="33.0" prefWidth="226.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
-      <Label fx:id="lbmensaje" alignment="CENTER" layoutX="286.0" layoutY="208.0" prefHeight="17.0" prefWidth="289.0" textFill="WHITE">
+      <PasswordField fx:id="txtContraseña" layoutX="450.0" layoutY="213.0" prefHeight="33.0" prefWidth="226.0" promptText="Contraseña" style="-fx-background-radius: 10;" />
+      <Button fx:id="btnContraseña" layoutX="440.0" layoutY="262.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="226.0" style="-fx-background-color: #2D3250;" text="¿Olvidaste tu contaseña?" textFill="WHITE">
          <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnContraseña" layoutX="392.0" layoutY="235.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="216.0" style="-fx-background-color: #2D3250;" text="¿Olvidaste tu contaseña?" textFill="WHITE">
-         <font>
-            <Font name="Calibri Bold" size="12.0" />
+            <Font name="Calibri Bold" size="16.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <effect>
+            <Bloom threshold="0.86" />
+         </effect>
       </Button>
+      <Pane fx:id="topPane" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="800.0">
+         <children>
+            <Button fx:id="btnClose" layoutX="748.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #2D3250;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

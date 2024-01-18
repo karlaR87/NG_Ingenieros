@@ -9,7 +9,11 @@ import javafx.scene.control.Alert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.util.Random;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -25,10 +29,36 @@ import java.util.regex.Pattern;
 public class RecuperacionContraseñaControlador {
     @FXML
     private Button btnEnviar;
-
+    @FXML
+    private Button btnRegresar;
     @FXML
     private TextField txtCorreoRecu;
+    @FXML
+    private Button btnClose;
 
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
+    }
     public static boolean validarCorreo(String input) {
         String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
@@ -44,6 +74,7 @@ public class RecuperacionContraseñaControlador {
     public void initialize() {
         //Configura el evento de clic para el botón
         btnEnviar.setOnAction(this::btnEnviarOnAction);
+        btnRegresar.setOnAction(this::btnRegresarOnAction);
 
     }
     private void btnEnviarOnAction(ActionEvent event) {
@@ -53,7 +84,21 @@ public class RecuperacionContraseñaControlador {
     }
 
 
+    @FXML
+    protected void btnRegresarOnAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Login.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(new Scene(root));
+            ((Stage) txtCorreoRecu.getScene().getWindow()).close(); // Cierra la ventana actual
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public ResultSet RecuperacionContraseña(){
         Conexion conexion = new Conexion();
@@ -114,10 +159,14 @@ public class RecuperacionContraseñaControlador {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/RecuperarContraseñaDos.fxml"));
                 Parent root = loader.load();
-
                 Stage stage = new Stage();
-                stage.setTitle("Nueva");
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(new Scene(root));
+                // Cierras la ventana actual
+                Stage currentStage = (Stage) btnClose.getScene().getWindow();
+                currentStage.close();
+
+                // Muestras la nueva ventana
                 stage.show();
 
             } catch (Exception e) {

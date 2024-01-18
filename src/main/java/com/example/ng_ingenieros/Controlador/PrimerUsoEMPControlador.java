@@ -1,21 +1,33 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.*;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.stage.StageStyle;
 
-import java.io.File;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,12 +36,46 @@ import com.example.ng_ingenieros.Validaciones;
 
 import javax.swing.*;
 
-public class PrimerUsoEMPControlador {
+public class PrimerUsoEMPControlador  {
+
+
+
 
     @FXML
     private TextField txtNombre, txtDui, txtCorreo;
     @FXML
     private Button btnAceptar;
+
+    @FXML
+    private Button btnClose;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
+    }
+
+
+
+
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");
     }
@@ -50,9 +96,11 @@ public class PrimerUsoEMPControlador {
     }
 
 
+
     public void initialize() {
-        // Configura el evento de clic para el botón
+        // Configurar el evento de presionar sobre el Pane transparente
         btnAceptar.setOnAction(this::btnAceptarOnAction);
+
     }
     // Método para abrir una nueva ventana
 
@@ -81,7 +129,7 @@ public class PrimerUsoEMPControlador {
                 Parent root = loader.load();
 
                 Stage stage = new Stage();
-                stage.setTitle("Registrarse");
+                stage.initStyle(StageStyle.UNDECORATED);
 
                 stage.setScene(new Scene(root));
                 stage.show();

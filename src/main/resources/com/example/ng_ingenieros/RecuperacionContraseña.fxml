@@ -11,46 +11,60 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="382.0" prefWidth="754.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.RecuperacionContraseñaControlador">
    <children>
-      <Pane prefHeight="383.0" prefWidth="274.0" style="-fx-background-color: #ffffffff; -fx-background-radius: 10;">
+      <Pane prefHeight="383.0" prefWidth="274.0" style="-fx-background-color: #ffffffff;">
          <children>
-            <ImageView fitHeight="154.0" fitWidth="240.0" layoutX="25.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="154.0" fitWidth="240.0" layoutX="17.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagenes/NGLogo.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnRegresar" layoutX="71.0" layoutY="267.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Regresar" textFill="WHITE">
+            <Button fx:id="btnRegresar" layoutX="73.0" layoutY="293.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Regresar" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
                <effect>
-                  <DropShadow>
+                  <DropShadow height="10.0" radius="4.5" width="10.0">
                      <color>
-                        <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                        <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                      </color>
                   </DropShadow>
                </effect>
             </Button>
          </children>
       </Pane>
-      <Label alignment="CENTER" layoutX="373.0" layoutY="36.0" prefHeight="38.0" prefWidth="274.0" text="¿Olvidaste tu contraseña?" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="381.0" layoutY="87.0" prefHeight="38.0" prefWidth="274.0" text="¿Olvidaste tu contraseña?" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="355.0" layoutY="80.0" prefHeight="29.0" prefWidth="311.0" text="Sigue las indicaciones para poder recuperar tu cuenta" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="363.0" layoutY="131.0" prefHeight="29.0" prefWidth="311.0" text="Sigue las indicaciones para poder recuperar tu cuenta" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCorreoRecu" layoutX="344.0" layoutY="160.0" prefHeight="38.0" prefWidth="349.0" promptText="Ingresa tu correo electrónico" style="-fx-background-radius: 10;" />
-      <Button fx:id="btnEnviar" layoutX="436.0" layoutY="255.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" style="-fx-background-color: #f7c081; -fx-background-radius: 20;" text="Enviar" textFill="WHITE">
+      <TextField fx:id="txtCorreoRecu" layoutX="344.0" layoutY="192.0" prefHeight="38.0" prefWidth="349.0" promptText="Ingresa tu correo electrónico" style="-fx-background-radius: 10;" />
+      <Button fx:id="btnEnviar" layoutX="454.0" layoutY="293.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: #6e7acb; -fx-background-radius: 20;" text="Enviar" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
          <effect>
-            <DropShadow>
+            <DropShadow height="10.0" radius="4.5" width="10.0">
                <color>
-                  <Color red="0.7490196228027344" green="0.4000000059604645" blue="0.0470588244497776" />
+                  <Color red="0.43529412150382996" green="0.1921568661928177" blue="0.7764706015586853" />
                </color>
             </DropShadow>
          </effect>
       </Button>
+      <Pane fx:id="topPane" layoutY="7.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="754.0">
+         <children>
+            <Button fx:id="btnClose" layoutX="702.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #2D3250;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
