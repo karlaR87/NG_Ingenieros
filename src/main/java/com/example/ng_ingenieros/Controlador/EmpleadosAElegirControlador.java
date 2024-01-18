@@ -147,7 +147,7 @@ public class EmpleadosAElegirControlador {
         }
     }
 
-    public void buscarDatos(String busqueda) {
+    /*public void buscarDatos(String busqueda) {
         tbEmpleados.getItems().clear(); // Limpiar los elementos existentes
 
         try (Connection conn = Conexion.obtenerConexion();
@@ -234,7 +234,98 @@ public class EmpleadosAElegirControlador {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+
+    public void buscarDatos(String busqueda) {
+        tbEmpleados.getItems().clear(); // Limpiar los elementos existentes
+
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement stmt = conn.prepareStatement("SELECT \n" +
+                     "    e.idempleado,\n" +
+                     "    e.nombreCompleto,\n" +
+                     "    e.dui,\n" +
+                     "    e.correo,\n" +
+                     "    COALESCE(e.sueldo_dia, 0) AS sueldo_dia,\n" +
+                     "    COALESCE(e.sueldo_horaExt, 0) AS sueldo_horaExt,\n" +
+                     "    e.numero_cuentabancaria,\n" +
+                     "    c.cargo\n" +
+                     "FROM \n" +
+                     "    tbempleados e\n" +
+                     "INNER JOIN \n" +
+                     "    tbcargos c ON e.idcargo = c.idcargo\n" +
+                     "LEFT JOIN \n" +
+                     "    tbEmpleadosProyectos ep ON e.idempleado = ep.idEmpleado\n" +
+                     "LEFT JOIN \n" +
+                     "    tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
+                     "LEFT JOIN \n" +
+                     "    tbActividad a ON ep.idactividad = a.idactividad\n" +
+                     "WHERE\n" +
+                     "    e.idcargo <> 7\n" +
+                     "    AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)))" +
+                     "    AND (e.nombreCompleto LIKE ? OR e.dui LIKE ? OR e.correo LIKE ?)")) {
+
+            String parametroBusqueda = "%" + busqueda + "%";
+            for (int i = 1; i <= 3; i++) {
+                stmt.setString(i, parametroBusqueda);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            // Agregar datos a la tabla
+            while (rs.next()) {
+                int id = rs.getInt("idempleado");
+                String nombre = rs.getString("nombreCompleto");
+                String dui = rs.getString("dui");
+                String correo = rs.getString("correo");
+                double sueldoDia = Double.parseDouble(rs.getString("sueldo_dia"));
+                double sueldoHora = Double.parseDouble(rs.getString("sueldo_horaExt"));
+                String cuentaBancaria = rs.getString("numero_cuentabancaria");
+                String cargo = rs.getString("cargo");
+
+                tbEmpleados.getItems().add(new Empleados(id, nombre, dui, correo, sueldoDia, sueldoHora, cuentaBancaria, cargo));
+            }
+
+            // Crear columnas dinámicamente si es necesario
+            if (tbEmpleados.getColumns().isEmpty()) {
+                ObservableList<TableColumn<Empleados, ?>> columnas = tbEmpleados.getColumns();
+
+                // Agrega columnas necesarias para Empleados (ajusta según sea necesario)
+                TableColumn<Empleados, Integer> colId = new TableColumn<>("ID");
+                colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+                columnas.add(colId);
+
+                TableColumn<Empleados, String> colNombre = new TableColumn<>("Nombre");
+                colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+                columnas.add(colNombre);
+
+                TableColumn<Empleados, String> colDui = new TableColumn<>("DUI");
+                colDui.setCellValueFactory(new PropertyValueFactory<>("dui"));
+                columnas.add(colDui);
+
+                TableColumn<Empleados, String> colCorreo = new TableColumn<>("Correo");
+                colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+                columnas.add(colCorreo);
+
+                TableColumn<Empleados, Double> colSueldoDia = new TableColumn<>("Sueldo del día");
+                colSueldoDia.setCellValueFactory(new PropertyValueFactory<>("sueldoDia"));
+                columnas.add(colSueldoDia);
+
+                TableColumn<Empleados, Double> colSueldoHora = new TableColumn<>("Sueldo por Hora Extra");
+                colSueldoHora.setCellValueFactory(new PropertyValueFactory<>("sueldoHora"));
+                columnas.add(colSueldoHora);
+
+                TableColumn<Empleados, String> colCuentaBancaria = new TableColumn<>("Cuenta Bancaria");
+                colCuentaBancaria.setCellValueFactory(new PropertyValueFactory<>("cuentaBancaria"));
+                columnas.add(colCuentaBancaria);
+
+                TableColumn<Empleados, String> colCargo = new TableColumn<>("Cargo");
+                colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+                columnas.add(colCargo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
 
 
