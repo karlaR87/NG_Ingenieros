@@ -15,16 +15,6 @@
    <children>
       <AnchorPane prefHeight="540.0" prefWidth="750.0" style="-fx-background-color: #485256;" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane prefHeight="58.0" prefWidth="750.0" style="-fx-background-color: #DD890B; -fx-background-radius: 0;">
-               <children>
-                  <Pane layoutY="55.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #9E5F00;" />
-                  <Label layoutX="280.0" layoutY="10.0" prefHeight="38.0" prefWidth="190.0" text="PROYECTO" textAlignment="RIGHT" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="32.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
             <Button fx:id="btnGuardarProyecto" layoutX="204.0" layoutY="475.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
@@ -102,6 +92,16 @@
                </font>
             </Label>
             <DatePicker fx:id="dateFinalizacion" layoutX="249.0" layoutY="337.0" prefHeight="27.0" prefWidth="123.0" style="-fx-background-radius: 10;" />
+            <Pane fx:id="topPane" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="58.0" prefWidth="750.0" style="-fx-background-color: #DD890B; -fx-background-radius: 0;">
+               <children>
+                  <Pane layoutY="55.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #9E5F00;" />
+                  <Label layoutX="280.0" layoutY="10.0" prefHeight="38.0" prefWidth="190.0" text="PROYECTO" textAlignment="RIGHT" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>
