@@ -27,6 +27,9 @@ public class EmpleadosAElegirControlador {
 
     private List<Empleados> empleadosSeleccionados; // Lista para almacenar empleados seleccionados
 
+
+
+
     public void initialize() {
         configurarTabla();
         cargarDatos();
@@ -68,6 +71,7 @@ public class EmpleadosAElegirControlador {
                      "WHERE\n" +
                      "    e.idcargo <> 7\n" +
                      "    AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
+
 
             // Crear columnas dinámicamente
             ObservableList<TableColumn<Empleados, ?>> columnas = tbEmpleados.getColumns();
@@ -144,6 +148,7 @@ public class EmpleadosAElegirControlador {
         empleadosSeleccionados.clear();
 
         ObservableList<Empleados> seleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
+
         empleadosSeleccionados.addAll(seleccionados);
 
         // Imprimir mensajes de depuración
@@ -178,4 +183,10 @@ public class EmpleadosAElegirControlador {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
+
+
+
+
+
 }

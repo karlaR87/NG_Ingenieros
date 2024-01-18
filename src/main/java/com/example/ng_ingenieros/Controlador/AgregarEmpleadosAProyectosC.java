@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,8 +129,8 @@ public class AgregarEmpleadosAProyectosC {
 
 
     ///GUARDAR EN ARRAY
-        @FXML
-        private void agregarEmpleado(javafx.event.ActionEvent actionEvent) {
+    @FXML
+    private void agregarEmpleado(javafx.event.ActionEvent actionEvent) {
         // Obtener todos los valores
         String nombre = txtNombreEmp.getText();
         String dui = txtDuiEmp.getText();
@@ -141,6 +141,18 @@ public class AgregarEmpleadosAProyectosC {
         Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
 
         try {
+            if (duiExistenteEnBase(dui)) {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "El DUI ya está registrado en la base de datos.", (Stage) btnGuardar.getScene().getWindow());
+                return;
+            }
+
+            if (duiRepetido(dui)) {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "El DUI ya está registrado para otro empleado.", (Stage) btnGuardar.getScene().getWindow());
+                return;
+            }
+
             // Obtener el idcargo correspondiente al nombre seleccionado en el ComboBox
             int idCargo = IdRetornoCargo(cargoNombre);
 
@@ -167,6 +179,57 @@ public class AgregarEmpleadosAProyectosC {
             mostrarAlerta("Error", "Error al obtener el idcargo: " + e.getMessage());
         }
     }
+
+    // Método para verificar si el DUI ya está registrado en la base de datos
+    private boolean duiExistenteEnBase(String dui) {
+        Connection conectar = null;
+        PreparedStatement pst = null;
+        ResultSet result = null;
+
+        String SSQL = "SELECT COUNT(*) FROM tbempleados WHERE dui = ?";
+
+        try {
+            conectar = Conexion.obtenerConexion();
+            pst = conectar.prepareStatement(SSQL);
+            pst.setString(1, dui);
+            result = pst.executeQuery();
+
+            if (result.next()) {
+                int count = result.getInt(1);
+                return count > 0; // Retorna true si el DUI ya existe en la base de datos
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (result != null) {
+                    result.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (conectar != null) {
+                    conectar.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
+    // Método para verificar si el DUI ya está registrado en la lista
+    private boolean duiRepetido(String dui) {
+        for (Empleados emp : empleados) {
+            if (emp.getDui().equals(dui)) {
+                return true; // El DUI ya está registrado
+            }
+        }
+        return false; // El DUI no está repetido
+    }
+
 //...
 
 
@@ -243,6 +306,14 @@ public class AgregarEmpleadosAProyectosC {
     public static boolean NoVacio(String input) {
         return !input.trim().isEmpty();
     }
+
+
+
+    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
+    private boolean validarDui(String dui) {
+        // Se puede implementar una lógica más avanzada según el formato real de DUI
+        return dui.matches("\\d{8}-\\d{1}");
+    }
     public static void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -250,12 +321,5 @@ public class AgregarEmpleadosAProyectosC {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
-    // Función para validar el formato de un DUI (por ejemplo, 12345678-9)
-    private boolean validarDui(String dui) {
-        // Se puede implementar una lógica más avanzada según el formato real de DUI
-        return dui.matches("\\d{8}-\\d{1}");
-    }
-
 
 }

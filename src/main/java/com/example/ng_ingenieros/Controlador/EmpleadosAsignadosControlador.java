@@ -120,6 +120,8 @@ public class EmpleadosAsignadosControlador {
         return empleados;
     }
 
+
+
     private void abrirActualizar(ActionEvent event) {
         // Obtiene el empleado seleccionado
         Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
@@ -261,8 +263,8 @@ public class EmpleadosAsignadosControlador {
 
      catch (IOException e) {
         e.printStackTrace();
-    }
 
+        }
     }
 
 
