@@ -45,7 +45,7 @@
       <TextField id="txtDuiEmp" fx:id="txtDuiEmp" layoutX="495.0" layoutY="95.0" prefHeight="26.0" prefWidth="223.0" style="-fx-background-radius: 8;" />
       <TextField id="txtSueldoEmp" fx:id="txtSueldoEmp" layoutX="519.0" layoutY="202.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 8;" />
       <TextField id="txtPagoHorasExEmp" fx:id="txtPagoHorasExEmp" layoutX="599.0" layoutY="144.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-radius: 8;" />
-      <Button fx:id="btnAceptar" layoutX="495.0" layoutY="388.0" mnemonicParsing="false" onAction="#agregarEmpleado" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Aceptar" textFill="WHITE" />
+      <Button fx:id="btnAceptar" layoutX="495.0" layoutY="388.0" mnemonicParsing="false" onAction="#validaciones" prefHeight="36.0" prefWidth="152.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Aceptar" textFill="WHITE" />
       <Button fx:id="btnGuardar" layoutX="327.0" layoutY="388.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #6C8EE5; -fx-background-radius: 20;" text="Guardar" textFill="WHITE" />
       <Label layoutX="33.0" layoutY="250.0" prefHeight="52.0" prefWidth="141.0" text="Numero de cuenta" textFill="WHITE" wrapText="true">
          <font>

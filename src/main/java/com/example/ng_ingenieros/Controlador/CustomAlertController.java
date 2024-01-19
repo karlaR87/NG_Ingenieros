@@ -15,14 +15,14 @@ public class CustomAlertController {
     private Label lbTitulo;
 
     @FXML
-    private Label lbMensaje;
+    private Label lbMensajes;
 
     @FXML
     private Button btnAceptar;
 
     public void initData(String titulo, String mensaje) {
         lbTitulo.setText(titulo);
-        lbMensaje.setText(mensaje);
+        lbMensajes.setText(mensaje);
         btnAceptar.setOnAction(event -> cerrarVentana());
 
     }

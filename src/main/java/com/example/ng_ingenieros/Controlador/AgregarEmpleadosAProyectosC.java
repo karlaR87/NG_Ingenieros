@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +47,8 @@ public class AgregarEmpleadosAProyectosC {
 
     @FXML
     private Button btnGuardar;
-
+    @FXML
+    private Button btnAceptar;
 
     private ObservableList<Empleados> empleados = FXCollections.observableArrayList();
 
@@ -73,9 +75,12 @@ public class AgregarEmpleadosAProyectosC {
         btnGuardar.setOnAction(this::Guardar);
         btnCancelar.setOnAction(this::cerrarVentana);
 
+
         CargarCargo();
 
     }
+
+
 
 
 
@@ -148,15 +153,16 @@ public class AgregarEmpleadosAProyectosC {
 
     ///GUARDAR EN ARRAY
     @FXML
-    private void agregarEmpleado(javafx.event.ActionEvent actionEvent) {
+    private void agregarEmpleado() {
         // Obtener todos los valores
         String nombre = txtNombreEmp.getText();
-        String dui = txtDuiEmp.getText();
+        String dui = txtDuiEmp.getText();// Eliminar el guion antes devalidar
         String correo = txtCorreoEmp.getText();
         String cargoNombre = cbCargoEmp.getValue();
-        Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
         String numCuenta = txtNumCuenta.getText();
+        Double sueldoHora = Double.parseDouble(txtPagoHorasExEmp.getText());
         Double sueldo = Double.parseDouble(txtSueldoEmp.getText());
+
 
         try {
             if (duiExistenteEnBase(dui)) {
@@ -272,33 +278,52 @@ public class AgregarEmpleadosAProyectosC {
     public ObservableList<Empleados> getEmpleadosList() {
         return empleados;
     }
-
+@FXML
     public void validaciones() {
+
+
         if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtNumCuenta.getText())&& NoVacio(txtDuiEmp.getText())&& NoVacio(txtPagoHorasExEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
+            if (cbCargoEmp.getValue() == null) {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Seleccione un cargo en el ComboBox.", (Stage) btnGuardar.getScene().getWindow());
+                return;
+            }
             if (validarLetras(txtNombreEmp.getText())){
                 if (validarCorreo(txtCorreoEmp.getText())){
                     if (validarDui(txtDuiEmp.getText())){
                         if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())){
-
+                            agregarEmpleado();
 
                         }else {
-                            mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                            CustomAlert customAlert = new CustomAlert();
+                            customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en los campos de Sueldo y pago por hora extra.", (Stage) btnGuardar.getScene().getWindow());
+                            return;
                         }
 
                     }else {
-                        mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
+                        CustomAlert customAlert = new CustomAlert();
+                        customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un DUI válido.", (Stage) btnGuardar.getScene().getWindow());
+                        return;
                     }
 
                 }else {
-                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un correo válido.", (Stage) btnGuardar.getScene().getWindow());
+                    return;
+
                 }
 
             }else {
-                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnGuardar.getScene().getWindow());
+                return;
             }
 
         }else {
-            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnGuardar.getScene().getWindow());
+            return;
 
         }
     }

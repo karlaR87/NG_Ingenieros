@@ -1,7 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.Empleados;
+import com.example.ng_ingenieros.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -319,89 +318,91 @@ public class ProyectosAgregarControlador {
     //Validaciones
     public void validaciones(javafx.event.ActionEvent actionEvent) {
         if (NoVacio(txtNombre.getText()) && NoVacio(txtLugar.getText()) && NoVacio(txtHoras.getText())){
-                if (validarLetras(txtNombre.getText())){
                     if (validarNumeroS(txtHoras.getText())){
-                        Connection conn = Conexion.obtenerConexion();
-                        System.out.println("Conexión establecida correctamente.");
 
-                        String nombreProyecto = txtNombre.getText();
-                        String lugarProyecto = txtLugar.getText();
-                        int horasTrabajo = Integer.parseInt(txtHoras.getText());
-                        Date fechaInicio = Date.valueOf(dateInicio.getValue());
-                        Date fechaFin = Date.valueOf(dateFinalizacion.getValue());
+                            Connection conn = Conexion.obtenerConexion();
+                            System.out.println("Conexión establecida correctamente.");
 
-                        // Obtener el ID del estado del proyecto
+                            String nombreProyecto = txtNombre.getText();
+                            String lugarProyecto = txtLugar.getText();
+                            int horasTrabajo = Integer.parseInt(txtHoras.getText());
+                            Date fechaInicio = Date.valueOf(dateInicio.getValue());
+                            Date fechaFin = Date.valueOf(dateFinalizacion.getValue());
+
+                            // Obtener el ID del estado del proyecto
 
 
-                        // Verifica si hay empleados a agregar
-                        if (empleadosProyecto.isEmpty()) {
-                            System.err.println("Error: No hay empleados para agregar al proyecto.");
-                            return;
-                        }
-
-                        // Obtener el nombre del ingeniero seleccionado en el ComboBox
-                        String nombreIngeniero = cmIngeniero.getValue();
-
-                        // Obtener el ID del ingeniero a cargo
-                        int idIngeniero = -1;
-                        try {
-                            idIngeniero = IdRetornoIngAcargo(nombreIngeniero);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            System.err.println("Error al obtener el ID del ingeniero a cargo: " + e.getMessage());
-                            return;
-                        }
-
-                        //  información sobre los empleados a agregar
-                        System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
-
-                        String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
-                        try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
-                            cs.setString(1, nombreProyecto);
-                            cs.setString(2, lugarProyecto);
-                            cs.setInt(3, horasTrabajo);
-                            cs.setDate(4, fechaInicio);
-                            cs.setDate(5, fechaFin);
-
-                            // Itera sobre los empleados y agrega cada uno al procedimiento almacenado
-                            for (Empleados empleado : empleadosProyecto) {
-                                cs.setString(6, empleado.getNombre());
-                                cs.setString(7, empleado.getDui());
-                                cs.setString(8, empleado.getCorreo());
-                                cs.setDouble(9, empleado.getSueldoDia());
-                                cs.setDouble(10, empleado.getSueldoHora());
-                                cs.setString(11, empleado.getCuentaBancaria());
-                                cs.setInt(12, empleado.getIdcargo());
-                                cs.setInt(13, idIngeniero);
-
-                                cs.execute();
+                            // Verifica si hay empleados a agregar
+                            if (empleadosProyecto.isEmpty()) {
+                                System.err.println("Error: No hay empleados para agregar al proyecto.");
+                                return;
                             }
 
+                            // Obtener el nombre del ingeniero seleccionado en el ComboBox
+                            String nombreIngeniero = cmIngeniero.getValue();
 
-                            // Ejecuta el procedimiento almacenado una vez para todos los empleados
-                            mostrarAlerta("Éxito", "Proyecto y empleados asociados agregados con éxito.");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
-                            // Mostrar mensaje de error
-                            mostrarAlerta("Error", "Error al agregar el proyecto y empleados. Consulta la consola para más detalles.");
-                        }
+                            // Obtener el ID del ingeniero a cargo
+                            int idIngeniero = -1;
+                            try {
+                                idIngeniero = IdRetornoIngAcargo(nombreIngeniero);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                System.err.println("Error al obtener el ID del ingeniero a cargo: " + e.getMessage());
+                                return;
+                            }
 
-                        Node source = (Node) actionEvent.getSource();
-                        Stage stage = (Stage) source.getScene().getWindow();
-                        stage.close();
+                            //  información sobre los empleados a agregar
+                            System.out.println("Número de empleados a agregar: " + empleadosProyecto.size());
+
+                            String queryProcedimiento = "exec AgregarProyectoConEmpleados ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                            try (CallableStatement cs = conn.prepareCall(queryProcedimiento)) {
+                                cs.setString(1, nombreProyecto);
+                                cs.setString(2, lugarProyecto);
+                                cs.setInt(3, horasTrabajo);
+                                cs.setDate(4, fechaInicio);
+                                cs.setDate(5, fechaFin);
+
+                                // Itera sobre los empleados y agrega cada uno al procedimiento almacenado
+                                for (Empleados empleado : empleadosProyecto) {
+                                    cs.setString(6, empleado.getNombre());
+                                    cs.setString(7, empleado.getDui());
+                                    cs.setString(8, empleado.getCorreo());
+                                    cs.setDouble(9, empleado.getSueldoDia());
+                                    cs.setDouble(10, empleado.getSueldoHora());
+                                    cs.setString(11, empleado.getCuentaBancaria());
+                                    cs.setInt(12, empleado.getIdcargo());
+                                    cs.setInt(13, idIngeniero);
+
+                                    cs.execute();
+                                }
+
+
+                                // Ejecuta el procedimiento almacenado una vez para todos los empleados
+                                mostrarAlerta("Éxito", "Proyecto y empleados asociados agregados con éxito.");
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                System.err.println("Error al ejecutar el procedimiento almacenado: " + e.getMessage());
+                                // Mostrar mensaje de error
+                                mostrarAlerta("Error", "Error al agregar el proyecto y empleados. Consulta la consola para más detalles.");
+                            }
+
+                            Node source = (Node) actionEvent.getSource();
+                            Stage stage = (Stage) source.getScene().getWindow();
+                            stage.close();
 
                 } else{
-                    mostrarAlerta("Error de Validación", "Solo se pueden ingresar numeros en el nombre.");
+
+                        CustomAlert customAlert = new CustomAlert();
+                        customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar numeros en el la hora.", (Stage) btnGuardarProyecto.getScene().getWindow());
+                        return;
                 }
 
-            } else {
-                mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
-
-            }
 
         }else {
-            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnGuardarProyecto.getScene().getWindow());
+            return;
         }
 
     }

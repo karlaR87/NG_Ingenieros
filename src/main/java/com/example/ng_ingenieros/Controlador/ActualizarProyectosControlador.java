@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
 import javafx.collections.FXCollections;
@@ -228,7 +229,13 @@ public class ActualizarProyectosControlador {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
+    public static void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
     @FXML
     private void btnGuardarProyecto(ActionEvent event) {
         // Obtener los valores de los campos
@@ -239,10 +246,31 @@ public class ActualizarProyectosControlador {
         LocalDate fechaFinalizacion = dateFinalizacion.getValue();
 
         // Validar que los campos obligatorios no estén vacíos
-        if (nombre.isEmpty() || lugar.isEmpty()  || horas.isEmpty()  || fechaInicio == null || fechaFinalizacion == null) {
-            // Mostrar mensaje de error o alerta
-            System.out.println("Por favor, complete todos los campos.");
+        if (nombre.isEmpty() || lugar.isEmpty() || horas.isEmpty() || fechaInicio == null || fechaFinalizacion == null) {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Por favor, complete todos los campos.", (Stage) btnGuardarProyecto.getScene().getWindow());
             return;
+        }
+
+
+        if (cmIngeniero.getValue() == null) {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Seleccione un ingeniero a cargo en el ComboBox.", (Stage) btnGuardarProyecto.getScene().getWindow());
+            return;
+        }
+
+        if (!validarNumero(horas)) {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en el campo de Horas a Trabajar.", (Stage) btnGuardarProyecto.getScene().getWindow());
+            return;
+
+        }
+
+        if (fechaFinalizacion.isBefore(fechaInicio)) {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "La Fecha de Finalización no puede ser anterior a la Fecha de Inicio.", (Stage) btnGuardarProyecto.getScene().getWindow());
+            return;
+
         }
 
         try (Connection conn = Conexion.obtenerConexion()) {
@@ -271,6 +299,13 @@ public class ActualizarProyectosControlador {
             e.printStackTrace();
             // Manejo de errores
         }
+    }
+    public static boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
+
+    public static boolean validarLetras(String input) {
+        return input.matches("[a-zA-Z ]+");
     }
 
 }
