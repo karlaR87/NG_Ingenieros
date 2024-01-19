@@ -19,6 +19,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -290,8 +291,8 @@ public class PanelesProyectos {
                             // Mostrar la ventana
                             Stage stage1 = new Stage();
                             stage1.setScene(new Scene(root));
-                            stage1.initStyle(StageStyle.UNDECORATED);
-
+                            // Configurar la modalidad (bloquea la ventana principal)
+                            stage.initModality(Modality.APPLICATION_MODAL);
                             stage1.show();
 
                             // Cerrar la ventana actual
