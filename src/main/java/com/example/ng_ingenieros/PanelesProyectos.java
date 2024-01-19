@@ -291,8 +291,8 @@ public class PanelesProyectos {
                             // Mostrar la ventana
                             Stage stage1 = new Stage();
                             stage1.setScene(new Scene(root));
-                            // Configurar la modalidad (bloquea la ventana principal)
-                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage1.initStyle(StageStyle.UNDECORATED);
+
                             stage1.show();
 
                             // Cerrar la ventana actual
@@ -329,7 +329,7 @@ public class PanelesProyectos {
 
         Scene detallesScene = new Scene(scroll, 500, 300);
         stage.setScene(detallesScene);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
