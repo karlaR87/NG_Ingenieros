@@ -43,7 +43,7 @@ public class HelloApplication extends Application {
                         }
                     }
                     else{
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CrudCargos.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
                         Scene scene = new Scene(fxmlLoader.load(), 800, 458); //width, heigth
                         stage.setScene(scene);
                         stage.initStyle(StageStyle.UNDECORATED);

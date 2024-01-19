@@ -106,5 +106,6 @@
                 </Pane>
             </center>
         </BorderPane>
+      <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="723.0" />
     </children>
 </AnchorPane>

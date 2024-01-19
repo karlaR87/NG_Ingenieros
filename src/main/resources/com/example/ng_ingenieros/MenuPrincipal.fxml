@@ -112,23 +112,21 @@
             <BorderPane fx:id="NuevoIdParaElCentro" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="442.0" prefWidth="812.0" style="-fx-background-color: #616E73;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets />
-               </BorderPane.margin>
-               <top>
-                  <Pane fx:id="topPane" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="979.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button fx:id="btnClose" layoutX="746.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #616E73;" text="X" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </Pane>
-               </top></BorderPane>
+               </BorderPane.margin></BorderPane>
 
          </center>
 
       
       </BorderPane>
+      <Pane fx:id="topPane" layoutX="10.0" layoutY="1.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="71.0" prefWidth="990.0">
+         <children>
+            <Button fx:id="btnClose" layoutX="924.0" layoutY="14.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #616E73;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
 
 
 
