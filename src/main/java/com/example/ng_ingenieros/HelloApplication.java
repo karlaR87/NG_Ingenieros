@@ -43,9 +43,8 @@ public class HelloApplication extends Application {
                         }
                     }
                     else{
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuPrincipal.fxml"));
                         Scene scene = new Scene(fxmlLoader.load(), 800, 458); //width, heigth
-                        stage.initStyle(StageStyle.UNDECORATED);
                         stage.setScene(scene);
                         stage.show();
 
