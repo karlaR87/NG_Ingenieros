@@ -16,9 +16,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.RegistrarseSegundoControlador">
    <children>
-      <AnchorPane layoutX="-6.0" prefHeight="429.0" prefWidth="805.0" style="-fx-background-color: #2D3250; -fx-background-radius: 15;">
+      <AnchorPane layoutX="-6.0" prefHeight="436.0" prefWidth="800.0" style="-fx-background-color: #2D3250;">
          <children>
-            <Pane layoutX="488.0" prefHeight="436.0" prefWidth="315.0" style="-fx-background-color: #FFFF; -fx-background-radius: 15;">
+            <Pane layoutX="488.0" prefHeight="436.0" prefWidth="315.0" style="-fx-background-color: #FFFF;">
                <children>
                   <ImageView fitHeight="194.0" fitWidth="266.0" layoutX="25.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -60,6 +60,15 @@
             <PasswordField fx:id="txtContraseña" layoutX="90.0" layoutY="158.0" prefHeight="38.0" prefWidth="315.0" promptText="Ingresa tu contraseña" style="-fx-background-radius: 10;" />
             <PasswordField fx:id="txtConfirmaContra" layoutX="90.0" layoutY="229.0" prefHeight="38.0" prefWidth="315.0" promptText="Confirma tu contraseña" style="-fx-background-radius: 10;" />
             <ComboBox fx:id="cmbNivel" layoutX="172.0" layoutY="298.0" prefHeight="28.0" prefWidth="134.0" style="-fx-background-color: #FFFF; -fx-background-radius: 10;" />
+            <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="790.0">
+               <children>
+                  <Button fx:id="btnClose" layoutX="716.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #FFFF;" text="X">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

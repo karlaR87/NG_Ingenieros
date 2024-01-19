@@ -66,15 +66,15 @@ public class ActualizarProyectosControlador {
     @FXML
     protected void handleClickAction(MouseEvent event) {
         Stage stage = (Stage) topPane.getScene().getWindow();
-        xOffset = stage.getX() - event.getX();
+        xOffset = stage.getX() + (stage.getWidth() / 2) - event.getX();
         yOffset = stage.getY() - event.getY();
     }
 
     @FXML
     protected void handleMovementAction(MouseEvent event) {
         Stage stage = (Stage) topPane.getScene().getWindow();
-        stage.setX(event.getScreenX() + xOffset);
-        stage.setY(event.getScreenY() +yOffset);
+        stage.setX(event.getScreenX() + xOffset - (stage.getWidth() / 2));
+        stage.setY(event.getScreenY() + yOffset);
     }
 
     public void setIdProyecto(int idProyecto) {
