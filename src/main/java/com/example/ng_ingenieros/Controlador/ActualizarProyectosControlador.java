@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,15 +12,24 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+
+
+import java.awt.*;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
+
+import javafx.stage.StageStyle;
 
 public class ActualizarProyectosControlador {
 
@@ -49,6 +59,24 @@ public class ActualizarProyectosControlador {
 
     private int idProyecto;
 
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+    }
+
     public void setIdProyecto(int idProyecto) {
         this.idProyecto = idProyecto;
         System.out.println("ID del Proyecto establecido en ActualizarProyectosControlador: " + idProyecto);
@@ -71,7 +99,10 @@ public class ActualizarProyectosControlador {
 
     @FXML
     private void gestionarEmpleados(ActionEvent event) {
+
         try {
+
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             // Cargar la vista de GestionEmpleadosActualizar desde su archivo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/GestionEmpleadosActualizar.fxml"));
             Parent root = loader.load();
@@ -92,9 +123,11 @@ public class ActualizarProyectosControlador {
             // Configurar la escena con el nodo raíz (root)
             Scene scene = new Scene(root);
             stage.setScene(scene);
-
+            stage.initStyle(StageStyle.UNDECORATED);
             // Mostrar la ventana de GestionEmpleadosActualizar
             stage.showAndWait();
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="432.0" prefWidth="720.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudUsuariosControlador">
-    <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+    <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #40669F;">
         <children>
                 <Label layoutX="295.0" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" text="Usuarios" textAlignment="CENTER" textFill="WHITE">
                     <font>
@@ -58,7 +58,7 @@
             </ImageView>
         </children>
     </Pane>
-   <Button fx:id="btnEditarUser" layoutX="90.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+   <Button fx:id="btnEditarUser" layoutX="90.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -67,7 +67,7 @@
          </ImageView>
       </graphic>
    </Button>
-   <Button fx:id="btnEliminarUser" layoutX="214.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+   <Button fx:id="btnEliminarUser" layoutX="214.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -76,7 +76,7 @@
          </ImageView>
       </graphic>
    </Button>
-   <Button fx:id="btnRefresh" layoutX="276.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+   <Button fx:id="btnRefresh" layoutX="276.0" layoutY="346.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -85,7 +85,7 @@
          </ImageView>
       </graphic>
    </Button>
-   <Button fx:id="btnEditarPass" layoutX="152.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+   <Button fx:id="btnEditarPass" layoutX="152.0" layoutY="346.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
       <graphic>
          <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -94,4 +94,13 @@
          </ImageView>
       </graphic>
    </Button>
+   <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="710.0">
+      <children>
+         <Button fx:id="btnClose" layoutX="651.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #40669F;" text="X" textFill="WHITE">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
 </AnchorPane>

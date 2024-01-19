@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -32,6 +34,24 @@ public class ActualizarBancoControlador {
     private Button btnActualizarBanco, btnCancelar;
 
     private TableView<Bancos> tbBanco;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+}
 
     public void setTableBancos(TableView<Bancos> tbBanco) {
         this.tbBanco = tbBanco;
@@ -84,6 +104,8 @@ public class ActualizarBancoControlador {
                     CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
                     crudBancosControlador.setTableBanco(tbBanco);
                     crudBancosControlador.cargarDatos();
+
+                    ((Stage) txtActualizarBanco.getScene().getWindow()).close();
             }
         } catch (SQLException e) {
             agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);

@@ -18,7 +18,6 @@
          <children>
             <Pane layoutX="-7.0" prefHeight="58.0" prefWidth="916.0" style="-fx-background-color: #DD890B; -fx-background-radius: 0;">
                <children>
-                  <Pane layoutX="-2.0" layoutY="55.0" prefHeight="7.0" prefWidth="916.0" style="-fx-background-color: #9E5F00;" />
                   <Label layoutX="280.0" layoutY="10.0" prefHeight="38.0" prefWidth="190.0" text="PROYECTO" textAlignment="RIGHT" textFill="WHITE">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="32.0" />
@@ -26,7 +25,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="btnGuardarProyecto" layoutX="275.0" layoutY="623.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
+            <Button fx:id="btnGuardarProyecto" layoutX="477.0" layoutY="615.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -38,7 +37,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Button fx:id="btnCancelar" layoutX="469.0" layoutY="623.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancelar" layoutX="282.0" layoutY="615.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -164,6 +163,7 @@
                   </DropShadow>
                </effect>
             </Button>
+            <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="893.0" />
          </children>
       </AnchorPane>
    </children>

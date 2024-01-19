@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javafx.stage.StageStyle;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
 
@@ -63,6 +64,7 @@ public class EmpleadosControlador {
             stage.setTitle("Ingreso de empleados");
 
             stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,6 +91,7 @@ public class EmpleadosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
                 actualizarEmpleadosControlador.setTableEmpleados(TableEmpleados);

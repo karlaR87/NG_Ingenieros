@@ -9,12 +9,11 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="431.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ActualizarBancoControlador">
    <children>
       <AnchorPane prefHeight="441.0" prefWidth="450.0" style="-fx-background-color: #2D3250;">
          <children>
-            <Pane prefHeight="76.0" prefWidth="450.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+            <Pane prefHeight="76.0" prefWidth="450.0" style="-fx-background-color: #40669F;">
                <children>
                   <Label alignment="CENTER" layoutX="131.0" layoutY="22.0" prefHeight="33.0" prefWidth="188.0" text="Actualizar Bancos" textAlignment="CENTER" textFill="WHITE">
                      <font>
@@ -53,6 +52,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="437.0" />
          </children>
       </AnchorPane>
    </children>

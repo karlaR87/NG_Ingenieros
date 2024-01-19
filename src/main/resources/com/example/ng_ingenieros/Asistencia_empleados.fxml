@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="505.0" prefWidth="709.0" style="-fx-background-color: #2D3250; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador">
+<AnchorPane prefHeight="505.0" prefWidth="709.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador">
    <children>
-      <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #DD890B; -fx-background-radius: 20;">
+      <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #DD890B;">
          <children>
             <Label layoutX="255.0" layoutY="18.0" text="ASISTENCIA DE EMPLEADOS" textFill="WHITE">
                <font>
@@ -114,7 +122,7 @@
       <ComboBox fx:id="cmbDiaAsistencia" layoutX="364.0" layoutY="268.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <ComboBox fx:id="cmbDiaSalida" layoutX="364.0" layoutY="327.0" prefHeight="25.0" prefWidth="87.0" promptText="Día" />
       <Label fx:id="LblIdEmpleado" layoutX="422.0" layoutY="130.0" prefHeight="27.0" prefWidth="57.0" text="Label" textFill="#2d3250" />
-      <Button fx:id="btnMostrar" layoutX="628.0" layoutY="75.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="26.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnMostrar" layoutX="628.0" layoutY="75.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="26.0" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
          <graphic>
             <ImageView fitHeight="41.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -130,7 +138,7 @@
          </font>
       </Label>
       <TextField fx:id="txtTurno" editable="false" layoutX="462.0" layoutY="378.0" prefHeight="25.0" prefWidth="239.0" />
-      <Button fx:id="btnRefresh" layoutX="317.0" layoutY="83.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="26.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnRefresh" layoutX="317.0" layoutY="83.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="26.0" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
          <graphic>
             <ImageView fx:id="" fitHeight="41.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -139,5 +147,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="710.0" />
    </children>
 </AnchorPane>

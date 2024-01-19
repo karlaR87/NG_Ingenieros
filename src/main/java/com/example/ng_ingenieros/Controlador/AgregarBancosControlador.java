@@ -1,14 +1,14 @@
 package com.example.ng_ingenieros.Controlador;
 
 
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.HelloApplication;
-import com.example.ng_ingenieros.Validaciones;
+import com.example.ng_ingenieros.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -32,23 +32,50 @@ public class AgregarBancosControlador {
     private TextField txtNombreBanco;
     @FXML
     private Button btnAgregarBanco, btnCancelar;
-    private TableView<CrudBancosControlador> tbBanco;
+    private TableView<Bancos> tbBanco;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+    }
 
     public void initialize() {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::btnCancelarOnAction);
-        btnAgregarBanco.setOnAction(this::BtnAgregarBancoOnAction);
+        btnAgregarBanco.setOnAction(actionEvent -> {
+            try {
+                BtnAgregarBancoOnAction(actionEvent);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
 
 
     }
+
     private void btnCancelarOnAction(ActionEvent event){
         ((Stage) txtNombreBanco.getScene().getWindow()).close();
     }
-    private void BtnAgregarBancoOnAction(ActionEvent event){
+    private void BtnAgregarBancoOnAction(ActionEvent event) throws SQLException {
         validaciones();
     }
 
-    private void AgregarBanco(){
+    private void AgregarBanco() throws SQLException{
         String nombre = txtNombreBanco.getText();
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
@@ -58,27 +85,23 @@ public class AgregarBancosControlador {
             PreparedStatement preparedStatement = connection.prepareStatement(Insercion);
             preparedStatement.setString(1, nombre);
             preparedStatement.executeUpdate();
-                /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/.fxml"));
-                Parent root = loader.load();
 
-                Stage stage = new Stage();
-                stage.setTitle("Registrarse");
-
-                stage.setScene(new Scene(root));
-                stage.show();*/
             mostrarAlerta("Alerta", "Se agrego el banco con exito");
+            if (tbBanco != null) {
+                tbBanco.getItems().clear();
+                CrudBancosControlador crudBancosControlador = new CrudBancosControlador();
+                crudBancosControlador.setTableBanco(tbBanco);
+                crudBancosControlador.cargarDatos();
 
-                setTableBanco(tbBanco);
-                // Opcional: Cerrar la ventana actual
-                ((Stage) txtNombreBanco.getScene().getWindow()).close();
-
+            }
+            ((Stage) txtNombreBanco.getScene().getWindow()).close();
 
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void validaciones(){
+    public void validaciones() throws SQLException {
         if (validarLetras(txtNombreBanco.getText())){
             AgregarBanco();
         }
@@ -97,7 +120,9 @@ public class AgregarBancosControlador {
         return input.matches("[a-zA-Z ]+");
     }
 
-    public void setTableBanco(TableView tbBanco) {
+
+
+    public void setTableBanco(TableView<Bancos> tbBanco) {
         this.tbBanco = tbBanco;
     }
 }

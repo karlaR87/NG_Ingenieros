@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -91,6 +93,24 @@ public class SalarioEmpleadoControlador {
     agregar_empleadosControlador emp = new agregar_empleadosControlador();
 
     SalarioVistaControlador s = new SalarioVistaControlador();
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+    }
 
     public void initialize(AsistenciaVista empleadoSeleccionado) {
         txtNombreEmp.setText(String.valueOf(empleadoSeleccionado.getIdempleado()));

@@ -14,6 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,6 +41,24 @@ public class GestionEmpleadosActualizarControlador {
 
     @FXML
     private TextField txtBusqueda;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+    }
 
     public void setIdProyecto(int idProyecto) {
         this.idProyecto = idProyecto;
@@ -76,6 +97,7 @@ public class GestionEmpleadosActualizarControlador {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); // Hacer que la ventana sea modal
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.showAndWait(); // Mostrar la ventana y esperar hasta que se cierre
 
         } catch (Exception e) {

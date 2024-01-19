@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="637.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ActualizarUsuarioControlador">
+<AnchorPane prefHeight="400.0" prefWidth="637.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.ActualizarUsuarioControlador">
 
-    <Pane prefHeight="55.0" prefWidth="690.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+    <Pane prefHeight="55.0" prefWidth="690.0" style="-fx-background-color: #40669F;">
         <children>
             <Label layoutX="295.0" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" text="Usuarios" textAlignment="CENTER" textFill="WHITE">
                 <font>
@@ -41,5 +45,6 @@
    <Button fx:id="btnCancelar" layoutX="187.0" layoutY="314.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #E56C6C; -fx-background-radius: 20;" text="Cancelar" textFill="WHITE" />
    <Button fx:id="btnActualizarUser" layoutX="362.0" layoutY="314.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: #55AF64; -fx-background-radius: 20;" text="Actualizar" textFill="WHITE" />
    <ComboBox fx:id="cmbNivelesUser" layoutX="247.0" layoutY="236.0" prefHeight="26.0" prefWidth="340.0" promptText="Seleccione el nivel de usuario" style="-fx-background-radius: 8;" />
+   <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="680.0" />
 
 </AnchorPane>

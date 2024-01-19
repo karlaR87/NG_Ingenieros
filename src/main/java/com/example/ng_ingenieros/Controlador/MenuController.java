@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.control.Button;
@@ -53,10 +54,39 @@ public class MenuController implements Initializable {
 
     }
 
+    @FXML
+    private Button btnClose;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
+    }
+
 
     @FXML
     private void abrirInicio(ActionEvent event) {
         loadWindow("/com/example/ng_ingenieros/MostrarPaneles.fxml");
+
+
 
 
     }
@@ -113,6 +143,8 @@ public class MenuController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
+
+
 
             NuevoIdParaElCentro.setCenter(root);  // Establecer el root en el centro del BorderPane
 

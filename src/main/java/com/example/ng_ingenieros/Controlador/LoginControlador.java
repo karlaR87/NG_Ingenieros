@@ -199,10 +199,13 @@ public class LoginControlador {
 
                                   controller.btnOtros.setVisible(true);
 
+                                  // Quitar la barra de título
+
+
                                   Stage stage = new Stage();
                                   stage.setTitle("Registrarse");
 
-
+                                  stage.initStyle(StageStyle.UNDECORATED);
                                   stage.setScene(new Scene(root));
                                   ((Stage) txtUsuario.getScene().getWindow()).close();
                                   stage.show();
@@ -220,7 +223,7 @@ public class LoginControlador {
                               Stage stage = new Stage();
                               stage.setTitle("Registrarse");
 
-
+                              stage.initStyle(StageStyle.UNDECORATED);
                               stage.setScene(new Scene(root));
                               ((Stage) txtUsuario.getScene().getWindow()).close();
                               stage.show();

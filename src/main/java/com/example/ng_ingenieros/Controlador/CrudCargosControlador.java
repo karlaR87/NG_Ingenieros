@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -31,6 +33,32 @@ public class CrudCargosControlador {
     @FXML
     private TextField txtBusqueda;
 
+    @FXML
+    private Button btnClose;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
+    }
     public void initialize() {
         // Configura el evento de clic para el botón
         btnAgregarCargo.setOnAction(this::btnAgregarCargoOnAction);
@@ -64,6 +92,7 @@ public class CrudCargosControlador {
             Stage stage = new Stage();
             stage.setTitle("Cargos");
             stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
         } catch (Exception e) {
@@ -92,6 +121,7 @@ public class CrudCargosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
 

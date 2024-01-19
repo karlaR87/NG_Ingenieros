@@ -10,6 +10,10 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.*;
 
@@ -33,6 +37,33 @@ public class SalarioVistaControlador {
         idProyectoSeleccionado = idProyecto;
         // Llama a un método para cargar los empleados según el ID del proyecto
         cargarDatos();
+    }
+
+    @FXML
+    private Button btnClose;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
     }
 
     public void initialize(AsistenciaVista empleadoSeleccionado)

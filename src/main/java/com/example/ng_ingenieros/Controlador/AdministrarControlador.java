@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class AdministrarControlador {
@@ -26,7 +27,10 @@ public class AdministrarControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +44,9 @@ public class AdministrarControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +61,9 @@ public class AdministrarControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
+
 
         } catch (Exception e) {
             e.printStackTrace();

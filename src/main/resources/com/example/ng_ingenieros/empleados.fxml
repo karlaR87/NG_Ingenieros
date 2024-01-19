@@ -67,7 +67,7 @@
 
                             </columns>
                         </TableView>
-                        <Button fx:id="btnEliminarEmp" layoutX="181.0" layoutY="345.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8;">
+                        <Button fx:id="btnEliminarEmp" layoutX="129.0" layoutY="312.0" mnemonicParsing="false" prefWidth="45.0" style="-fx-background-radius: 8; -fx-background-color: #616E73;">
                             <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -76,7 +76,7 @@
                         </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="btnAgregarEmp" layoutX="28.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+                        <Button fx:id="btnAgregarEmp" layoutX="27.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #616E73;">
                             <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -84,15 +84,16 @@
                                     </image></ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="btnEditarEmp" layoutX="103.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+                        <Button fx:id="btnEditarEmp" layoutX="78.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #616E73;">
                             <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@Imagenes/btnEditarFondo.png" />
-                                    </image></ImageView>
+                                    </image>
+                        </ImageView>
                             </graphic>
                         </Button>
-                  <Button fx:id="btnRefresh" layoutX="663.0" layoutY="345.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+                  <Button fx:id="btnRefresh" layoutX="662.0" layoutY="312.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #616E73;">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                            <image>

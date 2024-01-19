@@ -4,31 +4,38 @@ import com.example.ng_ingenieros.Conexion;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+
+
+import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Empleados;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.w3c.dom.Text;
 
-import javax.swing.*;
-import java.awt.event.MouseEvent;
+
+import java.awt.*;
+
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
-import java.util.EventObject;
-import java.util.List;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.stage.StageStyle;
+
+import javax.swing.*;
+
 
 public class ProyectosAgregarControlador {
     @FXML
@@ -65,6 +72,24 @@ public class ProyectosAgregarControlador {
     private EmpleadosAsignadosControlador empleadosAsignadosController;
 
 
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+    }
+
     public void initialize() throws SQLException {
         // Configura el evento de clic para el botón
         btnCancelar.setOnAction(this::cerrarVentana);
@@ -81,7 +106,12 @@ public class ProyectosAgregarControlador {
         llenarComboingACargo();
 
 
+
     }
+
+
+
+
 
 
 

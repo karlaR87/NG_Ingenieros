@@ -4,6 +4,7 @@ package com.example.ng_ingenieros.Controlador;
 import com.example.ng_ingenieros.Conexion;
 
 import com.example.ng_ingenieros.Usuarios;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +13,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.*;
@@ -24,6 +28,33 @@ public class CrudUsuariosControlador {
     private Button btnEditarUser, btnEliminarUser, btnEditarPass, btnRefresh;
     @FXML
     private TextField txtBusqueda;
+
+    @FXML
+    private Button btnClose;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
+    }
+
+    @FXML
+    protected void HandleCloseAction(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        stage.close();
+    }
 
 
     public void initialize() {
@@ -64,6 +95,7 @@ public class CrudUsuariosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
                 actualizarUsuariosControlador.setTableUsuarios(TBUsuarios);
@@ -98,6 +130,7 @@ public class CrudUsuariosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
                 actualizarContraUsuariosControlador.setTableUsuarios(TBUsuarios);

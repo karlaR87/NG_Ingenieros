@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.sql.*;
 
 //imports del spinner
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.scene.control.SpinnerValueFactory;
@@ -80,6 +82,24 @@ public class AsistenciaEmpleadosControlador {
     private Label lblidproyecto;
 
     private int idProyectoSeleccionado;
+
+    @FXML
+    private Pane topPane; // Asegúrate de que tienes una referencia a tu AnchorPane principal
+    private double xOffset =0;
+    private double yOffset =0;
+    @FXML
+    protected void handleClickAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        xOffset = stage.getX() - event.getX();
+        yOffset = stage.getY() - event.getY();
+    }
+
+    @FXML
+    protected void handleMovementAction(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() +yOffset);
+    }
 
     public void recibirIdProyecto(int idProyecto) {
         idProyectoSeleccionado = idProyecto;
@@ -254,6 +274,7 @@ public class AsistenciaEmpleadosControlador {
             // Mostrar la ventana
             Stage stage1 = new Stage();
             stage1.setScene(new Scene(root));
+            stage1.initStyle(StageStyle.UNDECORATED);
             stage1.show();
         } catch (IOException e) {
             e.printStackTrace();

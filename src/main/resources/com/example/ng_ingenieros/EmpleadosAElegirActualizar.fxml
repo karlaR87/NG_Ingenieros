@@ -24,10 +24,9 @@
                         <Font name="Calibri Bold" size="18.0" />
                     </font>
                 </Label>
-                <Pane layoutY="68.0" prefHeight="6.0" prefWidth="750.0" style="-fx-background-color: #1C3B69;" />
             </children>
         </Pane>
-        <Button fx:id="btnCancelar" layoutX="404.0" layoutY="432.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
+        <Button fx:id="btnCancelar" layoutX="216.0" layoutY="432.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #E56C6C;" text="Cancelar" textFill="WHITE">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
@@ -39,7 +38,7 @@
                 </DropShadow>
             </effect>
         </Button>
-        <Button fx:id="btnAgregar" layoutX="215.0" layoutY="432.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #55AF64;" text="Guardar" textFill="WHITE">
+        <Button fx:id="btnAgregar" layoutX="384.0" layoutY="432.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 15; -fx-background-color: #55AF64;" text="Guardar" textFill="WHITE">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
@@ -99,5 +98,6 @@
             </ImageView>
          </children>
       </Pane>
+      <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="738.0" />
     </children>
 </AnchorPane>

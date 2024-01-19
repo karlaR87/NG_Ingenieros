@@ -2,6 +2,7 @@ package com.example.ng_ingenieros;
 import com.example.ng_ingenieros.Controlador.AsistenciaEmpleadosControlador;
 import com.example.ng_ingenieros.Controlador.agregar_empleadosControlador;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -18,6 +20,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -34,9 +37,14 @@ public class PanelesProyectos {
     private String estadoProyectoSeleccionado;
 
 
+
+
     public void initialize() {
         cargarDatosDesdeDB();
         txtBusqueda.textProperty().addListener((observable, oldValue, newValue) -> buscarProyectoPorNombre(newValue));
+
+
+
     }
 
     private void cargarDatosDesdeDB() {
@@ -180,6 +188,8 @@ public class PanelesProyectos {
 
         Stage stage = new Stage();
 
+
+
         FlowPane panelMos = new FlowPane();
         panelMos.setStyle("-fx-background-color: #333333");
 
@@ -248,9 +258,12 @@ public class PanelesProyectos {
                         alert.showAndWait();
                     } else if (estadoProyectoSeleccionado.equals("En Ejecución")) {
                         try {
-                            // Verifica la ruta al archivo AsistenciaEmpleados.fxml
+                            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
+                             // Verifica la ruta al archivo AsistenciaEmpleados.fxml
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml")); // Asegúrate de la ruta correcta
                             Parent root = loader.load();
+
 
                             // Accede al controlador de AsistenciaEmpleados
                             AsistenciaEmpleadosControlador controller = loader.getController();
@@ -261,7 +274,13 @@ public class PanelesProyectos {
                             // Mostrar la ventana
                             Stage stage1 = new Stage();
                             stage1.setScene(new Scene(root));
+                            stage1.initStyle(StageStyle.UNDECORATED);
+
                             stage1.show();
+
+                            // Cerrar la ventana actual
+                            currentStage.close();
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -293,19 +312,24 @@ public class PanelesProyectos {
 
         Scene detallesScene = new Scene(scroll, 500, 300);
         stage.setScene(detallesScene);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 
     private void MostrarVentanaAsistenciaOnAction(javafx.event.ActionEvent actionEvent) throws IOException {
-        MostrarVentanaAsistencia();
+        MostrarVentanaAsistencia(actionEvent);
     }
 
-    public void MostrarVentanaAsistencia ()throws IOException
+    public void MostrarVentanaAsistencia (ActionEvent actionEvent)throws IOException
     {
-
+        // Obtener la referencia al Stage actual (ventana)
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/Asistencia_empleados.fxml"));
         Parent root;
+
+
+
 
         try {
             root = loader.load();
@@ -314,9 +338,6 @@ public class PanelesProyectos {
         }
 
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
 
 
     }

@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="419.0" prefWidth="599.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudBancosControlador">
+<AnchorPane prefHeight="419.0" prefWidth="599.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudBancosControlador">
    <children>
-      <Pane layoutY="-3.0" prefHeight="54.0" prefWidth="599.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+      <Pane layoutY="-3.0" prefHeight="54.0" prefWidth="599.0" style="-fx-background-color: #40669F;">
          <children>
             <Label layoutX="240.0" layoutY="8.0" prefHeight="38.0" prefWidth="120.0" text="Bancos" textFill="WHITE">
                <font>
@@ -27,7 +33,7 @@
            </TableColumn>
         </columns>
       </TableView>
-      <Button fx:id="btnAgregarBanco" layoutX="177.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+      <Button fx:id="btnAgregarBanco" layoutX="177.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
          <graphic>
             <ImageView fx:id="btnAgregar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -36,7 +42,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEditarBanco" layoutX="244.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-radius: 8;">
+      <Button fx:id="btnEditarBanco" layoutX="244.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
          <graphic>
             <ImageView fx:id="btnEditar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,7 +51,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnEliminarBanco" layoutX="311.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnEliminarBanco" layoutX="311.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
          <graphic>
             <ImageView fx:id="btnEliminar" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -64,7 +70,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="btnRefresh" layoutX="377.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8;">
+      <Button fx:id="btnRefresh" layoutX="377.0" layoutY="344.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" style="-fx-background-radius: 8; -fx-background-color: #2D3250;">
          <graphic>
             <ImageView fx:id="" fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -73,5 +79,14 @@
             </ImageView>
          </graphic>
       </Button>
+      <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="589.0">
+         <children>
+            <Button fx:id="btnClose" layoutX="538.0" layoutY="-8.0" mnemonicParsing="false" onAction="#HandleCloseAction" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: #40669F;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

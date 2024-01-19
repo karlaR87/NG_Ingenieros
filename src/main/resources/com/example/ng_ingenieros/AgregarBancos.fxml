@@ -13,7 +13,7 @@
    <children>
       <AnchorPane prefHeight="431.0" prefWidth="440.0" style="-fx-background-color: #2D3250;">
          <children>
-            <Pane prefHeight="76.0" prefWidth="437.0" style="-fx-background-color: #40669F; -fx-background-radius: 20;">
+            <Pane prefHeight="76.0" prefWidth="440.0" style="-fx-background-color: #40669F;">
                <children>
                   <Label alignment="CENTER" layoutX="138.0" layoutY="22.0" prefHeight="33.0" prefWidth="171.0" text="Agregar Bancos" textAlignment="CENTER" textFill="WHITE">
                      <font>
@@ -52,6 +52,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="427.0" />
          </children>
       </AnchorPane>
    </children>
