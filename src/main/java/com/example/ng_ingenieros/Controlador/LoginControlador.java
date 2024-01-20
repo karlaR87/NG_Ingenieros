@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -100,7 +101,9 @@ public class LoginControlador {
     private void btnIngresarOnAction(ActionEvent event) {
 
         if (txtUsuario.getText().isBlank() == false && txtContraseña.getText().isBlank() == false) {
+
             validatelogin();
+
         }
 
     }
@@ -221,8 +224,6 @@ public class LoginControlador {
                               controller.btnOtros.setVisible(false);
 
                               Stage stage = new Stage();
-                              stage.setTitle("Registrarse");
-
                               stage.initStyle(StageStyle.UNDECORATED);
                               stage.setScene(new Scene(root));
                               ((Stage) txtUsuario.getScene().getWindow()).close();
@@ -232,8 +233,9 @@ public class LoginControlador {
 
                   }
                   else{
-                      mostrarAlerta("Error", "Las contraseña o el usuario es incorrecto");
-                  }
+                      CustomAlert customAlert = new CustomAlert();
+                      customAlert.mostrarAlertaPersonalizada("Error", "Las contraseña o el usuario es incorrecto", (Stage) btnIngresar.getScene().getWindow());
+                      return;                  }
 
 
             }
@@ -245,7 +247,6 @@ public class LoginControlador {
         }
 
     }
-
 
 
 

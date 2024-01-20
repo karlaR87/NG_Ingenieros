@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -141,12 +142,26 @@ public class RecuperarContraseñaTresControlador {
     }
 
     public void validaciones() {
-       if (NoVacio(txtNuevaContra.getText())){
+        if (txtConfirmarContra.getText().equals(txtNuevaContra.getText())) {
+            if (validarLongitud(txtNuevaContra.getText(), 8, 20)) {
+
+                if (NoVacio(txtNuevaContra.getText())){
            actualizarcontraseña();
        }else {
-           mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
-
+           CustomAlert customAlert = new CustomAlert();
+           customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnSiguiente.getScene().getWindow());
+           return;
        }
+            } else {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "La longitud de la contraseña debe estar entre 8 y 20 caracteres.", (Stage) btnSiguiente.getScene().getWindow());
+                return;
+            }
+
+        } else {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Las contraseñas no coinciden", (Stage) btnSiguiente.getScene().getWindow());
+            return;            }
     }
     public static String encriptarContraseña(String contraseña) {
         try {
@@ -169,6 +184,9 @@ public class RecuperarContraseñaTresControlador {
         }
     }
 
-
+    private boolean validarLongitud(String texto, int minimo, int maximo) {
+        int longitud = texto.length();
+        return (longitud >= minimo && longitud <= maximo);
+    }
 
 }

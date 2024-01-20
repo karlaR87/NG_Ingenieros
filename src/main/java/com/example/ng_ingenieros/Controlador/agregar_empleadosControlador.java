@@ -2,6 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -255,9 +256,10 @@ public class agregar_empleadosControlador {
 
     //Validaciones
     public void validaciones() {
-        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtDuiEmp.getText())&& NoVacio(txtCuentaBEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
+        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtDuiEmp.getText())&& NoVacio(txtCuentaBEmp.getText())&& NoVacio(txtSueldoEmp.getText()) && cbCargoEmp.getValue() != null && cbPlazaEmp.getValue() != null){
             if (validarDui(txtDuiEmp.getText())){
-            if (validarLetras(txtNombreEmp.getText())){
+                if (validarDuiNoExistente(txtDuiEmp.getText())) { // Verifica si el DUI no existe
+                    if (validarLetras(txtNombreEmp.getText())){
                 if (validarCorreo(txtCorreoEmp.getText())){
                     if (validarNumeroc(txtCuentaBEmp.getText())){
                         if (validarNumeroS(txtSueldoEmp.getText())){
@@ -265,36 +267,72 @@ public class agregar_empleadosControlador {
                                 agregarEmpleados();
                             }
                             else {
-                                mostrarAlerta("Error de Validación", "Ingrese solo números en Pago por horas Extra");
+                                CustomAlert customAlert = new CustomAlert();
+                                customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en Pago por horas Extra", (Stage) btnGuardar1.getScene().getWindow());
+                                return;
                             }
                         }
                         else {
-                            mostrarAlerta("Error de Validación", "Ingrese solo números en sueldo empleado");
+
+                            CustomAlert customAlert = new CustomAlert();
+                            customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en sueldo empleado", (Stage) btnGuardar1.getScene().getWindow());
+                            return;
                         }
 
                     }else {
-                        mostrarAlerta("Error de Validación", "Ingrese solo números en el numero de cuenta.");
+
+                        CustomAlert customAlert = new CustomAlert();
+                        customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en el numero de cuenta.", (Stage) btnGuardar1.getScene().getWindow());
+                        return;
                     }
 
                 } else {
-                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
-                }
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un correo válido.", (Stage) btnGuardar1.getScene().getWindow());
+                    return;                }
+
 
             } else{
-                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-            }
-
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnGuardar1.getScene().getWindow());
+                return;            }
+                }else{
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "El DUI ya existe en la base de datos.", (Stage) btnGuardar1.getScene().getWindow());
+                    return;
+                }
             } else {
-                mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
-
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un DUI válido.", (Stage) btnGuardar1.getScene().getWindow());
+                return;
             }
 
         }else {
-            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnGuardar1.getScene().getWindow());
+            return;           }
 
     }
+    private boolean validarDuiNoExistente(String dui) {
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.obtenerConexion();
 
+        String consulta = "SELECT COUNT(*) FROM tbempleados WHERE dui = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(consulta);
+            preparedStatement.setString(1, dui);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count == 0; // Retorna true si el DUI no existe en la base de datos
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false; // En caso de error o excepción
+    }
     //Validaciones
     public static boolean validarNumero(String input) {
         return input.matches("\\d+");

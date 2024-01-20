@@ -1,8 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.HelloApplication;
-import com.example.ng_ingenieros.Validaciones;
+import com.example.ng_ingenieros.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -146,8 +144,7 @@ public class RegistrarseControlador {
                 Parent root = loader.load();
 
                 Stage stage = new Stage();
-                stage.setTitle("Registrarse");
-
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(new Scene(root));
                 stage.show();
 
@@ -165,27 +162,57 @@ public class RegistrarseControlador {
     }
     public void validaciones() {
         if (NoVacio(txtNombre.getText()) && NoVacio(txtCorreoE.getText()) && NoVacio(txtDui.getText())) {
-            if (validarDui(txtDui.getText()))
-            if (validarLetras(txtNombre.getText())){
-                if (validarCorreo(txtCorreoE.getText())){
-                        registrardatos();
+            if (validarDui(txtDui.getText())){
+                if (validarDuiNoExistente(txtDui.getText())) { // Verifica si el DUI no existe
+                    if (validarLetras(txtNombre.getText())) {
+                        if (validarCorreo(txtCorreoE.getText())) {
+                            registrardatos();
 
+                        } else {
+                            CustomAlert customAlert = new CustomAlert();
+                            customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un correo válido.", (Stage) btnSiguiente.getScene().getWindow());
+                            return;
+                        }
+                    } else {
+                        CustomAlert customAlert = new CustomAlert();
+                        customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnSiguiente.getScene().getWindow());
+                        return;
+                    }
+                }else{
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "El DUI ya existe en la base de datos.", (Stage) btnSiguiente.getScene().getWindow());
+                    return;
                 }
-                else {
-                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
-                }
-            }
-            else {
-                mostrarAlerta("Error de Validación", "Ingrese solo letras.");
-            }
-            else {
-                mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
-
+            }else {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un DUI válido.", (Stage) btnSiguiente.getScene().getWindow());
+                return;
             }
         }
         else {
-            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnSiguiente.getScene().getWindow());
+            return;        }
+    }
+    private boolean validarDuiNoExistente(String dui) {
+        Conexion conexion = new Conexion();
+        Connection connection = conexion.obtenerConexion();
+
+        String consulta = "SELECT COUNT(*) FROM tbempleados WHERE dui = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(consulta);
+            preparedStatement.setString(1, dui);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count == 0; // Retorna true si el DUI no existe en la base de datos
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return false; // En caso de error o excepción
     }
 
     public static void mostrarAlerta(String titulo, String mensaje) {

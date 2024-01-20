@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -190,12 +191,14 @@ public class RecuperacionContraseñaControlador {
             if (validarCorreo(txtCorreoRecu.getText())){
 
             }else {
-                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
-            }
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un correo válido.", (Stage) btnEnviar.getScene().getWindow());
+                return;            }
 
         }else {
-            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnEnviar.getScene().getWindow());
+            return;          }
     }
 
     public static void mostrarAlerta(String titulo, String mensaje) {

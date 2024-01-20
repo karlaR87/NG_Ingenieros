@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -175,7 +176,10 @@ public class RecuperarContraseñaDosControlador {
 
             }
         } else {
-            System.out.println("El código ingresado es incorrecto. Vuelve a intentarlo.");
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "El código ingresado es incorrecto. Vuelve a intentarlo.", (Stage) btnSiguiente.getScene().getWindow());
+            return;
+
         }
     }
 
@@ -185,8 +189,9 @@ public class RecuperarContraseñaDosControlador {
         if (NoVacio(txtCodigoRecu.getText())){
             verificarCodigo();
         } else {
-            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnSiguiente.getScene().getWindow());
+            return;          }
     }
 
     public void btnReenviarCodigoOnAction(ActionEvent event){

@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -188,7 +189,10 @@ public class PrimerUsoControlador {
                     e.printStackTrace();
                 }
             } else {
-                mostrarAlerta("Error", "Las contraseñas no coinciden");
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Las contraseñas no coinciden", (Stage) btnAceptar.getScene().getWindow());
+                return;
+
             }
 
         } catch (Exception e){
@@ -200,16 +204,29 @@ public class PrimerUsoControlador {
 
     public void validaciones() {
         if (NoVacio(txtUser.getText()) && NoVacio(txtContraseña.getText())){
-           if (validarLongitud(txtUser.getText(), 8, 20)){
+            if (validarLongitud(txtUser.getText(), 3, 25)){
+
+                if (validarLongitud(txtContraseña.getText(), 8, 20)){
                     registrardatos();
 
 
-           }    else {
-               mostrarAlerta("Error de Validación", "La longitud de los campos debe estar entre 8 y 20 caracteres.");
-           }
+                }
+                else {
+               CustomAlert customAlert = new CustomAlert();
+               customAlert.mostrarAlertaPersonalizada("Error", "La longitud de la contraseña debe estar entre 8 y 20 caracteres.", (Stage) btnAceptar.getScene().getWindow());
+               return;
+                }
+            } else {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "El nombre de usuario debe de estar entre 3 y 25 carcateres. ", (Stage) btnAceptar.getScene().getWindow());
+                return;
+                }
 
         } else {
-            mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
+
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnAceptar.getScene().getWindow());
+            return;
         }
     }
 

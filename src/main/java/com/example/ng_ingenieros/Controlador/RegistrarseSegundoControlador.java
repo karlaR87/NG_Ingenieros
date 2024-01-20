@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -215,7 +216,7 @@ public class RegistrarseSegundoControlador {
                     Parent root = loader.load();
 
                     Stage stage = new Stage();
-                    stage.setTitle("Registrarse");
+                    stage.initStyle(StageStyle.UNDECORATED);
 
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -226,8 +227,9 @@ public class RegistrarseSegundoControlador {
                     e.printStackTrace();
                 }
             } else {
-                mostrarAlerta("Error", "Las contraseñas no coinciden");
-            }
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Las contraseñas no coinciden", (Stage) btnRegistrarse.getScene().getWindow());
+                return;            }
 
         } catch (Exception e){
             e.printStackTrace();
@@ -287,18 +289,26 @@ public class RegistrarseSegundoControlador {
     }
 
     public void validaciones() {
-       if (NoVacio(txtContraseña.getText()) && NoVacio(txtUsuario.getText())){
-           if (validarLongitud(txtUsuario.getText(), 8, 20)){
-               registrardatos();
-
-           } else {
-               mostrarAlerta("Error de Validación", "La longitud del nombre de usuario debe estar entre 8 y 20 caracteres.");
-           }
-
-       } else  {
-           mostrarAlerta("Error de Validación", "Ingresar datos, no pueden haber campos vacíos.");
-       }
+        if (NoVacio(txtContraseña.getText()) && NoVacio(txtUsuario.getText()) && cmbNivel.getValue() != null) {
+            if (validarLongitud(txtUsuario.getText(), 3, 25)) {
+                if (validarLongitud(txtContraseña.getText(), 8, 20)) {
+                    registrardatos();
+                } else {
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "La longitud de la contraseña debe estar entre 8 y 20 caracteres.", (Stage) btnRegistrarse.getScene().getWindow());
+                    return;
+                }
+            } else {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "El nombre de usuario debe de estar entre 3 y 25 carcateres. ", (Stage) btnRegistrarse.getScene().getWindow());
+                return;
+            }
+        } else {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos y seleccionar un nivel, no pueden haber campos vacíos.", (Stage) btnRegistrarse.getScene().getWindow());
+        }
     }
+
 
     // Función para validar la longitud de un texto
     private boolean validarLongitud(String texto, int minimo, int maximo) {
