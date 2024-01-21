@@ -105,8 +105,10 @@ public class AgregarCargosControlador {
 
 
         }catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnAgregarCargos.getScene().getWindow());
             e.printStackTrace();
+
         }
     }
 
@@ -116,8 +118,9 @@ public class AgregarCargosControlador {
             agregarCargos();
         }
         else {
-            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnAgregarCargos.getScene().getWindow());
+            return;        }
     }
     public static boolean validarLetras(String input) {
         return input.matches("[a-zA-Z ]+");

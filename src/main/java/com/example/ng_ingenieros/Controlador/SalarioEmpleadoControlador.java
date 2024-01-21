@@ -1,9 +1,6 @@
 package com.example.ng_ingenieros.Controlador;
 
-import com.example.ng_ingenieros.AsistenciaVista;
-import com.example.ng_ingenieros.Conexion;
-import com.example.ng_ingenieros.Empleados;
-import com.example.ng_ingenieros.SalarioEmp;
+import com.example.ng_ingenieros.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -705,8 +702,8 @@ public class SalarioEmpleadoControlador {
 
             ps.executeUpdate();
 
-            agregar_empleadosControlador.mostrarAlerta("Inserción de salario", "Salario registrado exitosamente", Alert.AlertType.INFORMATION);
-
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Inserción de salario", "Salario registrado exitosamente", (Stage) btnRegistrarSalario.getScene().getWindow());
             if (TBMostrarAsistencia != null) {
                 TBMostrarAsistencia.getItems().clear();
                 AsistenciaDatosControlador asistenciaDatosControlador = new AsistenciaDatosControlador();
@@ -717,8 +714,10 @@ public class SalarioEmpleadoControlador {
             ((Stage) txtAFP.getScene().getWindow()).close();
 
         }catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnRegistrarSalario.getScene().getWindow());
             e.printStackTrace();
+
         }
     }
 }

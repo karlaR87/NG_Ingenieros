@@ -2,6 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Cargos;
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 
 
@@ -114,7 +115,8 @@ private TableView<Cargos> tbCargo;
                 agregar_empleadosControlador.mostrarAlerta("Actualización de Datos", "Se han actualizado los datos exitosamente", Alert.AlertType.INFORMATION);
             }
         } catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnActualizarCargo.getScene().getWindow());
             e.printStackTrace();
 
         }
@@ -131,8 +133,9 @@ private TableView<Cargos> tbCargo;
             actualizarCargos();
         }
         else {
-            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnActualizarCargo.getScene().getWindow());
+            return;        }
     }
     public static boolean validarLetras(String input) {
         return input.matches("[a-zA-Z ]+");

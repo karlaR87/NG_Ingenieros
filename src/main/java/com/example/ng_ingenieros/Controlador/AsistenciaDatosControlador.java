@@ -2,6 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -246,10 +247,12 @@ public class AsistenciaDatosControlador {
 
             int filasAfectadas = statement.executeUpdate();
             if (filasAfectadas > 0) {
-                mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Eliminación de datos", "Se eliminaron los datos exitosamente", (Stage) btnEliminar.getScene().getWindow());
 
             } else {
-                mostrarAlerta("Alerta","No hay ningun elemento seleccionado", Alert.AlertType.WARNING);
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Alerta", "No hay ningun elemento seleccionado", (Stage) btnEliminar.getScene().getWindow());
             }
             TBMostrarAsistencia.getItems().clear();
             cargarDatos();

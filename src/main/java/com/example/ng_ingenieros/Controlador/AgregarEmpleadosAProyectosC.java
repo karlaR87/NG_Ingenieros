@@ -280,8 +280,6 @@ public class AgregarEmpleadosAProyectosC {
     }
 @FXML
     public void validaciones() {
-
-
         if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtNumCuenta.getText())&& NoVacio(txtDuiEmp.getText())&& NoVacio(txtPagoHorasExEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
             if (cbCargoEmp.getValue() == null) {
                 CustomAlert customAlert = new CustomAlert();

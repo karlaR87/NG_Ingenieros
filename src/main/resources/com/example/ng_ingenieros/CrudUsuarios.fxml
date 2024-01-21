@@ -15,7 +15,7 @@
 <AnchorPane prefHeight="432.0" prefWidth="720.0" style="-fx-background-color: #2D3250;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ng_ingenieros.Controlador.CrudUsuariosControlador">
     <Pane prefHeight="55.0" prefWidth="720.0" style="-fx-background-color: #40669F;">
         <children>
-                <Label layoutX="295.0" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" text="Usuarios" textAlignment="CENTER" textFill="WHITE">
+                <Label layoutX="295.0" layoutY="5.0" prefHeight="45.0" prefWidth="143.0" text="Usuarios" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="Calibri Bold" size="36.0" />
                     </font>

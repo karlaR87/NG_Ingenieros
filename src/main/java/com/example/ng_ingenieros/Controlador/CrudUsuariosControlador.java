@@ -3,6 +3,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Usuarios;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -221,10 +222,12 @@ public class CrudUsuariosControlador {
 
             int filasAfectadas = statement.executeUpdate();
             if (filasAfectadas > 0) {
-                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos", "Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Eliminación de datos", "Se eliminaron los datos exitosamente", (Stage) btnEliminarUser.getScene().getWindow());
 
             } else {
-                agregar_empleadosControlador.mostrarAlerta("Alerta", "No se encontro ningun empleado", Alert.AlertType.WARNING);
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Alerta", "No se encontro ningun empleado", (Stage) btnEliminarUser.getScene().getWindow());
             }
             TBUsuarios.getItems().clear();
             cargarDatos();

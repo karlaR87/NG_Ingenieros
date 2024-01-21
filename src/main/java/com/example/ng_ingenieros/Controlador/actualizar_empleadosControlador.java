@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 
 import java.sql.Connection;
@@ -69,7 +70,6 @@ public class actualizar_empleadosControlador {
 
 
 
-
     public void initialize(Empleados empleadoSeleccionado) {
         btnActualizarEmp.setOnAction(this::actualizarDatos);
         btnCancelar2.setOnAction(this::cerrarVentana);
@@ -102,8 +102,8 @@ public class actualizar_empleadosControlador {
 
 
     private void actualizarDatos(javafx.event.ActionEvent actionEvent) {
-        //validaciones();
-        actualizarEmpleado();
+        validaciones();
+
     }
 
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {
@@ -160,7 +160,8 @@ public class actualizar_empleadosControlador {
                 ((Stage) txtNombreEmp2.getScene().getWindow()).close();
             }
         } catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnActualizarEmp.getScene().getWindow());
             e.printStackTrace();
 
         }
@@ -273,35 +274,53 @@ public class actualizar_empleadosControlador {
     }
 
     //Validaciones
-   /* public void validaciones() {
-        if (NoVacio(txtNombreEmp2.getText()) && NoVacio(txtCorreoEmp2.getText()) && NoVacio(txtNumCuenta2.getText())&& NoVacio(txtDuiEmp2.getText())&& NoVacio(txtPagoHorasExEmp2.getText())&& NoVacio(txtSueldoEmp2.getText())){
-            if (validarLetras(txtNombreEmp2.getText())){
-            if (validarCorreo(txtCorreoEmp2.getText())){
-                if (validarDui(txtDuiEmp2.getText())){
-                    if (validarNumero(txtPagoHorasExEmp2.getText()) && validarNumero(txtSueldoEmp2.getText())){
-                        actualizarEmpleado();
+   public void validaciones() {
+       if (NoVacio(txtNombreEmp2.getText()) && NoVacio(txtCorreoEmp2.getText()) && NoVacio(txtNumCuenta2.getText())&& NoVacio(txtDuiEmp2.getText())&& NoVacio(txtPagoHorasExEmp2.getText())&& NoVacio(txtSueldoEmp2.getText())){
+           if (cbCargos2.getValue() == null) {
+               CustomAlert customAlert = new CustomAlert();
+               customAlert.mostrarAlertaPersonalizada("Error", "Seleccione un cargo en el ComboBox.", (Stage) btnActualizarEmp.getScene().getWindow());
+               return;
+           }
+           if (validarLetras(txtNombreEmp2.getText())){
+               if (validarCorreo(txtCorreoEmp2.getText())){
+                   if (validarDui(txtDuiEmp2.getText())){
+                       if (validarNumero(txtPagoHorasExEmp2.getText()) && validarNumero(txtSueldoEmp2.getText())){
+                           actualizarEmpleado();
 
-                        }else {
-                        mostrarAlerta("Error de Validación", "Ingrese solo números.");
-                    }
+                       }else {
+                           CustomAlert customAlert = new CustomAlert();
+                           customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en los campos de Sueldo y pago por hora extra.", (Stage) btnActualizarEmp.getScene().getWindow());
+                           return;
+                       }
 
-                    }else {
-                        mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
-                    }
+                   }else {
+                       CustomAlert customAlert = new CustomAlert();
+                       customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un DUI válido.", (Stage) btnActualizarEmp.getScene().getWindow());
+                       return;
+                   }
 
-                }else {
-                mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
-            }
+               }else {
+                   CustomAlert customAlert = new CustomAlert();
+                   customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un correo válido.", (Stage) btnActualizarEmp.getScene().getWindow());
+                   return;
 
-            }else {
-                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-            }
+               }
 
-        }else {
-            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+           }else {
+               CustomAlert customAlert = new CustomAlert();
+               customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnActualizarEmp.getScene().getWindow());
+               return;
+           }
 
-        }
-    }
+       }else {
+
+           CustomAlert customAlert = new CustomAlert();
+           customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnActualizarEmp.getScene().getWindow());
+           return;
+
+       }
+   }
+
 
 
 
@@ -336,7 +355,7 @@ public class actualizar_empleadosControlador {
     private boolean validarDui(String dui) {
         // Se puede implementar una lógica más avanzada según el formato real de DUI
         return dui.matches("\\d{8}-\\d{1}");
-    }*/
+    }
 
 
 }

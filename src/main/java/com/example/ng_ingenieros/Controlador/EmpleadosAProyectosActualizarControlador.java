@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -137,12 +138,16 @@ public class EmpleadosAProyectosActualizarControlador {
 
     //Validaciones
     public void validaciones(javafx.event.ActionEvent actionEvent) {
-        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtNumCuenta.getText()) && NoVacio(txtDuiEmp.getText()) && NoVacio(txtPagoHorasExEmp.getText()) && NoVacio(txtSueldoEmp.getText())) {
-            if (validarLetras(txtNombreEmp.getText())) {
-                if (validarCorreo(txtCorreoEmp.getText())) {
-                    if (validarDui(txtDuiEmp.getText())) {
-                        if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())) {
-                            // Actualiza los datos del empleado con los valores de los campos del formulario
+        if (NoVacio(txtNombreEmp.getText()) && NoVacio(txtCorreoEmp.getText()) && NoVacio(txtNumCuenta.getText())&& NoVacio(txtDuiEmp.getText())&& NoVacio(txtPagoHorasExEmp.getText())&& NoVacio(txtSueldoEmp.getText())){
+            if (cbCargoEmp.getValue() == null) {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Seleccione un cargo en el ComboBox.", (Stage) btnGuardar.getScene().getWindow());
+                return;
+            }
+            if (validarLetras(txtNombreEmp.getText())){
+                if (validarCorreo(txtCorreoEmp.getText())){
+                    if (validarDui(txtDuiEmp.getText())){
+                        if (validarNumero(txtPagoHorasExEmp.getText()) && validarNumero(txtSueldoEmp.getText())){
                             if (empleadoParaActualizar != null) {
                                 empleadoParaActualizar.setNombre(txtNombreEmp.getText());
                                 empleadoParaActualizar.setDui(txtDuiEmp.getText());
@@ -162,24 +167,37 @@ public class EmpleadosAProyectosActualizarControlador {
                             Stage stage = (Stage) source.getScene().getWindow();
                             stage.close();
 
-                        } else {
-                            mostrarAlerta("Error de Validación", "Ingrese solo números.");
+                        }else {
+                            CustomAlert customAlert = new CustomAlert();
+                            customAlert.mostrarAlertaPersonalizada("Error", "Ingrese solo números en los campos de Sueldo y pago por hora extra.", (Stage) btnGuardar.getScene().getWindow());
+                            return;
                         }
 
-                    } else {
-                        mostrarAlerta("Error de Validación", "Ingrese un DUI válido.");
+                    }else {
+                        CustomAlert customAlert = new CustomAlert();
+                        customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un DUI válido.", (Stage) btnGuardar.getScene().getWindow());
+                        return;
                     }
 
-                } else {
-                    mostrarAlerta("Error de Validación", "Ingrese un correo válido.");
+                }else {
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "Ingrese un correo válido.", (Stage) btnGuardar.getScene().getWindow());
+                    return;
+
                 }
 
-            } else {
-                mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
+            }else {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnGuardar.getScene().getWindow());
+                return;
             }
 
-        } else {
-            mostrarAlerta("Error de validación", "Ingresar datos, no pueden haber campos vacíos.");
+        }else {
+
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ingresar datos, no pueden haber campos vacíos.", (Stage) btnGuardar.getScene().getWindow());
+            return;
+
         }
     }
 

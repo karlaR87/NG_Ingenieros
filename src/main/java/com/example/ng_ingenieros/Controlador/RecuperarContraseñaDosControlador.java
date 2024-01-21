@@ -224,15 +224,17 @@ public class RecuperarContraseñaDosControlador {
             // Creación del mensaje
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(correoRemitente));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(destinatario));
-            message.setSubject("Recuperación obligame Contarseña");
+            message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinatario));
+            message.setSubject("Recuperación Contarseña");
             message.setText("Codigo de verificacion: " + codigoAleatorio );
 
             // Envío del mensaje
             Transport.send(message);
 
             System.out.println("¡Correo enviado!");
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Coreo enviado", "Se ha enviado el correo nuevamente", (Stage) btnReenviarCodigo.getScene().getWindow());
+
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

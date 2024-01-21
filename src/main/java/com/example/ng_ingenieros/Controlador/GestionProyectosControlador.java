@@ -227,6 +227,7 @@ public class GestionProyectosControlador {
 
                 // Mostrar mensaje de éxito
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Estado del proyecto actualizado correctamente.");
+
             } else {
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Alerta", "El estado no se puede cambiar, ya que ya esta finalizado");
             }

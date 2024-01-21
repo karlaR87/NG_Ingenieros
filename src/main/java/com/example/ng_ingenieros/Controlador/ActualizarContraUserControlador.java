@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Usuarios;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -156,12 +157,16 @@ public class ActualizarContraUserControlador {
                     }
 
                 }else{
-                    agregar_empleadosControlador.mostrarAlerta("Error", "Las contraseñas no coinciden", Alert.AlertType.ERROR);
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "Las contraseñas no coinciden", (Stage) btnActualizarContra.getScene().getWindow());
+                    return;
                 }
             }
         } catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnActualizarContra.getScene().getWindow());
             e.printStackTrace();
+
 
         }
     }

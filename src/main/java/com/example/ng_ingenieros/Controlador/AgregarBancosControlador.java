@@ -106,8 +106,9 @@ public class AgregarBancosControlador {
             AgregarBanco();
         }
         else {
-            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnAgregarBanco.getScene().getWindow());
+            return;        }
     }
     public static void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

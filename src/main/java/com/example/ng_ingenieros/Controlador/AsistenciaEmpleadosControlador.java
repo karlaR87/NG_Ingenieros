@@ -2,6 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,7 +72,7 @@ public class AsistenciaEmpleadosControlador {
     private ComboBox cmbAsistencia;
 
     @FXML
-    private Button btnMostrar;
+    private Button btnMostrar, btnGuardaAsistencia;
     @FXML
     private Button btncancelar;
 
@@ -109,8 +110,7 @@ public class AsistenciaEmpleadosControlador {
     public void initialize()
     {
 
-
-
+        btnGuardaAsistencia.setOnAction(this::guardarAsistencia);
         recibirIdProyecto(idProyectoSeleccionado);
 
         cmbAsistencia.setOnAction(event -> {
@@ -519,7 +519,9 @@ public class AsistenciaEmpleadosControlador {
 
             ps.executeUpdate();
 
-            agregar_empleadosControlador.mostrarAlerta("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", Alert.AlertType.INFORMATION);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Inserción de asistencia", "Asistencia del empleado agregada exitosamente", (Stage) btnGuardaAsistencia.getScene().getWindow());
+
 
 
 
@@ -527,8 +529,10 @@ public class AsistenciaEmpleadosControlador {
 
 
         }catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnGuardaAsistencia.getScene().getWindow());
             e.printStackTrace();
+
         }
 
 

@@ -146,10 +146,13 @@ public class CrudBancosControlador {
 
             int filasAfectadas = statement.executeUpdate();
             if (filasAfectadas > 0) {
-                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Eliminación de datos", "Se eliminaron los datos exitosamente", (Stage) btnEliminarBanco.getScene().getWindow());
 
             } else {
-                agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Alerta", "No se encontro ningun empleado", (Stage) btnEliminarBanco.getScene().getWindow());
+
             }
             cargarDatos();
         } catch (SQLException e) {

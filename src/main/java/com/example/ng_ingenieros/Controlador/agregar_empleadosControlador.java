@@ -135,8 +135,10 @@ public class agregar_empleadosControlador {
 
 
         }catch (SQLException e) {
-            mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnGuardar1.getScene().getWindow());
             e.printStackTrace();
+
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Usuarios;
 import javafx.collections.FXCollections;
@@ -103,8 +104,10 @@ public class ActualizarUsuarioControlador {
                 ((Stage) txtUsername.getScene().getWindow()).close();
             }
         } catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnActualizarUser.getScene().getWindow());
             e.printStackTrace();
+
 
         }
     }

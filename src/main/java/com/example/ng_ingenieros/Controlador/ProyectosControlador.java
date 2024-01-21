@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
 import javafx.collections.FXCollections;
@@ -122,7 +123,9 @@ public class ProyectosControlador {
         Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();
         if (proyectoSeleccionado != null) {
             if ("Finalizado".equals(proyectoSeleccionado.getEstado())) {
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Alerta", "No se puede editar un proyecto finalizado.");
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Alerta", "No se puede editar un proyecto finalizado.", (Stage) btnEditar.getScene().getWindow());
+
             } else {
                 try {
                     // Cargar el archivo FXML de ActualizarProyectos.fxml

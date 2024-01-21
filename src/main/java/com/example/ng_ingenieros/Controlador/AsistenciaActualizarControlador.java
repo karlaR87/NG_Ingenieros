@@ -2,6 +2,7 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.AsistenciaVista;
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -363,8 +364,10 @@ public class AsistenciaActualizarControlador {
 
             }
         } catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnGuardaAsistencia.getScene().getWindow());
             e.printStackTrace();
+
 
         }
     }

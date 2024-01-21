@@ -81,8 +81,9 @@ public class ActualizarBancoControlador {
             actualizarbanco();
         }
         else {
-            mostrarAlerta("Error de Validación", "Solo se pueden ingresar letras en el nombre.");
-        }
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Solo se pueden ingresar letras en el nombre.", (Stage) btnActualizarBanco.getScene().getWindow());
+            return;        }
     }
 
     private void actualizarbanco() throws SQLException {
@@ -108,10 +109,12 @@ public class ActualizarBancoControlador {
                     ((Stage) txtActualizarBanco.getScene().getWindow()).close();
             }
         } catch (SQLException e) {
-            agregar_empleadosControlador.mostrarAlerta("Error", "Ha ocurrido un error", Alert.AlertType.ERROR);
-            e.printStackTrace();
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Ha ocurrido un error", (Stage) btnActualizarBanco.getScene().getWindow());
+                e.printStackTrace();
 
-        }
+
+            }
     }
 
 }
