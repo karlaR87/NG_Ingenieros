@@ -12,6 +12,16 @@ public class Proyecto{
 
     private String ing;
 
+        private String estadoAnterior;
+
+
+        public String getEstadoAnterior() {
+            return estadoAnterior;
+        }
+
+        public void setEstadoAnterior(String estadoAnterior) {
+            this.estadoAnterior = estadoAnterior;
+        }
     public int getId() {
         return id;
     }

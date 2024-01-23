@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Controlador.AlertDos;
 import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
@@ -113,11 +114,24 @@ public class GestionProyectosControlador {
 
         // Agregar evento al botón para realizar el cambio de actividad
         btnCambio.setOnAction(event -> {
+            // Verificar si el proyecto está finalizado
+            if (verificarProyectoFinalizado(idProyecto)) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "No se puede cambiar la actividad de un proyecto finalizado.");
+                return; // Salir del método si el proyecto está finalizado
+            }
+
             Empleados empleadoSeleccionado = tbEmpleados.getSelectionModel().getSelectedItem();
             if (empleadoSeleccionado != null) {
                 String nuevaActividad = cmbActividad.getValue();
-                actualizarActividadEmpleado(empleadoSeleccionado.getId(), nuevaActividad, idProyecto);
-                cargarEmpleadosAsociados(); // Vuelve a cargar la lista de empleados después de la actualización
+
+                // Verificar si el proyecto no está finalizado antes de realizar el cambio
+                if (!verificarProyectoFinalizado(idProyecto)) {
+                    // Actualizar la actividad del empleado
+                    actualizarActividadEmpleado(empleadoSeleccionado.getId(), nuevaActividad, idProyecto);
+                    cargarEmpleadosAsociados(); // Volver a cargar la lista de empleados después de la actualización
+                } else {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "No se puede cambiar la actividad de un proyecto finalizado.");
+                }
             }
         });
 
@@ -126,22 +140,31 @@ public class GestionProyectosControlador {
 
         llenarComboEstado();
         ActividadCombobox();
-        String estadoProyecto = obtenerEstadoProyecto(idProyecto);
 
-        // Verificar si el proyecto está finalizado
-        if ("Finalizado".equals(estadoProyecto)) {
-            // Si el proyecto está finalizado, deshabilitar los botones Cambiar y Guardar
-            btnCambio.setDisable(true);
+        verificarYDeshabilitarBotones();
+
+        if (verificarProyectoFinalizado(idProyecto)) {
+            // Bloquear los botones de agregar y cambiar
+            // (Asegúrate de tener las referencias adecuadas a los botones en tu código)
             btnGuardarProyecto.setDisable(true);
-
-            // Deshabilitar el ComboBox de estado
+            btnCambio.setDisable(true);
             cmEstado.setDisable(true);
+            // Puedes agregar más acciones según tus necesidades
         }
 
-
-
     }
+    private void verificarYDeshabilitarBotones() {
+        String estadoProyecto = obtenerEstadoProyecto(idProyecto);
 
+        // Verificar si el proyecto está finalizado y deshabilitar los botones
+        if ("Finalizado".equals(estadoProyecto)) {
+            btnCambio.setDisable(true);
+            btnGuardarProyecto.setDisable(true);
+        } else {
+            btnCambio.setDisable(false);
+            btnGuardarProyecto.setDisable(false);
+        }
+    }
     // Método para realizar la actualización de la actividad del empleado en la base de datos
     private void actualizarActividadEmpleado(int idEmpleado, String nuevaActividad, int idProyectoActual) {
         // Verificar si el empleado está activo en otro proyecto
@@ -208,43 +231,71 @@ public class GestionProyectosControlador {
     }
     @FXML
     void btnGuardarProyectoClick(javafx.event.ActionEvent event) {
-        // Obtén el resultado de la alerta (si se hace clic en Aceptar o Cancelar)
-        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmAlert.setTitle("Confirmar Cambio de Estado");
-        confirmAlert.setHeaderText("¿Está seguro de cambiar el estado del proyecto?");
-        confirmAlert.setContentText("Esta acción solo se puede realizar una vez y es irreversible.");
+        // Verifica si el proyecto ya está finalizado
+        if (verificarProyectoFinalizado(idProyecto)) {
+            // Muestra un mensaje indicando que la acción ya se realizó anteriormente
+            mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "El proyecto esta finalizado, no se puede cambiar. ");
+            return; // Sale del método si el proyecto ya está finalizado
+        }
 
-        Optional<ButtonType> result = confirmAlert.showAndWait();
+        // Crea una instancia de tu alerta personalizada
+        AlertDos alertDos = new AlertDos();
+        // Muestra una confirmación antes de cambiar el estado del proyecto
+        boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea finalizar el proyecto?", "Confirmación");
 
-        // Verifica si el usuario hizo clic en Aceptar
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Si el usuario hace clic en Aceptar, procede con el cambio de estado
-            String nuevoEstado = cmEstado.getValue();
+        if (confirmacion) {
+            // Actualizar el estado del proyecto a "Finalizado"
+            actualizarEstadoProyecto(idProyecto, "Finalizado");
 
-            if ("Finalizado".equals(nuevoEstado)) {
-                // Actualizar el estado del proyecto en la base de datos
-                actualizarEstadoProyecto(idProyecto, nuevoEstado);
+            // Cambiar el idactividad de los empleados del proyecto a "Inactivo"
+            cambiarIdActividadEmpleados(idProyecto);
 
-                // Cambiar el idActividad de todos los empleados asociados al proyecto
-                cambiarIdActividadEmpleados(idProyecto);
+            // Volver a cargar los empleados asociados después de la actualización
+            cargarEmpleadosAsociados();
 
-                // Deshabilitar los botones de cambiar y guardar
-                btnCambio.setDisable(true);
+            // Verificar y deshabilitar botones según el nuevo estado del proyecto
+            verificarYDeshabilitarBotones();
+
+            // Mostrar un mensaje de éxito o realizar otras acciones necesarias
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "El proyecto se ha marcado como finalizado.");
+
+            ProyectosControlador pro = new ProyectosControlador();
+            pro.cargarDatosProyectos();
+
+            // Verificar si el proyecto está finalizado y bloquear los botones de agregar y cambiar si es necesario
+            if (verificarProyectoFinalizado(idProyecto)) {
+                // Bloquear los botones de agregar y cambiar
+                // (Asegúrate de tener las referencias adecuadas a los botones en tu código)
                 btnGuardarProyecto.setDisable(true);
-
-                // Mostrar mensaje de éxito
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Éxito", "Estado del proyecto actualizado correctamente.", (Stage) btnGuardarProyecto.getScene().getWindow());
-                return;
-
-            } else {
-
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Alerta", "El estado no se puede cambiar, ya que ya esta finalizado.", (Stage) btnGuardarProyecto.getScene().getWindow());
-                return;
+                btnCambio.setDisable(true);
+                cmEstado.setDisable(true);
+                // Puedes agregar más acciones según tus necesidades
             }
         }
     }
+
+
+    private boolean verificarProyectoFinalizado(int idProyecto) {
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String query = "SELECT idEstadoProyecto FROM tbProyectos WHERE idproyecto = ?";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+                preparedStatement.setInt(1, idProyecto);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    if (rs.next()) {
+                        int idEstado = rs.getInt("idEstadoProyecto");
+                        // Compara el id del estado con el correspondiente al estado "Finalizado"
+                        return idEstado == IdRetornoEstado("Finalizado");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de errores
+        }
+        return false;
+    }
+
+
     private String obtenerEstadoProyecto(int idProyecto) {
         try (Connection conn = Conexion.obtenerConexion()) {
             String query = "SELECT Estado_proyecto FROM tbEstadoProyectos " +

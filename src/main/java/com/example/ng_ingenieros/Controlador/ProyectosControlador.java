@@ -281,6 +281,7 @@ public class ProyectosControlador {
                 TableColumn<Proyecto, String> colEstado = new TableColumn<>("Estado");
                 colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
                 columnas.add(colEstado);
+
             }
 
             // Agregar datos a la tabla
