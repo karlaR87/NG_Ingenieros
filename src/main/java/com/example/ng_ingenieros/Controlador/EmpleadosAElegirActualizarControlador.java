@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -83,27 +84,26 @@ public class EmpleadosAElegirActualizarControlador {
         try (Connection conn = Conexion.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT \n" +
-                     "                         e.idempleado,\n" +
-                     "                         e.nombreCompleto,\n" +
-                     "                         e.dui,\n" +
-                     "                         e.correo,\n" +
-                     "                         COALESCE(e.sueldo_dia, 0) AS sueldo_dia,\n" +
-                     "                         COALESCE(e.sueldo_horaExt, 0) AS sueldo_horaExt,\n" +
-                     "                         e.numero_cuentabancaria,\n" +
-                     "                         c.cargo\n" +
-                     "                     FROM \n" +
-                     "                         tbempleados e\n" +
-                     "                     INNER JOIN \n" +
-                     "                         tbcargos c ON e.idcargo = c.idcargo\n" +
-                     "                     LEFT JOIN \n" +
-                     "                         tbEmpleadosProyectos ep ON e.idempleado = ep.idEmpleado\n" +
-                     "                     LEFT JOIN \n" +
-                     "                         tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
-                     "                     LEFT JOIN \n" +
-                     "                         tbActividad a ON ep.idactividad = a.idactividad\n" +
-                     "                     WHERE\n" +
-                     "                         e.idcargo <> 7\n" +
-                     "                         AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
+                     "    e.idempleado,\n" +
+                     "    e.nombreCompleto,\n" +
+                     "    e.dui,\n" +
+                     "    e.correo,\n" +
+                     "    COALESCE(e.sueldo_dia, 0) AS sueldo_dia,\n" +
+                     "    COALESCE(e.sueldo_horaExt, 0) AS sueldo_horaExt,\n" +
+                     "    e.numero_cuentabancaria,\n" +
+                     "    c.cargo\n" +
+                     "FROM \n" +
+                     "    tbempleados e\n" +
+                     "INNER JOIN \n" +
+                     "    tbcargos c ON e.idcargo = c.idcargo\n" +
+                     "LEFT JOIN \n" +
+                     "    tbEmpleadosProyectos ep ON e.idempleado = ep.idEmpleado\n" +
+                     "LEFT JOIN \n" +
+                     "    tbProyectos p ON ep.idProyecto = p.idproyecto\n" +
+                     "LEFT JOIN \n" +
+                     "    tbActividad a ON ep.idactividad = a.idactividad\n" +
+                     "WHERE\n" +
+                     "    (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
 
             // Crear columnas dinámicamente
             ObservableList<TableColumn<Empleados, ?>> columnas = tbEmpleados.getColumns();
@@ -365,10 +365,14 @@ public class EmpleadosAElegirActualizarControlador {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
     private void guardarEmpleadosSeleccionados(javafx.event.ActionEvent actionEvent) {
         // Obtener la lista de empleados seleccionados
         ObservableList<Empleados> empleadosSeleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
+
+        // Realizar la verificación de ingenieros con idcargo 7
+        if (!verificarIngenierosCargo7(empleadosSeleccionados)) {
+            return; // Salir del método si la verificación falla
+        }
 
         // Obtener los IDs de los empleados seleccionados
         List<Integer> idsEmpleadosSeleccionados = new ArrayList<>();
@@ -383,6 +387,36 @@ public class EmpleadosAElegirActualizarControlador {
         cerrarVentana(actionEvent);
     }
 
+    private boolean verificarIngenierosCargo7(List<Empleados> empleados) {
+        // Construir una cadena de IDs de empleados seleccionados para la consulta SQL
+        StringBuilder idEmpleados = new StringBuilder();
+        for (Empleados empleado : empleados) {
+            idEmpleados.append(empleado.getId()).append(",");
+        }
+        idEmpleados.deleteCharAt(idEmpleados.length() - 1); // Eliminar la última coma
+
+        // Consultar la base de datos para contar la cantidad de ingenieros con idcargo 7 en la selección
+        String consultaSQL = "SELECT COUNT(*) AS conteo FROM tbempleados WHERE idempleado IN (" + idEmpleados + ") AND idcargo = 7";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(consultaSQL)) {
+
+            if (rs.next()) {
+                int conteoIngenierosCargo7 = rs.getInt("conteo");
+                if (conteoIngenierosCargo7 > 1) {
+                    CustomAlert customAlert = new CustomAlert();
+                    customAlert.mostrarAlertaPersonalizada("Error", "Solo se permite agregar un ingeniero con ID de cargo 7.", (Stage) btnAgregar.getScene().getWindow());
+                    return false; // La verificación falla
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // La verificación falla en caso de error
+        }
+
+        return true; // La verificación tiene éxito
+    }
     private void asociarEmpleadosAProyecto(List<Integer> idsEmpleados) {
         if (idsEmpleados.isEmpty()) {
             System.out.println("Ningún empleado seleccionado.");

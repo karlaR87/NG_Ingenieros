@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Controlador.AlertDos;
 import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
@@ -66,6 +67,9 @@ public class ProyectosControlador {
         btnAgregar.setOnAction(this::Abrir);
         tbProyectos.setItems(listaProyectos);
 
+        configurarTabla();
+
+
         tbProyectos.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 // Detecta el doble clic y llama a la función para abrir la ventana
@@ -81,7 +85,11 @@ public class ProyectosControlador {
 
         cargarDatosProyectos();
     }
-
+    private void configurarTabla() {
+        // Configurar la tabla para permitir selección múltiple
+        tbProyectos.getSelectionModel().setCellSelectionEnabled(false);
+        tbProyectos.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+    }
     private void abrirVentanaDetalle() {
         Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();
         if (proyectoSeleccionado != null) {
@@ -171,21 +179,34 @@ public class ProyectosControlador {
 
 
     private void eliminarProyecto(ActionEvent actionEvent) {
-        Proyecto proyectoSeleccionado = tbProyectos.getSelectionModel().getSelectedItem();
-        if (proyectoSeleccionado != null) {
+        // Obtener los proyectos seleccionados
+        ObservableList<Proyecto> proyectosSeleccionados = tbProyectos.getSelectionModel().getSelectedItems();
 
+        if (!proyectosSeleccionados.isEmpty()) {
+            AlertDos alertDos = new AlertDos();
+            // Mostrar una confirmación antes de eliminar utilizando tu clase AlertDos
+            boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea eliminar los proyectos seleccionados?", "Confirmación");
 
-            // Elimina el proyecto de la base de datos y de la tabla
-            try (Connection conn = Conexion.obtenerConexion();
-                 Statement stmt = conn.createStatement()) {
-                String query = "DELETE FROM tbProyectos WHERE idproyecto = " + proyectoSeleccionado.getId();
-                stmt.executeUpdate(query);
-                cargarDatosProyectos(); // Recarga los datos en la tabla después de eliminar
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (confirmacion) {
+                // Elimina los proyectos de la base de datos y de la tabla
+                try (Connection conn = Conexion.obtenerConexion();
+                     Statement stmt = conn.createStatement()) {
+                    for (Proyecto proyectoSeleccionado : proyectosSeleccionados) {
+                        String query = "DELETE FROM tbProyectos WHERE idproyecto = " + proyectoSeleccionado.getId();
+                        stmt.executeUpdate(query);
+                    }
+                    cargarDatosProyectos(); // Recarga los datos en la tabla después de eliminar
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+        } else {
+            // Muestra un mensaje si no se seleccionan proyectos
+            CustomAlert alertDos = new CustomAlert();
+            alertDos.mostrarAlertaPersonalizada("Alerta", "Por favor, seleccione al menos un proyecto para eliminar.", (Stage) btnEmilinar.getScene().getWindow());
         }
     }
+
     private void Abrir(ActionEvent actionEvent) {
         try {
             // Cargar el archivo FXML
@@ -196,6 +217,8 @@ public class ProyectosControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva Ventana");
 
+            ProyectosAgregarControlador proyectosAgregarControlador=new ProyectosAgregarControlador();
+            proyectosAgregarControlador = loader.getController();
             // Configurar la modalidad (bloquea la ventana principal)
             stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -205,7 +228,7 @@ public class ProyectosControlador {
             stage.setScene(new Scene(root));
             stage.showAndWait(); // Mostrar y esperar hasta que se cierre
 
-            // La ventana se desbloqueará una vez que se cierre la ventana secundaria
+            refrescar(actionEvent);
         } catch (Exception e) {
             e.printStackTrace();
         }

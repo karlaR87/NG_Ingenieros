@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -115,6 +116,13 @@ public class EmpleadosAsignadosControlador {
     @FXML
     private void AbrirGestion(ActionEvent actionEvent) {
         try {
+            // Validar que no haya más de 1 ingeniero con idcargo 7 en la lista de empleados
+            if (!validarIngenierosCargo7(empleados)) {
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Error", "Solo se permite agregar un ingeniero con ID de cargo 7.", (Stage) btnGuardar.getScene().getWindow());
+                return;
+            }
+
             // Cargar el archivo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ng_ingenieros/ProyectosAgregar.fxml"));
             Parent root = loader.load();
@@ -122,12 +130,10 @@ public class EmpleadosAsignadosControlador {
             // Acceso al controlador de la nueva ventana
             ProyectosAgregarControlador proyectosAgregarControlador = loader.getController();
 
-            //  la lista de empleados al controlador de "ProyectosAgregarControlador"
+            // Pasar la lista de empleados al controlador de "ProyectosAgregarControlador"
             proyectosAgregarControlador.setEmpleadosProyecto(empleados);
 
             System.out.println("Datos enviados a ProyectosAgregarControlador.");
-
-
 
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
@@ -143,6 +149,33 @@ public class EmpleadosAsignadosControlador {
 
     }
 
+
+
+    private boolean validarIngenierosCargo7(List<Empleados> empleados) {
+        // Construir una cadena de IDs de empleados seleccionados para la consulta SQL
+        StringBuilder idEmpleados = new StringBuilder();
+        for (Empleados empleado : empleados) {
+            idEmpleados.append(empleado.getId()).append(",");
+        }
+        idEmpleados.deleteCharAt(idEmpleados.length() - 1); // Eliminar la última coma
+
+        // Consultar la base de datos para contar la cantidad de ingenieros con idcargo 7 en la selección
+        String consultaSQL = "SELECT COUNT(*) AS conteo FROM tbempleados WHERE idempleado IN (" + idEmpleados + ") AND idcargo = 7";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(consultaSQL)) {
+
+            if (rs.next()) {
+                int conteoIngenierosCargo7 = rs.getInt("conteo");
+                return conteoIngenierosCargo7 <= 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false; // En caso de error, considerarlo como que no se cumple la validación
+    }
     public List<Empleados> getEmpleadosAElegirProyecto() {
         return empleados;
     }

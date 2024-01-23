@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -47,6 +48,8 @@ public class AdministrarControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            // Configurar la modalidad (bloquea la ventana principal)
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
@@ -64,6 +67,8 @@ public class AdministrarControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            // Configurar la modalidad (bloquea la ventana principal)
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
@@ -81,6 +86,8 @@ public class AdministrarControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            // Configurar la modalidad (bloquea la ventana principal)
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 

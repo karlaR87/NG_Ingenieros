@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,8 +98,7 @@ public class EmpleadosAElegirControlador {
                      "LEFT JOIN \n" +
                      "    tbActividad a ON ep.idactividad = a.idactividad\n" +
                      "WHERE\n" +
-                     "    e.idcargo <> 7\n" +
-                     "    AND (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
+                     "    (ep.idProyecto IS NULL OR p.idEstadoProyecto = 2 OR (p.idEstadoProyecto = 1 AND (a.idactividad IS NULL OR a.idactividad = 2)));")) {
 
 
             // Crear columnas dinámicamente
@@ -352,12 +352,50 @@ public class EmpleadosAElegirControlador {
     public List<Empleados> getEmpleadosAElegir() {
         return empleadosSeleccionados;
     }
+
+    private boolean validarIngenierosCargo7(List<Empleados> empleados) {
+        // Construir una cadena de IDs de empleados seleccionados para la consulta SQL
+        StringBuilder idEmpleados = new StringBuilder();
+        for (Empleados empleado : empleados) {
+            idEmpleados.append(empleado.getId()).append(",");
+        }
+        idEmpleados.deleteCharAt(idEmpleados.length() - 1); // Eliminar la última coma
+
+        // Consultar la base de datos para contar la cantidad de ingenieros con idcargo 7 en la selección
+        String consultaSQL = "SELECT COUNT(*) AS conteo FROM tbempleados WHERE idempleado IN (" + idEmpleados + ") AND idcargo = 7";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(consultaSQL)) {
+
+            if (rs.next()) {
+                int conteoIngenierosCargo7 = rs.getInt("conteo");
+                return conteoIngenierosCargo7 <= 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false; // En caso de error, considerarlo como que no se cumple la validación
+    }
+
+
+    @FXML
     private void guardarEmpleadosSeleccionados(javafx.event.ActionEvent actionEvent) {
         empleadosSeleccionados.clear();
 
         ObservableList<Empleados> seleccionados = tbEmpleados.getSelectionModel().getSelectedItems();
 
+        // Validar la cantidad de ingenieros con idcargo 7
+        if (!validarIngenierosCargo7(seleccionados)) {
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Error", "Solo se permite agregar un ingeniero con ID de cargo 7.", (Stage) btnAgregar.getScene().getWindow());
+            return;
+        }
+
         empleadosSeleccionados.addAll(seleccionados);
+
+        // Resto del código...
 
         // Imprimir mensajes de depuración
         System.out.println("Empleados a elegir seleccionados:");
@@ -369,21 +407,18 @@ public class EmpleadosAElegirControlador {
         if (empleadosAsignadosControlador != null) {
             empleadosAsignadosControlador.setEmpleadoselect(empleadosSeleccionados);
 
-
             System.out.println("Información enviada a EmpleadosAsignadosControlador:");
             for (Empleados empleado : empleadosSeleccionados) {
                 System.out.println("ID: " + empleado.getId() + ", Nombre: " + empleado.getNombre());
             }
-
-
         }
+
         System.out.println("Cerrando ventana EmpleadosAElegir.");
 
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
 
     @FXML
     private void cerrarVentana(javafx.event.ActionEvent actionEvent) {

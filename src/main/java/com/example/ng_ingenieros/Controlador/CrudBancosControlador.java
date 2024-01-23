@@ -1,6 +1,8 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.*;
+import com.example.ng_ingenieros.Controlador.AlertDos;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -63,7 +66,7 @@ public class CrudBancosControlador {
         btnRefresh.setOnAction(this::btnRefreshOnAction);
 
         cargarDatos();
-
+        configurarTabla();
         txtBusqueda.setOnKeyReleased(event -> {
 
             buscarDatos(txtBusqueda.getText());
@@ -71,7 +74,11 @@ public class CrudBancosControlador {
         });
 
     }
-
+    private void configurarTabla() {
+        // Configurar la tabla para permitir selección múltiple
+        tbBanco.getSelectionModel().setCellSelectionEnabled(false);
+        tbBanco.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+    }
     public void setTableBanco(TableView<Bancos> tbBanco) {
         this.tbBanco = tbBanco;
     }
@@ -86,6 +93,8 @@ public class CrudBancosControlador {
             Stage stage = new Stage();
             stage.setTitle("Nueva");
             stage.setScene(new Scene(root));
+            // Configurar la modalidad (bloquea la ventana principal)
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
@@ -116,6 +125,8 @@ public class CrudBancosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                // Configurar la modalidad (bloquea la ventana principal)
+                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
             } catch (IOException e) {
@@ -136,29 +147,35 @@ public class CrudBancosControlador {
 
 
     private void eliminarBanco() {
-        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
-        int idBanco = obtenerIdBancoSeleccionado();
+        // Obtener los bancos seleccionados
+        ObservableList<Bancos> bancosSeleccionados = tbBanco.getSelectionModel().getSelectedItems();
 
-        try (Connection connection = Conexion.obtenerConexion()) {
-            String sql = "DELETE FROM tbBancos WHERE idBanco = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, idBanco);
+        if (!bancosSeleccionados.isEmpty()) {
 
-            int filasAfectadas = statement.executeUpdate();
-            if (filasAfectadas > 0) {
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Eliminación de datos", "Se eliminaron los datos exitosamente", (Stage) btnEliminarBanco.getScene().getWindow());
+            AlertDos alertDos = new AlertDos();
+            // Mostrar una confirmación antes de eliminar utilizando tu clase AlertDos
+            boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea eliminar los bancos seleccionados?", "Confirmación");
 
-            } else {
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Alerta", "No se encontro ningun empleado", (Stage) btnEliminarBanco.getScene().getWindow());
-
+            if (confirmacion) {
+                // Elimina los bancos de la base de datos y de la tabla
+                try (Connection conn = Conexion.obtenerConexion();
+                     Statement stmt = conn.createStatement()) {
+                    for (Bancos bancoSeleccionado : bancosSeleccionados) {
+                        String query = "DELETE FROM tbBancos WHERE idBanco = " + bancoSeleccionado.getIdbanco();
+                        stmt.executeUpdate(query);
+                    }
+                    cargarDatos(); // Recarga los datos en la tabla después de eliminar
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            cargarDatos();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            // Muestra un mensaje si no se seleccionan bancos
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Alerta", "Por favor, seleccione al menos un banco para eliminar.", (Stage) btnEliminarBanco.getScene().getWindow());
         }
     }
+
 
     private int obtenerIdBancoSeleccionado() {
         Bancos bancoSeleccionado = (Bancos) tbBanco.getSelectionModel().getSelectedItem();

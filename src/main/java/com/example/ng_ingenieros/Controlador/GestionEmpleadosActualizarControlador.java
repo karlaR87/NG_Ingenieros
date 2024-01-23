@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Controlador.AlertDos;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
 import javafx.collections.FXCollections;
@@ -24,7 +25,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
 public class GestionEmpleadosActualizarControlador {
     @FXML
     private TableView<Empleados> tbEmpleados;
@@ -237,15 +237,12 @@ public class GestionEmpleadosActualizarControlador {
             System.out.println("Ningún empleado seleccionado.");
             return;
         }
+        AlertDos alertDos = new AlertDos();
 
-        // Mostrar una confirmación antes de eliminar
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText("Eliminar Empleados");
-        alert.setContentText("¿Está seguro de que desea eliminar los empleados seleccionados?");
+        // Mostrar una confirmación antes de eliminar utilizando tu clase AlertDos
+        boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea eliminar los empleados seleccionados?", "Confirmación");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (confirmacion) {
             empleadosSeleccionados.forEach(empleado -> eliminarRelacionEmpleadoProyecto(empleado.getId(), idProyecto));
             cargarEmpleadosAsociados();
         }

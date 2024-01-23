@@ -1,6 +1,8 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.*;
+import com.example.ng_ingenieros.Controlador.AlertDos;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,7 +69,7 @@ public class CrudCargosControlador {
         btnRefresh.setOnAction(this::btnRefreshOnAction);
 
         cargarDatos();
-
+        configurarTabla();
         txtBusqueda.setOnKeyReleased(event -> {
 
             buscarDatos(txtBusqueda.getText());
@@ -75,7 +77,11 @@ public class CrudCargosControlador {
         });
 
     }
-
+    private void configurarTabla() {
+        // Configurar la tabla para permitir selección múltiple
+        tbCargo.getSelectionModel().setCellSelectionEnabled(false);
+        tbCargo.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+    }
     public void setTableCargos(TableView<Cargos> tbCargo) {
         this.tbCargo = tbCargo;
     }
@@ -92,6 +98,8 @@ public class CrudCargosControlador {
             Stage stage = new Stage();
             stage.setTitle("Cargos");
             stage.setScene(new Scene(root));
+            // Configurar la modalidad (bloquea la ventana principal)
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
 
@@ -121,6 +129,8 @@ public class CrudCargosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                // Configurar la modalidad (bloquea la ventana principal)
+                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
@@ -142,26 +152,31 @@ public class CrudCargosControlador {
     }
 
     private void eliminarCargo() {
-        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
-        int idCargo = obtenerIdCargoSeleccionado();
+        // Obtener los cargos seleccionados
+        ObservableList<Cargos> cargosSeleccionados = tbCargo.getSelectionModel().getSelectedItems();
 
-        try (Connection connection = Conexion.obtenerConexion()) {
-            String sql = "DELETE FROM tbcargos WHERE idcargo = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, idCargo);
+        if (!cargosSeleccionados.isEmpty()) {
+            AlertDos alertDos = new AlertDos();
+            // Mostrar una confirmación antes de eliminar utilizando tu clase AlertDos
+            boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea eliminar los cargos seleccionados?", "Confirmación");
 
-            int filasAfectadas = statement.executeUpdate();
-            if (filasAfectadas > 0) {
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Eliminación de datos", "Se eliminaron los datos exitosamente", (Stage) btnEliminarCargo.getScene().getWindow());
-
-            } else {
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Alerta", "No se encontro ningun empleado", (Stage) btnEliminarCargo.getScene().getWindow());
+            if (confirmacion) {
+                // Elimina los cargos de la base de datos y de la tabla
+                try (Connection connection = Conexion.obtenerConexion();
+                     Statement stmt = connection.createStatement()) {
+                    for (Cargos cargoSeleccionado : cargosSeleccionados) {
+                        String query = "DELETE FROM tbcargos WHERE idcargo = " + cargoSeleccionado.getIdCargo();
+                        stmt.executeUpdate(query);
+                    }
+                    cargarDatos(); // Recarga los datos en la tabla después de eliminar
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            cargarDatos();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            // Muestra un mensaje si no se seleccionan cargos
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Alerta", "Por favor, seleccione al menos un cargo para eliminar.", (Stage) btnEliminarCargo.getScene().getWindow());
         }
     }
 

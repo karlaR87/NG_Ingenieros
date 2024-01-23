@@ -1,7 +1,9 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.Controlador.AlertDos;
 import com.example.ng_ingenieros.Empleados;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmpleadosControlador {
 
@@ -58,7 +62,7 @@ public class EmpleadosControlador {
         btnAgregarEmp.setOnAction(this::btnAgregarOnAction);
         btnEliminarEmp.setOnAction(this::eliminardatos);
         btnRefresh.setOnAction(this::refrescar);
-
+        configurarTabla();
         txtBusqueda.setOnKeyReleased(event -> {
 
                 buscarDatos(txtBusqueda.getText());
@@ -66,7 +70,11 @@ public class EmpleadosControlador {
         });
         cargarDatos();
     }
-
+    private void configurarTabla() {
+        // Configurar la tabla para permitir selección múltiple
+        TableEmpleados.getSelectionModel().setCellSelectionEnabled(false);
+        TableEmpleados.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+    }
     public void setTableEmpleados(TableView<Empleados> tableEmpleados) {
         this.TableEmpleados = tableEmpleados;
     }
@@ -124,10 +132,29 @@ public class EmpleadosControlador {
 
 
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
+        ObservableList<Empleados> empleadosSeleccionados = TableEmpleados.getSelectionModel().getSelectedItems();
 
-        eliminarEmpleado();
+        if (!empleadosSeleccionados.isEmpty()) {
+            AlertDos alertDos = new AlertDos();
 
+            // Mostrar una confirmación antes de eliminar utilizando tu clase AlertDos
+            boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea eliminar los empleados seleccionados?", "Confirmación");
+
+            if (confirmacion) {
+                // Obtener los IDs de los empleados seleccionados
+                List<Integer> idsEmpleados = empleadosSeleccionados.stream().map(Empleados::getId).collect(Collectors.toList());
+
+                // Eliminar los empleados de la base de datos y de la tabla
+                idsEmpleados.forEach(this::eliminarEmpleado);
+
+                // Eliminar los empleados directamente desde la tabla
+                TableEmpleados.getItems().removeAll(empleadosSeleccionados);
+            }
+        } else {
+        }
     }
+
+
 
     private void refrescar(javafx.event.ActionEvent actionEvent){
         cargarDatos();
@@ -205,24 +232,13 @@ public class EmpleadosControlador {
 
 
 
-    private void eliminarEmpleado() {
-        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
-        int idEmpleado = obtenerIdEmpleadoSeleccionado();
-
+    private void eliminarEmpleado(int idEmpleado) {
         try (Connection connection = Conexion.obtenerConexion()) {
             String sql = "DELETE FROM tbempleados WHERE idempleado = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, idEmpleado);
-
-            int filasAfectadas = statement.executeUpdate();
-            if (filasAfectadas > 0) {
-                agregar_empleadosControlador.mostrarAlerta("Eliminación de datos","Se eliminaron los datos exitosamente", Alert.AlertType.INFORMATION);
-
-            } else {
-                agregar_empleadosControlador.mostrarAlerta("Alerta","No se encontro ningun empleado", Alert.AlertType.WARNING);
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, idEmpleado);
+                statement.executeUpdate();
             }
-            TableEmpleados.getItems().clear();
-            cargarDatos();
         } catch (SQLException e) {
             e.printStackTrace();
         }

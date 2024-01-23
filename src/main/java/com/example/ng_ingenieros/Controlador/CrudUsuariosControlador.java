@@ -3,8 +3,10 @@ package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
 
+import com.example.ng_ingenieros.Controlador.AlertDos;
 import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Usuarios;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -69,9 +72,13 @@ public class CrudUsuariosControlador {
 
         });
         cargarDatos();
-
+        configurarTabla();
     }
-
+    private void configurarTabla() {
+        // Configurar la tabla para permitir selección múltiple
+        TBUsuarios.getSelectionModel().setCellSelectionEnabled(false);
+        TBUsuarios.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+    }
     public void setTableUsuarios(TableView<Usuarios> TBUsuarios) {
         this.TBUsuarios = TBUsuarios;
     }
@@ -96,6 +103,8 @@ public class CrudUsuariosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initModality(Modality.APPLICATION_MODAL);
+
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
@@ -131,6 +140,8 @@ public class CrudUsuariosControlador {
                 // Mostrar la ventana de actualización
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initModality(Modality.APPLICATION_MODAL);
+
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.show();
 
@@ -143,7 +154,7 @@ public class CrudUsuariosControlador {
 
 
     private void eliminardatos(javafx.event.ActionEvent actionEvent) {
-        eliminarUsuario();
+        eliminarUsuarios();
 
     }
 
@@ -207,34 +218,38 @@ public class CrudUsuariosControlador {
         }
     }
 
-    private void eliminarUsuario() {
-        // Obtener el ID del proyecto seleccionado (asumiendo que tienes una variable para almacenar el ID)
-        int idUsuario = obtenerIdUsuarioSeleccionado();
-        int idempleado = obtenerIdEmpleadoSeleccionado();
-        try (Connection connection = Conexion.obtenerConexion()) {
-            String sql = "DELETE FROM tbusuarios WHERE idUsuario = ?\n"+
-                    "DELETE FROM tbempleados WHERE idempleado = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, idUsuario);
-            statement.setInt(2, idempleado);
+    private void eliminarUsuarios() {
+        // Obtener los usuarios seleccionados
+        ObservableList<Usuarios> usuariosSeleccionados = TBUsuarios.getSelectionModel().getSelectedItems();
 
+        if (!usuariosSeleccionados.isEmpty()) {
+            AlertDos alertDos = new AlertDos();
+            // Mostrar una confirmación antes de eliminar utilizando tu clase AlertDos
+            boolean confirmacion = alertDos.mostrarAlerta("¿Está seguro de que desea eliminar los usuarios seleccionados?", "Confirmación");
 
+            if (confirmacion) {
+                // Elimina los usuarios de la base de datos y de la tabla
+                try (Connection connection = Conexion.obtenerConexion();
+                     Statement stmt = connection.createStatement()) {
+                    for (Usuarios usuarioSeleccionado : usuariosSeleccionados) {
+                        String query = "DELETE FROM tbusuarios WHERE idUsuario = " + usuarioSeleccionado.getIdUsuario();
+                        stmt.executeUpdate(query);
 
-            int filasAfectadas = statement.executeUpdate();
-            if (filasAfectadas > 0) {
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Eliminación de datos", "Se eliminaron los datos exitosamente", (Stage) btnEliminarUser.getScene().getWindow());
-
-            } else {
-                CustomAlert customAlert = new CustomAlert();
-                customAlert.mostrarAlertaPersonalizada("Alerta", "No se encontro ningun empleado", (Stage) btnEliminarUser.getScene().getWindow());
+                        query = "DELETE FROM tbempleados WHERE idempleado = " + usuarioSeleccionado.getIdEmpleado();
+                        stmt.executeUpdate(query);
+                    }
+                    cargarDatos(); // Recarga los datos en la tabla después de eliminar
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            TBUsuarios.getItems().clear();
-            cargarDatos();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            // Muestra un mensaje si no se seleccionan usuarios
+            CustomAlert customAlert = new CustomAlert();
+            customAlert.mostrarAlertaPersonalizada("Alerta", "Por favor, seleccione al menos un usuario para eliminar.", (Stage) btnEliminarUser.getScene().getWindow());
         }
     }
+
 
 
 

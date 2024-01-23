@@ -84,14 +84,12 @@ public class ActualizarProyectosControlador {
     }
 
     public void initialize() throws SQLException {
-        cmIngeniero.setPromptText("Seleccionar Ingeniero a cargo");
         btnCancelar.setOnAction(this::cerrarVentana);
         btnGestionar.setOnAction(this::gestionarEmpleados);
         btnGuardarProyecto.setOnAction(this::btnGuardarProyecto);
 
 
 
-        llenarComboingACargo();
 
         System.out.println("ID del Proyecto recibido: " + idProyecto);
 
@@ -140,7 +138,6 @@ public class ActualizarProyectosControlador {
         txtNombre.setText(proyecto.getNombre());
         txtLugar.setText(proyecto.getLugar());
         txtHoras.setText(String.valueOf(proyecto.getHoras()));
-        cmIngeniero.setValue(proyecto.getIng());
 
         // Configura las fechas
         dateInicio.setValue(LocalDate.parse(proyecto.getInicio()));
@@ -252,12 +249,6 @@ public class ActualizarProyectosControlador {
             return;
         }
 
-
-        if (cmIngeniero.getValue() == null) {
-            CustomAlert customAlert = new CustomAlert();
-            customAlert.mostrarAlertaPersonalizada("Error", "Seleccione un ingeniero a cargo en el ComboBox.", (Stage) btnGuardarProyecto.getScene().getWindow());
-            return;
-        }
 
         if (!validarNumero(horas)) {
             CustomAlert customAlert = new CustomAlert();

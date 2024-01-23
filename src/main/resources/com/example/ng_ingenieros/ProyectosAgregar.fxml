@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -58,26 +57,20 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="72.0" layoutY="220.0" prefHeight="27.0" prefWidth="115.0" text="Ing. a cargo:" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="216.0" prefHeight="27.0" prefWidth="144.0" text="Horas a trabajar:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="69.0" layoutY="282.0" prefHeight="27.0" prefWidth="144.0" text="Horas a trabajar:" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="398.0" layoutY="337.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
+            <Label layoutX="401.0" layoutY="271.0" prefHeight="27.0" prefWidth="115.0" text="Trabajadores:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField id="txtNombre" fx:id="txtNombre" layoutX="159.0" layoutY="85.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese el nombre del proyecto" style="-fx-background-radius: 10;" />
             <TextField id="txtLugar" fx:id="txtLugar" layoutX="159.0" layoutY="148.0" prefHeight="34.0" prefWidth="495.0" promptText="Ingrese la ubicación del proyecto" style="-fx-background-radius: 10;" />
-            <ComboBox id="cmbIngs" fx:id="cmIngeniero" layoutX="189.0" layoutY="216.0" prefHeight="34.0" prefWidth="463.0" style="-fx-background-radius: 10;" />
-            <TextField id="txtHoras" fx:id="txtHoras" layoutX="211.0" layoutY="282.0" prefHeight="34.0" prefWidth="158.0" promptText="horas de trabajo" style="-fx-background-radius: 10;" />
-            <Button fx:id="btnGestionar" layoutX="521.0" layoutY="337.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="135.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
+            <TextField id="txtHoras" fx:id="txtHoras" layoutX="214.0" layoutY="216.0" prefHeight="34.0" prefWidth="158.0" promptText="horas de trabajo" style="-fx-background-radius: 10;" />
+            <Button fx:id="btnGestionar" layoutX="524.0" layoutY="271.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="135.0" style="-fx-background-color: #559FAF; -fx-background-radius: 20;" text="Gestionar" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -89,18 +82,18 @@
                   </DropShadow>
                </effect>
             </Button>
-            <DatePicker fx:id="dateInicio" layoutX="542.0" layoutY="287.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-radius: 10;" />
-            <Label layoutX="398.0" layoutY="286.0" prefHeight="27.0" prefWidth="158.0" text="Fecha de inicio: " textFill="WHITE">
+            <DatePicker fx:id="dateInicio" layoutX="545.0" layoutY="221.0" prefHeight="25.0" prefWidth="115.0" style="-fx-background-radius: 10;" />
+            <Label layoutX="401.0" layoutY="220.0" prefHeight="27.0" prefWidth="158.0" text="Fecha de inicio: " textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="337.0" prefHeight="27.0" prefWidth="179.0" text="Fecha de finalización:" textFill="WHITE">
+            <Label layoutX="73.0" layoutY="271.0" prefHeight="27.0" prefWidth="179.0" text="Fecha de finalización:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <DatePicker fx:id="dateFinalizacion" layoutX="249.0" layoutY="337.0" prefHeight="27.0" prefWidth="123.0" style="-fx-background-radius: 10;" />
+            <DatePicker fx:id="dateFinalizacion" layoutX="252.0" layoutY="271.0" prefHeight="27.0" prefWidth="123.0" style="-fx-background-radius: 10;" />
             <Pane fx:id="topPane" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickAction" onMouseDragged="#handleMovementAction" prefHeight="44.0" prefWidth="744.0" />
          </children>
       </AnchorPane>

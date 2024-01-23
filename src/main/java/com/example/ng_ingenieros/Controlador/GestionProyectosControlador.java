@@ -1,6 +1,7 @@
 package com.example.ng_ingenieros.Controlador;
 
 import com.example.ng_ingenieros.Conexion;
+import com.example.ng_ingenieros.CustomAlert;
 import com.example.ng_ingenieros.Empleados;
 import com.example.ng_ingenieros.Proyecto;
 import javafx.collections.FXCollections;
@@ -125,13 +126,19 @@ public class GestionProyectosControlador {
 
         llenarComboEstado();
         ActividadCombobox();
+        String estadoProyecto = obtenerEstadoProyecto(idProyecto);
 
         // Verificar si el proyecto está finalizado
-        if ("Finalizado".equals(proyecto.getEstado())) {
+        if ("Finalizado".equals(estadoProyecto)) {
             // Si el proyecto está finalizado, deshabilitar los botones Cambiar y Guardar
             btnCambio.setDisable(true);
             btnGuardarProyecto.setDisable(true);
+
+            // Deshabilitar el ComboBox de estado
+            cmEstado.setDisable(true);
         }
+
+
 
     }
 
@@ -226,13 +233,38 @@ public class GestionProyectosControlador {
                 btnGuardarProyecto.setDisable(true);
 
                 // Mostrar mensaje de éxito
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Estado del proyecto actualizado correctamente.");
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Éxito", "Estado del proyecto actualizado correctamente.", (Stage) btnGuardarProyecto.getScene().getWindow());
+                return;
 
             } else {
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Alerta", "El estado no se puede cambiar, ya que ya esta finalizado");
+
+                CustomAlert customAlert = new CustomAlert();
+                customAlert.mostrarAlertaPersonalizada("Alerta", "El estado no se puede cambiar, ya que ya esta finalizado.", (Stage) btnGuardarProyecto.getScene().getWindow());
+                return;
             }
         }
     }
+    private String obtenerEstadoProyecto(int idProyecto) {
+        try (Connection conn = Conexion.obtenerConexion()) {
+            String query = "SELECT Estado_proyecto FROM tbEstadoProyectos " +
+                    "JOIN tbProyectos ON tbEstadoProyectos.idEstadoProyecto = tbProyectos.idEstadoProyecto " +
+                    "WHERE tbProyectos.idproyecto = ?";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+                preparedStatement.setInt(1, idProyecto);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getString("Estado_proyecto");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de errores
+        }
+        return null; // Manejar el caso de error o proyecto no encontrado
+    }
+
 
     private void cambiarIdActividadEmpleados(int idProyecto) {
         try (Connection conn = Conexion.obtenerConexion()) {
